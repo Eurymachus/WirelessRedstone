@@ -216,6 +216,9 @@ public class RedstoneEtherGui extends JFrame {
 				
 				g2.drawString("Frequency State: "+RedstoneEther.getInstance().getFreqState(ModLoader.getMinecraftServerInstance().getWorldServer(0),selectedNode.freq), 20, 140);
 				
+				/* WHAT IS THE getBlockId(x, y, z)??? I Put f(x, y, z) instead
+				 * g2.drawString("Block ID: "+ModLoader.getMinecraftServerInstance().getWorldServer(0).getBlockId(selectedNode.i, selectedNode.j, selectedNode.k), 20, 160);
+				 */
 				g2.drawString("Block ID: "+ModLoader.getMinecraftServerInstance().getWorldServer(0).f(selectedNode.i, selectedNode.j, selectedNode.k), 20, 160);
 				
 				g2.setColor(Color.LIGHT_GRAY);
