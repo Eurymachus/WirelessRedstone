@@ -34,8 +34,8 @@ public class WirelessRedstone
             loaded = true;
             loadConfig();
             MinecraftForge.registerConnectionHandler(new NetworkConnection());
-            blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F)).a("wifir");
-            blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F)).a("wifit");
+            blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).a("wifir");
+            blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).a("wifit");
             ModLoader.registerBlock(blockWirelessR);
             ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class, "Wireless Receiver");
             ModLoader.registerBlock(blockWirelessT);

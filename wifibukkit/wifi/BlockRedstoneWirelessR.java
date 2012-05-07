@@ -13,10 +13,11 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless
 {
     private boolean initialSchedule;
 
-    protected BlockRedstoneWirelessR(int var1, float var2)
+    protected BlockRedstoneWirelessR(int var1, float var2, float var3)
     {
         super(var1);
         this.c(var2);
+        this.b(var3);
         this.a(Block.i);
         this.a(true);
         this.initialSchedule = true;

@@ -27,9 +27,10 @@ import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless.PacketHandle
 
 public class BlockRedstoneWirelessR extends BlockRedstoneWireless {	
 	private boolean initialSchedule;
-	public BlockRedstoneWirelessR(int i, float hardness) {
+	public BlockRedstoneWirelessR(int i, float hardness, float resistance) {
 		super(i);
 		setHardness(hardness);
+		setResistance(resistance);
 		setStepSound(Block.soundMetalFootstep);
 		setTickRandomly(true);
 		initialSchedule = true;

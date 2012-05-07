@@ -27,9 +27,10 @@ import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
  */
 public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	// Constructor.
-	public BlockRedstoneWirelessT(int i, float hardness) {
+	public BlockRedstoneWirelessT(int i, float hardness, float resistance) {
 		super(i);
 		setHardness(hardness);
+		setResistance(resistance);
 		setStepSound(Block.soundMetalFootstep);
 	}
  
