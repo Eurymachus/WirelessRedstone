@@ -22,7 +22,6 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
 
 /**
  * Wireless Receiver Block.
@@ -39,9 +38,9 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	 * 
 	 * @param i Block ID
 	 */
-	protected BlockRedstoneWirelessR(int i) {
+	protected BlockRedstoneWirelessR(int i, float hardness) {
 		super(i);
-		setHardness(1.0F);
+		setHardness(hardness);
 		setStepSound(Block.soundMetalFootstep);
 		setTickRandomly(true);
 		initialSchedule = true;

@@ -28,7 +28,7 @@ import net.minecraft.src.World;
 public abstract class BlockRedstoneWireless extends BlockContainer {
 	private List<BlockRedstoneWirelessOverride> overrides;
 	
-	protected BlockRedstoneWireless(int i) {
+	public BlockRedstoneWireless(int i) {
 		super(i, Material.circuits);
 		overrides = new ArrayList<BlockRedstoneWirelessOverride>();
 	}

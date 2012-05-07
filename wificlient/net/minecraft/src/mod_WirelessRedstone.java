@@ -25,8 +25,6 @@ import java.util.Properties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.wifi.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wifi.BlockItemRedstoneWirelessT;
-import net.minecraft.src.wifi.BlockRedstoneWireless;
-import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wifi.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wifi.GuiRedstoneWireless;
 import net.minecraft.src.wifi.GuiRedstoneWirelessOverride;
@@ -63,7 +61,7 @@ public class mod_WirelessRedstone extends BaseMod
 	 */
 	@Override
 	public String getVersion() {
-		return "1.5";
+		return "1.6";
 	}
 
 	/**

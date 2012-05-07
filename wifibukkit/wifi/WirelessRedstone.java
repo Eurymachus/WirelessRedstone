@@ -15,8 +15,6 @@ public class WirelessRedstone
     public static Block blockWirelessT;
     public static int rxID = 127;
     public static int txID = 126;
-    public static int etherPackID = 235;
-    public static int guiPackID = 236;
     public static int manualUpdate = 10;
     public static int stateUpdate = 100;
     public static int initUpdate = 2;
@@ -36,21 +34,14 @@ public class WirelessRedstone
             loaded = true;
             loadConfig();
             MinecraftForge.registerConnectionHandler(new NetworkConnection());
-            blockWirelessR = (new BlockRedstoneWirelessR(rxID)).a("wifir");
-            blockWirelessT = (new BlockRedstoneWirelessT(txID)).a("wifit");
+            blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F)).a("wifir");
+            blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F)).a("wifit");
             ModLoader.registerBlock(blockWirelessR);
             ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class, "Wireless Receiver");
             ModLoader.registerBlock(blockWirelessT);
             ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class, "Wireless Transmitter");
             loadBlockTextures();
-            AddRecipes();
-
-            if (!GraphicsEnvironment.isHeadless() && guiOn)
-            {
-                RedstoneEtherGui var0 = new RedstoneEtherGui();
-                RedstoneEther.getInstance().assGui(var0);
-                var0.setVisible(true);
-            }
+            addRecipes();
 
             Thread var1 = new Thread(new Runnable()
             {
@@ -79,7 +70,7 @@ public class WirelessRedstone
         }
     }
 
-    public static void AddRecipes()
+    public static void addRecipes()
     {
         ModLoader.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {"IRI", "RLR", "IRI", 'I', Item.IRON_INGOT, 'R', Item.REDSTONE, 'L', Block.LEVER});
         ModLoader.addRecipe(new ItemStack(blockWirelessT, 1), new Object[] {"IRI", "RTR", "IRI", 'I', Item.IRON_INGOT, 'R', Item.REDSTONE, 'T', Block.REDSTONE_TORCH_ON});

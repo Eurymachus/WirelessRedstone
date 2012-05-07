@@ -67,6 +67,17 @@ public class WirelessRedstone
 	 */
 	public static int spriteRItem;
 
+	public static void load()
+	{
+		loadConfig();
+		initBlocks();
+		initGUIs();
+		loadBlockTextures();
+		loadItemTextures();
+		registerBlocks();
+		addRecipes();
+	}
+
 	/**
 	 * Adds a Block override to the Receiver.
 	 * 
@@ -131,8 +142,8 @@ public class WirelessRedstone
 	 * Initializes Block objects.
 	 */
 	public static void initBlocks() {
-		blockWirelessR = (new BlockRedstoneWirelessR(rxID)).setBlockName("wifir");
-		blockWirelessT = (new BlockRedstoneWirelessT(txID)).setBlockName("wifit");
+		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F)).setBlockName("wifir");
+		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F)).setBlockName("wifit");
 	}
 
 	/**
@@ -159,7 +170,7 @@ public class WirelessRedstone
 	/**
 	 * Registers receipts with ModLoader
 	 */
-	public static void addReceipts() {
+	public static void addRecipes() {
 		ModLoader.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
             "IRI", "RLR", "IRI", Character.valueOf('I'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('L'), Block.lever
         });
@@ -177,16 +188,4 @@ public class WirelessRedstone
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Receiver.ID", Integer.class, new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Transmitter.ID", Integer.class, new Integer(txID));
 	}
-
-	public static void load()
-	{
-		loadConfig();
-		initBlocks();
-		initGUIs();
-		loadBlockTextures();
-		loadItemTextures();
-		registerBlocks();
-		addReceipts();
-	}
-
 }

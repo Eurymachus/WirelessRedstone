@@ -24,8 +24,6 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
 	@Override
 	public void updateEntity() {
 		String freq = getFreq();
-		//ModLoader.getMinecraftServerInstance().log("Freq(R)="+freq);
-		//ModLoader.getMinecraftServerInstance().log("OldFreq(R)="+oldFreq);
 		if ( !oldFreq.equals(freq) || firstTick) {
 			((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).changeFreq(
 					worldObj,
@@ -36,8 +34,6 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
 					freq
 			);
 			oldFreq = freq;
-			//ModLoader.getMinecraftServerInstance().log("NewFreq(R)="+freq);
-			//ModLoader.getMinecraftServerInstance().log("NewOldFreq(R)="+oldFreq);
 			if (firstTick) firstTick = false;
 		}
 		if ( !((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).hasTicked() ) {

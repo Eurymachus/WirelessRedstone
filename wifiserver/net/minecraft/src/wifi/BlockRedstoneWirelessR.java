@@ -22,15 +22,14 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless.PacketHandlerOutput;
 
 public class BlockRedstoneWirelessR extends BlockRedstoneWireless {	
 	private boolean initialSchedule;
-	protected BlockRedstoneWirelessR(int i) {
+	public BlockRedstoneWirelessR(int i, float hardness) {
 		super(i);
-		setHardness(1.0F);
+		setHardness(hardness);
 		setStepSound(Block.soundMetalFootstep);
 		setTickRandomly(true);
 		initialSchedule = true;
@@ -42,11 +41,6 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	public boolean hasTicked() {
 		return !this.initialSchedule;
 	}
-	
-	
-	
-	
-	
 	
 	/*
 	 * Overrides of BlockRedstoneWireless

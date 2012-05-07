@@ -11,10 +11,10 @@ import wifi.network.PacketHandlerRedstoneWireless;
 
 public class BlockRedstoneWirelessT extends BlockRedstoneWireless
 {
-    protected BlockRedstoneWirelessT(int var1)
+    protected BlockRedstoneWirelessT(int var1, float var2)
     {
         super(var1);
-        this.c(1.0F);
+        this.c(var2);
         this.a(Block.i);
     }
 

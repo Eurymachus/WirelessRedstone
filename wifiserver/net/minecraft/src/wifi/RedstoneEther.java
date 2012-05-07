@@ -21,10 +21,8 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.*;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
-import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless.PacketHandlerOutput;
 
 public class RedstoneEther {
 	private Map<String,RedstoneEtherFrequency> ether;

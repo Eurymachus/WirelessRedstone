@@ -22,7 +22,6 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
 
 /**
  * Redstone Wireless Transmitter
@@ -37,8 +36,10 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 * 
 	 * @param i Block ID
 	 */
-	protected BlockRedstoneWirelessT(int i) {
+	protected BlockRedstoneWirelessT(int i, float hardness) {
 		super(i);
+		setHardness(hardness);
+		setStepSound(Block.soundMetalFootstep);
 	}
  
 	/**

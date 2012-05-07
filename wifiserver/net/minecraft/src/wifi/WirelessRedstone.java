@@ -23,8 +23,8 @@ public class WirelessRedstone
 	//public static int guiPackID=236;
 	
 	public static int manualUpdate = 10;
-	public static int stateUpdate = 100;
 	public static int initUpdate = 2;
+	public static int stateUpdate = 100;
 	
 	public static boolean guiOn = false;
 	
@@ -42,20 +42,14 @@ public class WirelessRedstone
 		if ( !loaded ) {
 			loaded = true;
 			loadConfig();
-			blockWirelessR = (new BlockRedstoneWirelessR(rxID)).setBlockName("wifir");
-			blockWirelessT = (new BlockRedstoneWirelessT(txID)).setBlockName("wifit");
-	    	MinecraftForge.registerConnectionHandler(new NetworkConnection());
+			blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F)).setBlockName("wifir");
+			blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F)).setBlockName("wifit");
 			ModLoader.registerBlock(blockWirelessR);
 			ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class, "Wireless Receiver");
 			ModLoader.registerBlock(blockWirelessT);
 			ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class, "Wireless Transmitter");
 			loadBlockTextures();
-			AddRecipes();
-			if ( !java.awt.GraphicsEnvironment.isHeadless() && guiOn ) {
-				RedstoneEtherGui ex = new RedstoneEtherGui();
-				RedstoneEther.getInstance().assGui(ex);
-				ex.setVisible(true);
-			}			
+			addRecipes();
 			
 			Thread thr = new Thread(new Runnable() {			
 				@Override
@@ -89,7 +83,7 @@ public class WirelessRedstone
 		PacketHandlerRedstoneWireless.handlePacket(packet, player);
 	}*/
 	
-	public static void AddRecipes() {
+	public static void addRecipes() {
 		ModLoader.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
             "IRI", "RLR", "IRI", Character.valueOf('I'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('L'), Block.lever
         });

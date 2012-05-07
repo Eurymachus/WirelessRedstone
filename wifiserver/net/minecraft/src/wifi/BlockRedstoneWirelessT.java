@@ -16,15 +16,8 @@ package net.minecraft.src.wifi;
 
 import java.util.Random;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.*;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
-import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless.PacketHandlerOutput;
 
 /**
  * Redstone Wireless Transmitter
@@ -34,9 +27,9 @@ import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless.PacketHandle
  */
 public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	// Constructor.
-	protected BlockRedstoneWirelessT(int i) {
+	public BlockRedstoneWirelessT(int i, float hardness) {
 		super(i);
-		setHardness(1.0F);
+		setHardness(hardness);
 		setStepSound(Block.soundMetalFootstep);
 	}
  
