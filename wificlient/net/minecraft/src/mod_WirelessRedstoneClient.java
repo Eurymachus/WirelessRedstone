@@ -24,10 +24,6 @@ import java.util.Properties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wifi.BlockRedstoneWirelessOverrideClient;
-import net.minecraft.src.wifi.ConfigStoreRedstoneWireless;
-import net.minecraft.src.wifi.GuiRedstoneWirelessOverrideClient;
-import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.NetworkConnection;
 
 public class mod_WirelessRedstoneClient extends NetworkMod
@@ -43,12 +39,12 @@ public class mod_WirelessRedstoneClient extends NetworkMod
 	    	MinecraftForge.registerConnectionHandler(new NetworkConnection());
 			
 			GuiRedstoneWirelessOverrideClient GUIOverride = new GuiRedstoneWirelessOverrideClient();
-			WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
-			WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
+			mod_WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
+			mod_WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
 	
 			BlockRedstoneWirelessOverrideClient blockOverride = new BlockRedstoneWirelessOverrideClient();
-			WirelessRedstone.addOverrideToReceiver(blockOverride);
-			WirelessRedstone.addOverrideToTransmitter(blockOverride);
+			mod_WirelessRedstone.addOverrideToReceiver(blockOverride);
+			mod_WirelessRedstone.addOverrideToTransmitter(blockOverride);
 		}
 	}
 	
