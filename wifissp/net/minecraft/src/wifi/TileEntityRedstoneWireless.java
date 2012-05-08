@@ -19,18 +19,33 @@ import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.wifi.network.PacketPayload;
-import net.minecraft.src.wifi.network.PacketRedstoneEther;
 
+/**
+ * Wireless Redstone TileEntity
+ * 
+ * @author ali4z
+ */
 public abstract class TileEntityRedstoneWireless extends TileEntity implements IInventory {
 	public boolean firstTick = true;
+	/**
+	 * Old frequency.
+	 */
 	public String oldFreq;
+	/**
+	 * Current frequency.
+	 */
 	public String currentFreq;
+	/**
+	 * Direct power route.
+	 */
 	protected boolean[] powerRoute;
+	/**
+	 * Indirect power route.
+	 */
 	protected boolean[] indirPower;
     
+	
 	public TileEntityRedstoneWireless() {
 		firstTick = true;
 		oldFreq = "";
@@ -50,20 +65,36 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		return null;
 	}
 
+	/**
+	 * Get the frequency.
+	 * @return Current frequency.
+	 */
 	public String getFreq() {
 		return currentFreq;
 	}
 	
+	/**
+	 * Set the frequency.<br>
+	 * Run updateEntity.
+	 * 
+	 * @param frequency.
+	 */
 	public void setFreq(String i) {
 		try {			
 			currentFreq = i;
-			if ( worldObj != null )
+			if ( worldObj != null && !worldObj.isRemote )
 				updateEntity();
 		} catch ( Exception e) {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 		}
 	}
 
+	/**
+	 * Gets the block world coordinate.
+	 * 
+	 * @param i coordinate index. (0=x,1=y,2=z)
+	 * @return
+	 */
 	public int getBlockCoord(int i) {
 		switch(i) {
 			case 0:
@@ -93,12 +124,23 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	@Override
 	public abstract String getInvName();
 
+	/**
+	 * Check if the entity is powering direction.
+	 * 
+	 * @param l direction
+	 * @return directly powering direction.
+	 */
 	public boolean isPoweringDirection(int l) {
 		if ( l < 6 )
 			return powerRoute[l];
 		else return false;
 	}
 	
+	/**
+	 * Toggles the powering direction.
+	 * 
+	 * @param l direction
+	 */
 	public void flipPowerDirection(int l) {
 		if ( isPoweringIndirectly(l) && powerRoute[l] )
 			flipIndirectPower(l);
@@ -106,26 +148,43 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		powerRoute[l] = !powerRoute[l];
 	}
 	
+	/**
+	 * Flushes the power route.
+	 */
 	public void flushPowerRoute() {
 		powerRoute = new boolean[6];
 		for ( int i = 0; i < powerRoute.length; i++ ) {
 			powerRoute[i] = true;
 		}
 	}
-	
 
+	/**
+	 * Toggles the indirect powering direction.
+	 * 
+	 * @param l direction
+	 */
 	public void flipIndirectPower(int l) {
 		if ( !isPoweringDirection(l) && !indirPower[l] )
 			flipPowerDirection(l);
 		
 		indirPower[l] = !indirPower[l];
 	}
+	
+	/**
+	 * Check if the entity is indirectly powering direction.
+	 * 
+	 * @param l direction
+	 * @return indirectly powering direction.
+	 */
 	public boolean isPoweringIndirectly(int l) {
 		if ( l < 6 )
 			return indirPower[l];
 		else return false;
 	}
 
+	/**
+	 * Flush indirect powering route.
+	 */
 	public void flushIndirPower() {
 		indirPower = new boolean[6];
 		for ( int i = 0; i < indirPower.length; i++ ) {
@@ -229,15 +288,5 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
 		return null;
-	}
-	
-	public Packet getDescriptionPacket()
-	{
-		return getUpdatePacket();
-	}
-	
-	public Packet getUpdatePacket()
-	{
-		return new PacketRedstoneEther(this).getPacket();
 	}
 }

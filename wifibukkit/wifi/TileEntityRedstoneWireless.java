@@ -300,22 +300,6 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
         return null;
     }
 
-    public PacketPayload getPacketPayload()
-    {
-        int[] var1 = new int[1];
-        float[] var2 = new float[1];
-        String[] var3 = new String[2];
-        var1[0] = 0;
-        var2[0] = 0.0F;
-        var3[0] = this.currentFreq.toString();
-        var3[1] = "";
-        PacketPayload var4 = new PacketPayload();
-        var4.intPayload = var1;
-        var4.floatPayload = var2;
-        var4.stringPayload = var3;
-        return var4;
-    }
-
     /**
      * Overriden in a sign to provide the text
      */

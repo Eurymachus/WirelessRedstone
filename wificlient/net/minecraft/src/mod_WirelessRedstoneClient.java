@@ -24,6 +24,8 @@ import java.util.Properties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wifi.BlockRedstoneWirelessOverrideClient;
+import net.minecraft.src.wifi.GuiRedstoneWirelessOverrideClient;
 import net.minecraft.src.wifi.network.NetworkConnection;
 
 public class mod_WirelessRedstoneClient extends NetworkMod
@@ -63,7 +65,7 @@ public class mod_WirelessRedstoneClient extends NetworkMod
 
 	@Override
 	public String toString() {
-		return "WirelessRedstone "+getVersion();
+		return "WirelessRedstone-SMP "+getVersion();
 	}
 
 	@Override

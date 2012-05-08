@@ -58,14 +58,22 @@ public class PacketRedstoneEther extends PacketUpdate
 
     public PacketRedstoneEther(TileEntityRedstoneWireless var1)
     {
-        this();
-        this.xPosition = var1.getBlockCoord(0);
-        this.yPosition = var1.getBlockCoord(1);
-        this.zPosition = var1.getBlockCoord(2);
-        new PacketPayload(1, 1, 2);
-        PacketPayload var2 = var1.getPacketPayload();
-        var2.stringPayload[1] = "fetchTile";
-        this.payload = var2;
+		this();
+		this.xPosition = var1.getBlockCoord(0);
+		this.yPosition = var1.getBlockCoord(1);
+		this.zPosition = var1.getBlockCoord(2);
+		PacketPayload p = new PacketPayload(1,1,2);
+		int[] dataInt = new int[1];
+		float[] dataFloat = new float[1];
+		String[] dataString = new String[2];
+		dataInt[0] = 0;
+		dataFloat[0] = 0;
+		dataString[0] = var1.getFreq();
+		dataString[1] = "fetchTile";
+		p.intPayload = dataInt;
+		p.floatPayload = dataFloat;
+		p.stringPayload = dataString;
+		this.payload = p;
     }
 
     public String toString()

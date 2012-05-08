@@ -36,7 +36,7 @@ public class mod_WirelessRedstone extends NetworkMod
 
 	@Override
 	public String toString() {
-		return "WirelessRedstone "+getVersion();
+		return "WirelessRedstone-SMP "+getVersion();
 	}
 
 	@Override
