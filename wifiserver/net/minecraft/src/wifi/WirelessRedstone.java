@@ -101,16 +101,6 @@ public class WirelessRedstone
 		spriteTOff =	ModLoader.addOverride("/terrain.png", "/WirelessSprites/txOff.png");
 	}
 	
-	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-		((BlockRedstoneWireless)blockWirelessR).addOverride(override);
-	}
-	
-	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-		((BlockRedstoneWireless)blockWirelessT).addOverride(override);
-	}
-	
 	private static void loadConfig() {
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Receiver.ID", Integer.class, new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Transmitter.ID", Integer.class, new Integer(txID));

@@ -11,6 +11,9 @@ import javax.swing.SwingUtilities;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wifi.BlockRedstoneWireless;
+import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
+import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.NetworkConnection;
 
@@ -22,6 +25,16 @@ public class mod_WirelessRedstone extends NetworkMod
 		instance = this;
     	MinecraftForge.registerConnectionHandler(new NetworkConnection());
 		WirelessRedstone.load();
+	}
+	
+	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).addOverride(override);
+	}
+	
+	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).addOverride(override);
 	}
 	
 	@Override

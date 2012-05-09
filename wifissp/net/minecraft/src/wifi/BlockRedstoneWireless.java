@@ -55,6 +55,17 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		overrides.add(override);
 	}
 	
+/*	@Override
+	public boolean renderAsNormalBlock()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getRenderType()
+	{
+		return WirelessRedstone.wifiRenderID;
+	}*/
 	
 	/**
 	 *  Stores state in metadata and marks Block for update.

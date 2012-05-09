@@ -4,6 +4,7 @@ import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.mod_WirelessRedstone;
 
 public class WirelessRedstone
 {
@@ -65,6 +66,7 @@ public class WirelessRedstone
 	 * Wireless Receiver Item texture.
 	 */
 	public static int spriteRItem;
+	public static int wifiRenderID;
 
 	/**
 	 * Loads all Block textures from ModLoader override and stores the indices into the sprite integers.
@@ -135,6 +137,7 @@ public class WirelessRedstone
 	private static void loadConfig() {
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Receiver.ID", Integer.class, new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Transmitter.ID", Integer.class, new Integer(txID));
+		wifiRenderID = ModLoader.getUniqueBlockModelID(mod_WirelessRedstone.instance, true);
 	}
 
 	/**
