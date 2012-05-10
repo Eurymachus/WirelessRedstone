@@ -34,7 +34,7 @@ public abstract class WifiPacket extends ForgePacket
             e.printStackTrace();
         }
         Packet250CustomPayload packet = new Packet250CustomPayload();
-        packet.channel = "WIFI";
+        packet.channel = channel;
         packet.data = bytes.toByteArray();
         packet.length = packet.data.length;
         packet.isChunkDataPacket = this.isChunkDataPacket;

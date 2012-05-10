@@ -36,8 +36,8 @@ public class PacketHandlerPowerConfig {
 	{
 		if ( packet instanceof PacketPowerConfigGui ) {
 			PacketHandlerInput.openGUI((PacketPowerConfigGui)packet);
-		} else if ( packet instanceof PacketPowerConfig ) {
-			PacketHandlerInput.handlePowerConfig((PacketPowerConfig)packet);
+		} else if ( packet instanceof PacketPowerConfigSettings ) {
+			PacketHandlerInput.handlePowerConfig((PacketPowerConfigSettings)packet);
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class PacketHandlerPowerConfig {
 			}
 		}
 
-		private static void handlePowerConfig(PacketPowerConfig packet)
+		private static void handlePowerConfig(PacketPowerConfigSettings packet)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handlePowerConfigPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			TileEntity entity = packet.getTarget(ModLoader.getMinecraftInstance().theWorld);
@@ -74,7 +74,7 @@ public class PacketHandlerPowerConfig {
 	public static class PacketHandlerOutput
 	{
 		public static void sendPowerConfigPacket(String command, int i, int j, int k, int value) {
-			PacketPowerConfig packet = new PacketPowerConfig(command);
+			PacketPowerConfigSettings packet = new PacketPowerConfigSettings(command);
 			packet.setValue(value);
 			packet.setPosition(i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendPowerConfigPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);

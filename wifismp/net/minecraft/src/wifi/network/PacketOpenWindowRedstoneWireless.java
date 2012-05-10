@@ -8,7 +8,7 @@ import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
 
-public class PacketOpenWindowRedstoneWireless extends PacketUpdate {
+public class PacketOpenWindowRedstoneWireless extends PacketWifiSMP {
 	public boolean firstTick = true;
 
 	public PacketOpenWindowRedstoneWireless() {

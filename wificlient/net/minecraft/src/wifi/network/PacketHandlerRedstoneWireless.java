@@ -106,7 +106,10 @@ public class PacketHandlerRedstoneWireless {
 				}
 				if ( entity != null && entity instanceof TileEntityRedstoneWirelessR)
 				{
-					((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
+					TileEntityRedstoneWireless teR = (TileEntityRedstoneWireless)entity;
+					teR.setFreq(packet.getFreq().toString());
+					teR.setPowerDirections(packet.getPowerDirections());
+					teR.setInDirectlyPowering(packet.getInDirectlyPowering());
 					entity.onInventoryChanged();
 					ModLoader.getMinecraftInstance().theWorld.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
 				}

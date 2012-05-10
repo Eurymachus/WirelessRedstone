@@ -41,8 +41,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @param i Block ID
 	 */
-	protected BlockRedstoneWireless(int i) {
+	protected BlockRedstoneWireless(int i, float hardness, float resistance) {
 		super(i, Material.circuits);
+		setHardness(hardness);
+		setResistance(resistance);
 		overrides = new ArrayList<BlockRedstoneWirelessOverride>();
 	}
 

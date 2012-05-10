@@ -9,7 +9,7 @@ import net.minecraft.src.wifi.network.PacketIds;
 import net.minecraft.src.wifi.network.PacketPayload;
 import net.minecraft.src.wifi.network.PacketUpdate;
 
-public class PacketPowerConfigGui extends PacketUpdate 
+public class PacketPowerConfigGui extends PacketPowerConfig 
 {
 	public PacketPowerConfigGui()
 	{

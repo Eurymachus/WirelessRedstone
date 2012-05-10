@@ -17,6 +17,7 @@ package net.minecraft.src.wifi;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.TileEntity;
@@ -146,6 +147,64 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 			flipIndirectPower(l);
 		
 		powerRoute[l] = !powerRoute[l];
+	}
+	
+	public String getPowerDirections()
+	{
+		String dir = "";
+		try
+		{
+			for (int i = 0; i < powerRoute.length; i++) {
+				if (powerRoute[i]) dir += "1";
+				else dir += "0";
+				if (i != powerRoute.length - 1) dir += ";";
+			}
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+		return dir;
+	}
+	
+	public String getInDirectlyPowering()
+	{
+		String indir = "";
+		try
+		{
+			for (int i = 0; i < indirPower.length; i++) {
+				if (indirPower[i]) indir += "1";
+				else indir += "0";
+				if (i != indirPower.length - 1) indir += ";";
+			}
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+		return indir;
+	}
+	
+	public void setPowerDirections(String dir)
+	{
+		try
+		{
+			String[] direction = dir.split(";");
+			for (int i = 0; i < powerRoute.length; i++) {
+				powerRoute[i] = direction[i].equals("1");
+			}
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+	
+	public void setInDirectlyPowering(String indir)
+	{
+		try
+		{
+			String[] inDirection = indir.split(";");
+			for (int i = 0; i < indirPower.length; i++) {
+				indirPower[i] = inDirection[i].equals("1");
+			}
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
 	}
 	
 	/**

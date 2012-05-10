@@ -13,7 +13,7 @@ import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
 import net.minecraft.src.wifi.WirelessRedstone;
 
 
-public class PacketRedstoneEther extends PacketUpdate {
+public class PacketRedstoneEther extends PacketWifiSMP {
 	public boolean state = false;
 	
 	public PacketRedstoneEther() {
@@ -22,12 +22,7 @@ public class PacketRedstoneEther extends PacketUpdate {
 	
 	public PacketRedstoneEther(String command) {
 		this();
-		PacketPayload p = new PacketPayload(1,1,2);
-		p.stringPayload[0] = "";
-		p.stringPayload[1] = command;
-		p.intPayload[0] = 0;
-		p.floatPayload[0] = 0;
-		this.payload = p;
+		this.payload = getPayloadWithCommand(command);
 	}
 	
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world)
@@ -36,19 +31,15 @@ public class PacketRedstoneEther extends PacketUpdate {
 		this.xPosition = entity.getBlockCoord(0);
 		this.yPosition = entity.getBlockCoord(1);
 		this.zPosition = entity.getBlockCoord(2);
-		PacketPayload p = new PacketPayload(1,1,2);
-		p.stringPayload[0] = entity.getFreq();
-		
+		String command = "";
 		if ( entity instanceof TileEntityRedstoneWirelessR) {
 			this.state = ((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).getState(world, this.xPosition, this.yPosition, this.zPosition);
-			p.stringPayload[1] = "addReceiver";
+			command = "addReceiver";
 		} else if ( entity instanceof TileEntityRedstoneWirelessT) {
 			this.state = ((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).getState(world, this.xPosition, this.yPosition, this.zPosition);
-			p.stringPayload[1] = "addTransmitter";
+			command = "addTransmitter";
 		}
-		p.intPayload[0] = 0;
-		p.floatPayload[0] = 0;
-		this.payload = p;
+		if (command != "") this.payload = getPayloadWithCommand(command);
 	}
 	
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity)
@@ -57,18 +48,26 @@ public class PacketRedstoneEther extends PacketUpdate {
 		this.xPosition = entity.getBlockCoord(0);
 		this.yPosition = entity.getBlockCoord(1);
 		this.zPosition = entity.getBlockCoord(2);
-		PacketPayload p = new PacketPayload(1,1,2);
-		int[] dataInt = new int[1];
-		float[] dataFloat = new float[1];
-		String[] dataString = new String[2];
-		dataInt[0] = 0;
-		dataFloat[0] = 0;
-		dataString[0] = entity.getFreq();
-		dataString[1] = "fetchTile";
-		p.intPayload = dataInt;
-		p.floatPayload = dataFloat;
-		p.stringPayload = dataString;
-		this.payload = p;
+		this.payload = getPayloadWithCommand("fetchTile");
+		setFreq(entity.getFreq());
+		setPowerDirections(entity.getPowerDirections());
+		setInDirectlyPowering(entity.getInDirectlyPowering());
+	}
+	
+	public PacketPayload getPayloadWithCommand(String command)
+	{
+		PacketPayload p = new PacketPayload(1,1,4);
+		// Frequency
+		p.stringPayload[0] = "";
+		// Command
+		p.stringPayload[1] = command;
+		// Power Direction
+		p.stringPayload[2] = "";
+		// Indirectly Power
+		p.stringPayload[3] = "";
+		p.intPayload[0] = 0;
+		p.floatPayload[0] = 0;
+		return p;
 	}
 
 	public String toString() {
@@ -85,6 +84,16 @@ public class PacketRedstoneEther extends PacketUpdate {
 		return this.payload.stringPayload[1];
 	}
 	
+	public String getPowerDirections()
+	{
+		return this.payload.stringPayload[2];
+	}
+	
+	public String getInDirectlyPowering()
+	{
+		return this.payload.stringPayload[3];
+	}
+	
 	public void setPosition(int i, int j, int k) {
 		this.xPosition = i;
 		this.yPosition = j;
@@ -93,6 +102,14 @@ public class PacketRedstoneEther extends PacketUpdate {
 
 	public void setFreq(Object freq) {
 		this.payload.stringPayload[0] = freq.toString();
+	}
+
+	public void setPowerDirections(String dir) {
+		this.payload.stringPayload[2] = dir;
+	}
+
+	public void setInDirectlyPowering(String indir) {
+		this.payload.stringPayload[3] = indir;
 	}
 
 	public void setState(boolean state) {

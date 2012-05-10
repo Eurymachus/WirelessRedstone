@@ -25,7 +25,7 @@ public class NetworkConnection implements INetworkConnections
 			switch (packetID)
 			{
 			case PacketIds.WIFI_POWERC:
-				PacketPowerConfig pPC = new PacketPowerConfig();
+				PacketPowerConfigSettings pPC = new PacketPowerConfigSettings();
 				pPC.readData(data);
 				PacketHandlerPowerConfig.handlePacket(pPC);
 				break;
@@ -50,7 +50,7 @@ public class NetworkConnection implements INetworkConnections
 	@Override
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
-		MessageManager.getInstance().registerChannel(network, this, "WIFI");
+		MessageManager.getInstance().registerChannel(network, this, "WIFI-POWERC");
 	}
 
 	@Override

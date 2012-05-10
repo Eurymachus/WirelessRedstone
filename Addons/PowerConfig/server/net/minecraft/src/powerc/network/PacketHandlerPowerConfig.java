@@ -16,6 +16,7 @@ package net.minecraft.src.powerc.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
@@ -30,8 +31,8 @@ public class PacketHandlerPowerConfig {
 	{
 		if ( packet instanceof PacketPowerConfigGui ) {
 			PacketHandlerInput.openGUI((PacketPowerConfigGui)packet, entityplayer);
-		} else if ( packet instanceof PacketPowerConfig ) {
-			PacketHandlerInput.handlePowerConfig((PacketPowerConfig)packet, entityplayer);
+		} else if ( packet instanceof PacketPowerConfigSettings ) {
+			PacketHandlerInput.handlePowerConfig((PacketPowerConfigSettings)packet, entityplayer);
 		}
 	}
 	
@@ -51,19 +52,24 @@ public class PacketHandlerPowerConfig {
 			}
 		}
 
-		private static void handlePowerConfig(PacketPowerConfig packet, EntityPlayer entityplayer)
+		private static void handlePowerConfig(PacketPowerConfigSettings packet, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handlePowerConfigPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			TileEntity entity = packet.getTarget(entityplayer.worldObj);
 			if (entity != null && entity instanceof TileEntityRedstoneWirelessR)
 			{
 				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR)entity;
-				if (packet.getCommand() == "Power Direction") receiver.flipPowerDirection(packet.getValue());
-				if (packet.getCommand() == "Indirect Power") receiver.flipIndirectPower(packet.getValue());
+				if (packet.getCommand().equals("Power Direction")) {
+					receiver.flipPowerDirection(packet.getValue());
+				}
+				if (packet.getCommand().equals("Indirect Power")) {
+					receiver.flipIndirectPower(packet.getValue());
+				}
 				int i = receiver.getBlockCoord(0);
 				int j = receiver.getBlockCoord(1);
 				int k = receiver.getBlockCoord(2);
 				((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).notifyNeighbors(receiver.worldObj, i, j, k);
+				receiver.onInventoryChanged();
 			}
 		}
 	}

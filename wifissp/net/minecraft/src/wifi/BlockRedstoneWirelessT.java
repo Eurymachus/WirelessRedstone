@@ -38,9 +38,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 * @param i Block ID
 	 */
 	protected BlockRedstoneWirelessT(int i, float hardness, float resistance) {
-		super(i);
-		setHardness(hardness);
-		setResistance(resistance);
+		super(i, hardness, resistance);
 		setStepSound(Block.soundMetalFootstep);
 	}
  

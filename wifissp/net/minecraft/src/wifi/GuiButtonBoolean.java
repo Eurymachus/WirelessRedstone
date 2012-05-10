@@ -26,7 +26,7 @@ import org.lwjgl.opengl.GL11;
  * 
  * @author ali4z
  */
-public class GuiButtonBoolean extends GuiButton {
+public class GuiButtonBoolean extends GuiButtonWifi {
 	/**
 	 * Button state
 	 */
@@ -43,6 +43,11 @@ public class GuiButtonBoolean extends GuiButton {
 	 * @param s displayed text
 	 * @param state initial state
 	 */
+	public GuiButtonBoolean(int i, int j, int k, int l, int i1, String s, boolean state, String popupText) {
+		super(i, j, k, l, i1, s, popupText);
+		changeState(state);
+	}
+	
 	public GuiButtonBoolean(int i, int j, int k, int l, int i1, String s, boolean state) {
 		super(i, j, k, l, i1, s);
 		changeState(state);
@@ -74,7 +79,7 @@ public class GuiButtonBoolean extends GuiButton {
 		}
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		boolean flag = i >= xPosition && j >= yPosition && i < xPosition + width && j < yPosition + height;
+		boolean flag = inBounds(i, j);// >= xPosition && j >= yPosition && i < xPosition + width && j < yPosition + height;
 		int k = getHoverState(flag);
 		drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 20, width / 2, height);
 		drawTexturedModalRect(xPosition + width / 2, yPosition, 200 - width / 2, 46 + k * 20, width / 2, height);

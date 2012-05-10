@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.mod_PowerConfigurator;
 import net.minecraft.src.powerc.network.PacketHandlerPowerConfig;
@@ -45,20 +46,20 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initGui() {
         controlList = new ArrayList();
-		controlList.add(new GuiButtonBoolean(0, (width/2)-60, (height/2)-42, 20, 20, "N", inventory.isPoweringDirection(3)));
-		controlList.add(new GuiButtonBoolean(1, (width/2)-40, (height/2)-42, 20, 20, "E", inventory.isPoweringDirection(4)));
-		controlList.add(new GuiButtonBoolean(2, (width/2)-20, (height/2)-42, 20, 20, "S", inventory.isPoweringDirection(2)));
-		controlList.add(new GuiButtonBoolean(3, (width/2), (height/2)-42, 20, 20, "W", inventory.isPoweringDirection(5)));
-		controlList.add(new GuiButtonBoolean(4, (width/2)+20, (height/2)-42, 20, 20, "U", inventory.isPoweringDirection(0)));
-		controlList.add(new GuiButtonBoolean(5, (width/2)+40, (height/2)-42, 20, 20, "D", inventory.isPoweringDirection(1)));
+		controlList.add(new GuiButtonBoolean(0, (width/2)-60, (height/2)-42, 20, 20, "N", inventory.isPoweringDirection(3), "North Face"));
+		controlList.add(new GuiButtonBoolean(1, (width/2)-40, (height/2)-42, 20, 20, "E", inventory.isPoweringDirection(4), "East Face"));
+		controlList.add(new GuiButtonBoolean(2, (width/2)-20, (height/2)-42, 20, 20, "S", inventory.isPoweringDirection(2), "South Face"));
+		controlList.add(new GuiButtonBoolean(3, (width/2), (height/2)-42, 20, 20, "W", inventory.isPoweringDirection(5), "West Face"));
+		controlList.add(new GuiButtonBoolean(4, (width/2)+20, (height/2)-42, 20, 20, "U", inventory.isPoweringDirection(0), "Upward Face"));
+		controlList.add(new GuiButtonBoolean(5, (width/2)+40, (height/2)-42, 20, 20, "D", inventory.isPoweringDirection(1), "Downward Face"));
 		
 
-		controlList.add(new GuiButtonBoolean(6, (width/2)-60, (height/2), 20, 20, "N", inventory.isPoweringIndirectly(3)));
-		controlList.add(new GuiButtonBoolean(7, (width/2)-40, (height/2), 20, 20, "E", inventory.isPoweringIndirectly(4)));
-		controlList.add(new GuiButtonBoolean(8, (width/2)-20, (height/2), 20, 20, "S", inventory.isPoweringIndirectly(2)));
-		controlList.add(new GuiButtonBoolean(9, (width/2), (height/2), 20, 20, "W", inventory.isPoweringIndirectly(5)));
-		controlList.add(new GuiButtonBoolean(10, (width/2)+20, (height/2), 20, 20, "U", inventory.isPoweringIndirectly(0)));
-		controlList.add(new GuiButtonBoolean(11, (width/2)+40, (height/2), 20, 20, "D", inventory.isPoweringIndirectly(1)));
+		controlList.add(new GuiButtonBoolean(6, (width/2)-60, (height/2), 20, 20, "N", inventory.isPoweringIndirectly(3), "North Face"));
+		controlList.add(new GuiButtonBoolean(7, (width/2)-40, (height/2), 20, 20, "E", inventory.isPoweringIndirectly(4), "East Face"));
+		controlList.add(new GuiButtonBoolean(8, (width/2)-20, (height/2), 20, 20, "S", inventory.isPoweringIndirectly(2), "South Face"));
+		controlList.add(new GuiButtonBoolean(9, (width/2), (height/2), 20, 20, "W", inventory.isPoweringIndirectly(5), "West Face"));
+		controlList.add(new GuiButtonBoolean(10, (width/2)+20, (height/2), 20, 20, "U", inventory.isPoweringIndirectly(0), "Upward Face"));
+		controlList.add(new GuiButtonBoolean(11, (width/2)+40, (height/2), 20, 20, "D", inventory.isPoweringIndirectly(1), "Downward Face"));
 		
 		controlList.add(new GuiWifiExitButton(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
 		super.initGui();
@@ -110,19 +111,21 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 					break;
 			}
 			if ( dir >= 0 ) {
-				if (inventory.worldObj.isRemote)
+				if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
 					PacketHandlerPowerConfig.PacketHandlerOutput.sendPowerConfigPacket(
 							"Power Direction",
 							inventory.xCoord, inventory.yCoord, inventory.zCoord, dir);
+				}
 				inventory.flipPowerDirection(dir);
 				notifyNeighbors();
 				initGui();
 			}
 			if ( indir >= 0 ) {
-				if (inventory.worldObj.isRemote)
+				if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
 					PacketHandlerPowerConfig.PacketHandlerOutput.sendPowerConfigPacket(
 							"Indirect Power",
 							inventory.xCoord, inventory.yCoord, inventory.zCoord, indir);
+				}
 				inventory.flipIndirectPower(indir);
 				notifyNeighbors();
 				initGui();

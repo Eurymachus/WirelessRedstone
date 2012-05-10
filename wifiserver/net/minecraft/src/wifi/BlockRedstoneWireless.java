@@ -28,8 +28,10 @@ import net.minecraft.src.World;
 public abstract class BlockRedstoneWireless extends BlockContainer {
 	private List<BlockRedstoneWirelessOverride> overrides;
 	
-	public BlockRedstoneWireless(int i) {
+	public BlockRedstoneWireless(int i, float hardness, float resistance) {
 		super(i, Material.circuits);
+		setHardness(hardness);
+		setResistance(resistance);
 		overrides = new ArrayList<BlockRedstoneWirelessOverride>();
 	}
 
