@@ -140,4 +140,15 @@ public class LoggerRedstoneWireless {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Find the class name from a string.<br>
+	 * Returns the string beyond the last period ".".
+	 * 
+	 * @param name class name
+	 * @return Filtered class name.
+	 */
+	public static String filterClassName(String name) {
+		return name.substring(name.lastIndexOf(".")+1);
+	}
 }

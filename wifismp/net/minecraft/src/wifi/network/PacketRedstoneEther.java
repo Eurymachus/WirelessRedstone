@@ -56,32 +56,95 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	
 	public PacketPayload getPayloadWithCommand(String command)
 	{
-		PacketPayload p = new PacketPayload(1,1,4);
+		PacketPayload p = new PacketPayload(1,1,4,12);
 		// Frequency
-		p.stringPayload[0] = "";
+		//p.setStringPayload(0, "");
 		// Command
-		p.stringPayload[1] = command;
+		p.setStringPayload(1, command);
 		// Power Direction
-		p.stringPayload[2] = "";
+		//p.setStringPayload(2, "");
 		// Indirectly Power
-		p.stringPayload[3] = "";
-		p.intPayload[0] = 0;
-		p.floatPayload[0] = 0;
+		//p.setStringPayload(3, "");
+		//p.setIntPayload(0, 0);
+		//p.setFloatPayload(0, 0);
+		/*for (int i = 0; i < 12;) {
+			p.setBoolPayload(i, false);
+		}*/
 		return p;
 	}
 
 	public String toString() {
-		return this.payload.stringPayload[1]+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.stringPayload[0]+"]:"+state;
+		return this.payload.getStringPayload(1)+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.getStringPayload(0)+"]:"+state;
 	}
 	
 	public String getFreq()
 	{
-		return this.payload.stringPayload[0];
+		return this.payload.getStringPayload(0);
 	}
 	
 	public String getCommand()
 	{
-		return this.payload.stringPayload[1];
+		return this.payload.getStringPayload(1);
+	}
+	
+	public void setPosition(int i, int j, int k) {
+		this.xPosition = i;
+		this.yPosition = j;
+		this.zPosition = k;
+	}
+
+	public void setFreq(Object freq) {
+		this.payload.setStringPayload(0, freq.toString());
+	}
+
+	public void setPowerDirections(boolean[] dir) {
+		for (int i = 0; i < 6; i++)
+		{
+			this.payload.setBoolPayload(i, dir[i]);
+		}
+	}
+
+	public void setInDirectlyPowering(boolean[] indir) {
+		int j = 6;
+		for (int i = 0; i < 6; i++)
+		{
+			this.payload.setBoolPayload(j, indir[i]);
+			j++;
+		}
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+	
+	public boolean[] getPowerDirections()
+	{
+		boolean[] dir = new boolean[6];
+		for (int i = 0; i < 6; i++)
+		{
+			dir[i] = this.payload.getBoolPayload(i);
+		}
+		return dir;
+	}
+	
+	public boolean[] getInDirectlyPowering()
+	{
+		boolean[] indir = new boolean[6];
+		int j = 6;
+		for (int i = 0; i < 6; i++)
+		{
+			indir[i] = this.payload.getBoolPayload(j);
+			j++;
+		}
+		return indir;
+	}
+
+/*	public void setInDirectlyPowering(String indir) {
+		this.payload.stringPayload[3] = indir;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
 	}
 	
 	public String getPowerDirections()
@@ -92,29 +155,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	public String getInDirectlyPowering()
 	{
 		return this.payload.stringPayload[3];
-	}
-	
-	public void setPosition(int i, int j, int k) {
-		this.xPosition = i;
-		this.yPosition = j;
-		this.zPosition = k;
-	}
-
-	public void setFreq(Object freq) {
-		this.payload.stringPayload[0] = freq.toString();
-	}
-
-	public void setPowerDirections(String dir) {
-		this.payload.stringPayload[2] = dir;
-	}
-
-	public void setInDirectlyPowering(String indir) {
-		this.payload.stringPayload[3] = indir;
-	}
-
-	public void setState(boolean state) {
-		this.state = state;
-	}
+	}*/
 
 	@Override
 	public void readData(DataInputStream datainputstream)

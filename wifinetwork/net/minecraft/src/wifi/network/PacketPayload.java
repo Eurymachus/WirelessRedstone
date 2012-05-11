@@ -2,6 +2,9 @@ package net.minecraft.src.wifi.network;
 
 import java.util.Arrays;
 
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.wifi.LoggerRedstoneWireless;
+
 public class PacketPayload
 {
 	public static <T> T[] concat(T[] first, T[] second) {
@@ -22,15 +25,108 @@ public class PacketPayload
 		  return result;
 	}
 	
-	public int[] intPayload = new int[0];
-	public float[] floatPayload = new float[0];
-	public String[] stringPayload = new String[0];
+	public static boolean[] concat(boolean[] first, boolean[] second) {
+		  boolean[] result = Arrays.copyOf(first, first.length + second.length);
+		  System.arraycopy(second, 0, result, first.length, second.length);
+		  return result;
+	}
+	
+	private int[] intPayload;
+	private float[] floatPayload;
+	private String[] stringPayload;
+	private boolean[] boolPayload;
 
 	public PacketPayload() {}
-	public PacketPayload(int intSize, int floatSize, int stringSize) {
-		intPayload = new int[intSize];
-		floatPayload = new float[floatSize];
-		stringPayload = new String[stringSize];
+	
+	public int getIntSize()
+	{
+		if (this.intPayload != null)
+			return this.intPayload.length;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return 0;
+	}
+	
+	public int getFloatSize()
+	{
+		if (this.floatPayload != null)
+			return this.floatPayload.length;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return 0;
+	}
+	
+	public int getStringSize()
+	{
+		if (this.stringPayload != null)
+			return this.stringPayload.length;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return 0;
+	}
+	
+	public int getBoolSize()
+	{
+		if (this.boolPayload != null)
+			return this.boolPayload.length;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return 0;
+	}
+	
+	public void setIntPayload(int index, int newInt) {
+		if (this.intPayload != null && index < this.intPayload.length)
+			this.intPayload[index] = newInt;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntPayload("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+	}
+	
+	public void setFloatPayload(int index, float newFloat) {
+		if (this.floatPayload != null && index < this.floatPayload.length)
+			this.floatPayload[index] = newFloat;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getFloat("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+	}
+	
+	public void setStringPayload(int index, String newString) {
+		if (this.stringPayload != null && index < this.stringPayload.length)
+			this.stringPayload[index] = newString;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getString("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+	}
+	
+	public void setBoolPayload(int index, boolean newBool) {
+		if (this.boolPayload != null && index < this.boolPayload.length)
+			this.boolPayload[index] = newBool;
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getBool("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+	}
+	
+	public int getIntPayload(int index) {
+		if (this.intPayload != null && index < this.intPayload.length)
+			return this.intPayload[index];
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntPayload("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return 0;
+	}
+	
+	public float getFloatPayload(int index) {
+		if (this.floatPayload != null && index < this.floatPayload.length)
+			return this.floatPayload[index];
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getFloat("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return 0;
+	}
+	
+	public String getStringPayload(int index) {
+		if (this.stringPayload != null && index < this.stringPayload.length && this.stringPayload[index] != null)
+			return this.stringPayload[index];
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getString("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return "null";
+	}
+	
+	public boolean getBoolPayload(int index) {
+		if (this.boolPayload != null && index < this.boolPayload.length)
+			return this.boolPayload[index];
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getBool("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		return false;
+	}
+	
+	public PacketPayload(int intSize, int floatSize, int stringSize, int boolSize) {
+		if (intSize > 0) intPayload = new int[intSize];
+		if (floatSize > 0) floatPayload = new float[floatSize];
+		if (stringSize > 0) stringPayload = new String[stringSize];
+		if (boolSize > 0) boolPayload = new boolean[boolSize];
 	}
 
 	public void append(PacketPayload other) {
@@ -43,7 +139,8 @@ public class PacketPayload
 			this.floatPayload = concat(this.floatPayload, other.floatPayload);
 		if(other.stringPayload.length > 0)
 			this.stringPayload = concat(this.stringPayload, other.stringPayload);
-
+		if(other.boolPayload.length > 0)
+			this.boolPayload = concat(this.boolPayload, other.boolPayload);
 	}
 
 	public void append(int[] other) {
@@ -57,7 +154,8 @@ public class PacketPayload
 		PacketPayload payload = new PacketPayload(
 				intPayload.length - index.intIndex,
 				floatPayload.length - index.floatIndex,
-				stringPayload.length - index.stringIndex);
+				stringPayload.length - index.stringIndex,
+				boolPayload.length - index.boolIndex);
 
 		if(intPayload.length > 0)
 			System.arraycopy(intPayload, index.intIndex, payload.intPayload, 0, payload.intPayload.length);
@@ -65,5 +163,7 @@ public class PacketPayload
 			System.arraycopy(floatPayload, index.floatIndex, payload.floatPayload, 0, payload.floatPayload.length);
 		if(stringPayload.length > 0)
 			System.arraycopy(stringPayload, index.stringIndex, payload.stringPayload, 0, payload.stringPayload.length);
+		if(boolPayload.length > 0)
+			System.arraycopy(boolPayload, index.boolIndex, payload.boolPayload, 0, payload.boolPayload.length);
 	}
 }

@@ -9,7 +9,7 @@ import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.forge.packets.ForgePacket;
 
-public abstract class WifiPacket extends ForgePacket
+public abstract class EurysPacket extends ForgePacket
 {
     /**
      * Only true for Packet51MapChunk, Packet52MultiBlockChange, Packet53BlockChange and Packet59ComplexEntity. Used to

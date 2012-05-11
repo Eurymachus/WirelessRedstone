@@ -16,7 +16,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.packets.ForgePacket;
 
-public class PacketUpdate extends WifiPacket
+public class PacketUpdate extends EurysPacket
 {
 	private int packetId;
 	
@@ -92,19 +92,23 @@ public class PacketUpdate extends WifiPacket
         	data.writeInt(0);
         	data.writeInt(0);
         	data.writeInt(0);
+        	data.writeInt(0);
         	return;
         }
 
-        data.writeInt(this.payload.intPayload.length);
-        data.writeInt(this.payload.floatPayload.length);
-        data.writeInt(this.payload.stringPayload.length);
+        data.writeInt(this.payload.getIntSize());
+        data.writeInt(this.payload.getFloatSize());
+        data.writeInt(this.payload.getStringSize());
+        data.writeInt(this.payload.getBoolSize());
 
-        for(int intData : this.payload.intPayload)
-        	data.writeInt(intData);
-        for(float floatData : this.payload.floatPayload)
-        	data.writeFloat(floatData);
-        for(String stringData : this.payload.stringPayload)
-        	data.writeUTF(stringData);
+        for(int i = 0; i < this.payload.getIntSize(); i++)
+        	data.writeInt(this.payload.getIntPayload(i));
+        for(int i = 0; i < this.payload.getFloatSize(); i++)
+        	data.writeFloat(this.payload.getFloatPayload(i));
+        for(int i = 0; i < this.payload.getStringSize(); i++)
+        	data.writeUTF(this.payload.getStringPayload(i));
+        for(int i = 0; i < this.payload.getBoolSize(); i++)
+        	data.writeBoolean(this.payload.getBoolPayload(i));
 	}
 
 	@Override
@@ -114,18 +118,16 @@ public class PacketUpdate extends WifiPacket
 		this.yPosition = data.readInt();
 		this.zPosition = data.readInt();
 
-		this.payload = new PacketPayload();
+		this.payload = new PacketPayload(data.readInt(), data.readInt(), data.readInt(), data.readInt());
 
-		this.payload.intPayload = new int[data.readInt()];
-		this.payload.floatPayload = new float[data.readInt()];
-		this.payload.stringPayload = new String[data.readInt()];
-
-        for(int i = 0; i < this.payload.intPayload.length; i++)
-        	this.payload.intPayload[i] = data.readInt();
-        for(int i = 0; i < this.payload.floatPayload.length; i++)
-        	this.payload.floatPayload[i] = data.readFloat();
-        for(int i = 0; i < this.payload.stringPayload.length; i++)
-        	this.payload.stringPayload[i] = data.readUTF();
+        for(int i = 0; i < this.payload.getIntSize(); i++)
+        	this.payload.setIntPayload(i, data.readInt());
+        for(int i = 0; i < this.payload.getFloatSize(); i++)
+        	this.payload.setFloatPayload(i, data.readFloat());
+        for(int i = 0; i < this.payload.getStringSize(); i++)
+        	this.payload.setStringPayload(i, data.readUTF());
+        for(int i = 0; i < this.payload.getBoolSize(); i++)
+        	this.payload.setBoolPayload(i, data.readBoolean());
 	}
 	
 	public boolean targetExists(World world)

@@ -15,25 +15,23 @@ public class PacketPowerConfigSettings extends PacketPowerConfig {
 	
 	public PacketPowerConfigSettings(String command) {
 		this();
-		PacketPayload p = new PacketPayload(1,1,1);
-		p.stringPayload[0] = command;
-		p.intPayload[0] = 0;
-		p.floatPayload[0] = 0;
+		PacketPayload p = new PacketPayload(1,1,1,1);
+		p.setStringPayload(0, command);
 		this.payload = p;
 	}
 	
 	public String toString() {
-		return this.payload.stringPayload[0]+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.intPayload[0]+"]";
+		return this.payload.getStringPayload(0)+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.getIntPayload(0)+"]";
 	}
 	
 	public int getValue()
 	{
-		return this.payload.intPayload[0];
+		return this.payload.getIntPayload(0);
 	}
 	
 	public String getCommand()
 	{
-		return this.payload.stringPayload[0];
+		return this.payload.getStringPayload(0);
 	}
 	
 	public void setPosition(int i, int j, int k) {
@@ -43,6 +41,6 @@ public class PacketPowerConfigSettings extends PacketPowerConfig {
 	}
 
 	public void setValue(int value) {
-		this.payload.intPayload[0] = value;
+		this.payload.setIntPayload(0, value);
 	}	
 }

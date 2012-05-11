@@ -113,7 +113,37 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		}
 	}
 	
-	public String getPowerDirections()
+	public boolean[] getPowerDirections()
+	{
+		return powerRoute;
+	}
+	
+	public boolean[] getInDirectlyPowering()
+	{
+		return indirPower;
+	}
+	
+	public void setPowerDirections(boolean[] dir)
+	{
+		try
+		{
+			powerRoute = dir;
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+	
+	public void setInDirectlyPowering(boolean[] indir)
+	{
+		try
+		{
+			indirPower = indir;
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+	
+	/*public String getPowerDirections()
 	{
 		String dir = "";
 		try
@@ -169,7 +199,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		} catch ( Exception e) {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 		}
-	}
+	}*/
 
 	public void flipIndirectPower(int l) {
 		if ( !isPoweringDirection(l) && !indirPower[l] )
