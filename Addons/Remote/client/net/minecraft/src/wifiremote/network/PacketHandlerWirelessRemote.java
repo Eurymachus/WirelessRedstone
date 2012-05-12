@@ -14,13 +14,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wifiremote.network;
 
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.WirelessRedstone;
+import net.minecraft.src.wifi.network.PacketRedstoneEther;
 import net.minecraft.src.wifi.network.PacketUpdate;
+import net.minecraft.src.wifiremote.MemRedstoneWirelessRemote;
 
 
 public class PacketHandlerWirelessRemote {
@@ -37,25 +41,16 @@ public class PacketHandlerWirelessRemote {
 		private static void handleWirelessRemote(PacketWirelessRemote packet)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = packet.getTarget(ModLoader.getMinecraftInstance().theWorld);
-			if (entity != null && entity instanceof TileEntityRedstoneWirelessR)
-			{
-				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR)entity;
-				int i = receiver.getBlockCoord(0);
-				int j = receiver.getBlockCoord(1);
-				int k = receiver.getBlockCoord(2);
-				((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).notifyNeighbors(receiver.worldObj, i, j, k);
-			}
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessRemotePacket(boolean state, int i, int j, int k, String freq) {
-			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(state);
+		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k, boolean state) {
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(freq);
+			packet.setState(state);
 			packet.setPosition(i, j, k);
-			packet.setFreq(freq);
-			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
 		}
 	}

@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wifiremote.network;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
@@ -22,6 +23,7 @@ import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.PacketUpdate;
+import net.minecraft.src.wifiremote.ThreadWirelessRemote;
 
 
 public class PacketHandlerWirelessRemote {
@@ -38,17 +40,21 @@ public class PacketHandlerWirelessRemote {
 		private static void handleWirelessRemote(PacketWirelessRemote packet, EntityPlayerMP player)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+			
+			ThreadWirelessRemote.pulse(
+					player,
+					player.worldObj, ((PacketWirelessRemoteSettings)packet).getFreq());
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessRemotePacket(EntityPlayerMP player, boolean state, int i, int j, int k, String freq) {
-			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(state);
+		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k, boolean state) {
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(freq);
 			packet.setPosition(i, j, k);
-			packet.setFreq(freq);
+			packet.setState(state);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			player.playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
+			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}
 	}
 }

@@ -26,17 +26,17 @@ public class ThreadWirelessRemote implements Runnable {
 	protected int i;
 	protected int j;
 	protected int k;
-	protected ItemStack itemstack;
+	protected String freq;
 	protected World world;
 	protected static EntityPlayer player;
 	public static int tc = 0;
 	
 	
-	public ThreadWirelessRemote(int i, int j, int k, ItemStack itemstack, World world) {
+	public ThreadWirelessRemote(int i, int j, int k, String freq, World world) {
 		this.i = i;
 		this.j = j;
 		this.k = k;
-		this.itemstack = itemstack;
+		this.freq = freq;
 		this.world = world;
 	}
 
@@ -44,8 +44,6 @@ public class ThreadWirelessRemote implements Runnable {
 	@Override
 	public void run() {
 		tc++;
-			String freq = MemRedstoneWirelessRemote.getInstance(world).getFreq(itemstack.hashCode());
-
 			RedstoneEther.getInstance().addTransmitter(
 					player.worldObj,
 					i,j,k,
@@ -85,14 +83,14 @@ public class ThreadWirelessRemote implements Runnable {
 	}
 
 
-	public static void pulse(EntityPlayer entityplayer, World world) {
+	public static void pulse(EntityPlayer entityplayer, World world, String freq) {
 		player = entityplayer;
 		int x, y, z;
 		x = (int)player.posX;
 		y = (int)player.posY;
 		z = (int)player.posZ;
 		if ( tc < WirelessRemote.maxPulseThreads ) {
-			Thread thr = new Thread(new ThreadWirelessRemote(x,y,z,player.getCurrentEquippedItem(),world));
+			Thread thr = new Thread(new ThreadWirelessRemote(x, y, z, freq, world));
 			thr.setName("WirelessRemoteThread");
 			thr.start();
 		}

@@ -25,9 +25,9 @@ public class NetworkConnection implements INetworkConnections
 			switch (packetID)
 			{
 			case PacketIds.WIFI_REMOTE:
-				PacketWirelessRemoteSettings pPC = new PacketWirelessRemoteSettings();
-				pPC.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pPC, net.getPlayerEntity());
+				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
+				pWR.readData(data);
+				PacketHandlerWirelessRemote.handlePacket(pWR, net.getPlayerEntity());
 				break;
 			} 
 		}

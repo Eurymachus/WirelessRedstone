@@ -57,19 +57,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	public PacketPayload getPayloadWithCommand(String command)
 	{
 		PacketPayload p = new PacketPayload(1,1,4,12);
-		// Frequency
-		//p.setStringPayload(0, "");
-		// Command
 		p.setStringPayload(1, command);
-		// Power Direction
-		//p.setStringPayload(2, "");
-		// Indirectly Power
-		//p.setStringPayload(3, "");
-		//p.setIntPayload(0, 0);
-		//p.setFloatPayload(0, 0);
-		/*for (int i = 0; i < 12;) {
-			p.setBoolPayload(i, false);
-		}*/
 		return p;
 	}
 
@@ -138,24 +126,6 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 		}
 		return indir;
 	}
-
-/*	public void setInDirectlyPowering(String indir) {
-		this.payload.stringPayload[3] = indir;
-	}
-
-	public void setState(boolean state) {
-		this.state = state;
-	}
-	
-	public String getPowerDirections()
-	{
-		return this.payload.stringPayload[2];
-	}
-	
-	public String getInDirectlyPowering()
-	{
-		return this.payload.stringPayload[3];
-	}*/
 
 	@Override
 	public void readData(DataInputStream datainputstream)

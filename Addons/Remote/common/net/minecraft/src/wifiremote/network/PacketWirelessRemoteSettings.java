@@ -11,11 +11,16 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 		super(PacketIds.WIFI_REMOTE);
 	}
 	
-	public PacketWirelessRemoteSettings(boolean state) {
+	public PacketWirelessRemoteSettings(String freq) {
 		this();
-		PacketPayload p = new PacketPayload(0, 0, 1, 1);
-		setState(state);
-		this.payload = p;
+		this.payload = getPayloadWithFreq(freq);
+	}
+	
+	public PacketPayload getPayloadWithFreq(String freq)
+	{
+		PacketPayload p = new PacketPayload(0,0,1,1);
+		p.setStringPayload(0, freq);
+		return p;
 	}
 	
 	public String toString() {

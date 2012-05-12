@@ -30,15 +30,9 @@ public class ItemRedstoneWirelessRemote extends Item{
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			//ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(itemstack, world, entityplayer, i, j, k));
 			if ( WirelessRemote.duraTogg )
 				itemstack.damageItem(1, entityplayer);
 			return true;
-		}
-		else {
-			ThreadWirelessRemote.pulse(
-				entityplayer,
-				world);
 		}
 		return false;
 	}

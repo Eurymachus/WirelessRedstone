@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstone;
 
@@ -372,4 +373,48 @@ public class RedstoneEtherFrequency {
 			notifyAll();
 		}
 	}
+
+/*	public void addPlayerTransmitter(RedstoneEtherNode tx)
+	{
+		try {
+			txLock.writeLock();
+			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("addPlayerTransmitter("+tx.toString()+")", LoggerRedstoneWireless.LogLevel.DEBUG);
+			txs.put(tx,tx);
+			txLock.writeUnlock();
+		} catch (InterruptedException e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+
+	public void remPlayerTransmitter(World world, EntityPlayer player)
+	{
+		try {
+			if ( !txs.containsKey(new RedstoneEtherNode(player)) ) return;
+			
+			txLock.writeLock();
+			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("remPlayerTransmitter(world, "+player.username+")", LoggerRedstoneWireless.LogLevel.DEBUG);
+			txs.remove(new RedstoneEtherNode(player));
+			txLock.writeUnlock();
+	
+			updateReceivers(world);
+		} catch (InterruptedException e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+
+	public void setPlayerTransmitterState(World world, EntityPlayer player,
+			boolean state) {
+		try {
+			if ( !txs.containsKey(new RedstoneEtherNode(player)) ) return;
+	
+			txLock.readLock();
+			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("setPlayerTransmitterState(world, "+player.username+", "+state+")", LoggerRedstoneWireless.LogLevel.DEBUG);
+			txs.get(new RedstoneEtherNode(player)).state = state;
+			txLock.readUnlock();
+			
+			updateReceivers(world);
+		} catch (InterruptedException e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}*/
 }

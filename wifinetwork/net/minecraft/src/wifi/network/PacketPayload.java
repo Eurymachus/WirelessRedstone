@@ -42,7 +42,7 @@ public class PacketPayload
 	{
 		if (this.intPayload != null)
 			return this.intPayload.length;
-		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		//LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return 0;
 	}
 	
@@ -50,7 +50,7 @@ public class PacketPayload
 	{
 		if (this.floatPayload != null)
 			return this.floatPayload.length;
-		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		//LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return 0;
 	}
 	
@@ -58,7 +58,7 @@ public class PacketPayload
 	{
 		if (this.stringPayload != null)
 			return this.stringPayload.length;
-		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		//LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return 0;
 	}
 	
@@ -66,57 +66,57 @@ public class PacketPayload
 	{
 		if (this.boolPayload != null)
 			return this.boolPayload.length;
-		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
+		//LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntSize(): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return 0;
 	}
 	
 	public void setIntPayload(int index, int newInt) {
-		if (this.intPayload != null && index < this.intPayload.length)
+		if (this.intPayload != null && index < this.getFloatSize())
 			this.intPayload[index] = newInt;
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntPayload("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 	}
 	
 	public void setFloatPayload(int index, float newFloat) {
-		if (this.floatPayload != null && index < this.floatPayload.length)
+		if (this.floatPayload != null && index < this.getFloatSize())
 			this.floatPayload[index] = newFloat;
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getFloat("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 	}
 	
 	public void setStringPayload(int index, String newString) {
-		if (this.stringPayload != null && index < this.stringPayload.length)
+		if (this.stringPayload != null && index < this.getStringSize())
 			this.stringPayload[index] = newString;
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getString("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 	}
 	
 	public void setBoolPayload(int index, boolean newBool) {
-		if (this.boolPayload != null && index < this.boolPayload.length)
+		if (this.boolPayload != null && index < this.getBoolSize())
 			this.boolPayload[index] = newBool;
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getBool("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 	}
 	
 	public int getIntPayload(int index) {
-		if (this.intPayload != null && index < this.intPayload.length)
+		if (this.intPayload != null && index < this.getIntSize())
 			return this.intPayload[index];
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getIntPayload("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return 0;
 	}
 	
 	public float getFloatPayload(int index) {
-		if (this.floatPayload != null && index < this.floatPayload.length)
+		if (this.floatPayload != null && index < this.getFloatSize())
 			return this.floatPayload[index];
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getFloat("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return 0;
 	}
 	
 	public String getStringPayload(int index) {
-		if (this.stringPayload != null && index < this.stringPayload.length && this.stringPayload[index] != null)
+		if (this.stringPayload != null && index < this.getStringSize() && this.stringPayload[index] != null)
 			return this.stringPayload[index];
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getString("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return "null";
 	}
 	
 	public boolean getBoolPayload(int index) {
-		if (this.boolPayload != null && index < this.boolPayload.length)
+		if (this.boolPayload != null && index < this.getBoolSize())
 			return this.boolPayload[index];
 		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write("getBool("+index+"): null or OOB!", LoggerRedstoneWireless.LogLevel.WARNING);
 		return false;

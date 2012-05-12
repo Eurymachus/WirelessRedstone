@@ -27,6 +27,7 @@ import net.minecraft.src.wifi.RedstoneEther;
 import net.minecraft.src.wifi.RedstoneEtherNode;
 import net.minecraft.src.wifi.WirelessTransmittingDevice;
 import net.minecraft.src.wifi.core.Vector3;
+import net.minecraft.src.wifiremote.network.PacketHandlerWirelessRemote;
 
 public class ItemRedstoneWirelessRemote extends Item implements WirelessTransmittingDevice{
 	protected ItemRedstoneWirelessRemote(int i) {
@@ -44,9 +45,13 @@ public class ItemRedstoneWirelessRemote extends Item implements WirelessTransmit
 			return true;
 		}
 		else {
-			ThreadWirelessRemote.pulse(
+			if (!world.isRemote) {
+				ThreadWirelessRemote.pulse(
 				entityplayer,
 				world);
+			}
+			else
+				PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(entityplayer, getFreq(), i, j, k, true);
 		}
 		return false;
 	}

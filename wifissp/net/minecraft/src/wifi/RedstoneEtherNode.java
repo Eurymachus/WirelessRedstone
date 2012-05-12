@@ -14,12 +14,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wifi;
 
+import net.minecraft.src.EntityPlayer;
+
 /**
  * Wireless ether node.
  * 
  * @author ali4z
  */
 public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
+	public EntityPlayer player;
 	/**
 	 * World X coordinate.
 	 */
@@ -60,6 +63,18 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 		freq = "0";
 		time = System.currentTimeMillis();
 	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerName Player Name
+	 *
+	public RedstoneEtherNode(EntityPlayer player) {
+		this.player = player;
+		state = false;
+		freq = "0";
+		time = System.currentTimeMillis();
+	}*/
 
 	@Override
 	public int compareTo(RedstoneEtherNode arg0) {

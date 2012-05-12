@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 
@@ -93,6 +94,7 @@ public class RedstoneEther {
 		}
 		
 	}
+	
 	/**
 	 * Remove a transmitter from the ether.
 	 * 
@@ -397,4 +399,76 @@ public class RedstoneEther {
 			world.getChunkProvider().loadChunk(i >> 4, j >> 4);
 		}
 	}
+	
+/*	public synchronized void addPlayerTransmitter(World world, EntityPlayer player, String freq) {
+		try {
+			if ( world == null || world.isRemote ) {
+				return;
+			}
+			
+			LoggerRedstoneWireless.getInstance("RedstoneEther").write("addPlayerTransmitter(world, "+player.username+", "+freq+")", LoggerRedstoneWireless.LogLevel.INFO);
+	
+			checkWorldHash(world);
+			if ( !freqIsset(freq) ) createFreq(freq);
+	
+			RedstoneEtherNode node = new RedstoneEtherNode(player);
+			node.freq = freq;
+			ether.get(freq).addPlayerTransmitter(node);
+			
+			if ( gui != null ) gui.repaint();
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+		
+	}
+	
+	public synchronized void remPlayerTransmitter(World world, EntityPlayer player, String freq) {
+		try {
+			if ( world == null || world.isRemote ) {
+				return;
+			}
+			
+			LoggerRedstoneWireless.getInstance("RedstoneEther").write("remPlayerTransmitter(world, "+player.username+", "+freq+")", LoggerRedstoneWireless.LogLevel.INFO);
+	
+			checkWorldHash(world);
+			if ( freqIsset(freq) ) {
+				ether.get(freq).remPlayerTransmitter(world, player);
+				if ( ether.get(freq).count() == 0 )
+					ether.remove(freq);
+			}
+			if ( gui != null ) gui.repaint();
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+
+	public void setPlayerTransmitterState(World world, EntityPlayer player,
+			String freq, boolean state) {
+		try {
+			if ( world == null || world.isRemote ) {
+				return;
+			}
+	
+			LoggerRedstoneWireless.getInstance("RedstoneEther").write("setPlayerTransmitterState(world, "+player.username+", "+freq+", "+state+")", LoggerRedstoneWireless.LogLevel.INFO);
+		
+			if ( freqIsset(freq) )
+				ether.get(freq).setPlayerTransmitterState(world, player, state);
+			if ( gui != null ) gui.repaint();
+		} catch ( Exception e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+
+	public static boolean isPlayerUsing(World world, EntityPlayer player) {
+
+		if ( ModLoader.getMinecraftInstance() == null || player == null )
+			return false;
+		
+		LoggerRedstoneWireless.getInstance("RedstoneEther").write("isPlayerUsing(world, "+player.username+")", LoggerRedstoneWireless.LogLevel.DEBUG);
+		
+		if ( world != null && player.isUsingItem() )  // Is Using
+			return true;
+
+		return false;
+	}*/
 }

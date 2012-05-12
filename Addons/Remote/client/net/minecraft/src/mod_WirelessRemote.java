@@ -19,8 +19,8 @@ import net.minecraft.src.wifiremote.WirelessRemoteSMP;
 
 public class mod_WirelessRemote extends BaseMod
 {
-	boolean wirelessRemote = false;
-	boolean wirelessRemoteSMP = false;
+	public static boolean wirelessRemote = false;
+	public static boolean wirelessRemoteSMP = false;
 	public static BaseMod instance;
 	
 	@Override

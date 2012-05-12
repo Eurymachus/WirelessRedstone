@@ -73,6 +73,8 @@ public class ConfigStoreRedstoneWireless {
 					return Double.parseDouble(value);
 				else if ( type == Character.class )
 					return conf.get(value).toCharArray()[0];
+				else if ( type == Long.class )
+					return Long.parseLong(value);
 				else 
 					throw new IllegalArgumentException(type.toString());
 			} else {

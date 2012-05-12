@@ -21,6 +21,8 @@ import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRemote;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.RedstoneEther;
+import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
+import net.minecraft.src.wifiremote.network.PacketHandlerWirelessRemote;
 
 public class ThreadWirelessRemote implements Runnable {
 	protected int i;
@@ -45,7 +47,6 @@ public class ThreadWirelessRemote implements Runnable {
 	public void run() {
 		tc++;
 			String freq = MemRedstoneWirelessRemote.getInstance(world).getFreq(itemstack.hashCode());
-
 			RedstoneEther.getInstance().addTransmitter(
 					ModLoader.getMinecraftInstance().theWorld,
 					i,j,k,
@@ -72,6 +73,33 @@ public class ThreadWirelessRemote implements Runnable {
 					i,j,k,
 					freq
 			);
+
+/*			RedstoneEther.getInstance().addPlayerTransmitter(
+					world,
+					player,
+					freq
+			);
+	
+	    	RedstoneEther.getInstance().setPlayerTransmitterState(
+					world,
+					player,
+					freq,
+					true
+	    	);
+	    	
+	    	if ( WirelessRemote.pulseTime > 0 ) {
+				try {
+					Thread.sleep(WirelessRemote.pulseTime);
+				} catch (InterruptedException e) {
+					LoggerRedstoneWireless.getInstance("WirelessRedstone.Remote").writeStackTrace(e);
+				}
+	    	}
+			
+			RedstoneEther.getInstance().remPlayerTransmitter(
+					world,
+					player,
+					freq
+			);*/
 		tc--;
 	}
 	
