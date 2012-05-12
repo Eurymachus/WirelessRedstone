@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.NetClientHandler;
+import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.MessageManager;
@@ -20,14 +20,14 @@ public class NetworkConnection implements INetworkConnections
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
-			NetClientHandler net = (NetClientHandler)network.getNetHandler();
+			NetServerHandler net = (NetServerHandler)network.getNetHandler();
 			int packetID = data.read();
 			switch (packetID)
 			{
 			case PacketIds.WIFI_REMOTE:
 				PacketWirelessRemoteSettings pPC = new PacketWirelessRemoteSettings();
 				pPC.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pPC);
+				PacketHandlerWirelessRemote.handlePacket(pPC, net.getPlayerEntity());
 				break;
 			} 
 		}

@@ -14,14 +14,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wifiremote.WirelessRemote;
 import net.minecraft.src.wifiremote.WirelessRemoteSMP;
 
-public class mod_WirelessRemote extends BaseMod
+public class mod_WirelessRemote extends NetworkMod
 {
 	boolean wirelessRemote = false;
 	boolean wirelessRemoteSMP = false;
-	public static BaseMod instance;
+	public static NetworkMod instance;
 	
 	@Override
 	public void modsLoaded()
@@ -30,7 +31,6 @@ public class mod_WirelessRemote extends BaseMod
 		{
 			if (!wirelessRemote) {
 				wirelessRemote = WirelessRemote.initialize();
-				ModLoader.registerKey(this, new KeyBinding("wr.PulseRemote", WirelessRemote.pulseKey), true);
 			}
 		}
 		if (wirelessRemote && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
@@ -51,10 +51,5 @@ public class mod_WirelessRemote extends BaseMod
 	@Override
 	public String getVersion() {
 		return "1.0";
-	}
-	
-	@Override
-	public void keyboardEvent(KeyBinding keybinding) {
-		WirelessRemote.keyboardEvent(keybinding);
 	}
 }
