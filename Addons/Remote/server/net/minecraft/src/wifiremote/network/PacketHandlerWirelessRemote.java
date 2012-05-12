@@ -38,15 +38,6 @@ public class PacketHandlerWirelessRemote {
 		private static void handleWirelessRemote(PacketWirelessRemote packet, EntityPlayerMP player)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = packet.getTarget(player.worldObj);
-			if (entity != null && entity instanceof TileEntityRedstoneWirelessR)
-			{
-				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR)entity;
-				int i = receiver.getBlockCoord(0);
-				int j = receiver.getBlockCoord(1);
-				int k = receiver.getBlockCoord(2);
-				((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).notifyNeighbors(receiver.worldObj, i, j, k);
-			}
 		}
 	}
 
