@@ -86,12 +86,26 @@ public class LoggerRedstoneWireless {
 			return true;
 	}
 	
+
 	public void write(String msg, LogLevel lvl) {
 		if ( filter(lvl) ) {
 			if ( writer == null )
 				writer = new LoggerRedstoneWirelessWriter();
+
+			StringBuilder trace = new StringBuilder();
+			try {
+				throw new Exception();
+			} catch(Exception e) {
+				StackTraceElement[] c = e.getStackTrace();
+				int min = Math.min(3, c.length-1);
+				for ( int i = min; i >= 1; i-- ) {
+					trace.append(filterClassName(c[i].getClassName())+"."+c[i].getMethodName());
+					if ( i > 1 )
+						trace.append("->");
+				}
+			}
 			
-			writer.write(lvl.name()+": "+name+": "+msg);
+			writer.write(lvl.name()+": "+name+": "+msg+": "+trace);
 		}
 	}
 	
