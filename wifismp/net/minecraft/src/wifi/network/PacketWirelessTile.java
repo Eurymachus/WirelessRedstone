@@ -27,18 +27,18 @@ public class PacketWirelessTile extends PacketWifiSMP {
 		this.xPosition = entity.getBlockCoord(0);
 		this.yPosition = entity.getBlockCoord(1);
 		this.zPosition = entity.getBlockCoord(2);
-		LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).write("[fetchTile]" + this.xPosition + this.yPosition + this.zPosition, LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).write("[fetchTile]" + this.xPosition + this.yPosition + this.zPosition, LogLevel.INFO);
 		this.payload = new PacketPayload(0, 0, 2, 12);
 		setCommand(command);
 		setFreq(entity.getFreq());
 		setPowerDirections(entity.getPowerDirections());
 		setInDirectlyPowering(entity.getInDirectlyPowering());
-		ModLoader.getLogger().fine("Freq: " + entity.getFreq());
 	}
 	
 	private void setCommand(String command)
 	{
 		this.payload.setStringPayload(0, command);
+		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setCommand("+command+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
 	public String toString() {
@@ -63,6 +63,7 @@ public class PacketWirelessTile extends PacketWifiSMP {
 
 	public void setFreq(Object freq) {
 		this.payload.setStringPayload(1, freq.toString());
+		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setFreq("+freq.toString()+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
 	public void setPowerDirections(boolean[] dir) {

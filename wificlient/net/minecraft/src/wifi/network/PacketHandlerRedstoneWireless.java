@@ -153,9 +153,8 @@ public class PacketHandlerRedstoneWireless {
 	public static class PacketHandlerOutput {
 		public static void sendRedstoneEtherPacket(String command, int i, int j, int k, Object freq, boolean state) {
 			PacketRedstoneEther packet = new PacketRedstoneEther(command);
-			//ModLoader.getMinecraftInstance().thePlayer.addChatMessage("New Frequency = " + freq);
-			packet.setFreq(freq);
 			packet.setPosition(i, j, k);
+			packet.setFreq(freq);
 			packet.setState(state);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());

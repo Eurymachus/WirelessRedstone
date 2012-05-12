@@ -117,8 +117,17 @@ public class PacketUpdate extends EurysPacket
 		this.xPosition = data.readInt();
 		this.yPosition = data.readInt();
 		this.zPosition = data.readInt();
-
-		this.payload = new PacketPayload(data.readInt(), data.readInt(), data.readInt(), data.readInt());
+		
+		int intSize = data.readInt();
+		int floatSize = data.readInt();
+		int stringSize = data.readInt();
+		int boolSize = data.readInt();
+		
+		this.payload = new PacketPayload(
+				intSize,
+				floatSize,
+				stringSize,
+				boolSize);
 
         for(int i = 0; i < this.payload.getIntSize(); i++)
         	this.payload.setIntPayload(i, data.readInt());
