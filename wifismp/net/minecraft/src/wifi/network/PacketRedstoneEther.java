@@ -1,4 +1,4 @@
-package net.minecraft.src.wifi.network;
+ package net.minecraft.src.wifi.network;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -26,6 +26,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	public PacketRedstoneEther(String command) {
 		this();
 		this.payload = new PacketPayload(0,0,2,1);
+		setCommand(command);
 	}
 	
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world)
@@ -42,6 +43,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 			setState(((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).getState(world, this.xPosition, this.yPosition, this.zPosition));
 			setCommand("addTransmitter");
 		}
+		setFreq(entity.getFreq());
 	}
 
 	public String toString() {
@@ -56,6 +58,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	public void setCommand(String command)
 	{
 		this.payload.setStringPayload(0, command);
+		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setCommand("+command+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 	
 	public String getFreq()
@@ -65,6 +68,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 
 	public void setFreq(Object freq) {
 		this.payload.setStringPayload(1, freq.toString());
+		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setFreq("+freq.toString()+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 	
 	public void setPosition(int i, int j, int k) {
@@ -75,6 +79,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 
 	public void setState(boolean state) {
 		this.payload.setBoolPayload(0, state);
+		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setState("+state+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
 	public boolean getState() {
