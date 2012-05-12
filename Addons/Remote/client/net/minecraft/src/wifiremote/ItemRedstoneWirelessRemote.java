@@ -25,11 +25,9 @@ import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRemote;
 import net.minecraft.src.wifi.RedstoneEther;
 import net.minecraft.src.wifi.RedstoneEtherNode;
-import net.minecraft.src.wifi.WirelessTransmittingDevice;
-import net.minecraft.src.wifi.core.Vector3;
 import net.minecraft.src.wifiremote.network.PacketHandlerWirelessRemote;
 
-public class ItemRedstoneWirelessRemote extends Item implements WirelessTransmittingDevice{
+public class ItemRedstoneWirelessRemote extends Item{
 	protected ItemRedstoneWirelessRemote(int i) {
 		super(i);
 		maxStackSize = 1;
@@ -50,8 +48,10 @@ public class ItemRedstoneWirelessRemote extends Item implements WirelessTransmit
 				entityplayer,
 				world);
 			}
-			else
-				PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(entityplayer, getFreq(), i, j, k, true);
+			else {
+				String freq = MemRedstoneWirelessRemote.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(this.hashCode());
+				PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(entityplayer, freq, i, j, k, true);
+			}
 		}
 		return false;
 	}
@@ -72,29 +72,5 @@ public class ItemRedstoneWirelessRemote extends Item implements WirelessTransmit
 	@Override
 	public boolean isFull3D() {
 		return true;
-	}
-
-	@Override
-	public Vector3 getPosition() {
-		EntityPlayer player = ModLoader.getMinecraftInstance().thePlayer;
-		return new Vector3(player.posX, player.posY, player.posZ);
-	}
-
-	@Override
-	public int getDimension() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getFreq() {
-		String freq = MemRedstoneWirelessRemote.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(this.hashCode());
-		return freq;
-	}
-
-	@Override
-	public EntityLiving getAttachedEntity() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

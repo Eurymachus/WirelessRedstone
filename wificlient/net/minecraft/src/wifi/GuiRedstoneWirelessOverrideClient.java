@@ -29,8 +29,6 @@ public class GuiRedstoneWirelessOverrideClient implements GuiRedstoneWirelessOve
 			PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("changeFreq", entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2), (NEW-OLD), false);
 			return true;
 		}
-			
 		return false;
 	}
-
 }

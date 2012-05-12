@@ -62,7 +62,8 @@ public class WirelessRedstone
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-						PacketHandlerRedstoneWireless.PacketHandlerOutput.sendEtherTilesToAll(0);
+						if (ModLoader.getMinecraftServerInstance().playersOnline() > 0)
+							PacketHandlerRedstoneWireless.PacketHandlerOutput.sendEtherTilesToAll(0);
 					}
 				}
 			});

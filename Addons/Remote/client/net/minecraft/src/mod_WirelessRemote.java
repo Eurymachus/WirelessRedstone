@@ -30,7 +30,6 @@ public class mod_WirelessRemote extends BaseMod
 		{
 			if (!wirelessRemote) {
 				wirelessRemote = WirelessRemote.initialize();
-				ModLoader.registerKey(this, new KeyBinding("wr.PulseRemote", WirelessRemote.pulseKey), true);
 			}
 		}
 		if (wirelessRemote && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
@@ -42,6 +41,7 @@ public class mod_WirelessRemote extends BaseMod
 	
 	public mod_WirelessRemote() {
 		instance = this;
+		ModLoader.registerKey(this, new KeyBinding("wr.PulseRemote", WirelessRemote.pulseKey), true);
 	}
 
 	@Override

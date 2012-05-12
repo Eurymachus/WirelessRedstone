@@ -30,20 +30,21 @@ public class PacketHandlerWirelessRemote {
 	
 	public static void handlePacket(PacketUpdate packet, EntityPlayerMP player)
 	{
-		if ( packet instanceof PacketWirelessRemote ) {
-			PacketHandlerInput.handleWirelessRemote((PacketWirelessRemote)packet, player);
+		if ( packet instanceof PacketWirelessRemoteSettings ) {
+			PacketHandlerInput.handleWirelessRemoteSettings((PacketWirelessRemoteSettings)packet, player);
 		}
 	}
 	
 
 	private static class PacketHandlerInput {
-		private static void handleWirelessRemote(PacketWirelessRemote packet, EntityPlayerMP player)
+		private static void handleWirelessRemoteSettings(PacketWirelessRemoteSettings packet, EntityPlayerMP player)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			
 			ThreadWirelessRemote.pulse(
 					player,
 					player.worldObj, ((PacketWirelessRemoteSettings)packet).getFreq());
+			ModLoader.getLogger().warning("Frequency: " + (packet).getFreq());
 		}
 	}
 

@@ -221,14 +221,6 @@ public class PacketHandlerRedstoneWireless {
 					PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWireless)entity,world,0);
 				}
 			}
-			else if ( packet.getCommand().equals("fetchTile") )
-			{
-				TileEntity entity = world.getBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition);
-				if ( entity instanceof TileEntityRedstoneWireless )
-				{
-					PacketHandlerOutput.sendEtherTileTo(player,(TileEntityRedstoneWireless)entity,world,0);
-				}
-			}
 			else
 			{
 				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEther:"+player.username+":"+packet.toString()+"UNKNOWN COMMAND", LoggerRedstoneWireless.LogLevel.WARNING);

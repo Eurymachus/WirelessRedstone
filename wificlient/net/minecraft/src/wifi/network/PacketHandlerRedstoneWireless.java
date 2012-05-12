@@ -34,6 +34,8 @@ public class PacketHandlerRedstoneWireless {
 			PacketHandlerInput.openGUI((PacketOpenWindowRedstoneWireless)packet);
 		} else if ( packet instanceof PacketRedstoneEther ) {
 			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther)packet);
+		} else if ( packet instanceof PacketWirelessTile ) {
+			PacketHandlerInput.handleTilePacket((PacketWirelessTile)packet);
 		}
 	}
 	
@@ -91,9 +93,8 @@ public class PacketHandlerRedstoneWireless {
 				((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
 		}
 
-		private static void handleEtherPacket(PacketRedstoneEther packet)
-		{
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		public static void handleTilePacket(PacketWirelessTile packet) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleTilePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			TileEntity entity = ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition);
 			if ( packet.getCommand().equals("fetchTile") )
 			{
@@ -114,6 +115,12 @@ public class PacketHandlerRedstoneWireless {
 					ModLoader.getMinecraftInstance().theWorld.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
 				}
 			}		
+		}
+
+		private static void handleEtherPacket(PacketRedstoneEther packet)
+		{
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+			TileEntity entity = ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition);
 			if ( packet.getCommand().equals("addTransmitter") )
 			{
 				if ( entity != null && entity instanceof TileEntityRedstoneWirelessT)

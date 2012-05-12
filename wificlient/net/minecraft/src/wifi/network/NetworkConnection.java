@@ -36,6 +36,11 @@ public class NetworkConnection implements INetworkConnections
 				pORW.readData(data);
 				PacketHandlerRedstoneWireless.handlePacket(pORW);
 				break;
+			case PacketIds.WIFI_TILE:
+				PacketWirelessTile pWT = new PacketWirelessTile();
+				pWT.readData(data);
+				PacketHandlerRedstoneWireless.handlePacket(pWT);
+				break;
 			} 
 		}
 		catch(Exception ex)

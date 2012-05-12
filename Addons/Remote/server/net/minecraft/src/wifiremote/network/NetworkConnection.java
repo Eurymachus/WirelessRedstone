@@ -17,6 +17,7 @@ public class NetworkConnection implements INetworkConnections
 	@Override
 	public void onPacketData(NetworkManager network, String channel, byte[] bytes) 
 	{
+		ModLoader.getLogger().warning("Received Packet");
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
@@ -27,6 +28,7 @@ public class NetworkConnection implements INetworkConnections
 			case PacketIds.WIFI_REMOTE:
 				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
 				pWR.readData(data);
+				ModLoader.getLogger().warning("Frequency: " + pWR.getFreq());
 				PacketHandlerWirelessRemote.handlePacket(pWR, net.getPlayerEntity());
 				break;
 			} 
@@ -46,6 +48,7 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-REMOTE");
+		ModLoader.getLogger().warning("Channel Registered");
 	}
 
 	@Override

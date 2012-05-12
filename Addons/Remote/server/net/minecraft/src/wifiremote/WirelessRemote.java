@@ -26,11 +26,12 @@ public class WirelessRemote {
 			loadItemTextures();
 			addRecipes();
 			addNames();
+			return true;
 		} catch (Exception e)
 		{
 			LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(WirelessRemote.class.toString())).write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
 		}
-		return true;
+		return false;
 	}
 	
 	public static void loadItemTextures() {

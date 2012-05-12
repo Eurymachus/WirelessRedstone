@@ -33,10 +33,10 @@ public class mod_WirelessRemote extends NetworkMod
 				wirelessRemote = WirelessRemote.initialize();
 			}
 		}
-		if (wirelessRemote && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (wirelessRemote)
 		{
-			if (!wirelessRemoteSMP)
-				wirelessRemoteSMP = WirelessRemoteSMP.initialize();
+			//if (!wirelessRemoteSMP)
+				//wirelessRemoteSMP = WirelessRemoteSMP.initialize();
 		}
 	}
 	
