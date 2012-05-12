@@ -57,5 +57,11 @@ public class PacketHandlerWirelessRemote {
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}
+
+		public static void sendWirelessRemoteGuiPacket(EntityPlayer player, int itemDamage, int i,
+				int j, int k) {
+			PacketWirelessRemoteGui packet = new PacketWirelessRemoteGui(itemDamage, i, j, k);
+			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
+		}
 	}
 }

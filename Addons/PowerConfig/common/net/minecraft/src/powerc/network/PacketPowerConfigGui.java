@@ -11,8 +11,6 @@ public class PacketPowerConfigGui extends PacketPowerConfig
 	
 	public PacketPowerConfigGui(int x, int y, int z) {
 		this();
-		xPosition = x;
-		yPosition = y;
-		zPosition = z;
+		this.setPosition(x, y, z);
 	}
 }

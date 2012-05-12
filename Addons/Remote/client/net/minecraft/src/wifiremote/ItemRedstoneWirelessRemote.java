@@ -31,15 +31,12 @@ public class ItemRedstoneWirelessRemote extends Item{
 	protected ItemRedstoneWirelessRemote(int i) {
 		super(i);
 		maxStackSize = 1;
-		setMaxDamage(64);
 	}
 	
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
 			ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(itemstack, world, entityplayer, i, j, k));
-			if ( WirelessRemote.duraTogg )
-				itemstack.damageItem(1, entityplayer);
 			return true;
 		}
 		else {
@@ -73,4 +70,10 @@ public class ItemRedstoneWirelessRemote extends Item{
 	public boolean isFull3D() {
 		return true;
 	}
+	
+	@Override
+    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    {
+		itemstack.setItemDamage(itemstack.hashCode());
+    }
 }

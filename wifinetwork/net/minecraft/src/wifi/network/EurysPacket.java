@@ -21,7 +21,14 @@ public abstract class EurysPacket extends ForgePacket
     public int yPosition;
     public int zPosition;
     public String channel;
-    
+
+	public void setPosition(int x, int y, int z)
+	{
+		this.xPosition = x;
+		this.yPosition = y;
+		this.zPosition = z;
+	}
+	
 	@Override
     public Packet getPacket()
 	{

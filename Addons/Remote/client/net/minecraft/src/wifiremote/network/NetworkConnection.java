@@ -30,7 +30,12 @@ public class NetworkConnection implements INetworkConnections
 				pWR.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pWR);
 				break;
-			} 
+			case PacketIds.WIFI_REMOTEGUI:
+				PacketWirelessRemoteGui pRG = new PacketWirelessRemoteGui();
+				pRG.readData(data);
+				PacketHandlerWirelessRemote.handlePacket(pRG);
+				break;
+			}
 		}
 		catch(Exception ex)
 		{

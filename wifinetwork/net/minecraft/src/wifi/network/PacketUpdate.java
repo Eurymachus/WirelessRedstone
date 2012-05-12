@@ -114,9 +114,10 @@ public class PacketUpdate extends EurysPacket
 	@Override
 	public void readData(DataInputStream data) throws IOException {
 
-		this.xPosition = data.readInt();
+		/*this.xPosition = data.readInt();
 		this.yPosition = data.readInt();
-		this.zPosition = data.readInt();
+		this.zPosition = data.readInt();*/
+		this.setPosition(data.readInt(), data.readInt(), data.readInt());
 		
 		int intSize = data.readInt();
 		int floatSize = data.readInt();

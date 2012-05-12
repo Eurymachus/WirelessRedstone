@@ -16,9 +16,7 @@ public class PacketOpenWindowRedstoneWireless extends PacketWifiSMP {
 	}
 	public PacketOpenWindowRedstoneWireless(TileEntityRedstoneWireless entity) {
 		this();
-		xPosition = entity.getBlockCoord(0);
-		yPosition = entity.getBlockCoord(1);
-		zPosition = entity.getBlockCoord(2);
+		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		PacketPayload p = new PacketPayload(1,1,2,1);
 		firstTick = entity.firstTick;
 		p.setStringPayload(0, entity.currentFreq);

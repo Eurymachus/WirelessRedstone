@@ -8,4 +8,5 @@ public class PacketIds
 	public static final int WIFI_POWERC = 3;
 	public static final int WIFI_POWERCGUI = 4;
 	public static final int WIFI_REMOTE = 5;
+	public static final int WIFI_REMOTEGUI = 6;
 }

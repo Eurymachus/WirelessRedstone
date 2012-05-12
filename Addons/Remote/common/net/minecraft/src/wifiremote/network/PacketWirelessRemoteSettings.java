@@ -13,18 +13,12 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 	
 	public PacketWirelessRemoteSettings(String freq) {
 		this();
-		this.payload = getPayloadWithFreq(freq);
-	}
-	
-	public PacketPayload getPayloadWithFreq(String freq)
-	{
-		PacketPayload p = new PacketPayload(0,0,1,1);
-		p.setStringPayload(0, freq);
-		return p;
+		this.payload = new PacketPayload(0,0,1,1);
+		this.setFreq(freq);
 	}
 	
 	public String toString() {
-		return "("+xPosition+","+yPosition+","+zPosition+")["+this.getState()+"]";
+		return "Freq["+this.getFreq()+"]("+this.xPosition+","+this.yPosition+","+this.zPosition+")State["+this.getState()+"]";
 	}
 	
 	public void setState(boolean state)
@@ -45,11 +39,5 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 	public String getFreq()
 	{
 		return this.payload.getStringPayload(0);
-	}
-	
-	public void setPosition(int i, int j, int k) {
-		this.xPosition = i;
-		this.yPosition = j;
-		this.zPosition = k;
 	}
 }

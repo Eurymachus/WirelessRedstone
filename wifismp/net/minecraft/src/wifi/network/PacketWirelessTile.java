@@ -24,15 +24,13 @@ public class PacketWirelessTile extends PacketWifiSMP {
 	public PacketWirelessTile(String command, TileEntityRedstoneWireless entity)
 	{
 		this();
-		this.xPosition = entity.getBlockCoord(0);
-		this.yPosition = entity.getBlockCoord(1);
-		this.zPosition = entity.getBlockCoord(2);
+		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).write("[fetchTile]" + this.xPosition + this.yPosition + this.zPosition, LogLevel.INFO);
 		this.payload = new PacketPayload(0, 0, 2, 12);
-		setCommand(command);
-		setFreq(entity.getFreq());
-		setPowerDirections(entity.getPowerDirections());
-		setInDirectlyPowering(entity.getInDirectlyPowering());
+		this.setCommand(command);
+		this.setFreq(entity.getFreq());
+		this.setPowerDirections(entity.getPowerDirections());
+		this.setInDirectlyPowering(entity.getInDirectlyPowering());
 	}
 	
 	private void setCommand(String command)
@@ -53,12 +51,6 @@ public class PacketWirelessTile extends PacketWifiSMP {
 	public String getFreq()
 	{
 		return this.payload.getStringPayload(1);
-	}
-	
-	public void setPosition(int i, int j, int k) {
-		this.xPosition = i;
-		this.yPosition = j;
-		this.zPosition = k;
 	}
 
 	public void setFreq(Object freq) {

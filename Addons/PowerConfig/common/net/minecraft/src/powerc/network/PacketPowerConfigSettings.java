@@ -28,12 +28,6 @@ public class PacketPowerConfigSettings extends PacketPowerConfig {
 	{
 		return this.payload.getStringPayload(0);
 	}
-	
-	public void setPosition(int i, int j, int k) {
-		this.xPosition = i;
-		this.yPosition = j;
-		this.zPosition = k;
-	}
 
 	public void setValue(int value) {
 		this.payload.setIntPayload(0, value);

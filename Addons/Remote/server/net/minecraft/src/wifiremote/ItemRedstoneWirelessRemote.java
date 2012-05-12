@@ -19,19 +19,18 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.wifiremote.network.PacketHandlerWirelessRemote;
 
 public class ItemRedstoneWirelessRemote extends Item{
 	protected ItemRedstoneWirelessRemote(int i) {
 		super(i);
 		maxStackSize = 1;
-		setMaxDamage(64);
 	}
 	
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			if ( WirelessRemote.duraTogg )
-				itemstack.damageItem(1, entityplayer);
+			PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemoteGuiPacket(entityplayer, itemstack.getItemDamage(), i, j, k);
 			return true;
 		}
 		return false;
@@ -50,4 +49,10 @@ public class ItemRedstoneWirelessRemote extends Item{
 		);
 		return itemstack;
 	}
+	
+	@Override
+    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    {
+		itemstack.setItemDamage(itemstack.hashCode());
+    }
 }

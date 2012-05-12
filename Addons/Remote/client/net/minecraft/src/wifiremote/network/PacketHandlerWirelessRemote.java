@@ -31,16 +31,24 @@ public class PacketHandlerWirelessRemote {
 	
 	public static void handlePacket(PacketUpdate packet)
 	{
-		if ( packet instanceof PacketWirelessRemote ) {
-			PacketHandlerInput.handleWirelessRemote((PacketWirelessRemote)packet);
+		if ( packet instanceof PacketWirelessRemoteSettings ) {
+			PacketHandlerInput.handleWirelessRemote((PacketWirelessRemoteSettings)packet);
+		}
+		else if ( packet instanceof PacketWirelessRemoteGui ) {
+			PacketHandlerInput.handleWirelessRemoteGui((PacketWirelessRemoteGui)packet);
 		}
 	}
 	
 
 	private static class PacketHandlerInput {
-		private static void handleWirelessRemote(PacketWirelessRemote packet)
+		private static void handleWirelessRemote(PacketWirelessRemoteSettings packet)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		}
+
+		public static void handleWirelessRemoteGui(PacketWirelessRemoteGui packet)
+		{
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemoteGuiPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 	}
 

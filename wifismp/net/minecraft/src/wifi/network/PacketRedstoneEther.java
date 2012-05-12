@@ -32,9 +32,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world)
 	{
 		this();
-		this.xPosition = entity.getBlockCoord(0);
-		this.yPosition = entity.getBlockCoord(1);
-		this.zPosition = entity.getBlockCoord(2);
+		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		this.payload = new PacketPayload(0,0,2,1);
 		if ( entity instanceof TileEntityRedstoneWirelessR) {
 			setState(((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).getState(world, this.xPosition, this.yPosition, this.zPosition));
@@ -69,12 +67,6 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	public void setFreq(Object freq) {
 		this.payload.setStringPayload(1, freq.toString());
 		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setFreq("+freq.toString()+")", LoggerRedstoneWireless.LogLevel.DEBUG);
-	}
-	
-	public void setPosition(int i, int j, int k) {
-		this.xPosition = i;
-		this.yPosition = j;
-		this.zPosition = k;
 	}
 
 	public void setState(boolean state) {
