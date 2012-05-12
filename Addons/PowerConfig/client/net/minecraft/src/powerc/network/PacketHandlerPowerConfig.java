@@ -14,20 +14,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.powerc.network;
 
-import net.minecraft.src.IInventory;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.powerc.GuiRedstoneWirelessPowerDirector;
 import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
-import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
-import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
-import net.minecraft.src.wifi.LoggerRedstoneWireless.LogLevel;
 import net.minecraft.src.wifi.WirelessRedstone;
-import net.minecraft.src.wifi.network.PacketOpenWindowRedstoneWireless;
-import net.minecraft.src.wifi.network.PacketRedstoneEther;
 import net.minecraft.src.wifi.network.PacketUpdate;
 
 public class PacketHandlerPowerConfig {

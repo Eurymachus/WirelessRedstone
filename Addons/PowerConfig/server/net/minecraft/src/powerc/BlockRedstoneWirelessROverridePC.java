@@ -18,7 +18,6 @@ import java.util.Random;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_PowerConfigurator;
 import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
 
 public class BlockRedstoneWirelessROverridePC implements BlockRedstoneWirelessOverride {

@@ -10,6 +10,8 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wifi.network.INetworkConnections;
 import net.minecraft.src.wifi.network.PacketIds;
+import net.minecraft.src.powerc.network.PacketPowerConfigGui;
+import net.minecraft.src.powerc.network.PacketPowerConfigSettings;
 
 public class NetworkConnection implements INetworkConnections
 {

@@ -24,6 +24,7 @@ import net.minecraft.src.mod_PowerConfigurator;
 import net.minecraft.src.powerc.network.PacketPowerConfigGui;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 
+
 public class ItemRedstoneWirelessPowerDirector extends Item {
 
 	protected ItemRedstoneWirelessPowerDirector(int i) {

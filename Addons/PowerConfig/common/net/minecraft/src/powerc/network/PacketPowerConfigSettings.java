@@ -1,12 +1,7 @@
 package net.minecraft.src.powerc.network;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import net.minecraft.src.wifi.network.PacketIds;
 import net.minecraft.src.wifi.network.PacketPayload;
-import net.minecraft.src.wifi.network.PacketUpdate;
 
 public class PacketPowerConfigSettings extends PacketPowerConfig {
 	public PacketPowerConfigSettings() {

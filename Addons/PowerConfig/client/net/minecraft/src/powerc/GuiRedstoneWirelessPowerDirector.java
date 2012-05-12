@@ -20,7 +20,6 @@ import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
-import net.minecraft.src.mod_PowerConfigurator;
 import net.minecraft.src.powerc.network.PacketHandlerPowerConfig;
 import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.GuiButtonBoolean;

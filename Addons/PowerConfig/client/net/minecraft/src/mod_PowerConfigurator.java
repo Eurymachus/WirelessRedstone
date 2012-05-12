@@ -14,14 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.src.powerc.PowerConfigurator;
 import net.minecraft.src.powerc.PowerConfiguratorSMP;
 
@@ -36,11 +28,13 @@ public class mod_PowerConfigurator extends BaseMod
 	{
 		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			powerConfig = PowerConfigurator.initialize();
+			if (!powerConfig)
+				powerConfig = PowerConfigurator.initialize();
 		}
-		if (ModLoader.isModLoaded("mod_WirelessRedstoneClient") && powerConfig)
+		if (powerConfig && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			powerConfigSMP = PowerConfiguratorSMP.initialize();
+			if (!powerConfigSMP)
+				powerConfigSMP = PowerConfiguratorSMP.initialize();
 		}
 	}
 	
