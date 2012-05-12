@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wifi.network;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.mod_WirelessRedstone;
@@ -29,39 +30,35 @@ import net.minecraft.src.wifi.network.PacketUpdate;
 
 public class PacketHandlerRedstoneWireless {
 	
-	public static void handlePacket(PacketUpdate packet) {
+	public static void handlePacket(PacketUpdate packet, EntityPlayer player) {
 		if ( packet instanceof PacketOpenWindowRedstoneWireless ) {
-			PacketHandlerInput.openGUI((PacketOpenWindowRedstoneWireless)packet);
+			PacketHandlerInput.openGUI((PacketOpenWindowRedstoneWireless)packet, player);
 		} else if ( packet instanceof PacketRedstoneEther ) {
-			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther)packet);
+			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther)packet, player);
 		} else if ( packet instanceof PacketWirelessTile ) {
-			PacketHandlerInput.handleTilePacket((PacketWirelessTile)packet);
+			PacketHandlerInput.handleTilePacket((PacketWirelessTile)packet, player);
 		}
 	}
 	
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketOpenWindowRedstoneWireless packet) {
+		private static void openGUI(PacketOpenWindowRedstoneWireless packet, EntityPlayer player) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("openGUI:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 
-			TileEntity entity = ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(
-					packet.xPosition,
-					packet.yPosition, 
-					packet.zPosition
-			);
+			TileEntity entity = packet.getTarget(player.worldObj);
 			
 			// Wireless Receiver
 			if ( packet.getType() == 0 ) {
 				if ( entity == null ) 	{
 					entity = new TileEntityRedstoneWirelessR();
 					((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
-					ModLoader.getMinecraftInstance().theWorld.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
+					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 				
 				if ( entity instanceof TileEntityRedstoneWireless ) {
 					WirelessRedstone.guiWirelessR.assTileEntity((TileEntityRedstoneWireless) entity);
 					ModLoader.openGUI(
-							ModLoader.getMinecraftInstance().thePlayer,
+							player,
 							WirelessRedstone.guiWirelessR
 					);
 				}
@@ -70,13 +67,13 @@ public class PacketHandlerRedstoneWireless {
 				if ( entity == null ) {
 					entity = new TileEntityRedstoneWirelessT();
 					((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
-					ModLoader.getMinecraftInstance().theWorld.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
+					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 
 				if ( entity instanceof TileEntityRedstoneWireless ) {
 					WirelessRedstone.guiWirelessT.assTileEntity((TileEntityRedstoneWireless) entity);
 					ModLoader.openGUI(
-							ModLoader.getMinecraftInstance().thePlayer,
+							player,
 							WirelessRedstone.guiWirelessT
 					);
 				}
@@ -93,9 +90,9 @@ public class PacketHandlerRedstoneWireless {
 				((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
 		}
 
-		public static void handleTilePacket(PacketWirelessTile packet) {
+		public static void handleTilePacket(PacketWirelessTile packet, EntityPlayer player) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleTilePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition);
+			TileEntity entity = packet.getTarget(player.worldObj);
 			if ( packet.getCommand().equals("fetchTile") )
 			{
 				//ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Fetching Tile");
@@ -103,7 +100,7 @@ public class PacketHandlerRedstoneWireless {
 				{
 					((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
 					entity.onInventoryChanged();
-					ModLoader.getMinecraftInstance().theWorld.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
+					player.worldObj.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
 				}
 				if ( entity != null && entity instanceof TileEntityRedstoneWirelessR)
 				{
@@ -112,15 +109,15 @@ public class PacketHandlerRedstoneWireless {
 					teR.setPowerDirections(packet.getPowerDirections());
 					teR.setInDirectlyPowering(packet.getInDirectlyPowering());
 					entity.onInventoryChanged();
-					ModLoader.getMinecraftInstance().theWorld.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
+					player.worldObj.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
 				}
 			}		
 		}
 
-		private static void handleEtherPacket(PacketRedstoneEther packet)
+		private static void handleEtherPacket(PacketRedstoneEther packet, EntityPlayer player)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition);
+			TileEntity entity = packet.getTarget(player.worldObj);
 			if ( packet.getCommand().equals("addTransmitter") )
 			{
 				if ( entity != null && entity instanceof TileEntityRedstoneWirelessT)
@@ -131,7 +128,7 @@ public class PacketHandlerRedstoneWireless {
 				{
 					entity = new TileEntityRedstoneWirelessT();
 					((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
-					ModLoader.getMinecraftInstance().theWorld.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
+					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 			}
 			else if ( packet.getCommand().equals("addReceiver") )
@@ -144,7 +141,7 @@ public class PacketHandlerRedstoneWireless {
 				{
 					entity = new TileEntityRedstoneWirelessR();
 					((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
-					ModLoader.getMinecraftInstance().theWorld.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
+					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 			}
 		}
