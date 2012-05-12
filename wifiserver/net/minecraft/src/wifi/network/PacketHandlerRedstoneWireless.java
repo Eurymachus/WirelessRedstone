@@ -173,12 +173,12 @@ public class PacketHandlerRedstoneWireless {
 			}
 		}
 		
-		public static void sendEtherFrequencyTilesToAll(RedstoneEtherFrequency freq, int delay) {
-			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendEtherFrequencyTilesToAll:"+freq.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		public static void sendEtherFrequencyTilesToAll(List<RedstoneEtherNode> txs, List<RedstoneEtherNode> rxs, int delay) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendEtherFrequencyTilesToAll", LoggerRedstoneWireless.LogLevel.DEBUG);
 
 			PacketRedstoneEther packet;
 			World world = ModLoader.getMinecraftServerInstance().getWorldManager(0);
-			for ( RedstoneEtherNode node: freq.rxs.values() ) {
+			for ( RedstoneEtherNode node: rxs ) {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j, node.k);
 				if ( entity instanceof TileEntityRedstoneWirelessR ) {
 					sendEtherTileToAll(
@@ -189,7 +189,7 @@ public class PacketHandlerRedstoneWireless {
 				}
 			}
 
-			for ( RedstoneEtherNode node: freq.txs.values() ) {
+			for ( RedstoneEtherNode node: txs ) {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j, node.k);
 				if ( entity instanceof TileEntityRedstoneWirelessT ) {
 					sendEtherTileToAll(
