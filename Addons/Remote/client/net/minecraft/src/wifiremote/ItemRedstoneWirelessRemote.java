@@ -40,15 +40,14 @@ public class ItemRedstoneWirelessRemote extends Item{
 			return true;
 		}
 		else {
-			if (!world.isRemote) {
+			String freq = MemRedstoneWirelessRemote.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(itemstack);
+			//if (!world.isRemote) {
 				ThreadWirelessRemote.pulse(
-				entityplayer,
-				world);
-			}
-			else {
-				String freq = MemRedstoneWirelessRemote.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(this.hashCode());
-				PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(entityplayer, freq, i, j, k, true);
-			}
+				entityplayer, freq);
+			//}
+			//else {
+			//	PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(entityplayer, freq, i, j, k, true);
+			//}
 		}
 		return false;
 	}

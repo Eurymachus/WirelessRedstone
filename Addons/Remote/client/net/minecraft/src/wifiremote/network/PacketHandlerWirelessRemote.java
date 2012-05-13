@@ -56,7 +56,6 @@ public class PacketHandlerWirelessRemote {
 	{
 		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k, boolean state) {
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(freq);
-			packet.setState(state);
 			packet.setPosition(i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Sending Packet: " + packet.channel);

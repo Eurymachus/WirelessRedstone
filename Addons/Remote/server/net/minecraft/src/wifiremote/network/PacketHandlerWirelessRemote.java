@@ -23,7 +23,6 @@ import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.PacketUpdate;
-import net.minecraft.src.wifiremote.ThreadWirelessRemote;
 
 
 public class PacketHandlerWirelessRemote {
@@ -41,19 +40,16 @@ public class PacketHandlerWirelessRemote {
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			
-			ThreadWirelessRemote.pulse(
-					player,
-					player.worldObj, ((PacketWirelessRemoteSettings)packet).getFreq());
-			ModLoader.getLogger().warning("Frequency: " + (packet).getFreq());
+			//ThreadWirelessRemote.pulse(
+			//		player, packet.getFreq());
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k, boolean state) {
+		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k) {
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(freq);
 			packet.setPosition(i, j, k);
-			packet.setState(state);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}

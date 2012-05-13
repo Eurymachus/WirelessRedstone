@@ -56,7 +56,7 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 		super.actionPerformed(guibutton);
 		
 		if ( guibutton.id ==  20 ) {
-			ThreadWirelessRemote.pulse(player,world);
+			ThreadWirelessRemote.pulse(player,getFreq());
 			close();
 		}
 	}
@@ -83,10 +83,10 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	}
 	@Override
 	protected String getFreq() {
-		return MemRedstoneWirelessRemote.getInstance(world).getFreq(itemstack.hashCode());
+		return MemRedstoneWirelessRemote.getInstance(world).getFreq(itemstack);
 	}
 	@Override
 	protected void setFreq(String freq) {
-		MemRedstoneWirelessRemote.getInstance(world).setFreq(itemstack.hashCode(),freq);
+		MemRedstoneWirelessRemote.getInstance(world).setFreq(itemstack,freq);
 	}
 }

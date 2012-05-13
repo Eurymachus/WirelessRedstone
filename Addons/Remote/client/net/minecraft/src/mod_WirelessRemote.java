@@ -41,7 +41,6 @@ public class mod_WirelessRemote extends BaseMod
 	
 	public mod_WirelessRemote() {
 		instance = this;
-		ModLoader.registerKey(this, new KeyBinding("wr.PulseRemote", WirelessRemote.pulseKey), true);
 	}
 
 	@Override
@@ -51,10 +50,5 @@ public class mod_WirelessRemote extends BaseMod
 	@Override
 	public String getVersion() {
 		return "1.0";
-	}
-	
-	@Override
-	public void keyboardEvent(KeyBinding keybinding) {
-		WirelessRemote.keyboardEvent(keybinding);
 	}
 }

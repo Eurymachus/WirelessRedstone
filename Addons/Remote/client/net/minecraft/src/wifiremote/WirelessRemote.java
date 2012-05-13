@@ -13,10 +13,9 @@ public class WirelessRemote {
 	public static Item itemRemote;
 	public static int remoteID=6245;
 	
-	public static long pulseTime=1000;
+	public static long pulseTime=2500;
 	public static boolean duraTogg=true;
-	public static int maxPulseThreads=10;
-	public static int pulseKey=25;
+	public static int maxPulseThreads=1;
 	
 	public static boolean initialize()
 	{
@@ -53,17 +52,5 @@ public class WirelessRemote {
 		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote").get("Durability", Boolean.class, new Boolean(duraTogg));
 		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote").get("PulseDurration", Long.class, new Long(pulseTime));
 		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("MaxPulseThreads", Integer.class, new Integer(maxPulseThreads));
-		pulseKey = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("PulseKey", Integer.class, new Integer(pulseKey));
-	}
-	
-	public static void keyboardEvent(KeyBinding keybinding) {
-		if ( 
-				ModLoader.getMinecraftInstance().thePlayer.getCurrentEquippedItem() != null && 
-				ModLoader.getMinecraftInstance().thePlayer.getCurrentEquippedItem().itemID == itemRemote.shiftedIndex
-		)
-			ThreadWirelessRemote.pulse(
-					ModLoader.getMinecraftInstance().thePlayer,
-					ModLoader.getMinecraftInstance().theWorld
-			);
 	}
 }

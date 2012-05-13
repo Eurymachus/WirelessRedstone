@@ -17,15 +17,16 @@ package net.minecraft.src.wifiremote;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 
 public class MemRedstoneWirelessRemote {
 	private static MemRedstoneWirelessRemote instance;
-	private Map<Integer,String> freqs;
+	private Map<Integer,MemNode> freqs;
 	private World world;
 	
 	private MemRedstoneWirelessRemote(World world) {
-		freqs = new HashMap<Integer,String>();
+		freqs = new HashMap<Integer,MemNode>();
 		this.world = world;
 	}
 	
@@ -36,25 +37,26 @@ public class MemRedstoneWirelessRemote {
 		return instance;
 	}
 	
-	public void addMem(int stackHash, String freq) {
-		freqs.put(stackHash, freq);
+	public void addMem(ItemStack itemstack, String freq) {
+		MemNode memnode = new MemNode(itemstack, freq);
+		freqs.put(itemstack.getItemDamage(), memnode);
 	}
 	
-	public void remMem(int stackHash) {
-		freqs.remove(stackHash);
+	public void remMem(int stackDamage) {
+		freqs.remove(stackDamage);
 	}
 	
-	public void setFreq(int stackHash, String freq) {
-		addMem(stackHash, freq);
+	public void setFreq(ItemStack itemstack, String freq) {
+		addMem(itemstack, freq);
 	}
 	
-	public String getFreq(int stackHash) {
-		String freq = freqs.get(stackHash);
-		if ( freq == null ) {
-			addMem(stackHash,"0");
+	public String getFreq(ItemStack itemstack) {
+		MemNode node = freqs.get(itemstack.getItemDamage());
+		if ( node == null ) {
+			addMem(itemstack, "0");
 			return "0";
 		} else {
-			return freq;
+			return node.freq;
 		}
 	}
 }

@@ -28,7 +28,6 @@ public class NetworkConnection implements INetworkConnections
 			case PacketIds.WIFI_REMOTE:
 				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
 				pWR.readData(data);
-				ModLoader.getLogger().warning("Frequency: " + pWR.getFreq());
 				PacketHandlerWirelessRemote.handlePacket(pWR, net.getPlayerEntity());
 				break;
 			} 

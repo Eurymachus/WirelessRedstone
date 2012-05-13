@@ -35,8 +35,8 @@ public class mod_WirelessRemote extends NetworkMod
 		}
 		if (wirelessRemote)
 		{
-			//if (!wirelessRemoteSMP)
-				//wirelessRemoteSMP = WirelessRemoteSMP.initialize();
+			if (!wirelessRemoteSMP)
+				wirelessRemoteSMP = WirelessRemoteSMP.initialize();
 		}
 	}
 	

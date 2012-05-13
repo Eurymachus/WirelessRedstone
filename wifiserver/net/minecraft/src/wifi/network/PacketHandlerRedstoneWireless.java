@@ -221,6 +221,24 @@ public class PacketHandlerRedstoneWireless {
 					PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWireless)entity,world,0);
 				}
 			}
+			
+			else if ( packet.getCommand().equals("addTransmitter") )
+			{
+				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEther:"+player.username+":"+packet.toString(), LoggerRedstoneWireless.LogLevel.INFO);
+				RedstoneEther.getInstance().addTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+			}
+			
+			else if ( packet.getCommand().equals("setTransmitterState") )
+			{
+				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEther:"+player.username+":"+packet.toString(), LoggerRedstoneWireless.LogLevel.INFO);
+				RedstoneEther.getInstance().setTransmitterState(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq(), packet.getState());
+			}
+			
+			else if ( packet.getCommand().equals("remTransmitter") )
+			{
+				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEther:"+player.username+":"+packet.toString(), LoggerRedstoneWireless.LogLevel.INFO);
+				RedstoneEther.getInstance().remTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+			}
 			else
 			{
 				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleEther:"+player.username+":"+packet.toString()+"UNKNOWN COMMAND", LoggerRedstoneWireless.LogLevel.WARNING);
