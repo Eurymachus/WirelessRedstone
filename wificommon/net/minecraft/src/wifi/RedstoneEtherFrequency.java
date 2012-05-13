@@ -71,7 +71,7 @@ public class RedstoneEtherFrequency {
 			txLock.readLock();
 			for ( RedstoneEtherNode tx: txs.values() ) {
 				// Add to remove list if block is not loaded.
-				if ( !RedstoneEtherUncommon.isBlockLoaded(world, tx.i, tx.j, tx.k) ) {
+				if ( !RedstoneEther.isBlockLoaded(world, tx.i, tx.j, tx.k) ) {
 					LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("getState(world): "+tx+" not loaded. Removing", LoggerRedstoneWireless.LogLevel.WARNING);
 					rem.add(tx);
 					continue;
@@ -207,7 +207,7 @@ public class RedstoneEtherFrequency {
 			// Iterate through Receivers.
 			for ( RedstoneEtherNode rx: rxs.values() ) {
 				// Add to remove list if block is not loaded.
-				if ( !RedstoneEtherUncommon.isBlockLoaded(world, rx.i, rx.j, rx.k) ) {
+				if ( !RedstoneEther.isBlockLoaded(world, rx.i, rx.j, rx.k) ) {
 					LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("updateReceivers(world): "+rx+" not loaded. Removing", LoggerRedstoneWireless.LogLevel.WARNING);
 					rem.add(rx);
 					continue;
