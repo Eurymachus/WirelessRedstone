@@ -14,6 +14,8 @@ import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wifi.BlockRedstoneWireless;
 import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
+import net.minecraft.src.wifi.RedstoneEther;
+import net.minecraft.src.wifi.RedstoneEtherOverrideServer;
 import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.NetworkConnection;
 
@@ -25,6 +27,9 @@ public class mod_WirelessRedstone extends NetworkMod
 		instance = this;
     	MinecraftForge.registerConnectionHandler(new NetworkConnection());
 		WirelessRedstone.load();
+		
+		RedstoneEtherOverrideServer etherOverride = new RedstoneEtherOverrideServer();
+		RedstoneEther.getInstance().addOverride(etherOverride);
 	}
 	
 	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override) {
