@@ -1,5 +1,6 @@
 package net.minecraft.src.wifi;
 
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
 
@@ -67,6 +68,24 @@ public class RedstoneEtherOverrideServer implements RedstoneEtherOverride {
 
 	@Override
 	public boolean afterGetFreqState(World world, String freq, boolean returnState) {
+		return returnState;
+	}
+
+	@Override
+	public boolean beforeIsLoaded(World world, int i, int j, int k) {
+		return false;
+	}
+
+	@Override
+	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
+		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideServer").write("isLoaded(world, "+i+", "+j+", "+k+")", LoggerRedstoneWireless.LogLevel.DEBUG);
+		for (int b = 0; b < world.playerEntities.size(); b++)
+		{
+			EntityPlayerMP player = (EntityPlayerMP)world.playerEntities.get(b);
+			if (player != null) {
+				if ((int)player.posX == i && (int)player.posY+1 == j && (int)player.posZ == k) return true;
+			}
+		}
 		return returnState;
 	}
 

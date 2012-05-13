@@ -431,4 +431,39 @@ public class RedstoneEther {
 		}
 		return list;
 	}
+	
+	/**
+	 * Checks if a block is loaded on the world.
+	 * 
+	 * @param world the world object
+	 * @param i world X coordinate
+	 * @param j world Y coordinate
+	 * @param k world Z coordinate
+	 * @return false if the block is not loaded, true if it is.
+	 */
+	public synchronized boolean isLoaded(World world, int i, int j, int k) {
+		LoggerRedstoneWireless.getInstance("RedstoneEther").write(
+				"isLoaded(world, "+i+", "+j+", "+k+
+				"):["+(world.getBlockId(i, j, k) != 0)+"&"+(world.getBlockTileEntity(i, j, k) != null)+"]",
+		LoggerRedstoneWireless.LogLevel.DEBUG);
+		// Run before overrides.
+		boolean prematureExit = false;
+		for ( RedstoneEtherOverride override: overrides) {
+			if ( override.beforeIsLoaded(world, i, j, k))
+				prematureExit = true;
+		}
+		
+		boolean returnState = false;
+		if ( !prematureExit ) {
+			returnState = world.getBlockId(i, j, k) != 0 && world.getBlockTileEntity(i, j, k) != null;
+		}
+		boolean out = returnState;
+		
+		// Run after overrides.
+		for ( RedstoneEtherOverride override: overrides) {
+			out = override.afterIsLoaded(world, i, j, k, returnState);
+		}
+		
+		return out;
+	}
 }

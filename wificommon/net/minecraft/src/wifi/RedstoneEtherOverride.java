@@ -143,4 +143,30 @@ public interface RedstoneEtherOverride {
 	 * @return The state to be returned. Return returnState if no changes is to be made!
 	 */
 	public boolean afterGetFreqState(World world, String freq, boolean returnState);
+
+	
+	
+	/**
+	 * Triggers before isLoaded is checked.
+	 * 
+	 * @param world The world object
+	 * @param i Receiver's World X coordinate
+	 * @param j Receiver's World Y coordinate
+	 * @param k Receiver's World Z coordinate
+	 * 
+	 * @return Exits prematurely if true, skipping existing code, and moves on to after.
+	 */
+	public boolean beforeIsLoaded(World world, int i, int j, int k);
+	/**
+	 * Triggers after isLoaded is checked.
+	 * 
+	 * @param world The world object
+	 * @param i Receiver's World X coordinate
+	 * @param j Receiver's World Y coordinate
+	 * @param k Receiver's World Z coordinate
+	 * @param returnState 
+	 * 
+	 * @return The state to be returned. Return returnState if no changes is to be made!
+	 */
+	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState);
 }

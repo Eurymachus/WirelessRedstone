@@ -54,4 +54,14 @@ public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
 		return returnState;
 	}
 
+	@Override
+	public boolean beforeIsLoaded(World world, int i, int j, int k) {
+		return false;
+	}
+
+	@Override
+	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
+		return false;
+	}
+
 }

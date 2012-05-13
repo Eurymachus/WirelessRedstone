@@ -27,6 +27,8 @@ import net.minecraft.src.wifi.BlockRedstoneWireless;
 import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wifi.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
+import net.minecraft.src.wifi.RedstoneEther;
+import net.minecraft.src.wifi.RedstoneEtherOverrideSSP;
 import net.minecraft.src.wifi.WirelessRedstone;
 
 /**
@@ -86,6 +88,8 @@ public class mod_WirelessRedstone extends BaseMod {
 	public mod_WirelessRedstone() {
 		instance = this;
 		WirelessRedstone.initialize();
+		RedstoneEtherOverrideSSP etherOverride = new RedstoneEtherOverrideSSP();
+		RedstoneEther.getInstance().addOverride(etherOverride);
 	}
 	
 	/**
