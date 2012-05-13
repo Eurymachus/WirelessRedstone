@@ -13,8 +13,6 @@ import net.minecraft.src.wifi.network.*;
 
 public interface INetworkConnections extends IConnectionHandler, IPacketHandler
 {
-	//MinecraftServer mc = ModLoader.getMinecraftServerInstance();
-	
 	@Override
 	public void onPacketData(NetworkManager network, String channel, byte[] bytes);
 

@@ -112,16 +112,31 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		}
 	}
 	
+	/**
+	 * Retrieves the directions the Wireless Tile Entity is powering
+	 * 
+	 * @return powerRoute
+	 */
 	public boolean[] getPowerDirections()
 	{
 		return powerRoute;
 	}
 	
+	/**
+	 * Retrieves the directions the Wireless Tile Entity is indirectly powering
+	 * 
+	 * @return
+	 */
 	public boolean[] getInDirectlyPowering()
 	{
 		return indirPower;
 	}
 	
+	/**
+	 * Sets the directions the Wireless Tile Entity is powering
+	 * 
+	 * @param dir is the new set of directions
+	 */
 	public void setPowerDirections(boolean[] dir)
 	{
 		try
@@ -132,6 +147,11 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		}
 	}
 	
+	/**
+	 * Sets the directions the Wireless Tile Entity is powering
+	 * 
+	 * @param indir is the new set of directions
+	 */
 	public void setInDirectlyPowering(boolean[] indir)
 	{
 		try
@@ -141,64 +161,6 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 		}
 	}
-	
-	/*public String getPowerDirections()
-	{
-		String dir = "";
-		try
-		{
-			for (int i = 0; i < powerRoute.length; i++) {
-				if (powerRoute[i]) dir += "1";
-				else dir += "0";
-				if (i != powerRoute.length - 1) dir += ";";
-			}
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
-		}
-		return dir;
-	}
-	
-	public String getInDirectlyPowering()
-	{
-		String indir = "";
-		try
-		{
-			for (int i = 0; i < indirPower.length; i++) {
-				if (indirPower[i]) indir += "1";
-				else indir += "0";
-				if (i != indirPower.length - 1) indir += ";";
-			}
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
-		}
-		return indir;
-	}
-	
-	public void setPowerDirections(String dir)
-	{
-		try
-		{
-			String[] direction = dir.split(";");
-			for (int i = 0; i < powerRoute.length; i++) {
-				powerRoute[i] = direction[i].equals("1");
-			}
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
-		}
-	}
-	
-	public void setInDirectlyPowering(String indir)
-	{
-		try
-		{
-			String[] inDirection = indir.split(";");
-			for (int i = 0; i < indirPower.length; i++) {
-				indirPower[i] = inDirection[i].equals("1");
-			}
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
-		}
-	}*/
 
 	public void flipIndirectPower(int l) {
 		if ( !isPoweringDirection(l) && !indirPower[l] )

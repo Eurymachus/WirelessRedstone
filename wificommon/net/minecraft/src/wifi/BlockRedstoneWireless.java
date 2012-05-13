@@ -142,7 +142,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			if ( tileentity == null) return null;
 			
 			if ( tileentity instanceof TileEntityRedstoneWireless )
-				return ((TileEntityRedstoneWireless)tileentity).getFreq();
+				return ((TileEntityRedstoneWireless)tileentity).getFreq().toString();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
 		}
