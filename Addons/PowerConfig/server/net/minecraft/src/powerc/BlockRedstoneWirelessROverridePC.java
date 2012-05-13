@@ -21,13 +21,24 @@ import net.minecraft.src.World;
 import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
 
 public class BlockRedstoneWirelessROverridePC implements BlockRedstoneWirelessOverride {
-
+	@Override
+	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+		return false;
+	}
 	@Override
 	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {}
 
+	
+
+	@Override
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+		return false;
+	}
 	@Override
 	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {}
 
+	
+	
 	@Override
 	public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
 
@@ -37,15 +48,26 @@ public class BlockRedstoneWirelessROverridePC implements BlockRedstoneWirelessOv
 		
 		return false;
 	}
-
 	@Override
 	public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {}
 
+
+	
+	@Override
+	public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+		return false;
+	}
 	@Override
 	public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {}
 
+	
+	
 	@Override
 	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
 		return false;
 	}
+
+	@Override
+	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {}
+
 }
