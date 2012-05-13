@@ -1,6 +1,5 @@
 package net.minecraft.src.wifi.network;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +8,12 @@ import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.forge.packets.ForgePacket;
 
+/**
+ * Packet Information Base
+ * 
+ * @author Eurymachus
+ *
+ */
 public abstract class EurysPacket extends ForgePacket
 {
     /**

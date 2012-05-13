@@ -20,7 +20,7 @@ public class PacketOpenWindowRedstoneWireless extends PacketWifiSMP {
 		PacketPayload p = new PacketPayload(1,1,2,1);
 		firstTick = entity.firstTick;
 		p.setStringPayload(0, entity.currentFreq);
-		p.setStringPayload(1, entity.getFreq());
+		p.setStringPayload(1, entity.getFreq().toString());
 		if ( entity instanceof TileEntityRedstoneWirelessR) {
 			p.setIntPayload(0, 0);
 		} else if ( entity instanceof TileEntityRedstoneWirelessT ) {

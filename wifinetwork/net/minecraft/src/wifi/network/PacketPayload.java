@@ -5,6 +5,12 @@ import java.util.Arrays;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 
+/**
+ * Payload for data transfer in packets
+ * 
+ * @author Eurymachus
+ *
+ */
 public class PacketPayload
 {
 	public static <T> T[] concat(T[] first, T[] second) {
@@ -31,13 +37,33 @@ public class PacketPayload
 		  return result;
 	}
 	
+	/**
+	 * Array of int values
+	 */
 	private int[] intPayload;
+	
+	/**
+	 * Array of float values
+	 */
 	private float[] floatPayload;
+	
+	/**
+	 * Array of String values
+	 */
 	private String[] stringPayload;
+	
+	/**
+	 * Array of boolean values
+	 */
 	private boolean[] boolPayload;
 
 	public PacketPayload() {}
 	
+	/**
+	 * Retrieves the intPayload size
+	 * 
+	 * @return intPayload.length or 0 if null
+	 */
 	public int getIntSize()
 	{
 		if (this.intPayload != null)
@@ -46,6 +72,11 @@ public class PacketPayload
 		return 0;
 	}
 	
+	/**
+	 * Retrieves the floatPayload size
+	 * 
+	 * @return floatPayload.length or 0 if null
+	 */
 	public int getFloatSize()
 	{
 		if (this.floatPayload != null)
@@ -54,6 +85,11 @@ public class PacketPayload
 		return 0;
 	}
 	
+	/**
+	 * Retrieves the stringPayload size
+	 * 
+	 * @return stringPayload.length or 0 if null
+	 */
 	public int getStringSize()
 	{
 		if (this.stringPayload != null)
@@ -62,6 +98,11 @@ public class PacketPayload
 		return 0;
 	}
 	
+	/**
+	 * Retrieves the boolPayload size
+	 * 
+	 * @return boolPayload.length or 0 if null
+	 */
 	public int getBoolSize()
 	{
 		if (this.boolPayload != null)
@@ -70,6 +111,13 @@ public class PacketPayload
 		return 0;
 	}
 	
+	/**
+	 * Adds a new int value to intPayload
+	 * 
+	 * @param index The index in the array
+	 * @param newInt The value to be added
+	 * @return true if successful or false if unsuccessful
+	 */
 	public boolean setIntPayload(int index, int newInt) {
 		if (this.intPayload != null && index < this.getFloatSize()) {
 			this.intPayload[index] = newInt;
@@ -79,6 +127,13 @@ public class PacketPayload
 		return false;
 	}
 	
+	/**
+	 * Adds a new float value to floatPayload
+	 * 
+	 * @param index The index in the array
+	 * @param newFloat The value to be added
+	 * @return true if successful or false if unsuccessful
+	 */
 	public boolean setFloatPayload(int index, float newFloat) {
 		if (this.floatPayload != null && index < this.getFloatSize()) {
 			this.floatPayload[index] = newFloat;
@@ -88,6 +143,13 @@ public class PacketPayload
 		return false;
 	}
 	
+	/**
+	 * Adds a new String value to stringPayload
+	 * 
+	 * @param index The index in the array
+	 * @param newString The value to be added
+	 * @return true if successful or false if unsuccessful
+	 */
 	public boolean setStringPayload(int index, String newString) {
 		if (this.stringPayload != null && index < this.getStringSize()) {
 			this.stringPayload[index] = newString;
@@ -97,6 +159,13 @@ public class PacketPayload
 		return false;
 	}
 	
+	/**
+	 * Adds a new boolean value to boolPayload
+	 * 
+	 * @param index The index in the array
+	 * @param newBool The value to be added
+	 * @return true if successful or false if unsuccessful
+	 */
 	public boolean setBoolPayload(int index, boolean newBool) {
 		if (this.boolPayload != null && index < this.getBoolSize()) {
 			this.boolPayload[index] = newBool;
@@ -106,6 +175,12 @@ public class PacketPayload
 		return false;
 	}
 	
+	/**
+	 * Retrieves an int value stored in intPayload
+	 * 
+	 * @param index The index in the array
+	 * @return intPayload[index] or 0 if null
+	 */
 	public int getIntPayload(int index) {
 		if (this.intPayload != null && index < this.getIntSize())
 			return this.intPayload[index];
@@ -113,6 +188,12 @@ public class PacketPayload
 		return 0;
 	}
 	
+	/**
+	 * Retrieves a float value stored in floatPayload
+	 * 
+	 * @param index The index in the array
+	 * @return floatPayload[index] or 0 if null
+	 */
 	public float getFloatPayload(int index) {
 		if (this.floatPayload != null && index < this.getFloatSize())
 			return this.floatPayload[index];
@@ -120,6 +201,12 @@ public class PacketPayload
 		return 0;
 	}
 	
+	/**
+	 * Retrieves a String value stored in stringPayload
+	 * 
+	 * @param index The index in the array
+	 * @return stringPayload[index] or "null" if null
+	 */
 	public String getStringPayload(int index) {
 		if (this.stringPayload != null && index < this.getStringSize() && this.stringPayload[index] != null)
 			return this.stringPayload[index];
@@ -127,6 +214,12 @@ public class PacketPayload
 		return "null";
 	}
 	
+	/**
+	 * Retrieves a boolean value stored in boolPayload
+	 * 
+	 * @param index The index in the array
+	 * @return boolPayload[index] or false if null
+	 */
 	public boolean getBoolPayload(int index) {
 		if (this.boolPayload != null && index < this.getBoolSize())
 			return this.boolPayload[index];
@@ -134,6 +227,15 @@ public class PacketPayload
 		return false;
 	}
 	
+	/**
+	 * Constructor
+	 * Create a new PacketPayload
+	 * 
+	 * @param intSize The size of the new intPayload array
+	 * @param floatSize The size of the new floatPayload array
+	 * @param stringSize The size of the new stringPayload array
+	 * @param boolSize The size of the new boolPayload array
+	 */
 	public PacketPayload(int intSize, int floatSize, int stringSize, int boolSize) {
 		this.intPayload = new int[intSize];
 		this.floatPayload = new float[floatSize];

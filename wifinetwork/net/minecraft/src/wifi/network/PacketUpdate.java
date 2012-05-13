@@ -16,6 +16,15 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.packets.ForgePacket;
 
+/**
+ * Packet Information for Reading/Writing packet data
+ * 
+ * packetId The ID of the packet used to identify which packet handler to use
+ * payload The PacketPayload of the packet
+ *
+ * @author Eurymachus
+ *
+ */
 public class PacketUpdate extends EurysPacket
 {
 	private int packetId;

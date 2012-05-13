@@ -1,5 +1,11 @@
 package net.minecraft.src.wifi.network;
 
+/**
+ * Packet ID list
+ * 
+ * @author Eurymachus
+ *
+ */
 public class PacketIds
 {
 	public static final int WIFI_ETHER = 0;

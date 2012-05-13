@@ -23,7 +23,7 @@ public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
 
 	@Override
 	public void updateEntity() {
-		String freq = getFreq();
+		String freq = getFreq().toString();
 		
 		if ( !oldFreq.equals(freq) || firstTick) {
 			((BlockRedstoneWirelessT)WirelessRedstone.blockWirelessT).changeFreq(
