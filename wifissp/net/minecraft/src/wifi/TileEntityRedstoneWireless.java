@@ -19,6 +19,7 @@ import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
+import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements IInventory {
@@ -274,6 +275,4 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	public ItemStack getStackInSlotOnClosing(int i) {
 		return null;
 	}
-	
-
 }
