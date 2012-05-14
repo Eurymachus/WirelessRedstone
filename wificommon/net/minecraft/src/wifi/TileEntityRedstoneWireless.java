@@ -275,4 +275,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	public ItemStack getStackInSlotOnClosing(int i) {
 		return null;
 	}
+
+	public Packet getDescriptionPacket() {
+		return TileEntityRedstoneWirelessInjector.getDescriptionPacket(this);
+	}
 }
