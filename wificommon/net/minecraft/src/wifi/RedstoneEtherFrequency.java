@@ -19,9 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
 
 /**
  * Wireless Redstone Frequency node container.<br>

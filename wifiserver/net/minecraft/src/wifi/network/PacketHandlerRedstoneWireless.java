@@ -1,6 +1,5 @@
 package net.minecraft.src.wifi.network;
 
-import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.src.EntityPlayerMP;
@@ -10,14 +9,10 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.RedstoneEther;
-import net.minecraft.src.wifi.RedstoneEtherFrequency;
 import net.minecraft.src.wifi.RedstoneEtherNode;
 import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
-import net.minecraft.src.wifi.network.PacketOpenWindowRedstoneWireless;
-import net.minecraft.src.wifi.network.PacketRedstoneEther;
-import net.minecraft.src.wifi.network.PacketUpdate;
 
 public class PacketHandlerRedstoneWireless {
 	

@@ -17,7 +17,6 @@ package net.minecraft.src.wifiremote;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wifiremote.network.PacketHandlerWirelessRemote;
 

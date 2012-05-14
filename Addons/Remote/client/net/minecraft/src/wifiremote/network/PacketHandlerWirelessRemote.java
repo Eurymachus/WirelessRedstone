@@ -15,16 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wifiremote.network;
 
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
-import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
-import net.minecraft.src.wifi.WirelessRedstone;
-import net.minecraft.src.wifi.network.PacketRedstoneEther;
 import net.minecraft.src.wifi.network.PacketUpdate;
-import net.minecraft.src.wifiremote.MemRedstoneWirelessRemote;
 
 
 public class PacketHandlerWirelessRemote {

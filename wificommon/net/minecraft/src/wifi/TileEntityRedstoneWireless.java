@@ -17,12 +17,9 @@ package net.minecraft.src.wifi;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.wifi.network.PacketWirelessTile;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements IInventory {
 	public boolean firstTick = true;
@@ -278,13 +275,5 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		return null;
 	}
 	
-	public Packet getDescriptionPacket()
-	{
-		return getUpdatePacket();
-	}
-	
-	public Packet getUpdatePacket()
-	{
-		return new PacketWirelessTile("fetchTile", this).getPacket();
-	}
+
 }

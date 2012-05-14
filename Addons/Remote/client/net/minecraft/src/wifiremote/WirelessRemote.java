@@ -3,7 +3,6 @@ package net.minecraft.src.wifiremote;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.KeyBinding;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.wifi.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;

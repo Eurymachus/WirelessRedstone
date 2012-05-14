@@ -1,15 +1,9 @@
 package net.minecraft.src.wifi.network;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.IConnectionHandler;
 import net.minecraft.src.forge.IPacketHandler;
-import net.minecraft.src.forge.MessageManager;
-import net.minecraft.src.wifi.network.*;
 
 public interface INetworkConnections extends IConnectionHandler, IPacketHandler
 {

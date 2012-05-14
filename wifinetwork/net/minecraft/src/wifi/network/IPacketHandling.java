@@ -1,7 +1,6 @@
 package net.minecraft.src.wifi.network;
 
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ModLoader;
 
 public interface IPacketHandling
 {
