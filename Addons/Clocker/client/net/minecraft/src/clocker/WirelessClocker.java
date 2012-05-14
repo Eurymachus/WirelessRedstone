@@ -30,7 +30,7 @@ public class WirelessClocker
 		addRecipes();
 		ModLoader.registerBlock(blockClock);
 		ModLoader.addName(blockClock, "Wireless Clocker");
-		ModLoader.registerTileEntity(TileEntityRedstoneWirelessClocker.class, "Wireless Clocker", new TileEntityRedstoneWirelessRenderer());
+		ModLoader.registerTileEntity(TileEntityRedstoneWirelessClocker.class, "Wireless Clocker", new TileEntityRedstoneWirelessClockerRenderer());
 		return true;
 	}
 	

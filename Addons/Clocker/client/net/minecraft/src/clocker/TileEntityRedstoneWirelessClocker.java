@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.clocker;
 
+import java.util.concurrent.TimeUnit;
+
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.mod_WirelessClocker;
@@ -27,6 +29,26 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 		super();
 		clockFreq = 1000;
 		running = false;
+	}
+	
+	public String getClockFreqString()
+	{	
+		String timer = "";
+		if (this.clockFreq < 1000) timer = String.valueOf(this.clockFreq) + " ms";
+		else if (this.clockFreq < 60000) {
+			long seconds, milliseconds;
+			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq);
+			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.SECONDS.toMillis(seconds);
+			timer = seconds + " sec " + milliseconds + " ms";
+		}
+		else {
+			long minutes, seconds, milliseconds;
+			minutes = TimeUnit.MILLISECONDS.toMinutes(this.clockFreq);
+			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq) - TimeUnit.MINUTES.toSeconds(minutes);
+			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.MINUTES.toMillis(minutes) - TimeUnit.SECONDS.toMillis(seconds);
+			timer = minutes + " m " + seconds + " s " + milliseconds + " ms";
+		}
+		return timer;
 	}
 	
 	@Override
