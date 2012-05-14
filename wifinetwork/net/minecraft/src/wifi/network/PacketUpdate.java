@@ -11,7 +11,7 @@ import net.minecraft.src.World;
  * Packet Information for Reading/Writing packet data
  * 
  * packetId The ID of the packet used to identify which packet handler to use
- * payload The PacketPayload of the packet
+ * payload The payload to be delivered with the packet
  *
  * @author Eurymachus
  *

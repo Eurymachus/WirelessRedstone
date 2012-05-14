@@ -20,10 +20,12 @@ import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
+import net.minecraft.src.Slot;
 import net.minecraft.src.powerc.network.PacketHandlerPowerConfig;
 import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.GuiButtonBoolean;
-import net.minecraft.src.wifi.GuiWifiExitButton;
+import net.minecraft.src.wifi.GuiButtonWifi;
+import net.minecraft.src.wifi.GuiButtonWifiExit;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.WirelessRedstone;
@@ -60,7 +62,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		controlList.add(new GuiButtonBoolean(10, (width/2)+20, (height/2), 20, 20, "U", inventory.isPoweringIndirectly(0), "Upward Face"));
 		controlList.add(new GuiButtonBoolean(11, (width/2)+40, (height/2), 20, 20, "D", inventory.isPoweringIndirectly(1), "Downward Face"));
 		
-		controlList.add(new GuiWifiExitButton(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
+		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
 		super.initGui();
 	}
 	
@@ -166,7 +168,20 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(2896 /*GL_LIGHTING*/);
 		GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
-		
+
+
+        for (int control = 0; control < this.controlList.size(); control++)
+        {
+            if (this.controlList.get(control) instanceof GuiButtonWifi)
+            {
+            	GuiButtonWifi button = (GuiButtonWifi)this.controlList.get(control);
+
+	            if (this.isMouseOverButton(button, i, j))
+	            {
+	                this.drawToolTip(button, i, j);
+	            }
+            }
+        }
 		drawStringBorder(
 				(xSize/2)-(fontRenderer.getStringWidth(inventory.getInvName())/2),
 				6,
@@ -194,6 +209,18 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
 	}
 	
+	private void drawToolTip(GuiButtonWifi button, int i, int j)
+	{
+		this.drawGradientRect(button.xPosition, button.yPosition, i, j, 20, 50);
+		fontRenderer.drawSplitString(button.getPopupText(), button.xPosition, button.yPosition, 16, 0);
+	}
+
+	private boolean isMouseOverButton(GuiButtonWifi var23, int i, int j) {
+		if (var23 != null)
+			return var23.inBounds(i, j);
+		return false;
+	}
+
 	protected void drawStringBorder(int x1, int y1, int x2) {
 		drawRect(
 				x1-3,

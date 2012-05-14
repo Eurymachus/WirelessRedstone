@@ -93,7 +93,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 		controlList.add(new GuiButton(6, (width/2)+48, (height/2)-42, 32, 20, "+1000"));
 		controlList.add(new GuiButton(7, (width/2)-80, (height/2)-42, 32, 20, "-1000"));
 		
-		controlList.add(new GuiWifiExitButton(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
+		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
 		super.initGui();
 	}
 

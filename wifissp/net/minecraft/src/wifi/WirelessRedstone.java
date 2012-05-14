@@ -6,6 +6,14 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_WirelessRedstone;
 
+/**
+ * WirelessRedstone class
+ * 
+ * To allow abstraction from the BaseMod code
+ * 
+ * @author Eurymachus & Aliz4
+ *
+ */
 public class WirelessRedstone
 {
 	/**

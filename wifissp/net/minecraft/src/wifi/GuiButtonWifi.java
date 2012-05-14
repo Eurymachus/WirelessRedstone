@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wifi;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiButton;
 
 /**
@@ -25,7 +26,7 @@ import net.minecraft.src.GuiButton;
  */
 public class GuiButtonWifi extends GuiButton
 {
-	protected String popupText;
+	private String popupText;
 	
 	public GuiButtonWifi(int i, int j, int k, int l, int i1, String s, String popupText) {
 		super(i, j, k, l, i1, s);
@@ -36,9 +37,14 @@ public class GuiButtonWifi extends GuiButton
 		super(i, j, k, l, i1, s);
 	}
 
-	protected boolean inBounds(int x, int y)
+	public boolean inBounds(int x, int y)
 	{
 		boolean flag = x >= xPosition && y >= yPosition && x < xPosition + width && y < yPosition + height;
 		return flag;
+	}
+	
+	public String getPopupText()
+	{
+		return this.popupText;
 	}
 }
