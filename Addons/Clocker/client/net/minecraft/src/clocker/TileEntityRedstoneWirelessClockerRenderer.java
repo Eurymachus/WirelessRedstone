@@ -15,7 +15,7 @@ public class TileEntityRedstoneWirelessClockerRenderer extends TileEntityRedston
 		float f4 = 0.01F;
 
 		GL11.glPushMatrix();
-			GL11.glTranslatef((float)d+0.5F, (float)d1+0.7F, (float)d2+1F+f4);
+			GL11.glTranslatef((float)d+0.5F, (float)d1+0.58F, (float)d2+1F+f4);
 			GL11.glScalef(f4, -f4, f4);
 			GL11.glNormal3f(0.0F, 0.0F, -1F * f4);
 			
@@ -23,7 +23,7 @@ public class TileEntityRedstoneWirelessClockerRenderer extends TileEntityRedston
 		GL11.glPopMatrix();
 		
 		GL11.glPushMatrix();
-			GL11.glTranslatef((float)d+1F+f4, (float)d1+0.7F, (float)d2+0.5F);
+			GL11.glTranslatef((float)d+1F+f4, (float)d1+0.58F, (float)d2+0.5F);
 			GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
 			GL11.glScalef(f4, -f4, f4);
 			GL11.glNormal3f(0.0F, 0.0F, -1F * f4);
@@ -32,7 +32,7 @@ public class TileEntityRedstoneWirelessClockerRenderer extends TileEntityRedston
 		GL11.glPopMatrix();
 	
 		GL11.glPushMatrix();
-			GL11.glTranslatef((float)d+0.5F, (float)d1+0.7F, (float)d2-f4);
+			GL11.glTranslatef((float)d+0.5F, (float)d1+0.58F, (float)d2-f4);
 			GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
 			GL11.glScalef(f4, -f4, f4);
 			GL11.glNormal3f(0.0F, 0.0F, 1F * f4);
@@ -41,7 +41,7 @@ public class TileEntityRedstoneWirelessClockerRenderer extends TileEntityRedston
 		GL11.glPopMatrix();
 		
 		GL11.glPushMatrix();
-			GL11.glTranslatef((float)d-f4, (float)d1+0.7F, (float)d2+0.5F);
+			GL11.glTranslatef((float)d-f4, (float)d1+0.58F, (float)d2+0.5F);
 			GL11.glRotatef(270F, 0.0F, 1.0F, 0.0F);
 			GL11.glScalef(f4, -f4, f4);
 			GL11.glNormal3f(0.0F, 0.0F, -1F * f4);
