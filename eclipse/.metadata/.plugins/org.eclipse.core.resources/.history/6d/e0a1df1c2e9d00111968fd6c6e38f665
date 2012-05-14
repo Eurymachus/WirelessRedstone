@@ -1,0 +1,18 @@
+package net.minecraft.src.wifi;
+
+import org.lwjgl.util.vector.Vector3f;
+
+public interface IWirelessDevice
+{
+	void setFreq(Object freq);
+	
+	Object getfreq();
+	
+	void setState(boolean state);
+	
+	boolean getState();
+	
+	void setPosition(int x, int y, int z);
+	
+	WirelessCoords getPosition();
+}

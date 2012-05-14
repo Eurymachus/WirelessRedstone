@@ -1,0 +1,43 @@
+package net.minecraft.src;
+
+import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wifi.WirelessRedstone;
+import net.minecraft.src.wifi.network.NetworkConnection;
+import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
+
+public class mod_WirelessRedstone extends NetworkMod
+{
+	public static NetworkMod instance;
+	public static Block blockWirelessR;
+	public static Block blockWirelessT;
+
+	blockWirelessR = (new BlockRedstoneWirelessR(rxID)).setBlockName("wifir");
+	blockWirelessT = (new BlockRedstoneWirelessT(txID)).setBlockName("wifit");
+	MinecraftForge.registerConnectionHandler(new NetworkConnection());
+	ModLoader.registerBlock(blockWirelessR);
+	ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class, "Wireless Receiver");
+	ModLoader.registerBlock(blockWirelessT);
+	ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class, "Wireless Transmitter");
+	
+	public mod_WirelessRedstone() {
+		instance = this;
+		load();
+	}
+	
+	@Override
+	public void load()
+	{
+		WirelessRedstone.load();
+	}
+	
+	@Override
+	public String getVersion() {
+		return "1.5";
+	}
+
+	@Override
+	public String toString() {
+		return "WirelessRedstone "+getVersion();
+	}
+}

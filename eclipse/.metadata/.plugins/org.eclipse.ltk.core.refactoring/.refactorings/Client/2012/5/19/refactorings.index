@@ -1,0 +1,92 @@
+1336398947711	Move compilation unit
+1336398952296	Move compilation unit
+1336405841718	Move compilation units
+1336405905933	Move compilation unit
+1336405909233	Move compilation unit
+1336405939225	Move compilation units
+1336405946494	Move compilation units
+1336406054587	Move compilation units
+1336413406793	Rename method 'addReceipts'
+1336413518266	Rename method 'addReceipes'
+1336413984335	Delete element
+1336414423217	Rename method 'addReceipts'
+1336414806086	Move compilation units
+1336414962340	Move compilation units
+1336415066290	Delete elements
+1336415425632	Rename method 'addReceipts'
+1336416968886	Move compilation units
+1336417099675	Move compilation units
+1336458528645	Delete elements
+1336458733382	Copy compilation unit
+1336458824493	Copy compilation units
+1336458828158	Delete elements
+1336510962527	Move compilation units
+1336511165481	Rename method 'addReceipts'
+1336511761390	Delete element
+1336511778314	Move compilation unit
+1336512016858	Delete element
+1336512137056	Move compilation unit
+1336512152689	Copy compilation unit
+1336512470683	Delete element
+1336512499675	Delete element
+1336512853639	Move package
+1336512891127	Delete element
+1336512901927	Move compilation units
+1336513062028	Delete element
+1336597494002	Move compilation units
+1336597573161	Delete element
+1336598834448	Copy compilation unit
+1336598839190	Copy compilation unit
+1336598947985	Copy compilation unit
+1336598971350	Rename type 'PacketRedstoneEther'
+1336599072975	Rename type 'PacketHandlerRedstoneWireless'
+1336599139228	Copy compilation unit
+1336599152126	Rename type 'PacketOpenWindowRedstoneWireless'
+1336601513519	Move package
+1336601675792	Copy package
+1336601687211	Copy package
+1336602428383	Move compilation unit
+1336602759290	Move compilation unit
+1336603036566	Rename method 'AddRecipes'
+1336677024147	Move compilation unit
+1336677030869	Move compilation unit
+1336677410539	Copy compilation unit
+1336677434202	Rename type 'PacketPowerConfig'
+1336677444770	Rename type 'PacketWifiSMP'
+1336685716802	Rename local variable 'inDir'
+1336761240675	Encapsulate field 'boolPayload'
+1336769941273	Move compilation units
+1336770668107	Rename method 'AddRecipes'
+1336771451800	Copy package
+1336771491022	Rename package 'net.minecraft.src.powerc.network'
+1336771503640	Rename type 'PacketHandlerPowerConfig'
+1336771546856	Copy package
+1336771560958	Rename package 'net.minecraft.src.powerc.network'
+1336771572634	Rename type 'PacketPowerConfig'
+1336771906439	Delete elements
+1336772038740	Rename method 'handlePowerConfig'
+1336772253135	Copy compilation unit
+1336772386813	Rename type 'PacketPowerConfig'
+1336772893594	Rename method 'sendPowerConfigPacket'
+1336773946454	Delete element
+1336817560356	Copy packages
+1336817884434	Move compilation unit
+1336817895655	Move package
+1336819320160	Delete element
+1336819324500	Delete element
+1336827929953	Rename method 'remTransmitter'
+1336827956616	Rename method 'remTransmitter'
+1336827963464	Rename method 'setTransmitterState'
+1336828935622	Rename method 'setTransmitterState'
+1336844789678	Rename local variable 'pPC'
+1336862666246	Copy compilation unit
+1336902617681	Rename type 'RedstoneEtherUncommon'
+1336909186041	Delete element
+1336909422176	Rename local variable 'stackHash'
+1336909436992	Rename local variable 'stackHash'
+1336909816681	Move compilation unit
+1336915111330	Move compilation unit
+1336923818337	Rename type 'RedstoneEtherInjector'
+1336934901443	Rename type 'BlockCoord'
+1336934928966	Rename type 'DeviceCoords'
+1336935770879	Rename local variable 'i'

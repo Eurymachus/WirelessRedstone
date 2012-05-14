@@ -1,0 +1,8 @@
+package net.minecraft.src.wifiremote;
+
+import net.minecraft.src.ItemStack;
+
+private class MemNode {
+	ItemStack itemstack;
+	String freq;
+}

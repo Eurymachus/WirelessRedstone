@@ -1,0 +1,11 @@
+package net.minecraft.src.wifiremote.network;
+
+import net.minecraft.src.wifi.network.PacketIds;
+
+public class PacketWirelessRemoteGui extends PacketWirelessRemote
+{
+	public PacketWirelessRemoteGui(int packetId)
+	{
+		super(PacketIds.WIFI_REMOTEGUI);
+	}
+}

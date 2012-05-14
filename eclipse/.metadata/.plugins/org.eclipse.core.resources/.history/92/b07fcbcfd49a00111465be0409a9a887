@@ -1,0 +1,10 @@
+package net.minecraft.src.powerc.network;
+
+public class PacketPowerConfig extends PacketUpdate
+{
+	public PacketPowerConfig(int packetId)
+	{
+		super(packetId);
+		this.channel = "WIFI";
+	}
+}

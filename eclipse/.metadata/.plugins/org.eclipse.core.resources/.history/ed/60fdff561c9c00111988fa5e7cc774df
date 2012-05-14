@@ -1,0 +1,11 @@
+package net.minecraft.src.wifiremote;
+
+import net.minecraft.src.forge.MinecraftForge;
+
+public class WirelessRemoteSMP {
+	public static boolean initialize()
+	{
+		MinecraftForge.registerConnectionHandler(new NetworkConnections());
+		return true;
+	}
+}

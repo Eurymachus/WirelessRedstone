@@ -1,0 +1,42 @@
+package net.minecraft.src;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import javax.swing.SwingUtilities;
+
+import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wifi.WirelessRedstone;
+import net.minecraft.src.wifi.network.NetworkConnection;
+import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
+
+public class mod_WirelessRedstone extends NetworkMod
+{
+	public static NetworkMod instance;
+	
+	public mod_WirelessRedstone() {
+		instance = this;
+		load();
+	}
+	
+	@Override
+	public void load()
+	{
+		WirelessRedstone.load();
+	}
+	
+	@Override
+	public String getVersion() {
+		return "1.5";
+	}
+
+	@Override
+	public String toString() {
+		return "WirelessRedstone "+getVersion();
+	}
+}

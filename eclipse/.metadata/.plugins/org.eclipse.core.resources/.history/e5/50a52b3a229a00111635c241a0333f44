@@ -1,0 +1,75 @@
+package net.minecraft.src.powerc.network;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import net.minecraft.src.World;
+import net.minecraft.src.wifi.BlockRedstoneWireless;
+import net.minecraft.src.wifi.TileEntityRedstoneWireless;
+import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
+import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
+import net.minecraft.src.wifi.WirelessRedstone;
+import net.minecraft.src.wifi.network.PacketIds;
+import net.minecraft.src.wifi.network.PacketPayload;
+import net.minecraft.src.wifi.network.PacketUpdate;
+
+public class PacketPowerConfig extends PacketUpdate {
+	public boolean state = false;
+	
+	public PacketPowerConfig() {
+		super(PacketIds.WIFI_POWERC);
+	}
+	
+	public PacketPowerConfig(String command) {
+		this();
+		PacketPayload p = new PacketPayload(1,1,1);
+		p.stringPayload[0] = command;
+		p.intPayload[0] = 0;
+		p.floatPayload[0] = 0;
+		this.payload = p;
+	}
+	
+	public String toString() {
+		return this.payload.stringPayload[0]+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.intPayload[0]+"]:"+state;
+	}
+	
+	public int getValue()
+	{
+		return this.payload.intPayload[0];
+	}
+	
+	public String getCommand()
+	{
+		return this.payload.stringPayload[0];
+	}
+	
+	public void setPosition(int i, int j, int k) {
+		this.xPosition = i;
+		this.yPosition = j;
+		this.zPosition = k;
+	}
+
+	public void setFreq(Object freq) {
+		this.payload.stringPayload[0] = freq.toString();
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
+	@Override
+	public void readData(DataInputStream datainputstream)
+			throws IOException {
+		super.readData(datainputstream);
+		state = datainputstream.readBoolean();
+	}
+
+	@Override
+	public void writeData(DataOutputStream dataoutputstream)
+			throws IOException {
+		super.writeData(dataoutputstream);
+		dataoutputstream.writeBoolean(state);
+	}
+	
+}

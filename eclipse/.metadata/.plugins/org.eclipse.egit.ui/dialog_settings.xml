@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="2" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
+	<item value="true" key="CommitDialog.showUntracked"/>
+	<list key="CommitDialog.authorValues">
+		<item value="Greg Jones &lt;reflex_ion@hotmail.com&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="Greg Jones &lt;reflex_ion@hotmail.com&gt;"/>
+	</list>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="git@github.com:Eurymachus/WirelessRedstone.git"/>
+		<item value="ssh://Eurymachus@github.com/Eurymachus/WirelessRedstone.git"/>
+	</list>
+	<section name="GitCommitMessageComponent">
+	</section>
+	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
+		<item value="1323" key="DIALOG_WIDTH"/>
+		<item value="269" key="DIALOG_Y_ORIGIN"/>
+		<item value="369" key="DIALOG_HEIGHT"/>
+		<item value="183" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.fetch.FetchResultDialog.dialogBounds">
+		<item value="608" key="DIALOG_WIDTH"/>
+		<item value="222" key="DIALOG_Y_ORIGIN"/>
+		<item value="440" key="DIALOG_HEIGHT"/>
+		<item value="540" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.merge.MergeResultDialog.dialogBounds">
+		<item value="473" key="DIALOG_WIDTH"/>
+		<item value="389" key="DIALOG_Y_ORIGIN"/>
+		<item value="608" key="DIALOG_X_ORIGIN"/>
+		<item value="190" key="DIALOG_HEIGHT"/>
+		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
+		<item value="658" key="DIALOG_WIDTH"/>
+		<item value="222" key="DIALOG_Y_ORIGIN"/>
+		<item value="515" key="DIALOG_X_ORIGIN"/>
+		<item value="440" key="DIALOG_HEIGHT"/>
+		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="FetchGerritChangePage">
+	</section>
+</section>

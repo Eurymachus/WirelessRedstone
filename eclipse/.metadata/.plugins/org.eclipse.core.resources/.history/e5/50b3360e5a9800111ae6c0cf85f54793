@@ -1,0 +1,16 @@
+package net.minecraft.src;
+
+public abstract class BlockItemRedstoneWireless extends ItemBlock {
+
+	public BlockItemRedstoneWireless(int par1) {
+		super(par1);
+		setIconIndex(getRedstoneWirelessItemIndex());
+	}
+	
+	public int filterData(int i)
+	{
+		return i;
+	}
+	
+	protected abstract int getRedstoneWirelessItemIndex();
+}

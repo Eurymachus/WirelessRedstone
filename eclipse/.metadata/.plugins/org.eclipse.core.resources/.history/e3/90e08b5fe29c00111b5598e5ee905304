@@ -1,0 +1,10 @@
+package net.minecraft.src.wifi;
+
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
+
+public class RedstoneEtherInjector {
+	private static boolean isOtherLoaded() {		
+		return false;
+	}
+}
