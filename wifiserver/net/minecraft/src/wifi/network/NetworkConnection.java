@@ -8,9 +8,6 @@ import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wifi.WirelessRedstone;
-import net.minecraft.src.wifi.network.INetworkConnections;
-import net.minecraft.src.wifi.network.PacketIds;
-import net.minecraft.src.wifi.network.PacketRedstoneEther;
 
 public class NetworkConnection implements INetworkConnections
 {

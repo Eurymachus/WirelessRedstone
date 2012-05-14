@@ -2,7 +2,6 @@ package net.minecraft.src.wifi.network;
 
 import java.util.Arrays;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 
 /**

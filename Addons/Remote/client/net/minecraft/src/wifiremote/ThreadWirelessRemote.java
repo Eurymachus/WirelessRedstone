@@ -15,14 +15,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wifiremote;
 
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRemote;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.RedstoneEther;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
-import net.minecraft.src.wifiremote.network.PacketHandlerWirelessRemote;
 
 public class ThreadWirelessRemote implements Runnable {
 	protected int i;

@@ -17,16 +17,11 @@ package net.minecraft.src.wifi.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
-import net.minecraft.src.wifi.LoggerRedstoneWireless.LogLevel;
 import net.minecraft.src.wifi.WirelessRedstone;
-import net.minecraft.src.wifi.network.PacketOpenWindowRedstoneWireless;
-import net.minecraft.src.wifi.network.PacketRedstoneEther;
-import net.minecraft.src.wifi.network.PacketUpdate;
 
 public class PacketHandlerRedstoneWireless {
 	

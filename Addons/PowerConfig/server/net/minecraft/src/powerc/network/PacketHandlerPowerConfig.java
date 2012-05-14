@@ -16,11 +16,9 @@ package net.minecraft.src.powerc.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.wifi.BlockRedstoneWirelessR;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
-import net.minecraft.src.wifi.LoggerRedstoneWireless.LogLevel;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.PacketUpdate;

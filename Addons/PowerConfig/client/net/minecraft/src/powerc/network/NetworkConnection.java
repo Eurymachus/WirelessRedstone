@@ -3,15 +3,12 @@ package net.minecraft.src.powerc.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetClientHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wifi.network.INetworkConnections;
 import net.minecraft.src.wifi.network.PacketIds;
-import net.minecraft.src.powerc.network.PacketPowerConfigGui;
-import net.minecraft.src.powerc.network.PacketPowerConfigSettings;
 
 public class NetworkConnection implements INetworkConnections
 {

@@ -1,19 +1,8 @@
 package net.minecraft.src.wifi.network;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
-import net.minecraft.src.wifi.BlockRedstoneWireless;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.LoggerRedstoneWireless.LogLevel;
 import net.minecraft.src.wifi.TileEntityRedstoneWireless;
-import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
-import net.minecraft.src.wifi.TileEntityRedstoneWirelessT;
-import net.minecraft.src.wifi.WirelessRedstone;
 
 
 public class PacketWirelessTile extends PacketWifiSMP {

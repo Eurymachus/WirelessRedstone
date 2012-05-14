@@ -15,8 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wifi;
 
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.wifi.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
 
 public class GuiRedstoneWirelessOverrideClient implements GuiRedstoneWirelessOverride {

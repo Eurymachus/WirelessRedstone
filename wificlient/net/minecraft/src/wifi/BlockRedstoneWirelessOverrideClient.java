@@ -4,7 +4,6 @@ import java.util.Random;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
 
 public class BlockRedstoneWirelessOverrideClient implements BlockRedstoneWirelessOverride {
 

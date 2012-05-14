@@ -4,11 +4,6 @@ import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.Packet;
-import net.minecraft.src.mod_WirelessRedstone;
-import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wifi.network.NetworkConnection;
 import net.minecraft.src.wifi.network.PacketHandlerRedstoneWireless;
 
 public class WirelessRedstone
