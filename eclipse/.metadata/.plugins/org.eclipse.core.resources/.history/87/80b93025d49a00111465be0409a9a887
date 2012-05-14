@@ -1,5 +1,0 @@
-package net.minecraft.src.wifi.network;
-
-public class PacketWifiSMP {
-
-}

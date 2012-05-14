@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="wifibukkit"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="G:/Minecraft/Bukkit/craftbukkit-1.2.5-R1.3-MCPC-SNAPSHOT-87.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
