@@ -9,7 +9,7 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 
-public class PacketRedstoneEther extends PacketWifiSMP {
+public class PacketRedstoneEther extends PacketWireless {
 	//public boolean state = false;
 	
 	public PacketRedstoneEther() {
@@ -17,14 +17,14 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 	}
 	
 	public PacketRedstoneEther(String command) {
-		this();
+		super(PacketIds.WIFI_ETHER);
 		this.payload = new PacketPayload(0,0,2,1);
 		setCommand(command);
 	}
 	
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world)
 	{
-		this();
+		super(PacketIds.WIFI_ETHER);
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		this.payload = new PacketPayload(0,0,2,1);
 		if ( entity instanceof TileEntityRedstoneWirelessR) {

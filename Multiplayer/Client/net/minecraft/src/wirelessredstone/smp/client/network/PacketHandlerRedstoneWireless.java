@@ -50,7 +50,7 @@ public class PacketHandlerRedstoneWireless {
 			if ( packet.getType() == 0 ) {
 				if ( entity == null ) 	{
 					entity = new TileEntityRedstoneWirelessR();
-					((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
+					((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
 					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 				
@@ -65,7 +65,7 @@ public class PacketHandlerRedstoneWireless {
 			} else if ( packet.getType() == 1 ) {
 				if ( entity == null ) {
 					entity = new TileEntityRedstoneWirelessT();
-					((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
+					((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
 					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 
@@ -85,8 +85,8 @@ public class PacketHandlerRedstoneWireless {
 					((TileEntityRedstoneWireless)entity).getBlockCoord(1) != packet.yPosition || 
 					((TileEntityRedstoneWireless)entity).getBlockCoord(2) != packet.zPosition 
 				) 
-			if ( !((TileEntityRedstoneWireless)entity).getFreq().equals(packet.getCurrentFreq()) )
-				((TileEntityRedstoneWireless)entity).setFreq(packet.getCurrentFreq().toString());
+			if ( !((TileEntityRedstoneWireless)entity).getFreq().equals(packet.getFreq()) )
+				((TileEntityRedstoneWireless)entity).setFreq(packet.getFreq().toString());
 		}
 
 		public static void handleTilePacket(PacketWirelessTile packet, EntityPlayer player) {

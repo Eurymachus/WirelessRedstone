@@ -8,24 +8,21 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
-public class PacketOpenWindowRedstoneWireless extends PacketWifiSMP {
-	public boolean firstTick = true;
-
+public class PacketOpenWindowRedstoneWireless extends PacketWireless {
 	public PacketOpenWindowRedstoneWireless() {
 		super(PacketIds.WIFI_GUI);
 	}
 	public PacketOpenWindowRedstoneWireless(TileEntityRedstoneWireless entity) {
-		this();
+		super(PacketIds.WIFI_GUI);
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
-		PacketPayload p = new PacketPayload(1,1,2,1);
-		firstTick = entity.firstTick;
-		p.setStringPayload(0, entity.currentFreq);
-		p.setStringPayload(1, entity.getFreq().toString());
+		PacketPayload p = new PacketPayload(1,0,2,1);
 		if ( entity instanceof TileEntityRedstoneWirelessR) {
-			p.setIntPayload(0, 0);
+			this.setType(0);
 		} else if ( entity instanceof TileEntityRedstoneWirelessT ) {
-			p.setIntPayload(0, 1);
+			this.setType(1);
 		}
+		this.setFreq(entity.currentFreq);
+		this.setFirstTick(entity.firstTick);
 		this.payload = p;
 	}
 
@@ -39,27 +36,30 @@ public class PacketOpenWindowRedstoneWireless extends PacketWifiSMP {
 		return this.payload.getIntPayload(0);
 	}
 	
-	public String getCurrentFreq()
+	public void setType(int type)
+	{
+		this.payload.setIntPayload(0, type);
+	}
+	
+	@Override
+	public String getFreq()
 	{
 		return this.payload.getStringPayload(0);
 	}
 	
-	public String getOldFreq()
+	@Override
+	public void setFreq(Object freq)
 	{
-		return this.payload.getStringPayload(1);
+		this.payload.setStringPayload(0, freq.toString());
 	}
-
-	@Override
-	public void readData(DataInputStream datainputstream)
-			throws IOException {
-		super.readData(datainputstream);
-		firstTick = datainputstream.readBoolean();
+	
+	public boolean getFirstTick()
+	{
+		return this.payload.getBoolPayload(0);
 	}
-
-	@Override
-	public void writeData(DataOutputStream dataoutputstream)
-			throws IOException {
-		super.writeData(dataoutputstream);
-		dataoutputstream.writeBoolean(firstTick);
+	
+	public void setFirstTick(boolean firstTick)
+	{
+		this.payload.setBoolPayload(0, firstTick);
 	}
 }
