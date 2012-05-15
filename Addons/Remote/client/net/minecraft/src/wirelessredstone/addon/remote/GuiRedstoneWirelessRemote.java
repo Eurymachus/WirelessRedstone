@@ -18,7 +18,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.remote.data.MemRedstoneWirelessRemote;
+import net.minecraft.src.wirelessredstone.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
@@ -63,7 +63,7 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	@Override
 	public void onGuiClosed() {
 		if ( player.getCurrentEquippedItem() == null )
-			MemRedstoneWirelessRemote.getInstance(world).remMem(itemstack.hashCode());
+			RedstoneWirelessItemStackMem.getInstance(world).remMem(itemstack.hashCode());
 	}
 
 	@Override
@@ -82,10 +82,10 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	}
 	@Override
 	protected String getFreq() {
-		return MemRedstoneWirelessRemote.getInstance(world).getFreq(itemstack);
+		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
 	}
 	@Override
 	protected void setFreq(String freq) {
-		MemRedstoneWirelessRemote.getInstance(world).setFreq(itemstack,freq);
+		RedstoneWirelessItemStackMem.getInstance(world).setFreq(itemstack,freq);
 	}
 }

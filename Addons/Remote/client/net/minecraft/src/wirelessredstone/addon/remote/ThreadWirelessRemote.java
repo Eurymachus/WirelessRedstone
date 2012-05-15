@@ -42,7 +42,6 @@ public class ThreadWirelessRemote implements Runnable {
 	@Override
 	public void run() {
 		tc++;
-			ModLoader.getLogger().warning("Frequency: " + this.freq);
 			RedstoneEther.getInstance().addTransmitter(
 					world,
 					i,j,k,

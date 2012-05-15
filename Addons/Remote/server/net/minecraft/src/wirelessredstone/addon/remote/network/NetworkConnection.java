@@ -47,7 +47,6 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-REMOTE");
-		ModLoader.getLogger().warning("Channel Registered");
 	}
 
 	@Override

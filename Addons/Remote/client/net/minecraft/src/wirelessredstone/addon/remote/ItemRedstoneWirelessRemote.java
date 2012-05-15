@@ -19,7 +19,7 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.remote.data.MemRedstoneWirelessRemote;
+import net.minecraft.src.wirelessredstone.RedstoneWirelessItemStackMem;
 
 public class ItemRedstoneWirelessRemote extends Item{
 	protected ItemRedstoneWirelessRemote(int i) {
@@ -34,14 +34,8 @@ public class ItemRedstoneWirelessRemote extends Item{
 			return true;
 		}
 		else {
-			String freq = MemRedstoneWirelessRemote.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(itemstack);
-			//if (!world.isRemote) {
-				ThreadWirelessRemote.pulse(
-				entityplayer, freq);
-			//}
-			//else {
-			//	PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(entityplayer, freq, i, j, k, true);
-			//}
+			String freq = RedstoneWirelessItemStackMem.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(itemstack);
+			ThreadWirelessRemote.pulse(entityplayer, freq);
 		}
 		return false;
 	}

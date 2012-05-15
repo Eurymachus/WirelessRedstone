@@ -78,9 +78,4 @@ public class mod_WirelessRedstoneClient extends NetworkMod
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-/*	@Override
-	public void handlePacket(Packet230ModLoader packet) {
-		PacketHandlerRedstoneWireless.handlePacket(packet);
-	}*/
 }
