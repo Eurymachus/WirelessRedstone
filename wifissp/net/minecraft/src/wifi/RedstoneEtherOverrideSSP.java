@@ -82,7 +82,7 @@ public class RedstoneEtherOverrideSSP implements RedstoneEtherOverride {
 	public boolean afterGetFreqState(World world, String freq,
 			boolean returnState) {
 		// TODO Auto-generated method stub
-		return false;
+		return returnState;
 	}
 
 	@Override
