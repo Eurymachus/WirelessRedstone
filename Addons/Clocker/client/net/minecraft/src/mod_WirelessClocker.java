@@ -14,12 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
-import net.minecraft.src.clocker.WirelessClocker;
-import net.minecraft.src.clocker.WirelessClockerSMP;
-import net.minecraft.src.wifi.BlockRedstoneWireless;
-import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
-import net.minecraft.src.wifi.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wifi.GuiRedstoneWirelessOverrideClient;
+import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
+import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClockerSMP;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
+import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 
 public class mod_WirelessClocker extends BaseMod {
 

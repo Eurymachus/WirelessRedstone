@@ -14,10 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
-import net.minecraft.src.clocker.WirelessClocker;
-import net.minecraft.src.clocker.network.NetworkConnection;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
+import net.minecraft.src.wirelessredstone.addon.clocker.network.NetworkConnection;
 
 public class mod_WirelessClocker extends NetworkMod {
 
