@@ -25,6 +25,7 @@ public class mod_WirelessClocker extends BaseMod {
 
 	public boolean wirelessClocker = false;
 	public boolean wirelessClockerSMP = false;
+	public BaseMod instance;
 	
 	@Override
 	public void modsLoaded()
@@ -33,13 +34,14 @@ public class mod_WirelessClocker extends BaseMod {
 		{
 			wirelessClocker = WirelessClocker.initialize();
 		}
-		if (!wirelessClockerSMP && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			wirelessClockerSMP = WirelessClockerSMP.initialize();
+			if (!wirelessClockerSMP) wirelessClockerSMP = WirelessClockerSMP.initialize();
 		}
 	}
 	
 	public mod_WirelessClocker() {
+		instance = this;
 	}
 
 	@Override
