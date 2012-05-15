@@ -37,6 +37,7 @@ public class PacketRedstoneEther extends PacketWifiSMP {
 		setFreq(entity.getFreq());
 	}
 
+	@Override
 	public String toString() {
 		return this.getCommand()+"("+xPosition+","+yPosition+","+zPosition+")["+this.getFreq()+"]:"+this.getState();
 	}

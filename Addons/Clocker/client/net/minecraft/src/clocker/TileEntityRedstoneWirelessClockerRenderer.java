@@ -1,11 +1,10 @@
 package net.minecraft.src.clocker;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.TileEntity;
-import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 public class TileEntityRedstoneWirelessClockerRenderer extends TileEntityRedstoneWirelessRenderer
 {

@@ -16,15 +16,14 @@ package net.minecraft.src;
 
 import net.minecraft.src.clocker.WirelessClocker;
 import net.minecraft.src.clocker.WirelessClockerSMP;
-import net.minecraft.src.wifi.BlockRedstoneWireless;
-import net.minecraft.src.wifi.BlockRedstoneWirelessOverride;
-import net.minecraft.src.wifi.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wifi.GuiRedstoneWirelessOverrideClient;
+import net.minecraft.src.forge.NetworkMod;
 
-public class mod_WirelessClocker extends BaseMod {
+public class mod_WirelessClocker extends NetworkMod {
 
 	public boolean wirelessClocker = false;
 	public boolean wirelessClockerSMP = false;
+	
+	NetworkMod instance;
 	
 	@Override
 	public void modsLoaded()
@@ -33,15 +32,14 @@ public class mod_WirelessClocker extends BaseMod {
 		{
 			wirelessClocker = WirelessClocker.initialize();
 		}
-		if (!wirelessClockerSMP && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (wirelessClocker && !wirelessClockerSMP)
 		{
 			wirelessClockerSMP = WirelessClockerSMP.initialize();
-			GuiRedstoneWirelessOverrideClient override = new GuiRedstoneWirelessOverrideClient();
-			mod_WirelessClocker.addGuiOverrideToClocker(override);
 		}
 	}
 	
 	public mod_WirelessClocker() {
+		instance = this;
 	}
 
 	@Override
@@ -51,13 +49,5 @@ public class mod_WirelessClocker extends BaseMod {
 	@Override
 	public String getVersion() {
 		return "1.0";
-	}
-
-	public static void addOverrideToClocker(BlockRedstoneWirelessOverride override) {
-		((BlockRedstoneWireless)WirelessClocker.blockClock).addOverride(override);
-	}
-	
-	public static void addGuiOverrideToClocker(GuiRedstoneWirelessOverride override) {
-		WirelessClocker.guiClock.addOverride(override);
 	}
 }

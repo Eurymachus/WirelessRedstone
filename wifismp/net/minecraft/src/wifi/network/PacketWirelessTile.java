@@ -28,6 +28,7 @@ public class PacketWirelessTile extends PacketWifiSMP {
 		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setCommand("+command+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
+	@Override
 	public String toString() {
 		return this.getCommand()+"("+xPosition+","+yPosition+","+zPosition+")["+this.getFreq()+"]";
 	}

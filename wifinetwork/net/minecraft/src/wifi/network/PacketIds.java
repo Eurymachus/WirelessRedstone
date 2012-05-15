@@ -15,4 +15,7 @@ public class PacketIds
 	public static final int WIFI_POWERCGUI = 4;
 	public static final int WIFI_REMOTE = 5;
 	public static final int WIFI_REMOTEGUI = 6;
+	public static final int WIFI_CLOCKER = 7;
+	public static final int WIFI_CLOCKERGUI = 8;
+	public static final int WIFI_CLOCKERTILE = 9;
 }

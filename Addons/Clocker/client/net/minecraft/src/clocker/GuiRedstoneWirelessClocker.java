@@ -14,18 +14,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.clocker;
 
-import java.util.ArrayList;
-
 import net.minecraft.src.GuiButton;
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.clocker.network.PacketHandlerWirelessClocker;
 import net.minecraft.src.wifi.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {private boolean isScrolling;
+public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
+	private boolean isScrolling;
 	public GuiRedstoneWirelessClocker() {
 		super();
 	}
 	
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void initGui() {
 		super.initGui();
@@ -38,6 +40,7 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {private boo
 		controlList.add(new GuiButton(13, (width/2)-81, (height/2)+45, 24, 20, "-m"));
 	}
 	
+	@Override
 	public void drawScreen(int i, int j, float f) {
 		super.drawScreen(i, j, f);
 		
@@ -51,6 +54,7 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {private boo
 		GL11.glEnable(2896 /*GL_LIGHTING*/);
 	}
 	
+	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		super.actionPerformed(guibutton);
 		
@@ -79,11 +83,16 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {private boo
 		
 		if ( clockFreq > 2000000000 ) clockFreq = 2000000000;
 		if ( clockFreq < 200 ) clockFreq = 200;
-		
-		if ( oldClockFreq != clockFreq)
+
+		if ( oldClockFreq != clockFreq) {
 			((TileEntityRedstoneWirelessClocker)inventory).setClockFreq(clockFreq);
+			if ( ( ModLoader.getMinecraftInstance().theWorld.isRemote ) ){
+				PacketHandlerWirelessClocker.PacketHandlerOutput.sendWirelessClockerPacket(ModLoader.getMinecraftInstance().thePlayer, String.valueOf(((TileEntityRedstoneWirelessClocker)inventory).getClockFreq()), inventory.xCoord, inventory.yCoord, inventory.zCoord);
+			}
+		}
 	}
 
+	@Override
 	protected void drawGuiContainerForegroundLayer(){
 		super.drawGuiContainerForegroundLayer();
 		

@@ -17,7 +17,6 @@ package net.minecraft.src.clocker;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.src.mod_WirelessClocker;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 
 public class ThreadWirelessClocker implements Runnable {

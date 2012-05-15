@@ -32,6 +32,7 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 		setMaxDamage(64);
 	}
 	
+	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 

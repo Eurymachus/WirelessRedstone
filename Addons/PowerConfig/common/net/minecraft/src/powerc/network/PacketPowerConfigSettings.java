@@ -15,6 +15,7 @@ public class PacketPowerConfigSettings extends PacketPowerConfig {
 		this.payload = p;
 	}
 	
+	@Override
 	public String toString() {
 		return this.payload.getStringPayload(0)+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.getIntPayload(0)+"]";
 	}

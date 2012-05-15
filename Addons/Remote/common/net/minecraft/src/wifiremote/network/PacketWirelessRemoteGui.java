@@ -28,6 +28,7 @@ public class PacketWirelessRemoteGui extends PacketWirelessRemote
 		return this.payload.getIntPayload(0);
 	}
 	
+	@Override
 	public String toString() {
 		return "("+this.xPosition+","+this.yPosition+","+this.zPosition+")RemoteID["+this.getItemDamage()+"]";
 	}

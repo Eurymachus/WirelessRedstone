@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wifi;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiButton;
 
 /**

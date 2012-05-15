@@ -3,11 +3,9 @@ package net.minecraft.src.wifiremote.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetClientHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
-import net.minecraft.src.mod_WirelessRemote;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wifi.network.INetworkConnections;
 import net.minecraft.src.wifi.network.PacketIds;
@@ -52,8 +50,6 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-REMOTE");
-		if (mod_WirelessRemote.wirelessRemote) ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Remote Loaded");
-		if (mod_WirelessRemote.wirelessRemoteSMP) ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Remote SMP Loaded");
 	}
 
 	@Override

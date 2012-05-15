@@ -83,13 +83,13 @@ public class PacketHandlerRedstoneWireless {
 
 		public static void sendEtherTileToAll(TileEntityRedstoneWireless entity, World world, int delay)
 		{
-			PacketRedstoneEther packet = prepareTileEntityPacket((TileEntityRedstoneWireless)entity,world);
+			PacketRedstoneEther packet = prepareTileEntityPacket(entity,world);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendEtherTileToAll:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			(new PacketHandlerOutputSender(packet,delay)).send();
 		}
 		
 		public static void sendEtherTileTo(EntityPlayerMP entityplayermp, TileEntityRedstoneWireless entity, World world, int delay) {
-			PacketRedstoneEther packet = prepareTileEntityPacket((TileEntityRedstoneWireless)entity,world);
+			PacketRedstoneEther packet = prepareTileEntityPacket(entity,world);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendEtherTileTo:"+entityplayermp.username+":"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			(new PacketHandlerOutputSender(entityplayermp,packet,delay)).send();
 		}

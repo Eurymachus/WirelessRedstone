@@ -20,15 +20,13 @@ import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
-import net.minecraft.src.Slot;
 import net.minecraft.src.powerc.network.PacketHandlerPowerConfig;
-import net.minecraft.src.wifi.BlockRedstoneWirelessR;
+import net.minecraft.src.wifi.BlockRedstoneWireless;
 import net.minecraft.src.wifi.GuiButtonBoolean;
 import net.minecraft.src.wifi.GuiButtonWifi;
 import net.minecraft.src.wifi.GuiButtonWifiExit;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
-import net.minecraft.src.wifi.WirelessRedstone;
 
 import org.lwjgl.opengl.GL11;
 
@@ -44,6 +42,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		ySize = 166;
 	}
 	
+	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initGui() {
         controlList = new ArrayList();
@@ -66,6 +65,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		super.initGui();
 	}
 	
+	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		if ( inventory instanceof TileEntityRedstoneWirelessR ) {
 			int dir = -1;
@@ -148,7 +148,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		int i = inventory.getBlockCoord(0);
 		int j = inventory.getBlockCoord(1);
 		int k = inventory.getBlockCoord(2);
-		((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).notifyNeighbors(inventory.worldObj, i, j, k);
+		BlockRedstoneWireless.notifyNeighbors(inventory.worldObj, i, j, k);
 	}
 	
 	@Override
@@ -238,6 +238,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		);
 	}
 	
+	@Override
 	public boolean doesGuiPauseGame(){
 		return false;
 	}

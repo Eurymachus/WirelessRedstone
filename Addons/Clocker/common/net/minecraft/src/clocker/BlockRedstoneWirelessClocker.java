@@ -14,16 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.clocker;
 
-import java.util.Random;
-
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessClocker;
-import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wifi.BlockRedstoneWirelessT;
 import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 import net.minecraft.src.wifi.WirelessRedstone;
@@ -62,14 +57,7 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 
 	@Override
 	protected boolean onBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
-
-		if ( tileentity instanceof TileEntityRedstoneWirelessClocker ) {
-			WirelessClocker.guiClock.assTileEntity((TileEntityRedstoneWirelessClocker)tileentity);
-			ModLoader.openGUI(entityplayer, WirelessClocker.guiClock);
-		}
-		
-		return true;
+		return BlockRedstoneWirelessClockerInjector.onBlockRedstoneWirelessActivated(world, i, j, k, entityplayer);
 	}
 
 	@Override

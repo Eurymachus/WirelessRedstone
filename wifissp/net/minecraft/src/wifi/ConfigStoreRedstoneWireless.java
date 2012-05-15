@@ -128,7 +128,7 @@ public class ConfigStoreRedstoneWireless {
 	private void loadProperties() {
 		conf = new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
 		LoggerRedstoneWireless.getInstance(name).write("Loading Properties.", LoggerRedstoneWireless.LogLevel.INFO);
-		File fullPath = new File(Minecraft.getMinecraftDir().getPath()+file.separator+file.getName());
+		File fullPath = new File(Minecraft.getMinecraftDir().getPath()+File.separator+file.getName());
 		
 		try {
 			if ( fullPath.canRead() ) {
@@ -159,7 +159,7 @@ public class ConfigStoreRedstoneWireless {
 	 * @return Success state.
 	 */
 	private boolean saveProperties() {
-		File fullPath = new File(Minecraft.getMinecraftDir().getPath()+file.separator+file.getName());
+		File fullPath = new File(Minecraft.getMinecraftDir().getPath()+File.separator+file.getName());
 		
 		try {
 			if ( !fullPath.exists() ) {

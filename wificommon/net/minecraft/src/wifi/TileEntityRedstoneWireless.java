@@ -258,7 +258,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 			if(worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
 				return false;
 			}
-			return entityplayer.getDistanceSq((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D) <= 64D;
+			return entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 		} catch ( Exception e) {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 			return false;

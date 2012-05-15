@@ -482,7 +482,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	/**
 	 * Overridden to do nothing at all.
 	 */
-    public void randomDisplayTick(World world, int i, int j, int k, Random random) {}
+	public void randomDisplayTick(World world, int i, int j, int k, Random random) {}
 	
 	/**
 	 * Triggered on a Block update tick.<br>

@@ -29,6 +29,7 @@ public class PacketOpenWindowRedstoneWireless extends PacketWifiSMP {
 		this.payload = p;
 	}
 
+	@Override
 	public String toString() {
 		return this.payload.getIntPayload(0)+":("+xPosition+","+yPosition+","+zPosition+")["+this.payload.getStringPayload(0)+"]";
 	}

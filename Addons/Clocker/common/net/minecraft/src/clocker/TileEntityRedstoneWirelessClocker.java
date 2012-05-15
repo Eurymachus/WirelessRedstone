@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
-import net.minecraft.src.mod_WirelessClocker;
+import net.minecraft.src.Packet;
 import net.minecraft.src.wifi.TileEntityRedstoneWireless;
 
 public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireless {
@@ -96,6 +96,7 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 		return running;
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
 		
@@ -108,6 +109,7 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 		running = nbttagcompound2.getBoolean("clockState");	
 	}
 	
+	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
 		
@@ -122,5 +124,10 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 		nbttagcompound2.setBoolean("clockState", running);
 		nbttaglist2.appendTag(nbttagcompound2);
 		nbttagcompound.setTag("ClockState", nbttaglist2);
+	}
+
+	@Override
+	public Packet getDescriptionPacket() {
+		return TileEntityRedstoneWirelessClockerInjector.getDescriptionPacket(this);
 	}
 }

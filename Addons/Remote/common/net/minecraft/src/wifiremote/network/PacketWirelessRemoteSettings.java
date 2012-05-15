@@ -16,6 +16,7 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 		this.setFreq(freq);
 	}
 	
+	@Override
 	public String toString() {
 		return "Freq["+this.getFreq()+"]("+this.xPosition+","+this.yPosition+","+this.zPosition+")";
 	}

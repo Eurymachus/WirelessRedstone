@@ -128,6 +128,7 @@ public class LoggerRedstoneWireless {
 			}
 		}
 		
+		@Override
 		public void finalize() {
 			try {
 				out.close();

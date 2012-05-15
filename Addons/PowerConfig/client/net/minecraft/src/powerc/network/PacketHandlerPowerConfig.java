@@ -17,10 +17,9 @@ package net.minecraft.src.powerc.network;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.powerc.GuiRedstoneWirelessPowerDirector;
-import net.minecraft.src.wifi.BlockRedstoneWirelessR;
+import net.minecraft.src.wifi.BlockRedstoneWireless;
 import net.minecraft.src.wifi.LoggerRedstoneWireless;
 import net.minecraft.src.wifi.TileEntityRedstoneWirelessR;
-import net.minecraft.src.wifi.WirelessRedstone;
 import net.minecraft.src.wifi.network.PacketUpdate;
 
 public class PacketHandlerPowerConfig {
@@ -59,7 +58,7 @@ public class PacketHandlerPowerConfig {
 				int i = receiver.getBlockCoord(0);
 				int j = receiver.getBlockCoord(1);
 				int k = receiver.getBlockCoord(2);
-				((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).notifyNeighbors(receiver.worldObj, i, j, k);
+				BlockRedstoneWireless.notifyNeighbors(receiver.worldObj, i, j, k);
 			}
 		}
 	}
