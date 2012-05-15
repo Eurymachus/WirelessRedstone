@@ -36,8 +36,6 @@ public class mod_WirelessClocker extends BaseMod {
 		if (!wirelessClockerSMP && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
 			wirelessClockerSMP = WirelessClockerSMP.initialize();
-			GuiRedstoneWirelessOverrideClient override = new GuiRedstoneWirelessOverrideClient();
-			mod_WirelessClocker.addGuiOverrideToClocker(override);
 		}
 	}
 	

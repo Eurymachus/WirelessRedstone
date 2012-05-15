@@ -15,7 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.clocker.WirelessClocker;
-import net.minecraft.src.clocker.WirelessClockerSMP;
+import net.minecraft.src.clocker.network.NetworkConnection;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
 
 public class mod_WirelessClocker extends NetworkMod {
@@ -34,7 +35,7 @@ public class mod_WirelessClocker extends NetworkMod {
 		}
 		if (wirelessClocker && !wirelessClockerSMP)
 		{
-			wirelessClockerSMP = WirelessClockerSMP.initialize();
+			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 		}
 	}
 	
