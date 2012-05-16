@@ -18,7 +18,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 

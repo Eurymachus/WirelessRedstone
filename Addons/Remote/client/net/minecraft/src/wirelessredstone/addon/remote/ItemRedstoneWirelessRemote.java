@@ -19,7 +19,7 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 
 public class ItemRedstoneWirelessRemote extends Item{
 	protected ItemRedstoneWirelessRemote(int i) {
