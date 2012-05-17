@@ -15,8 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wirelessredstone.addon.triangulator.network;
 
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessEtherCoordsMem;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
@@ -36,18 +38,21 @@ public class PacketHandlerWirelessTriangulator {
 		private static void handleWirelessTriangulator(PacketWirelessTriangulatorSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessTriangulatorPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			RedstoneWirelessEtherCoordsMem.getInstance(world).setCoords(entityplayer, packet.getCoords());
+			int[] tx = RedstoneEther.getInstance().getClosestActiveTransmitter(packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+			if (tx != null)
+			{
+				PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, tx);
+			}
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessTriangulatorPacket(EntityPlayer player, String freq) {
-			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(freq);
-			packet.setPosition((int)player.posX, (int)player.posY, (int)player.posZ);
+		public static void sendWirelessTriangulatorPacket(EntityPlayer player, int[] tx) {
+			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings();
+			packet.setPosition(tx[0], tx[1], tx[2]);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Sending Packet: " + packet.channel);
-			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
+			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}
 	}
 }

@@ -16,10 +16,12 @@ public class PacketWirelessTriangulatorSettings extends PacketWirelessTriangulat
 		this.setFreq(freq);
 	}
 	
-	public PacketWirelessTriangulatorSettings(String freq, boolean state) {
-		this();
-		this.payload = new PacketPayload(0,0,1,1);
-		this.setFreq(freq);
-		this.setState(state);
+	public int[] getCoords()
+	{
+		int[] coords = new int[3];
+		coords[0] = this.xPosition;
+		coords[1] = this.yPosition;
+		coords[2] = this.zPosition;
+		return coords;
 	}
 }

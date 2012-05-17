@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.NetClientHandler;
+import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.MessageManager;
@@ -20,14 +20,14 @@ public class NetworkConnection implements INetworkConnections
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
-			NetClientHandler net = (NetClientHandler)network.getNetHandler();
+			NetServerHandler net = (NetServerHandler)network.getNetHandler();
 			int packetID = data.read();
 			switch (packetID)
 			{
 			case PacketIds.WIFI_TRIANGULATOR:
 				PacketWirelessTriangulatorSettings pWR = new PacketWirelessTriangulatorSettings();
 				pWR.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWR, ModLoader.getMinecraftInstance().theWorld, ModLoader.getMinecraftInstance().thePlayer);
+				PacketHandlerWirelessTriangulator.handlePacket(pWR, net.getPlayerEntity().worldObj, net.getPlayerEntity());
 				break;
 			}
 		}
