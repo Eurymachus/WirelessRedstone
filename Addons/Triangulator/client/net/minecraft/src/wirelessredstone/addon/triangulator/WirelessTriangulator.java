@@ -1,16 +1,21 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 
 public class WirelessTriangulator {
+	public static final boolean isServer = false;
 	public static Item itemTriang;
 	public static int triangID=6246;
 	
 	public static TextureTriangulatorFX tex;
+	public static int pulseTime = 2500;
+	public static int maxPulseThreads=5;
 	
 	public static boolean initialize()
 	{
@@ -36,5 +41,9 @@ public class WirelessTriangulator {
 
 	private static void loadConfig() {
 		triangID = (Integer) ConfigStoreRedstoneWireless.getInstance("Triangulator").get("ID", Integer.class, new Integer(triangID));
+	}
+
+	public static void openGUI(EntityPlayer entityplayer, World world) {
+		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(entityplayer, world));
 	}
 }

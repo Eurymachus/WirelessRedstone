@@ -46,7 +46,6 @@ public class PacketHandlerWirelessTriangulator {
 			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(freq);
 			packet.setPosition((int)player.posX, (int)player.posY, (int)player.posZ);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Sending Packet: " + packet.channel);
 			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
 		}
 	}

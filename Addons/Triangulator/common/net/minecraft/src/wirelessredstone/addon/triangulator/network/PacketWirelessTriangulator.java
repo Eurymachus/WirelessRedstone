@@ -14,16 +14,4 @@ public class PacketWirelessTriangulator extends PacketWireless
 	public String toString() {
 		return "Freq["+this.getFreq()+"]("+this.xPosition+","+this.yPosition+","+this.zPosition+")";
 	}
-	
-	@Override
-	public void setFreq(Object freq)
-	{
-		this.payload.setStringPayload(0, freq.toString());
-	}
-	
-	@Override
-	public String getFreq()
-	{
-		return this.payload.getStringPayload(0);
-	}
 }

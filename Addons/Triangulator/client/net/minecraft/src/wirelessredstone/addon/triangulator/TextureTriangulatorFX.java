@@ -35,6 +35,7 @@ public class TextureTriangulatorFX extends TextureFX {
 	private int triangulatorIconImageData[];
 	private double field_4229_i;
 	private double field_4228_j;
+	private boolean firstTick = false;
 
 	public TextureTriangulatorFX(Minecraft minecraft)
 	{
@@ -79,21 +80,19 @@ public class TextureTriangulatorFX extends TextureFX {
 		}
 		
 		double d = 0.0D;
-		
+
 		if(this.mc.theWorld != null && this.mc.thePlayer != null)
 		{
-			int[] tx;
+			int[] tx = null;
 			if ( this.mc.theWorld.isRemote && mod_WirelessTriangulator.wirelessTriangulatorSMP)
 			{
 				for (int stack = 0; stack < this.mc.thePlayer.inventory.getSizeInventory(); stack++)
-				if (this.mc.thePlayer.inventory.hasItem(WirelessTriangulator.itemTriang.shiftedIndex))
 				{
-					tx = RedstoneWirelessEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
-					if (tx == null)
+					if (this.mc.thePlayer.inventory.hasItem(WirelessTriangulator.itemTriang.shiftedIndex))
 					{
-						//PacketWirelessTriangulatorSettings p = new PacketWirelessTriangulatorSettings();
 						String freq =  RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer);
 						PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, freq);
+						tx = RedstoneWirelessEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
 					}
 				}
 			}
@@ -105,18 +104,18 @@ public class TextureTriangulatorFX extends TextureFX {
 							(int)this.mc.thePlayer.posZ, 
 							RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer)
 					);
-				if ( tx != null )
-				{
-					double d2 = (double)tx[0] - this.mc.thePlayer.posX;
-					double d4 = (double)tx[2] - this.mc.thePlayer.posZ;
-					d = ((double)(this.mc.thePlayer.rotationYaw - 90F) * 3.1415926535897931D) / 180D - Math.atan2(d4, d2);
-				}
+			}
+			if ( tx != null && tx[0] != (int)this.mc.thePlayer.posX && tx[1] != (int)this.mc.thePlayer.posY && tx[2] != (int)this.mc.thePlayer.posZ)
+			{
+				double d2 = (double)tx[0] - this.mc.thePlayer.posX;
+				double d4 = (double)tx[2] - this.mc.thePlayer.posZ;
+				d = ((double)(this.mc.thePlayer.rotationYaw - 90F) * Math.PI) / 180D - Math.atan2(d4, d2);
 			}
 		}
 		
 		double d1;
-		for(d1 = d - this.field_4229_i; d1 < -3.1415926535897931D; d1 += 6.2831853071795862D) { }
-		for(; d1 >= 3.1415926535897931D; d1 -= 6.2831853071795862D) { }
+		for(d1 = d - this.field_4229_i; d1 < -Math.PI; d1 += (Math.PI * 2D)) { }
+		for(; d1 >= Math.PI; d1 -= (Math.PI * 2D)) { }
 		if(d1 < -1D) {
 			d1 = -1D;
 		}

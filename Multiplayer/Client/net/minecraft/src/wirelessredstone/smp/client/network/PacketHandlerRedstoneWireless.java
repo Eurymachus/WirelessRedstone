@@ -131,7 +131,7 @@ public class PacketHandlerRedstoneWireless {
 					
 				}
 				RedstoneEther.getInstance().addTransmitter(player.worldObj, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq().toString());
-				ModLoader.getMinecraftInstance().thePlayer.addChatMessage(packet.toString());
+				//ModLoader.getMinecraftInstance().thePlayer.addChatMessage(packet.toString());
 			}
 			else if ( packet.getCommand().equals("addReceiver") )
 			{
@@ -146,7 +146,7 @@ public class PacketHandlerRedstoneWireless {
 					player.worldObj.setBlockTileEntity(packet.xPosition, packet.yPosition, packet.zPosition, entity);
 				}
 				RedstoneEther.getInstance().addReceiver(player.worldObj, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq().toString());
-				ModLoader.getMinecraftInstance().thePlayer.addChatMessage(packet.toString());
+				//ModLoader.getMinecraftInstance().thePlayer.addChatMessage(packet.toString());
 			}
 		}
 	}

@@ -24,4 +24,16 @@ public class PacketWirelessTriangulatorSettings extends PacketWirelessTriangulat
 		coords[2] = this.zPosition;
 		return coords;
 	}
+	
+	@Override
+	public void setFreq(Object freq)
+	{
+		this.payload.setStringPayload(0, freq.toString());
+	}
+	
+	@Override
+	public String getFreq()
+	{
+		return this.payload.getStringPayload(0);
+	}
 }

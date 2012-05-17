@@ -25,9 +25,9 @@ public class NetworkConnection implements INetworkConnections
 			switch (packetID)
 			{
 			case PacketIds.WIFI_TRIANGULATOR:
-				PacketWirelessTriangulatorSettings pWR = new PacketWirelessTriangulatorSettings();
-				pWR.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWR, net.getPlayerEntity().worldObj, net.getPlayerEntity());
+				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
+				pWT.readData(data);
+				PacketHandlerWirelessTriangulator.handlePacket(pWT, net.getPlayerEntity().worldObj, net.getPlayerEntity());
 				break;
 			}
 		}
