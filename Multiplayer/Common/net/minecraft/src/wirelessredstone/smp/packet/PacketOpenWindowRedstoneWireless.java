@@ -8,6 +8,12 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
+/**
+ * Used to send Wireless Gui packet information
+ * 
+ * @author Eurymachus
+ *
+ */
 public class PacketOpenWindowRedstoneWireless extends PacketWireless {
 	public PacketOpenWindowRedstoneWireless() {
 		super(PacketIds.WIFI_GUI);
@@ -15,7 +21,7 @@ public class PacketOpenWindowRedstoneWireless extends PacketWireless {
 	public PacketOpenWindowRedstoneWireless(TileEntityRedstoneWireless entity) {
 		super(PacketIds.WIFI_GUI);
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
-		PacketPayload p = new PacketPayload(1,0,2,1);
+		this.payload = new PacketPayload(1,0,2,1);
 		if ( entity instanceof TileEntityRedstoneWirelessR) {
 			this.setType(0);
 		} else if ( entity instanceof TileEntityRedstoneWirelessT ) {
@@ -23,7 +29,6 @@ public class PacketOpenWindowRedstoneWireless extends PacketWireless {
 		}
 		this.setFreq(entity.currentFreq);
 		this.setFirstTick(entity.firstTick);
-		this.payload = p;
 	}
 
 	@Override

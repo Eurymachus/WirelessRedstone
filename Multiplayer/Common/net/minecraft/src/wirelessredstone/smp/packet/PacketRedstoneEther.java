@@ -8,25 +8,26 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
-
+/**
+ * Used to send Redstone Ether packet data
+ * 
+ * @author Eurymachus
+ *
+ */
 public class PacketRedstoneEther extends PacketWireless {
-	//public boolean state = false;
-	
 	public PacketRedstoneEther() {
 		super(PacketIds.WIFI_ETHER);
 	}
 	
 	public PacketRedstoneEther(String command) {
-		super(PacketIds.WIFI_ETHER);
-		this.payload = new PacketPayload(0,0,2,1);
+		super(PacketIds.WIFI_ETHER, new PacketPayload(0,0,2,1));
 		setCommand(command);
 	}
 	
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world)
 	{
-		super(PacketIds.WIFI_ETHER);
+		super(PacketIds.WIFI_ETHER, new PacketPayload(0,0,2,1));
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
-		this.payload = new PacketPayload(0,0,2,1);
 		if ( entity instanceof TileEntityRedstoneWirelessR) {
 			setState(((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).getState(world, this.xPosition, this.yPosition, this.zPosition));
 			setCommand("addReceiver");

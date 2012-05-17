@@ -34,6 +34,9 @@ public abstract class EurysPacket extends ForgePacket
 		this.zPosition = z;
 	}
 	
+	/**
+	 * Retrieves the Custom Packet and Payload data as a Forge Packet250CustomPayload
+	 */
 	@Override
     public Packet getPacket()
 	{

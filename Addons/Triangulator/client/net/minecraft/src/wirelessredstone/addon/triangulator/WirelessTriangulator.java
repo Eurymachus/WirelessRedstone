@@ -1,8 +1,9 @@
-package net.minecraft.src.wirelessredstone;
+package net.minecraft.src.wirelessredstone.addon.triangulator;
 
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 
 public class WirelessTriangulator {
@@ -14,7 +15,7 @@ public class WirelessTriangulator {
 	public static boolean initialize()
 	{
 		loadConfig();
-		itemTriang = (new ItemRedstoneWirelessTriangulator(triangID)).setItemName("triang");
+		itemTriang = (new ItemRedstoneWirelessTriangulator(triangID - 256)).setItemName("triang");
 		loadItemTextures();
 		AddRecipes();
 		ModLoader.addName(itemTriang, "Wireless Triangulator");

@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
-package net.minecraft.src.wirelessredstone;
+package net.minecraft.src.wirelessredstone.addon.triangulator;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
@@ -20,18 +20,16 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 
-public class ItemRedstoneWirelessTriangulator extends Item{
-	public String freq = "0";
-
+public class ItemRedstoneWirelessTriangulator extends Item {
 	protected ItemRedstoneWirelessTriangulator(int i) {
 		super(i);
 		maxStackSize = 1;
 	}
 	
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator());
 		return true;
 	}
+	
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		onItemUse(
 				itemstack, 

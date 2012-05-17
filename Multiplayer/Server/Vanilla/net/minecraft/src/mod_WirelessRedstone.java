@@ -16,11 +16,13 @@ public class mod_WirelessRedstone extends NetworkMod
 	
 	public mod_WirelessRedstone() {
 		instance = this;
-    	MinecraftForge.registerConnectionHandler(new NetworkConnection());
-		WirelessRedstone.load();
 		
+    	MinecraftForge.registerConnectionHandler(new NetworkConnection());
+    	
 		RedstoneEtherOverrideServer etherOverride = new RedstoneEtherOverrideServer();
 		RedstoneEther.getInstance().addOverride(etherOverride);
+		
+		WirelessRedstone.load();
 	}
 	
 	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override) {

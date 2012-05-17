@@ -174,7 +174,7 @@ public class PacketHandlerRedstoneWireless {
 		public static void sendEtherFrequencyTilesToAll(List<RedstoneEtherNode> txs, List<RedstoneEtherNode> rxs, int delay) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendEtherFrequencyTilesToAll", LoggerRedstoneWireless.LogLevel.DEBUG);
 
-			PacketRedstoneEther packet;
+			//PacketRedstoneEther packet;
 			World world = ModLoader.getMinecraftServerInstance().getWorldManager(0);
 			for ( RedstoneEtherNode node: rxs ) {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j, node.k);

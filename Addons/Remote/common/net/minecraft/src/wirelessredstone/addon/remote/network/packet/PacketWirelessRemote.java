@@ -1,8 +1,8 @@
 package net.minecraft.src.wirelessredstone.addon.remote.network.packet;
 
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.packet.PacketWireless;
 
-public class PacketWirelessRemote extends PacketUpdate
+public class PacketWirelessRemote extends PacketWireless
 {
 	public PacketWirelessRemote(int packetId)
 	{
