@@ -19,6 +19,7 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.RedstoneEther;
+import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 
@@ -39,8 +40,9 @@ public class PacketHandlerWirelessTriangulator {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessTriangulatorPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 
 			int[] tx = RedstoneEther.getInstance().getClosestActiveTransmitter(packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
-			if (tx != null)
+			if (tx != null) {
 				PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, tx, packet.getFreq());
+			}
 			else PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, packet.getCoords(), "Reset");
 		}
 	}

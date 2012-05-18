@@ -19,4 +19,5 @@ public class PacketIds
 	public static final int WIFI_CLOCKERGUI = 8;
 	public static final int WIFI_CLOCKERTILE = 9;
 	public static final int WIFI_TRIANGULATOR = 10;
+	public static final int WIFI_SNIFFER = 11;
 }

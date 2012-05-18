@@ -29,7 +29,7 @@ public class mod_WirelessSniffer extends BaseMod
 		{
 			if (!wirelessSniffer) wirelessSniffer = WirelessSniffer.initialize();
 		}
-		if (ModLoader.isModLoaded("mod_WirelessRedstoneSMP"))
+		if (ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
 			if (!wirelessSnifferSMP) wirelessSnifferSMP = WirelessSnifferSMP.initialize();
 		}

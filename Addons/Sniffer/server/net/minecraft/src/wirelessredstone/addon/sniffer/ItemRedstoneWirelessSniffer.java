@@ -27,7 +27,6 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	}
 	
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(entityplayer, world));
 		return itemstack;
 	}
 	

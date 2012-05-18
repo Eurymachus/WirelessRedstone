@@ -45,4 +45,14 @@ public class RedstoneWirelessSnifferFreqCoordsMem {
 			return node.page;
 		}
 	}
+
+	public boolean getState(int c) {
+		SnifferFreqCoordsMemNode node = freqCoords.get(String.valueOf(c));
+		if ( node == null ) {
+			addMem(0, 0, 0, String.valueOf(c), false);
+			return false;
+		} else {
+			return node.state;
+		}
+	}
 }

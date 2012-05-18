@@ -1,9 +1,13 @@
 package net.minecraft.src.wirelessredstone;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.NetServerHandler;
+import net.minecraft.src.NetworkManager;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
@@ -113,5 +117,19 @@ public class WirelessRedstone
 		initUpdate = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Update.LoginDelay", Integer.class, new Integer(initUpdate));
 		//etherPackID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Packet.Ether.ID", Integer.class, new Integer(etherPackID));
 		//guiPackID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Packet.Gui.ID", Integer.class, new Integer(guiPackID));
+	}
+
+
+	public static World getWorld(NetworkManager network)
+	{
+		NetServerHandler net = (NetServerHandler)network.getNetHandler();
+		return net.getPlayerEntity().worldObj;
+	}
+
+
+	public static EntityPlayer getPlayer(NetworkManager network)
+	{
+		NetServerHandler net = (NetServerHandler)network.getNetHandler();
+		return net.getPlayerEntity();
 	}
 }

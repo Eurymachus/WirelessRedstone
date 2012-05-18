@@ -20,13 +20,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.ChunkCoordinates;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TextureFX;
 import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
-import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketWirelessTriangulatorSettings;
+import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
 
@@ -105,7 +106,7 @@ public class TextureTriangulatorFX extends TextureFX {
 							RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer)
 					);
 			}
-			if ( tx != null && tx[0] != (int)this.mc.thePlayer.posX && tx[1] != (int)this.mc.thePlayer.posY && tx[2] != (int)this.mc.thePlayer.posZ)
+			if ( tx != null && !(tx[0] == (int)this.mc.thePlayer.posX && tx[1] == (int)this.mc.thePlayer.posY && tx[2] == (int)this.mc.thePlayer.posZ))
 			{
 				double d2 = (double)tx[0] - this.mc.thePlayer.posX;
 				double d4 = (double)tx[2] - this.mc.thePlayer.posZ;

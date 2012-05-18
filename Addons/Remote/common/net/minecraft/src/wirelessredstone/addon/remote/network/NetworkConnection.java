@@ -3,11 +3,15 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
+import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote;
+import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
@@ -21,16 +25,22 @@ public class NetworkConnection implements INetworkConnections
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
-			NetServerHandler net = (NetServerHandler)network.getNetHandler();
+			World world = WirelessRedstone.getWorld(network);
+			EntityPlayer player = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
 			switch (packetID)
 			{
 			case PacketIds.WIFI_REMOTE:
 				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
 				pWR.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pWR, net.getPlayerEntity());
+				PacketHandlerWirelessRemote.handlePacket(pWR, world, player);
 				break;
-			} 
+			case PacketIds.WIFI_REMOTEGUI:
+				PacketWirelessRemoteGui pRG = new PacketWirelessRemoteGui();
+				pRG.readData(data);
+				PacketHandlerWirelessRemote.handlePacket(pRG, world, player);
+				break;
+			}
 		}
 		catch(Exception ex)
 		{
@@ -47,6 +57,7 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-REMOTE");
+		ModLoader.getLogger().warning("Wireless Redstone : Remote Registered for - " + WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override

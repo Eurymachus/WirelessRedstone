@@ -7,7 +7,9 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.sniffer.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 
 public class WirelessSniffer
@@ -17,6 +19,7 @@ public class WirelessSniffer
 	
 	public static boolean initialize()
 	{
+		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 		loadConfig();
 		itemSniffer = (new ItemRedstoneWirelessSniffer(sniffID - 256)).setItemName("sniffer");
 		loadItemTextures();

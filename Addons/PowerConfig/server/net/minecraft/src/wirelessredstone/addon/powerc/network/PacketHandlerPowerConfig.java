@@ -17,6 +17,7 @@ package net.minecraft.src.wirelessredstone.addon.powerc.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -26,22 +27,22 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR
 
 public class PacketHandlerPowerConfig {
 	
-	public static void handlePacket(PacketUpdate packet, EntityPlayer entityplayer)
+	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer entityplayer)
 	{
 		if ( packet instanceof PacketPowerConfigGui ) {
-			PacketHandlerInput.openGUI((PacketPowerConfigGui)packet, entityplayer);
+			PacketHandlerInput.openGUI((PacketPowerConfigGui)packet, world, entityplayer);
 		} else if ( packet instanceof PacketPowerConfigSettings ) {
-			PacketHandlerInput.handlePowerConfig((PacketPowerConfigSettings)packet, entityplayer);
+			PacketHandlerInput.handlePowerConfig((PacketPowerConfigSettings)packet, world, entityplayer);
 		}
 	}
 	
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketPowerConfigGui packet, EntityPlayer entityplayer)
+		private static void openGUI(PacketPowerConfigGui packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("openGUI:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 
-			TileEntity entity = packet.getTarget(entityplayer.worldObj);
+			TileEntity entity = packet.getTarget(world);
 			if (entity != null && entity instanceof TileEntityRedstoneWirelessR)
 			{
 				if (entityplayer.canPlayerEdit(packet.xPosition, packet.yPosition, packet.zPosition))
@@ -51,10 +52,10 @@ public class PacketHandlerPowerConfig {
 			}
 		}
 
-		private static void handlePowerConfig(PacketPowerConfigSettings packet, EntityPlayer entityplayer)
+		private static void handlePowerConfig(PacketPowerConfigSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handlePowerConfigPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = packet.getTarget(entityplayer.worldObj);
+			TileEntity entity = packet.getTarget(world);
 			if (entity != null && entity instanceof TileEntityRedstoneWirelessR)
 			{
 				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR)entity;
@@ -67,7 +68,7 @@ public class PacketHandlerPowerConfig {
 				int i = receiver.getBlockCoord(0);
 				int j = receiver.getBlockCoord(1);
 				int k = receiver.getBlockCoord(2);
-				BlockRedstoneWireless.notifyNeighbors(receiver.worldObj, i, j, k);
+				BlockRedstoneWireless.notifyNeighbors(world, i, j, k);
 				receiver.onInventoryChanged();
 			}
 		}

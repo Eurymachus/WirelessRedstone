@@ -1,9 +1,12 @@
 package net.minecraft.src.wirelessredstone;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.NetworkManager;
+import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
@@ -175,5 +178,15 @@ public class WirelessRedstone
 		loadItemTextures();
 		registerBlocks();
 		addRecipes();
+	}
+
+	public static World getWorld(NetworkManager network)
+	{
+		return ModLoader.getMinecraftInstance().theWorld;
+	}
+
+	public static EntityPlayer getPlayer(NetworkManager network)
+	{
+		return ModLoader.getMinecraftInstance().thePlayer;
 	}
 }

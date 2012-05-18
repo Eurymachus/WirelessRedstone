@@ -17,6 +17,7 @@ package net.minecraft.src.wirelessredstone.addon.triangulator.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;

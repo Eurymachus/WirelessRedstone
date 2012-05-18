@@ -3,10 +3,14 @@ package net.minecraft.src.wirelessredstone.addon.powerc.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
-import net.minecraft.src.NetClientHandler;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
+import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.powerc.network.PacketHandlerPowerConfig;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
@@ -21,19 +25,20 @@ public class NetworkConnection implements INetworkConnections
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
-			NetClientHandler net = (NetClientHandler)network.getNetHandler();
+			World world = WirelessRedstone.getWorld(network);
+			EntityPlayer player = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
 			switch (packetID)
 			{
 			case PacketIds.WIFI_POWERC:
 				PacketPowerConfigSettings pPC = new PacketPowerConfigSettings();
 				pPC.readData(data);
-				PacketHandlerPowerConfig.handlePacket(pPC);
+				PacketHandlerPowerConfig.handlePacket(pPC, world, player);
 				break;
 			case PacketIds.WIFI_POWERCGUI:
 				PacketPowerConfigGui pPCGui = new PacketPowerConfigGui();
 				pPCGui.readData(data);
-				PacketHandlerPowerConfig.handlePacket(pPCGui);
+				PacketHandlerPowerConfig.handlePacket(pPCGui, world, player);
 				break;
 			} 
 		}
@@ -52,6 +57,7 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-POWERC");
+		ModLoader.getLogger().warning("Wireless Redstone : Power Configurator Registered for - " + WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override

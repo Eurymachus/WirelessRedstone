@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone.addon.triangulator.network;
+package net.minecraft.src.wirelessredstone.addon.triangulator.network.packet;
 
 import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;

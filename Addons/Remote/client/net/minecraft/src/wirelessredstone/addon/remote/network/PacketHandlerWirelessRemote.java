@@ -16,6 +16,7 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -24,7 +25,7 @@ import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 
 public class PacketHandlerWirelessRemote {
 	
-	public static void handlePacket(PacketUpdate packet)
+	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player)
 	{
 		if ( packet instanceof PacketWirelessRemoteSettings ) {
 			PacketHandlerInput.handleWirelessRemote((PacketWirelessRemoteSettings)packet);
