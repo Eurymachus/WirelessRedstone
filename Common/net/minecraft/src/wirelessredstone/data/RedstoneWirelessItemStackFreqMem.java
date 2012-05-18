@@ -20,25 +20,25 @@ import java.util.Map;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 
-public class RedstoneWirelessItemStackMem {
-	private static RedstoneWirelessItemStackMem instance;
-	private Map<Integer,ItemStackMemNode> freqs;
+public class RedstoneWirelessItemStackFreqMem {
+	private static RedstoneWirelessItemStackFreqMem instance;
+	private Map<Integer,ItemStackFreqMemNode> freqs;
 	private World world;
 	
-	private RedstoneWirelessItemStackMem(World world) {
-		freqs = new HashMap<Integer,ItemStackMemNode>();
+	private RedstoneWirelessItemStackFreqMem(World world) {
+		freqs = new HashMap<Integer,ItemStackFreqMemNode>();
 		this.world = world;
 	}
 	
-	public static RedstoneWirelessItemStackMem getInstance(World world) {
+	public static RedstoneWirelessItemStackFreqMem getInstance(World world) {
 		if ( instance == null || instance.world.hashCode() != world.hashCode() ) 
-			instance = new RedstoneWirelessItemStackMem(world);
+			instance = new RedstoneWirelessItemStackFreqMem(world);
 		
 		return instance;
 	}
 	
 	public void addMem(ItemStack itemstack, String freq) {
-		ItemStackMemNode memnode = new ItemStackMemNode(itemstack, freq);
+		ItemStackFreqMemNode memnode = new ItemStackFreqMemNode(itemstack, freq);
 		freqs.put(itemstack.getItemDamage(), memnode);
 	}
 	
@@ -51,7 +51,7 @@ public class RedstoneWirelessItemStackMem {
 	}
 	
 	public String getFreq(ItemStack itemstack) {
-		ItemStackMemNode node = freqs.get(itemstack.getItemDamage());
+		ItemStackFreqMemNode node = freqs.get(itemstack.getItemDamage());
 		if ( node == null ) {
 			addMem(itemstack, "0");
 			return "0";

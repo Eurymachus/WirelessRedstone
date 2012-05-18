@@ -20,43 +20,43 @@ import java.util.Map;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 
-public class RedstoneWirelessPlayerMem {
-	private static RedstoneWirelessPlayerMem instance;
-	private Map<String,PlayerMemNode> freqs;
+public class RedstoneWirelessPlayerEtherCoordsMem {
+	private static RedstoneWirelessPlayerEtherCoordsMem instance;
+	private Map<String,PlayerEtherCoordsMemNode> coords;
 	private World world;
 	
-	private RedstoneWirelessPlayerMem(World world) {
-		freqs = new HashMap<String,PlayerMemNode>();
+	private RedstoneWirelessPlayerEtherCoordsMem(World world) {
+		coords = new HashMap<String,PlayerEtherCoordsMemNode>();
 		this.world = world;
 	}
 	
-	public static RedstoneWirelessPlayerMem getInstance(World world) {
+	public static RedstoneWirelessPlayerEtherCoordsMem getInstance(World world) {
 		if ( instance == null || instance.world.hashCode() != world.hashCode() ) 
-			instance = new RedstoneWirelessPlayerMem(world);
+			instance = new RedstoneWirelessPlayerEtherCoordsMem(world);
 		
 		return instance;
 	}
 	
-	public void addMem(EntityPlayer entityplayer, String freq) {
-		PlayerMemNode memnode = new PlayerMemNode(entityplayer, freq);
-		freqs.put(entityplayer.username, memnode);
+	public void addMem(EntityPlayer entityplayer, int[] newcoords) {
+		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
+		coords.put(entityplayer.username, memnode);
 	}
 	
 	public void remMem(String username) {
-		freqs.remove(username);
+		coords.remove(username);
 	}
 	
-	public void setFreq(EntityPlayer entityplayer, String freq) {
-		addMem(entityplayer, freq);
+	public void setCoords(EntityPlayer entityplayer, int[] newcoords) {
+		addMem(entityplayer, newcoords);
 	}
 	
-	public String getFreq(EntityPlayer entityplayer) {
-		PlayerMemNode node = freqs.get(entityplayer.username);
+	public int[] getCoords(EntityPlayer entityplayer) {
+		PlayerEtherCoordsMemNode node = coords.get(entityplayer.username);
 		if ( node == null ) {
-			addMem(entityplayer, "0");
-			return "0";
+			addMem(entityplayer, null);
+			return null;
 		} else {
-			return node.freq;
+			return node.coords;
 		}
 	}
 }

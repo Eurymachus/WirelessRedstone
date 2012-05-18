@@ -2,12 +2,12 @@ package net.minecraft.src.wirelessredstone.data;
 
 import net.minecraft.src.EntityPlayer;
 
-public class PlayerMemNode {
+public class PlayerEtherCoordsMemNode {
 	EntityPlayer entityplayer;
-	String freq;
+	int[] coords;
 	
-	public PlayerMemNode(EntityPlayer entityplayer, String freq){
+	public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, int[] coords){
 		this.entityplayer = entityplayer;
-		this.freq = freq;
+		this.coords = coords;
 	}
 }

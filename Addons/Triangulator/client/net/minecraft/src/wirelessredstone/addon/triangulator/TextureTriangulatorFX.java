@@ -28,7 +28,7 @@ import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessEtherCoordsMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
 
 public class TextureTriangulatorFX extends TextureFX {
 	private Minecraft mc;
@@ -92,7 +92,7 @@ public class TextureTriangulatorFX extends TextureFX {
 					{
 						String freq =  RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer);
 						PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, freq);
-						tx = RedstoneWirelessEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
+						tx = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
 					}
 				}
 			}
