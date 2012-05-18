@@ -34,6 +34,8 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	private ThreadWirelessSniffer thr;
 	protected int page;
 	protected int[] freqCoords = new int[3];
+	boolean next = false;
+	boolean prev = false;
 	
 	public GuiRedstoneWirelessSniffer() {
 		super();
@@ -45,20 +47,12 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 
 	@Override
 	public void initGui() {
+		if (page >= 0 && page < 6) next = true; else next = false;
+		if (page > 0 && page <= 6) prev = true; else prev = false;
 		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
 		controlList.add(new GuiButtonBoolean(0, (width/2)-0, (height/2)+75, 40, 20, "Next", true));
 		controlList.add(new GuiButtonBoolean(1, (width/2)-40, (height/2)+75, 40, 20, "Prev", false));
 		super.initGui();
-	}
-
-	private void addButtons() {
-		boolean next, prev;
-		if (page >= 0 && page < 6) next = true;
-		else next = false;
-		if (page > 0 && page <= 6) prev = true;
-		else prev = false;
-		controlList.set(0, new GuiButtonBoolean(0, (width/2)-0, (height/2)+75, 40, 20, "Next", next));
-		controlList.set(1, new GuiButtonBoolean(1, (width/2)-40, (height/2)+75, 40, 20, "Prev", prev));
 	}
 
 	@Override
@@ -81,7 +75,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		if (page < 0) page = 0;
 		if (oldPage != page){
 			setPage(page);
-			this.addButtons();
+			initGui();
 		}
 	}
 
