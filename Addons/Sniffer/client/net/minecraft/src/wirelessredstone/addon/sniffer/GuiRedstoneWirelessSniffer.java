@@ -40,6 +40,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	protected int xSize;
 	protected int ySize;
 	private int maxEtherNodes = 9999;
+	private boolean[] activeFreqs = new boolean[maxEtherNodes+1];
 	private int nodeSize = 4;
 	private int pageWidth = 50;
 	private int pageHeight = 30;
@@ -75,10 +76,10 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		switch(guibutton.id)
 		{
 			case 0:
-				page++;
+				++page;
 				break;
 			case 1:
-				page--;
+				--page;
 				break;
 			case 100:
 				close();
@@ -88,10 +89,10 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		if (page < 0) page = 0;
 		if (oldPage != page) {
 			if ((oldPage-page)==-1) {
-				setPage(getPage()+1);
+				setPage(oldPage+1);
 			}
 			else {
-				setPage(getPage()-1);
+				setPage(oldPage-1);
 			}
 		}
 		if (nextButton.enabled && getPage() == maxEtherNodes/(pageWidth*pageHeight)) {
@@ -150,11 +151,11 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 			for ( int m = 0; m < pageWidth; m++ ) {
 				x = i+(nodeSize*m)+m;
 				y = j+(nodeSize*n)+n;
-				if (c <= 9999 && c >= 0) {
+				if (c <= maxEtherNodes && c >= 0)
+				{
 					if (world.isRemote && mod_WirelessSniffer.wirelessSnifferSMP)
 					{
-						PacketHandlerWirelessSniffer.PacketHandlerOutput.sendWirelessSnifferPacket(this.mc.thePlayer, c);
-						if (RedstoneWirelessSnifferFreqCoordsMem.getInstance(world).getState(c))
+						if (this.getFreqState(c))
 							drawRect(x, y, x+nodeSize, y+nodeSize, 0xff00ff00);
 						else
 							drawRect(x, y, x+nodeSize, y+nodeSize, 0xffff0000);
@@ -185,5 +186,30 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	
 	public void onGuiClosed() {
 		thr.running = false;
+	}
+
+	protected boolean getFreqState(int freq)
+	{
+		if (freq > maxEtherNodes) return false;
+		if (this.activeFreqs.length == maxEtherNodes+1)
+		{
+			return this.activeFreqs[freq];
+		}
+		else return false;
+	}
+	
+	public void setActiveFreqs(String[] activeFreqs)
+	{
+		boolean[] newActiveFreqs = new boolean[maxEtherNodes+1];
+		int j = 0;
+		for(int i = 0; i < maxEtherNodes; ++i)
+		{
+			if (activeFreqs != null && j < activeFreqs.length && String.valueOf(i).equals(activeFreqs[j]))
+			{
+				this.activeFreqs[i] = true;
+				++j;
+			}
+			else this.activeFreqs[i] = false;
+		}
 	}
 }

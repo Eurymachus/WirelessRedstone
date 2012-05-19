@@ -10,6 +10,8 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferEtherCopy;
+import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferOpenGui;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
@@ -31,6 +33,16 @@ public class NetworkConnection implements INetworkConnections
 				PacketWirelessSnifferSettings pWS = new PacketWirelessSnifferSettings();
 				pWS.readData(data);
 				PacketHandlerWirelessSniffer.handlePacket(pWS, world, player);
+				break;
+			case PacketIds.WIFI_SNIFFERETHER:
+				PacketWirelessSnifferEtherCopy pWSEC = new PacketWirelessSnifferEtherCopy();
+				pWSEC.readData(data);
+				PacketHandlerWirelessSniffer.handlePacket(pWSEC, world, player);
+				break;
+			case PacketIds.WIFI_SNIFFERGUI:
+				PacketWirelessSnifferOpenGui pWSG = new PacketWirelessSnifferOpenGui();
+				pWSG.readData(data);
+				PacketHandlerWirelessSniffer.handlePacket(pWSG, world, player);
 				break;
 			}
 		}
