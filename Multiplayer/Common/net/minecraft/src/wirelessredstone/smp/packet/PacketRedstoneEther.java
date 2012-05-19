@@ -43,32 +43,38 @@ public class PacketRedstoneEther extends PacketWireless {
 		return this.getCommand()+"("+xPosition+","+yPosition+","+zPosition+")["+this.getFreq()+"]:"+this.getState();
 	}
 	
+	@Override
 	public String getCommand()
 	{
 		return this.payload.getStringPayload(0);
 	}
 	
+	@Override
 	public void setCommand(String command)
 	{
 		this.payload.setStringPayload(0, command);
 		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setCommand("+command+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 	
+	@Override
 	public String getFreq()
 	{
 		return this.payload.getStringPayload(1);
 	}
 
+	@Override
 	public void setFreq(Object freq) {
 		this.payload.setStringPayload(1, freq.toString());
 		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setFreq("+freq.toString()+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
+	@Override
 	public void setState(boolean state) {
 		this.payload.setBoolPayload(0, state);
 		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write("setState("+state+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
+	@Override
 	public boolean getState() {
 		return this.payload.getBoolPayload(0);
 	}

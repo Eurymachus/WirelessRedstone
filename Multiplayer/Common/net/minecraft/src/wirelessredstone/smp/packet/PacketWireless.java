@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.smp.packet;
 
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 /**
  * Extend for new packets

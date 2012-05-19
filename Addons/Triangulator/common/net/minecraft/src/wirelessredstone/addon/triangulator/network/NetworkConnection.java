@@ -5,7 +5,6 @@ import java.io.DataInputStream;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.NetHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;

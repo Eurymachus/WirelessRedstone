@@ -22,6 +22,7 @@ public class mod_WirelessTriangulator extends BaseMod {
 	public static boolean wirelessTriangulatorSMP;
 	public static BaseMod instance;
 	
+	@Override
 	public void modsLoaded()
 	{
 		if (ModLoader.isModLoaded("mod_WirelessRedstone"))

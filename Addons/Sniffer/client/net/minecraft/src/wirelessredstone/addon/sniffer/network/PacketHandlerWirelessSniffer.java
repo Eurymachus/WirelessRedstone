@@ -5,10 +5,9 @@ import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.sniffer.GuiRedstoneWirelessSniffer;
-import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferFreqCoordsMem;
+import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferEtherCopy;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferOpenGui;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferSettings;
-import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferEtherCopy;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 

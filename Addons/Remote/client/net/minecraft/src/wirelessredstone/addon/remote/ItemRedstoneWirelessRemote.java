@@ -62,5 +62,6 @@ public class ItemRedstoneWirelessRemote extends Item{
     public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
 		itemstack.setItemDamage(itemstack.hashCode());
+		this.iconIndex = WirelessRemote.remoteoff;
     }
 }

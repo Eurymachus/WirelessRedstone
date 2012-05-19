@@ -42,12 +42,23 @@ public class RedstoneWirelessPlayerMem {
 		playerFreqs.put(entityplayer.username, memnode);
 	}
 	
+	public void addMem(EntityPlayer entityplayer, String freq, boolean state) {
+		RedstoneWirelessPlayerMemNode memnode = playerFreqs.get(freq);
+		memnode.received = state;
+		playerFreqs.put(entityplayer.username, memnode);
+	}
+	
 	public void remMem(String username) {
 		playerFreqs.remove(username);
 	}
 	
 	public void setFreq(EntityPlayer entityplayer, String freq) {
 		addMem(entityplayer, freq);
+	}
+	
+	public void setReceived(EntityPlayer entityplayer, String freq, boolean state)
+	{
+		addMem(entityplayer, freq, state);
 	}
 	
 	public String getFreq(EntityPlayer entityplayer) {
@@ -57,6 +68,16 @@ public class RedstoneWirelessPlayerMem {
 			return "0";
 		} else {
 			return node.freq;
+		}
+	}
+	
+	public boolean getState(EntityPlayer entityplayer) {
+		RedstoneWirelessPlayerMemNode node = playerFreqs.get(entityplayer.username);
+		if ( node == null ) {
+			addMem(entityplayer, "0");
+			return false;
+		} else {
+			return node.received;
 		}
 	}
 }

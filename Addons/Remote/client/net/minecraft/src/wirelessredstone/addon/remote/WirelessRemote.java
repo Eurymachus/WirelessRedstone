@@ -10,6 +10,7 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class WirelessRemote {	
 	public static Item itemRemote;
+	public static int remoteon, remoteoff;
 	public static int remoteID=6245;
 	
 	public static long pulseTime=2500;
@@ -33,7 +34,9 @@ public class WirelessRemote {
 	}
 	
 	public static void loadItemTextures() {
-		itemRemote.setIconIndex(ModLoader.addOverride("/gui/items.png", "/WirelessSprites/remote.png"));
+		remoteoff = ModLoader.addOverride("/gui/items.png", "/WirelessSprites/remoteoff.png");
+		remoteon = ModLoader.addOverride("/gui/items.png", "/WirelessSprites/remote.png");
+		itemRemote.setIconIndex(remoteoff);
 	}
 
 	public static void addRecipes() {

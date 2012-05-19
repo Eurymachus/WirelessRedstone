@@ -35,6 +35,7 @@ public class PacketWirelessSnifferSettings extends PacketWirelessSniffer {
 		this.payload.setStringPayload(0, freq);
 	}
 	
+	@Override
 	public String getFreq()
 	{
 		return this.payload.getStringPayload(0);

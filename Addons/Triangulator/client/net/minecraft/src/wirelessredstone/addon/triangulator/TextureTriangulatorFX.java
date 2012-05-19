@@ -20,14 +20,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.ChunkCoordinates;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TextureFX;
 import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
-import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
 
@@ -55,6 +52,7 @@ public class TextureTriangulatorFX extends TextureFX {
 		}
 	}
 	
+	@Override
 	public void onTick()
 	{
 		for(int i = 0; i < 256; i++)
@@ -92,9 +90,17 @@ public class TextureTriangulatorFX extends TextureFX {
 					if (this.mc.thePlayer.inventory.hasItem(WirelessTriangulator.itemTriang.shiftedIndex))
 					{
 						String freq =  RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer);
-						PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, freq);
+						boolean state = RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getState(this.mc.thePlayer);
+						if (!state)
+							PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, freq);
 						tx = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
 					}
+					else
+						try {
+							RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).remMem(this.mc.thePlayer.username);
+						} catch(Exception e) {
+							LoggerRedstoneWireless.getInstance("WirelessRedstone.Triangulator").writeStackTrace(e);
+						}
 				}
 			}
 			else
@@ -108,9 +114,9 @@ public class TextureTriangulatorFX extends TextureFX {
 			}
 			if ( tx != null && !(tx[0] == (int)this.mc.thePlayer.posX && tx[1] == (int)this.mc.thePlayer.posY && tx[2] == (int)this.mc.thePlayer.posZ))
 			{
-				double d2 = (double)tx[0] - this.mc.thePlayer.posX;
-				double d4 = (double)tx[2] - this.mc.thePlayer.posZ;
-				d = ((double)(this.mc.thePlayer.rotationYaw - 90F) * Math.PI) / 180D - Math.atan2(d4, d2);
+				double d2 = tx[0] - this.mc.thePlayer.posX;
+				double d4 = tx[2] - this.mc.thePlayer.posZ;
+				d = ((this.mc.thePlayer.rotationYaw - 90F) * Math.PI) / 180D - Math.atan2(d4, d2);
 			}
 		}
 		
@@ -129,8 +135,8 @@ public class TextureTriangulatorFX extends TextureFX {
 		double d3 = Math.sin(this.field_4229_i);
 		double d5 = Math.cos(this.field_4229_i);
 		for(int i2 = -4; i2 <= 4; i2++) {
-			int k2 = (int)(8.5D + d5 * (double)i2 * 0.29999999999999999D);
-			int i3 = (int)(7.5D - d3 * (double)i2 * 0.29999999999999999D * 0.5D);
+			int k2 = (int)(8.5D + d5 * i2 * 0.29999999999999999D);
+			int i3 = (int)(7.5D - d3 * i2 * 0.29999999999999999D * 0.5D);
 			int k3 = i3 * 16 + k2;
 			int i4 = 150;
 			int k4 = 150;
@@ -151,8 +157,8 @@ public class TextureTriangulatorFX extends TextureFX {
 		}
 		
 		for(int j2 = -8; j2 <= 16; j2++) {
-			int l2 = (int)(8.5D + d3 * (double)j2 * 0.29999999999999999D);
-			int j3 = (int)(7.5D + d5 * (double)j2 * 0.29999999999999999D * 0.5D);
+			int l2 = (int)(8.5D + d3 * j2 * 0.29999999999999999D);
+			int j3 = (int)(7.5D + d5 * j2 * 0.29999999999999999D * 0.5D);
 			int l3 = j3 * 16 + l2;
 			int j4 = j2 < 0 ? 100 : 20;
 			int l4 = j2 < 0 ? 100 : 20;

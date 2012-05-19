@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -48,7 +47,8 @@ public class ThreadWirelessRemote implements Runnable {
 					freq
 			);
 			if (world.isRemote) PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("addTransmitter", i, j, k, freq, false);
-	
+
+			WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteon);
 	    	RedstoneEther.getInstance().setTransmitterState(
 					world,
 					i,j,k,
@@ -64,7 +64,8 @@ public class ThreadWirelessRemote implements Runnable {
 					LoggerRedstoneWireless.getInstance("WirelessRedstone.Remote").writeStackTrace(e);
 				}
 	    	}
-			
+
+			WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteoff);
 			RedstoneEther.getInstance().remTransmitter(
 					world,
 					i,j,k,

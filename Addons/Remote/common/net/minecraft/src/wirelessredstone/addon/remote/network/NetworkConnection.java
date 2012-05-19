@@ -10,7 +10,6 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;

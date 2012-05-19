@@ -22,13 +22,8 @@ import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessSniffer;
 import net.minecraft.src.wirelessredstone.RedstoneEther;
-import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
-import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferFreqCoordsMem;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPlayerPageNumber;
-import net.minecraft.src.wirelessredstone.addon.sniffer.network.PacketHandlerWirelessSniffer;
-import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWifiExit;
 
@@ -140,6 +135,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		GL11.glEnable(2896 /*GL_LIGHTING*/);
 		GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
 	}
+	@Override
 	public boolean doesGuiPauseGame(){
 		return false;
 	}
@@ -184,6 +180,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		RedstoneWirelessSnifferPlayerPageNumber.getInstance(world).setFreq(this.player, pageNumber);
 	}
 	
+	@Override
 	public void onGuiClosed() {
 		thr.running = false;
 	}

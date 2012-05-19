@@ -1,9 +1,5 @@
 package net.minecraft.src.wirelessredstone.smp.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;

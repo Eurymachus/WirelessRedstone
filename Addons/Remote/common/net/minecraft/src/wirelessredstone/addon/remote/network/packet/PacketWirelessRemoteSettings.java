@@ -26,6 +26,7 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 		this.payload.setStringPayload(0, freq);
 	}
 	
+	@Override
 	public String getFreq()
 	{
 		return this.payload.getStringPayload(0);

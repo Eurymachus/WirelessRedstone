@@ -10,7 +10,6 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.PacketHandlerPowerConfig;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;

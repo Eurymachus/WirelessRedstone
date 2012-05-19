@@ -14,14 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
-import java.util.ArrayList;
-
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
@@ -90,6 +85,7 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 		}
 	}
 
+	@Override
 	public void close() {
 		try {
 			mc.displayGuiScreen(null);
@@ -115,6 +111,7 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
 	
+	@Override
 	public boolean doesGuiPauseGame(){
 		return false;
 	}

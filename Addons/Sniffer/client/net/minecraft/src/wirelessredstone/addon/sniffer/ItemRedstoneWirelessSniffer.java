@@ -28,6 +28,7 @@ public class ItemRedstoneWirelessSniffer extends Item {
 		maxStackSize = 1;
 	}
 	
+	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(entityplayer, world));
 		if(world.isRemote && mod_WirelessSniffer.wirelessSnifferSMP) {
@@ -36,6 +37,7 @@ public class ItemRedstoneWirelessSniffer extends Item {
 		return itemstack;
 	}
 	
+	@Override
 	public boolean isFull3D() {
 		return true;
 	}
