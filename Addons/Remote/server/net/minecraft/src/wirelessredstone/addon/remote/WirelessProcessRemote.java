@@ -24,4 +24,9 @@ public class WirelessProcessRemote
             return true;
         }
 	}
+
+	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq)
+    {
+        return remote == null ? false : remote.getFreq() == freq;
+    }
 }

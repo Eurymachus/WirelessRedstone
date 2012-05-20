@@ -22,6 +22,7 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackFreqMem;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessRemote extends Item{
 	protected ItemRedstoneWirelessRemote(int i) {
@@ -32,8 +33,16 @@ public class ItemRedstoneWirelessRemote extends Item{
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(itemstack, world, entityplayer, i, j, k));
+			WirelessRemote.openGUI(entityplayer, world);
 			return true;
+		}
+		else
+		{
+	        TileEntity tileentity = world.getBlockTileEntity(i, j, k);
+	        if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless)
+	        {
+	            return true;
+	        }
 		}
 		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;
@@ -46,17 +55,14 @@ public class ItemRedstoneWirelessRemote extends Item{
 			WirelessProcessRemote.activateRemote(world, entityplayer);
 		}
 		else {
-			onItemUse(itemstack, 
-					entityplayer,
-					world, 
+			onItemUse(itemstack, entityplayer, world, 
 					(int)Math.round(entityplayer.posX),
 					(int)Math.round(entityplayer.posY), 
-					(int)Math.round(entityplayer.posZ), 
-					0);
+					(int)Math.round(entityplayer.posZ), 0);
 		}
 		return itemstack;
 	}
-	@Override
+
 	public boolean isFull3D() {
 		return true;
 	}
@@ -72,7 +78,7 @@ public class ItemRedstoneWirelessRemote extends Item{
     {
         if (entity instanceof EntityPlayer)
         {
-            String freq = this.getItemFreq(itemstack);
+            String freq = this.getItemFreq(itemstack, world);
             EntityPlayer entityplayer = (EntityPlayer)entity;
 
             if (!isHeld || !WirelessProcessRemote.isRemoteOn(entityplayer, freq) && !WirelessProcessRemote.deactivateRemote(world, entityplayer))
@@ -82,8 +88,8 @@ public class ItemRedstoneWirelessRemote extends Item{
         }
     }
 
-    public String getItemFreq(ItemStack itemstack)
+    public String getItemFreq(ItemStack itemstack, World world)
     {
-        return RedstoneWirelessItemStackFreqMem.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(itemstack);
+        return RedstoneWirelessItemStackFreqMem.getInstance(world).getFreq(itemstack);
     }
 }

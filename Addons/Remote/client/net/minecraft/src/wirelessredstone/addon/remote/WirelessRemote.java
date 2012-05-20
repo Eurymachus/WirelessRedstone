@@ -67,6 +67,10 @@ public class WirelessRemote {
 		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("MaxPulseThreads", Integer.class, new Integer(maxPulseThreads));
 	}
 
+	public static void openGUI(EntityPlayer entityplayer, World world) {
+		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(world, entityplayer));
+	}
+
 	public static void tick(Minecraft mc) {
         WirelessProcessRemote.checkClicks();
         WirelessProcessRemote.processRemote(mc.theWorld, mc.thePlayer, mc.currentScreen, mc.objectMouseOver);

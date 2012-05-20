@@ -47,8 +47,8 @@ public class PacketHandlerWirelessRemote {
 			}
 			if (packet.getCommand().equals("deactivateRemote"))
 			{
-				WirelessProcessRemote.deactivateRemote(world, entityplayer);
 				RedstoneEther.getInstance().remTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+				WirelessProcessRemote.deactivateRemote(world, entityplayer);
 			}
 		}
 	}

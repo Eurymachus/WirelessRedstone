@@ -26,19 +26,20 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	protected EntityPlayer player;
-	protected int i;
-	protected int j;
-	protected int k;
 	protected ItemStack itemstack;
 	protected World world;
 	
-	public GuiRedstoneWirelessRemote(ItemStack itemstack, World world, EntityPlayer entityplayer, int i, int j, int k) {
+	//public GuiRedstoneWirelessRemote(ItemStack itemstack, World world, EntityPlayer entityplayer, int i, int j, int k) {
+	//	super();
+	//	player = entityplayer;
+	//	this.itemstack = itemstack;
+	//	this.world = world;
+	//}
+	
+	public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer) {
 		super();
 		player = entityplayer;
-		this.i = i;
-		this.j = j;
-		this.k = k;
-		this.itemstack = itemstack;
+		this.itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
 	}
 	
