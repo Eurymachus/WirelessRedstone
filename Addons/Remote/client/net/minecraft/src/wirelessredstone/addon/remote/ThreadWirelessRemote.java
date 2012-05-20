@@ -29,7 +29,8 @@ public class ThreadWirelessRemote implements Runnable {
 	protected EntityPlayer player;
 	public static int tc = 0;
 	
-	public ThreadWirelessRemote(EntityPlayer player,String freq) {
+	public ThreadWirelessRemote(EntityPlayer player,String freq)
+	{
 		this.i = (int)player.posX;
 		this.j = (int)player.posY;
 		this.k = (int)player.posZ;
@@ -39,7 +40,8 @@ public class ThreadWirelessRemote implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void run()
+	{
 		tc++;
 			RedstoneEther.getInstance().addTransmitter(
 					world,
@@ -57,10 +59,14 @@ public class ThreadWirelessRemote implements Runnable {
 	    	);
 			if (world.isRemote) PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("setTransmitterState", i, j, k, freq, true);
 	    	
-	    	if ( WirelessRemote.pulseTime > 0 ) {
-				try {
+	    	if ( WirelessRemote.pulseTime > 0 )
+	    	{
+				try 
+				{
 					Thread.sleep(WirelessRemote.pulseTime);
-				} catch (InterruptedException e) {
+				}
+				catch (InterruptedException e)
+				{
 					LoggerRedstoneWireless.getInstance("WirelessRedstone.Remote").writeStackTrace(e);
 				}
 	    	}
@@ -75,7 +81,8 @@ public class ThreadWirelessRemote implements Runnable {
 		tc--;
 	}
 	
-	private boolean playerChangedPosition(EntityPlayer entityplayer) {
+	private boolean playerChangedPosition(EntityPlayer entityplayer)
+	{
 		if ((int)entityplayer.posX == i &&
 			(int)entityplayer.posY == j &&
 			(int)entityplayer.posZ == k) {
@@ -84,8 +91,10 @@ public class ThreadWirelessRemote implements Runnable {
 		return true;
 	}
 
-	public static void pulse(EntityPlayer entityplayer, String freq) {
-		if ( tc < WirelessRemote.maxPulseThreads ) {
+	public static void pulse(EntityPlayer entityplayer, String freq)
+	{
+		if ( tc < WirelessRemote.maxPulseThreads )
+		{
 			Thread thr = new Thread(new ThreadWirelessRemote(entityplayer, freq));
 			thr.setName("WirelessRemoteThread");
 			thr.start();

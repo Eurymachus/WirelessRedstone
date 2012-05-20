@@ -28,12 +28,10 @@ public class PacketHandlerWirelessRemote {
 	
 	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player)
 	{
-		if ( packet instanceof PacketWirelessRemoteSettings ) {
+		if ( packet instanceof PacketWirelessRemoteSettings )
 			PacketHandlerInput.handleWirelessRemote((PacketWirelessRemoteSettings)packet);
-		}
-		else if ( packet instanceof PacketWirelessRemoteGui ) {
+		else if ( packet instanceof PacketWirelessRemoteGui )
 			PacketHandlerInput.handleWirelessRemoteGui((PacketWirelessRemoteGui)packet);
-		}
 	}
 	
 
@@ -51,7 +49,8 @@ public class PacketHandlerWirelessRemote {
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessRemotePacket(String command, Remote remote) {
+		public static void sendWirelessRemotePacket(String command, Remote remote)
+		{
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(command);
 			packet.setPosition(remote.getTransmitCoords().getX(), remote.getTransmitCoords().getY(), remote.getTransmitCoords().getZ());
 			packet.setFreq(remote.getFreq());

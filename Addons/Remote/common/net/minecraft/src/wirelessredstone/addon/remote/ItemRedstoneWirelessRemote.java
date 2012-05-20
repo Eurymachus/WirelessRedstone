@@ -24,37 +24,43 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackFreqMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class ItemRedstoneWirelessRemote extends Item{
-	protected ItemRedstoneWirelessRemote(int i) {
+public class ItemRedstoneWirelessRemote extends Item
+{
+	protected ItemRedstoneWirelessRemote(int i)
+	{
 		super(i);
 		maxStackSize = 1;
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
-		if (entityplayer.isSneaking()) {
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+	{
+		if (entityplayer.isSneaking())
+		{
 			WirelessRemote.openGUI(entityplayer, world);
 			return true;
 		}
 		else
 		{
-	        TileEntity tileentity = world.getBlockTileEntity(i, j, k);
-	        if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless)
-	        {
-	            return true;
-	        }
+			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
+			if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless)
+			{
+				return true;
+			}
 		}
 		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;
 	}
     
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	{
 		if (!entityplayer.isSneaking())
 		{
 			WirelessProcessRemote.activateRemote(world, entityplayer);
 		}
-		else {
+		else
+		{
 			onItemUse(itemstack, entityplayer, world, 
 					(int)Math.round(entityplayer.posX),
 					(int)Math.round(entityplayer.posY), 
@@ -63,7 +69,8 @@ public class ItemRedstoneWirelessRemote extends Item{
 		return itemstack;
 	}
 
-	public boolean isFull3D() {
+	public boolean isFull3D()
+	{
 		return true;
 	}
 	
@@ -74,22 +81,22 @@ public class ItemRedstoneWirelessRemote extends Item{
 		this.iconIndex = WirelessRemote.remoteoff;
     }
 	
-    public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld)
-    {
-        if (entity instanceof EntityPlayer)
-        {
-            String freq = this.getItemFreq(itemstack, world);
-            EntityPlayer entityplayer = (EntityPlayer)entity;
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld)
+	{
+		if (entity instanceof EntityPlayer)
+		{
+			String freq = this.getItemFreq(itemstack, world);
+			EntityPlayer entityplayer = (EntityPlayer)entity;
 
-            if (!isHeld || !WirelessProcessRemote.isRemoteOn(entityplayer, freq) && !WirelessProcessRemote.deactivateRemote(world, entityplayer))
-            {
-            	RedstoneWirelessItemStackFreqMem.getInstance(world).setFreq(itemstack, freq);
-            }
-        }
-    }
+			if (!isHeld || !WirelessProcessRemote.isRemoteOn(entityplayer, freq) && !WirelessProcessRemote.deactivateRemote(world, entityplayer))
+			{
+				RedstoneWirelessItemStackFreqMem.getInstance(world).setFreq(itemstack, freq);
+			}
+		}
+	}
 
     public String getItemFreq(ItemStack itemstack, World world)
     {
-        return RedstoneWirelessItemStackFreqMem.getInstance(world).getFreq(itemstack);
+    	return RedstoneWirelessItemStackFreqMem.getInstance(world).getFreq(itemstack);
     }
 }

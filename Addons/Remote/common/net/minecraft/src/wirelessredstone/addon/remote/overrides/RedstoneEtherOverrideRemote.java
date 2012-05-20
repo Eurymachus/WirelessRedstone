@@ -82,7 +82,8 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
+	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState)
+	{
 		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideRemote").write("isLoaded(world, "+i+", "+j+", "+k+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 		int[] a = {i,j,k};
 		if (WirelessProcessRemote.remote != null)

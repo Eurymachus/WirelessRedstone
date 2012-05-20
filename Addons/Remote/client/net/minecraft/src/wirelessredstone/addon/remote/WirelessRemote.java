@@ -44,44 +44,50 @@ public class WirelessRemote {
 		return true;
 	}
 	
-	public static void loadItemTextures() {
+	public static void loadItemTextures()
+	{
 		remoteoff = ModLoader.addOverride("/gui/items.png", "/WirelessSprites/remoteoff.png");
 		remoteon = ModLoader.addOverride("/gui/items.png", "/WirelessSprites/remote.png");
 		itemRemote.setIconIndex(remoteoff);
 	}
 
-	public static void addRecipes() {
+	public static void addRecipes()
+	{
 		ModLoader.addRecipe(new ItemStack(itemRemote, 1), new Object[] {
             "i", "#", Character.valueOf('i'), Block.torchRedstoneActive, Character.valueOf('#'), WirelessRedstone.blockWirelessT
         });
 	}
 	
-	public static void addNames() {
+	public static void addNames()
+	{
 		ModLoader.addName(itemRemote, "Wireless Remote");
 	}
 
-	private static void loadConfig() {
+	private static void loadConfig()
+	{
 		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("ID", Integer.class, new Integer(remoteID));
 		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote").get("Durability", Boolean.class, new Boolean(duraTogg));
 		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote").get("PulseDurration", Long.class, new Long(pulseTime));
 		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("MaxPulseThreads", Integer.class, new Integer(maxPulseThreads));
 	}
 
-	public static void openGUI(EntityPlayer entityplayer, World world) {
+	public static void openGUI(EntityPlayer entityplayer, World world)
+	{
 		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(world, entityplayer));
 	}
 
-	public static void tick(Minecraft mc) {
-        WirelessProcessRemote.checkClicks();
+	public static void tick(Minecraft mc)
+	{
+		WirelessProcessRemote.checkClicks();
         WirelessProcessRemote.processRemote(mc.theWorld, mc.thePlayer, mc.currentScreen, mc.objectMouseOver);
-        
+
         if (mc.currentScreen == null)
         {
-            ticksInGui = 0;
+        	ticksInGui = 0;
         }
         else
         {
-            ++ticksInGui;
+        	++ticksInGui;
         }
-	}
+		}
 }

@@ -12,21 +12,24 @@ import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.input.Mouse;
 
-public class WirelessProcessRemote {
+public class WirelessProcessRemote
+{
 	public static boolean mouseDown, wasMouseDown;
 	public static Remote remote;
 
-	public static void initialize() {
-        mouseDown = false;
+	public static void initialize()
+	{
+		mouseDown = false;
         wasMouseDown = false;
 	}
 
-	public static void activateRemote(World world, EntityPlayer entityplayer) {
-        if (remote != null)
+	public static void activateRemote(World world, EntityPlayer entityplayer)
+	{
+		if (remote != null)
         {
-            if (remote.isBeingHeld())
+        	if (remote.isBeingHeld())
             {
-                return;
+            	return;
             }
 
             deactivateRemote(world, entityplayer);
@@ -37,14 +40,15 @@ public class WirelessProcessRemote {
         transmitRemote("activateRemote", world, remote);
 	}
 
-    public static boolean deactivateRemote(World world, EntityPlayer entityplayer) {
-        if (remote == null)
+	public static boolean deactivateRemote(World world, EntityPlayer entityplayer)
+	{
+    	if (remote == null)
         {
-            return false;
+        	return false;
         }
         else
         {
-            remote.remoteOff();
+        	remote.remoteOff();
 
             transmitRemote("deactivateRemote", world, remote);
 
@@ -54,50 +58,51 @@ public class WirelessProcessRemote {
 	}
 
 	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq)
-    {
-        return remote == null ? false : remote.getFreq() == freq;
-    }
+	{
+		return remote == null ? false : remote.getFreq() == freq;
+	}
 
-    public static void checkClicks()
-    {
-        wasMouseDown = mouseDown;
+	public static void checkClicks()
+	{
+    	wasMouseDown = mouseDown;
         mouseDown = Mouse.isButtonDown(1);
-    }
+	}
 
-    public static boolean mouseClicked()
-    {
-        return mouseDown && !wasMouseDown;
-    }
+	public static boolean mouseClicked()
+	{
+		return mouseDown && !wasMouseDown;
+	}
 
-    public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop)
-    {
-        if (remote != null && !mouseDown)
+	public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop)
+	{
+    	if (remote != null && !mouseDown)
         {
-            deactivateRemote(world, entityplayer);
+        	deactivateRemote(world, entityplayer);
         }
 
         if (mouseClicked() && remote == null && entityplayer.inventory.getCurrentItem() != null && entityplayer.inventory.getCurrentItem().getItem() == WirelessRemote.itemRemote && gui != null && gui instanceof GuiRedstoneWireless && !entityplayer.isSneaking() && WirelessRemote.ticksInGui > 0)
         {
-            ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        	ItemStack itemstack = entityplayer.inventory.getCurrentItem();
             int var6 = itemstack.getItemDamage();
             activateRemote(world, entityplayer);
         }
-    }
+	}
     
-    public static void transmitRemote(String command, World world, Remote remote)
-    {
+	public static void transmitRemote(String command, World world, Remote remote)
+	{
     	if (world.isRemote && mod_WirelessRemote.wirelessRemoteSMP)
     	{
-            PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(command, remote);
+    		PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(command, remote);
     	}
     	else
     	{
     		if (command.equals("deactivateRemote"))
     			RedstoneEther.getInstance().remTransmitter(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq());
-			else {
-    			RedstoneEther.getInstance().addTransmitter(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq());
-				RedstoneEther.getInstance().setTransmitterState(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq(), true);
-    		}
+    		else
+    		{
+				RedstoneEther.getInstance().addTransmitter(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq());
+    			RedstoneEther.getInstance().setTransmitterState(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq(), true);
+			}
     	}
-    }
+	}
 }

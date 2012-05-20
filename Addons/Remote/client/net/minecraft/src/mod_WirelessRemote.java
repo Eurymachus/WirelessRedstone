@@ -44,18 +44,18 @@ public class mod_WirelessRemote extends BaseMod
 	}
 
 	@Override
-    public boolean onTickInGame(float var1, Minecraft var2)
-    {
-        if (!wirelessRemote)
+	public boolean onTickInGame(float var1, Minecraft var2)
+	{
+		if (!wirelessRemote)
+		{
+			return true;
+		}
+		else
         {
-            return true;
+			WirelessRemote.tick(var2);
+			return true;
         }
-        else
-        {
-            WirelessRemote.tick(var2);
-            return true;
-        }
-    }
+	}
 
 	@Override
     public String getPriorities()
@@ -63,17 +63,20 @@ public class mod_WirelessRemote extends BaseMod
         return "after:mod_WirelessRedstone";
     }
 	
-	public mod_WirelessRemote() {
+	public mod_WirelessRemote()
+	{
 		instance = this;
-        ModLoader.setInGameHook(instance, true, true);
+		ModLoader.setInGameHook(instance, true, true);
 	}
 
 	@Override
-	public void load() {
+	public void load()
+	{
 	}
 	
 	@Override
-	public String getVersion() {
+	public String getVersion()
+	{
 		return "1.0";
 	}
 }
