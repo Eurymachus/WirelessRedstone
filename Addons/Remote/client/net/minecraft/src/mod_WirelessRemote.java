@@ -58,10 +58,10 @@ public class mod_WirelessRemote extends BaseMod
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 	
 	public mod_WirelessRemote()
 	{

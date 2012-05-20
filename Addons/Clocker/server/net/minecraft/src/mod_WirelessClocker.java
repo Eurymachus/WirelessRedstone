@@ -40,10 +40,10 @@ public class mod_WirelessClocker extends NetworkMod {
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 	
 	public mod_WirelessClocker() {
 		instance = this;

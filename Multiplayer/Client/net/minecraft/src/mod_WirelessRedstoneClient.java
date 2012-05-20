@@ -49,10 +49,10 @@ public class mod_WirelessRedstoneClient extends BaseMod
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 	
 	public mod_WirelessRedstoneClient() {
 		instance = this;

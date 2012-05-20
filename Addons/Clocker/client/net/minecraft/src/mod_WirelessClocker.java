@@ -44,10 +44,10 @@ public class mod_WirelessClocker extends BaseMod {
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 
 	@Override
 	public void load() {

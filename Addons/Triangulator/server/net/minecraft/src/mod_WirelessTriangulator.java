@@ -32,10 +32,10 @@ public class mod_WirelessTriangulator extends NetworkMod {
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 	
 	public mod_WirelessTriangulator() {
 		instance = this;

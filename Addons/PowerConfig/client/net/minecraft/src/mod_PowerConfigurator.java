@@ -39,10 +39,10 @@ public class mod_PowerConfigurator extends BaseMod
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 	
 	public mod_PowerConfigurator()
 	{

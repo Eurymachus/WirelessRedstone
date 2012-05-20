@@ -36,10 +36,10 @@ public class mod_WirelessTriangulator extends BaseMod {
 	}
 
 	@Override
-    public String getPriorities()
-    {
-        return "after:mod_WirelessRedstone";
-    }
+	public String getPriorities()
+	{
+		return "after:mod_WirelessRedstone";
+	}
 	
 	public mod_WirelessTriangulator() {
 		instance = this;
