@@ -1,12 +1,21 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
+import org.lwjgl.input.Mouse;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.GuiScreen;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.MovingObjectPosition;
+import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 public class WirelessRemote {	
 	public static Item itemRemote;
@@ -16,12 +25,14 @@ public class WirelessRemote {
 	public static long pulseTime=2500;
 	public static boolean duraTogg=true;
 	public static int maxPulseThreads=1;
+    static int ticksInGui;
 	
 	public static boolean initialize()
 	{
 		try
 		{
 			loadConfig();
+			WirelessProcessRemote.initialize();
 			itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256)).setItemName("remote");
 			loadItemTextures();
 			addRecipes();
@@ -54,5 +65,19 @@ public class WirelessRemote {
 		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote").get("Durability", Boolean.class, new Boolean(duraTogg));
 		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote").get("PulseDurration", Long.class, new Long(pulseTime));
 		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("MaxPulseThreads", Integer.class, new Integer(maxPulseThreads));
+	}
+
+	public static void tick(Minecraft mc) {
+        WirelessProcessRemote.checkClicks();
+        WirelessProcessRemote.processRemote(mc.theWorld, mc.thePlayer, mc.currentScreen, mc.objectMouseOver);
+        
+        if (mc.currentScreen == null)
+        {
+            ticksInGui = 0;
+        }
+        else
+        {
+            ++ticksInGui;
+        }
 	}
 }

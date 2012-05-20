@@ -24,6 +24,7 @@ import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
+import net.minecraft.src.wirelessredstone.block.ThreadWirelessLimitedSignal;
 
 public class BlockRedstoneWirelessROverrideLSR implements BlockRedstoneWirelessOverride {
 	@Override
@@ -40,13 +41,13 @@ public class BlockRedstoneWirelessROverrideLSR implements BlockRedstoneWirelessO
 		float range = 0.0f;
 		int[] rx = {i,j,k};
 		if ( tx != null) {
-			SNR = mod_WirelessLimitedSignal.getSNRMultiplier(rx, tx, world);
-			range = mod_WirelessLimitedSignal.getRange(rx, tx);
+			SNR = WirelessLimitedSignal.getSNRMultiplier(rx, tx, world);
+			range = WirelessLimitedSignal.getRange(rx, tx);
 		} else {
 			tx = RedstoneEther.getInstance().getClosestTransmitter(i, j, k, freq);
 			if ( tx != null) {
-				SNR = mod_WirelessLimitedSignal.getSNRMultiplier(rx, tx, world);
-				range = mod_WirelessLimitedSignal.getRange(rx, tx);
+				SNR = WirelessLimitedSignal.getSNRMultiplier(rx, tx, world);
+				range = WirelessLimitedSignal.getRange(rx, tx);
 			}
 		}
 		

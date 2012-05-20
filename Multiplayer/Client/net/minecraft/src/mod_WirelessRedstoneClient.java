@@ -17,15 +17,16 @@ package net.minecraft.src;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.RedstoneEther;
+import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import net.minecraft.src.wirelessredstone.smp.client.BlockRedstoneWirelessOverrideClient;
 import net.minecraft.src.wirelessredstone.smp.client.GuiRedstoneWirelessOverrideClient;
 import net.minecraft.src.wirelessredstone.smp.client.RedstoneEtherOverrideClient;
 import net.minecraft.src.wirelessredstone.smp.client.network.NetworkConnection;
 
-public class mod_WirelessRedstoneClient extends NetworkMod
+public class mod_WirelessRedstoneClient extends BaseMod
 {
 
-	public static NetworkMod instance;
+	public static BaseMod instance;
 	
 	@Override
 	public void modsLoaded()
@@ -42,10 +43,16 @@ public class mod_WirelessRedstoneClient extends NetworkMod
 			mod_WirelessRedstone.addOverrideToReceiver(blockOverride);
 			mod_WirelessRedstone.addOverrideToTransmitter(blockOverride);
 			
-			RedstoneEtherOverrideClient etherOverride = new RedstoneEtherOverrideClient();
-			RedstoneEther.getInstance().addOverride(etherOverride);
+			RedstoneEtherOverrideClient etherOverrideSMP = new RedstoneEtherOverrideClient();
+			RedstoneEther.getInstance().addOverride(etherOverrideSMP);
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessRedstoneClient() {
 		instance = this;
@@ -63,19 +70,5 @@ public class mod_WirelessRedstoneClient extends NetworkMod
 	@Override
 	public String toString() {
 		return "WirelessRedstone-SMP "+getVersion();
-	}
-
-	@Override
-	public boolean clientSideRequired()
-	{
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean serverSideRequired()
-	{
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

@@ -10,25 +10,14 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 		super(PacketIds.WIFI_REMOTE);
 	}
 	
-	public PacketWirelessRemoteSettings(String freq) {
+	public PacketWirelessRemoteSettings(String command) {
 		this();
-		this.payload = new PacketPayload(0,0,1,0);
-		this.setFreq(freq);
+		this.payload = new PacketPayload(0,0,2,0);
+		this.setCommand(command);
 	}
 	
 	@Override
 	public String toString() {
 		return "Freq["+this.getFreq()+"]("+this.xPosition+","+this.yPosition+","+this.zPosition+")";
-	}
-	
-	public void setFreq(String freq)
-	{
-		this.payload.setStringPayload(0, freq);
-	}
-	
-	@Override
-	public String getFreq()
-	{
-		return this.payload.getStringPayload(0);
 	}
 }

@@ -15,6 +15,7 @@ public class WirelessRemote {
 	public static long pulseTime=2500;
 	public static boolean duraTogg=true;
 	public static int maxPulseThreads=2;
+	public static int remoteon, remoteoff;
 	
 	public static boolean initialize()
 	{

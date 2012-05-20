@@ -14,8 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemoteSMP;
+import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 
 public class mod_WirelessRemote extends BaseMod
 {
@@ -30,6 +33,8 @@ public class mod_WirelessRemote extends BaseMod
 		{
 			if (!wirelessRemote) {
 				wirelessRemote = WirelessRemote.initialize();
+				RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
+				RedstoneEther.getInstance().addOverride(etherOverrideRemote);
 			}
 		}
 		if (wirelessRemote && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
@@ -37,9 +42,30 @@ public class mod_WirelessRemote extends BaseMod
 			if (!wirelessRemoteSMP) wirelessRemoteSMP = WirelessRemoteSMP.initialize();
 		}
 	}
+
+	@Override
+    public boolean onTickInGame(float var1, Minecraft var2)
+    {
+        if (!wirelessRemote)
+        {
+            return true;
+        }
+        else
+        {
+            WirelessRemote.tick(var2);
+            return true;
+        }
+    }
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessRemote() {
 		instance = this;
+        ModLoader.setInGameHook(instance, true, true);
 	}
 
 	@Override

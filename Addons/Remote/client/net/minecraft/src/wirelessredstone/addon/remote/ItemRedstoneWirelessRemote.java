@@ -14,10 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src.wirelessredstone.addon.remote;
 
+import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackFreqMem;
 
@@ -33,24 +35,25 @@ public class ItemRedstoneWirelessRemote extends Item{
 			ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(itemstack, world, entityplayer, i, j, k));
 			return true;
 		}
-		else {
-			String freq = RedstoneWirelessItemStackFreqMem.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(itemstack);
-			ThreadWirelessRemote.pulse(entityplayer, freq);
-		}
+		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;
 	}
     
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		onItemUse(
-				itemstack, 
-				entityplayer,
-				world, 
-				(int)Math.round(entityplayer.posX),
-				(int)Math.round(entityplayer.posY), 
-				(int)Math.round(entityplayer.posZ), 
-				0
-		);
+		if (!entityplayer.isSneaking())
+		{
+			WirelessProcessRemote.activateRemote(world, entityplayer);
+		}
+		else {
+			onItemUse(itemstack, 
+					entityplayer,
+					world, 
+					(int)Math.round(entityplayer.posX),
+					(int)Math.round(entityplayer.posY), 
+					(int)Math.round(entityplayer.posZ), 
+					0);
+		}
 		return itemstack;
 	}
 	@Override
@@ -63,5 +66,24 @@ public class ItemRedstoneWirelessRemote extends Item{
     {
 		itemstack.setItemDamage(itemstack.hashCode());
 		this.iconIndex = WirelessRemote.remoteoff;
+    }
+	
+    public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld)
+    {
+        if (entity instanceof EntityPlayer)
+        {
+            String freq = this.getItemFreq(itemstack);
+            EntityPlayer entityplayer = (EntityPlayer)entity;
+
+            if (!isHeld || !WirelessProcessRemote.isRemoteOn(entityplayer, freq) && !WirelessProcessRemote.deactivateRemote(world, entityplayer))
+            {
+            	RedstoneWirelessItemStackFreqMem.getInstance(world).setFreq(itemstack, freq);
+            }
+        }
+    }
+
+    public String getItemFreq(ItemStack itemstack)
+    {
+        return RedstoneWirelessItemStackFreqMem.getInstance(ModLoader.getMinecraftInstance().theWorld).getFreq(itemstack);
     }
 }

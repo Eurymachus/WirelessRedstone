@@ -19,6 +19,52 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 
 public class mod_WirelessRedstoneDev extends BaseMod {
 
+	@Override
+	public void modsLoaded()
+	{
+		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		{
+			RedstoneEtherGui ex = new RedstoneEtherGui();
+			RedstoneEther.getInstance().assGui(ex);
+			ex.setVisible(true);
+			
+			ModLoader.addRecipe(new ItemStack(Item.redstone, 64), new Object[] {
+	            "#", Character.valueOf('#'), Block.dirt
+	        });
+			ModLoader.addRecipe(new ItemStack(Block.lever, 64), new Object[] {
+	            "##", Character.valueOf('#'), Block.dirt
+	        });
+			ModLoader.addRecipe(new ItemStack(WirelessRedstone.blockWirelessR, 64), new Object[] {
+	            "##","##", Character.valueOf('#'), Block.dirt
+	        });
+			ModLoader.addRecipe(new ItemStack(WirelessRedstone.blockWirelessT, 64), new Object[] {
+	            "##", Character.valueOf('#'), WirelessRedstone.blockWirelessR
+	        });
+			
+			ModLoader.addRecipe(new ItemStack(Item.compass, 4), new Object[] {
+	            "# ", " #", Character.valueOf('#'), Item.redstone
+	        });
+			
+			ModLoader.addRecipe(new ItemStack(Block.torchWood, 4), new Object[] {
+	            "#", "S", Character.valueOf('#'), Block.dirt, Character.valueOf('S'), Item.stick
+	        });
+	        
+			
+			ModLoader.addRecipe(new ItemStack(Item.redstoneRepeater, 64), new Object[] {
+	            "##", Character.valueOf('#'), Item.redstone
+	        });
+			ModLoader.addRecipe(new ItemStack(Block.pistonBase, 64), new Object[] {
+	            "##","##", Character.valueOf('#'), Item.redstone
+	        });
+		}
+	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
+	
 	public mod_WirelessRedstoneDev() {
 	}
 
@@ -29,37 +75,5 @@ public class mod_WirelessRedstoneDev extends BaseMod {
 
 	@Override
 	public void load() {
-		RedstoneEtherGui ex = new RedstoneEtherGui();
-		RedstoneEther.getInstance().assGui(ex);
-		ex.setVisible(true);
-		
-		ModLoader.addRecipe(new ItemStack(Item.redstone, 64), new Object[] {
-            "#", Character.valueOf('#'), Block.dirt
-        });
-		ModLoader.addRecipe(new ItemStack(Block.lever, 64), new Object[] {
-            "##", Character.valueOf('#'), Block.dirt
-        });
-		ModLoader.addRecipe(new ItemStack(WirelessRedstone.blockWirelessR, 64), new Object[] {
-            "##","##", Character.valueOf('#'), Block.dirt
-        });
-		ModLoader.addRecipe(new ItemStack(WirelessRedstone.blockWirelessT, 64), new Object[] {
-            "##", Character.valueOf('#'), WirelessRedstone.blockWirelessR
-        });
-		
-		ModLoader.addRecipe(new ItemStack(Item.compass, 4), new Object[] {
-            "# ", " #", Character.valueOf('#'), Item.redstone
-        });
-		
-		ModLoader.addRecipe(new ItemStack(Block.torchWood, 4), new Object[] {
-            "#", "S", Character.valueOf('#'), Block.dirt, Character.valueOf('S'), Item.stick
-        });
-        
-		
-		ModLoader.addRecipe(new ItemStack(Item.redstoneRepeater, 64), new Object[] {
-            "##", Character.valueOf('#'), Item.redstone
-        });
-		ModLoader.addRecipe(new ItemStack(Block.pistonBase, 64), new Object[] {
-            "##","##", Character.valueOf('#'), Item.redstone
-        });
 	}
 }

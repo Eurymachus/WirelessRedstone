@@ -1,5 +1,6 @@
 package net.minecraft.src.wirelessredstone.smp.client;
 
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.RedstoneEtherOverride;
 
@@ -27,7 +28,8 @@ public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public void afterSetTransmitterState(World world, int i, int j, int k, String freq, boolean state) {}
+	public void afterSetTransmitterState(World world, int i, int j, int k, String freq, boolean state) {
+	}
 
 	@Override
 	public boolean beforeAddReceiver(World world, int i, int j, int k, String freq) {
@@ -64,5 +66,4 @@ public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
 	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
 		return returnState;
 	}
-
 }

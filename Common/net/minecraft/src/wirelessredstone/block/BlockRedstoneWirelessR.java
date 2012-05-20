@@ -34,6 +34,7 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR
  */
 public class BlockRedstoneWirelessR extends BlockRedstoneWireless {	
 	private boolean initialSchedule;
+	private static BlockRedstoneWirelessR instance;
 
 	/**
 	 * Constructor.<br>
@@ -55,7 +56,6 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	public boolean hasTicked() {
 		return !this.initialSchedule;
 	}
-	
 	
 	/**
 	 * Changes the frequency.<br>

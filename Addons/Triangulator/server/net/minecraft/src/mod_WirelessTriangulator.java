@@ -30,6 +30,12 @@ public class mod_WirelessTriangulator extends NetworkMod {
 			if (!wirelessTriangulator) wirelessTriangulator = WirelessTriangulator.initialize();
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessTriangulator() {
 		instance = this;

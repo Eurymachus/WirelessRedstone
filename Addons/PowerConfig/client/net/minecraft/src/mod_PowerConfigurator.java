@@ -37,6 +37,12 @@ public class mod_PowerConfigurator extends BaseMod
 				powerConfigSMP = PowerConfiguratorSMP.initialize();
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_PowerConfigurator()
 	{

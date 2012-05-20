@@ -23,6 +23,8 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
@@ -459,9 +461,13 @@ public class RedstoneEther {
 		
 		// Run after overrides.
 		for ( RedstoneEtherOverride override: overrides) {
-			out = override.afterIsLoaded(world, i, j, k, returnState);
+			out = override.afterIsLoaded(world, i, j, k, out);
 		}
 		
 		return out;
+	}
+
+	public boolean canBroadcastOnFrequency(EntityPlayer entityplayer, World world, String freq) {
+		return !world.isRemote;
 	}
 }

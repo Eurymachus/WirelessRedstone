@@ -38,6 +38,12 @@ public class mod_WirelessClocker extends NetworkMod {
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessClocker() {
 		instance = this;

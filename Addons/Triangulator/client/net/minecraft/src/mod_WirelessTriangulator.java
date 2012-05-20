@@ -34,6 +34,12 @@ public class mod_WirelessTriangulator extends BaseMod {
 			if (!wirelessTriangulatorSMP) wirelessTriangulatorSMP = WirelessTriangulatorSMP.initialize();
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessTriangulator() {
 		instance = this;

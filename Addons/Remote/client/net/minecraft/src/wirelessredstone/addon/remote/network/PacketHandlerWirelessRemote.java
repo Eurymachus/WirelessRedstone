@@ -17,6 +17,7 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.remote.Remote;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -50,11 +51,11 @@ public class PacketHandlerWirelessRemote {
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k, boolean state) {
-			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(freq);
-			packet.setPosition(i, j, k);
+		public static void sendWirelessRemotePacket(String command, Remote remote) {
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(command);
+			packet.setPosition(remote.getTransmitCoords().getX(), remote.getTransmitCoords().getY(), remote.getTransmitCoords().getZ());
+			packet.setFreq(remote.getFreq());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Sending Packet: " + packet.channel);
 			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
 		}
 	}

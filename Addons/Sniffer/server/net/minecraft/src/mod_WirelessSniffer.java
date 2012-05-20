@@ -28,6 +28,12 @@ public class mod_WirelessSniffer extends BaseMod
 			if (!wirelessSniffer) wirelessSniffer = WirelessSniffer.initialize();
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessSniffer()
 	{

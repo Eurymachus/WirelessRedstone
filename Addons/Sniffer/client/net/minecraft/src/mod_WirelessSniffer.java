@@ -34,6 +34,12 @@ public class mod_WirelessSniffer extends BaseMod
 			if (!wirelessSnifferSMP) wirelessSnifferSMP = WirelessSnifferSMP.initialize();
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessSniffer()
 	{

@@ -17,6 +17,8 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.RedstoneEther;
+import net.minecraft.src.wirelessredstone.addon.remote.WirelessProcessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -25,34 +27,45 @@ import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 
 public class PacketHandlerWirelessRemote {
 	
-	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player)
+	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer entityplayer)
 	{
 		if ( packet instanceof PacketWirelessRemoteSettings ) {
-			PacketHandlerInput.handleWirelessRemoteSettings((PacketWirelessRemoteSettings)packet, player);
+			PacketHandlerInput.handleWirelessRemoteSettings((PacketWirelessRemoteSettings)packet, world, entityplayer);
 		}
 	}
 	
 
 	private static class PacketHandlerInput {
-		private static void handleWirelessRemoteSettings(PacketWirelessRemoteSettings packet, EntityPlayer player)
+		private static void handleWirelessRemoteSettings(PacketWirelessRemoteSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+			if (packet.getCommand().equals("activateRemote"))
+			{
+				WirelessProcessRemote.activateRemote(world, entityplayer);
+				RedstoneEther.getInstance().addTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+				RedstoneEther.getInstance().setTransmitterState(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq(), true);
+			}
+			if (packet.getCommand().equals("deactivateRemote"))
+			{
+				WirelessProcessRemote.deactivateRemote(world, entityplayer);
+				RedstoneEther.getInstance().remTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+			}
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessRemotePacket(EntityPlayer player, String freq, int i, int j, int k) {
+		public static void sendWirelessRemotePacket(EntityPlayer entityplayer, String freq, int i, int j, int k) {
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(freq);
 			packet.setPosition(i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}
 
-		public static void sendWirelessRemoteGuiPacket(EntityPlayer player, int itemDamage, int i,
+		public static void sendWirelessRemoteGuiPacket(EntityPlayer entityplayer, int itemDamage, int i,
 				int j, int k) {
 			PacketWirelessRemoteGui packet = new PacketWirelessRemoteGui(itemDamage, i, j, k);
-			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}
 	}
 }

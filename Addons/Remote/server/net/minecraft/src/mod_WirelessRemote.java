@@ -15,8 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemoteSMP;
+import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 
 public class mod_WirelessRemote extends NetworkMod
 {
@@ -31,6 +33,8 @@ public class mod_WirelessRemote extends NetworkMod
 		{
 			if (!wirelessRemote) {
 				wirelessRemote = WirelessRemote.initialize();
+				RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
+				RedstoneEther.getInstance().addOverride(etherOverrideRemote);
 			}
 		}
 		if (wirelessRemote)
@@ -39,6 +43,12 @@ public class mod_WirelessRemote extends NetworkMod
 				wirelessRemoteSMP = WirelessRemoteSMP.initialize();
 		}
 	}
+
+	@Override
+    public String getPriorities()
+    {
+        return "after:mod_WirelessRedstone";
+    }
 	
 	public mod_WirelessRemote() {
 		instance = this;
