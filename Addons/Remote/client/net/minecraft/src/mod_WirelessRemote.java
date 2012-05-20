@@ -51,10 +51,10 @@ public class mod_WirelessRemote extends BaseMod
 			return true;
 		}
 		else
-        {
+		{
 			WirelessRemote.tick(var2);
 			return true;
-        }
+		}
 	}
 
 	@Override
