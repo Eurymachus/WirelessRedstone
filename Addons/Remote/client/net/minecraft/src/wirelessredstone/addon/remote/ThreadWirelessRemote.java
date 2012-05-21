@@ -16,8 +16,8 @@ package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.client.network.PacketHandlerRedstoneWireless;
 
 public class ThreadWirelessRemote implements Runnable {

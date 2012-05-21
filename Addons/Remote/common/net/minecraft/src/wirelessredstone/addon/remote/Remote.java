@@ -7,8 +7,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.data.ItemStackFreqMemNode;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackFreqMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 
 public class Remote
@@ -26,7 +25,7 @@ public class Remote
 		this.slot = player.inventory.currentItem;
 		this.world = world;
 		ItemStack itemstack = player.inventory.getStackInSlot(this.slot);
-		this.freq = RedstoneWirelessItemStackFreqMem.getInstance(world).getFreq(itemstack);
+		this.freq = RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
 	}
     
 	public WirelessCoordinates getTransmitCoords()
@@ -42,7 +41,7 @@ public class Remote
 	public boolean isBeingHeld()
 	{
 		ItemStack itemstack = this.player.inventory.getCurrentItem();
-		return this.player.inventory.currentItem == this.slot && itemstack != null && itemstack.getItem() == WirelessRemote.itemRemote && (RedstoneWirelessItemStackFreqMem.getInstance(world).getFreq(itemstack)) == this.freq;
+		return this.player.inventory.currentItem == this.slot && itemstack != null && itemstack.getItem() == WirelessRemote.itemRemote && (RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack)) == this.freq;
 	}
     
 	public void remoteOn() 

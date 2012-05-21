@@ -6,8 +6,8 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRemote;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.input.Mouse;

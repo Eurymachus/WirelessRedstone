@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone;
+package net.minecraft.src.wirelessredstone.ether;
 
 import net.minecraft.src.World;
 

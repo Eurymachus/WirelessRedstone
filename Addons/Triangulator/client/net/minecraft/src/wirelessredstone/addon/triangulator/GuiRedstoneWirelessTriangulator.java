@@ -17,8 +17,8 @@ package net.minecraft.src.wirelessredstone.addon.triangulator;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;

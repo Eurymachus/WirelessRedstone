@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
-package net.minecraft.src.wirelessredstone;
+package net.minecraft.src.wirelessredstone.ether;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +21,9 @@ import java.util.TreeMap;
 
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessReadWriteLock;
 
 /**
  * Wireless Redstone Frequency node container.<br>

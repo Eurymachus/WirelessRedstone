@@ -20,6 +20,7 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
+import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 
 
@@ -37,7 +38,7 @@ public class PacketHandlerWirelessTriangulator {
 		private static void handleWirelessTriangulator(PacketWirelessTriangulatorSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessTriangulatorPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			RedstoneWirelessPlayerEtherCoordsMem.getInstance(world).setCoords(entityplayer, packet.getCoords());
+			RedstoneWirelessPlayerEtherCoordsMem.getInstance(world).setCoords(entityplayer, new WirelessCoordinates(packet.getCoords()));
 		}
 	}
 

@@ -20,11 +20,11 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessLimitedSignal;
 import net.minecraft.src.mod_WirelessRedstone;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.ThreadWirelessLimitedSignal;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class BlockRedstoneWirelessROverrideLSR implements BlockRedstoneWirelessOverride {
 	@Override

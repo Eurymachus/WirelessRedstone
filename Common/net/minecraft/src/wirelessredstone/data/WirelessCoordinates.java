@@ -11,6 +11,16 @@ public class WirelessCoordinates
 		this.z = z;
 	}
 	
+	public WirelessCoordinates(int[] coordinates)
+	{
+		if (coordinates.length <= 3 && coordinates.length > 0)
+		{
+			this.x = coordinates[0];
+			this.y = coordinates[1];
+			this.z = coordinates[2];
+		}
+	}
+	
 	public int getX()
 	{
 		return this.x;
@@ -36,5 +46,25 @@ public class WirelessCoordinates
 
 	public void setZ(int posZ) {
 		this.z = posZ;
+	}
+	
+	public WirelessCoordinates getInstance()
+	{
+		if (this != null)
+			return this;
+		else return new WirelessCoordinates(0,0,0);
+	}
+	
+	public int[] getCoordinateArray()
+	{
+		int[] coordArray = {0,0,0};
+		if (this.getInstance() != null)
+		{
+			WirelessCoordinates coords = this.getInstance();
+			coordArray[0] = coords.getX();
+			coordArray[1] = coords.getY();
+			coordArray[2] = coords.getZ();
+		}
+		return coordArray;
 	}
 }

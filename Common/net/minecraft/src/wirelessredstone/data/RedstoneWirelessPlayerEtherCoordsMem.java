@@ -37,7 +37,7 @@ public class RedstoneWirelessPlayerEtherCoordsMem {
 		return instance;
 	}
 	
-	public void addMem(EntityPlayer entityplayer, int[] newcoords) {
+	public void addMem(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
 		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
 		coords.put(entityplayer.username, memnode);
 	}
@@ -46,17 +46,29 @@ public class RedstoneWirelessPlayerEtherCoordsMem {
 		coords.remove(username);
 	}
 	
-	public void setCoords(EntityPlayer entityplayer, int[] newcoords) {
+	public void setCoords(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
 		addMem(entityplayer, newcoords);
 	}
 	
-	public int[] getCoords(EntityPlayer entityplayer) {
+	public WirelessCoordinates getCoords(EntityPlayer entityplayer) {
 		PlayerEtherCoordsMemNode node = coords.get(entityplayer.username);
 		if ( node == null ) {
 			addMem(entityplayer, null);
 			return null;
 		} else {
-			return node.coords;
+			return node.coords.getInstance();
+		}
+	}
+	
+	public class PlayerEtherCoordsMemNode
+	{
+		EntityPlayer entityplayer;
+		WirelessCoordinates coords;
+		
+		public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, WirelessCoordinates coords)
+		{
+			this.entityplayer = entityplayer;
+			this.coords = coords.getInstance();
 		}
 	}
 }

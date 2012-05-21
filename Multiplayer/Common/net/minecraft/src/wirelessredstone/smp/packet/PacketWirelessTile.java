@@ -1,8 +1,8 @@
 package net.minecraft.src.wirelessredstone.smp.packet;
 
-import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless.LogLevel;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 

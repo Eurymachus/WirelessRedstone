@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone;
+package net.minecraft.src.wirelessredstone.data;
 
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 

@@ -14,8 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
-import net.minecraft.src.wirelessredstone.RedstoneEther;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class mod_WirelessRedstoneDev extends BaseMod {
 

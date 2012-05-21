@@ -21,7 +21,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackFreqMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessRemote extends Item
@@ -90,13 +90,13 @@ public class ItemRedstoneWirelessRemote extends Item
 
 			if (!isHeld || !WirelessProcessRemote.isRemoteOn(entityplayer, freq) && !WirelessProcessRemote.deactivateRemote(world, entityplayer))
 			{
-				RedstoneWirelessItemStackFreqMem.getInstance(world).setFreq(itemstack, freq);
+				RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
 			}
 		}
 	}
 
     public String getItemFreq(ItemStack itemstack, World world)
     {
-    	return RedstoneWirelessItemStackFreqMem.getInstance(world).getFreq(itemstack);
+    	return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
     }
 }

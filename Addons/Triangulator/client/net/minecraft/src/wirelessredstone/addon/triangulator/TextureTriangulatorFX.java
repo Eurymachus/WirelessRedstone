@@ -22,11 +22,12 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.TextureFX;
 import net.minecraft.src.mod_WirelessTriangulator;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
-import net.minecraft.src.wirelessredstone.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerMem;
+import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class TextureTriangulatorFX extends TextureFX {
 	private Minecraft mc;
@@ -93,7 +94,8 @@ public class TextureTriangulatorFX extends TextureFX {
 						boolean state = RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getState(this.mc.thePlayer);
 						if (!state)
 							PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, freq);
-						tx = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
+						WirelessCoordinates txCoords = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer); 
+						tx = txCoords.getCoordinateArray();
 					}
 					else
 						try {

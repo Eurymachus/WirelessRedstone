@@ -16,7 +16,7 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import net.minecraft.src.wirelessredstone.smp.client.BlockRedstoneWirelessOverrideClient;
 import net.minecraft.src.wirelessredstone.smp.client.GuiRedstoneWirelessOverrideClient;

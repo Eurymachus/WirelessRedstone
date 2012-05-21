@@ -3,11 +3,11 @@ package net.minecraft.src.wirelessredstone.addon.remote.overrides;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
-import net.minecraft.src.wirelessredstone.RedstoneEtherOverride;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessProcessRemote;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEtherOverride;
 
 public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	@Override

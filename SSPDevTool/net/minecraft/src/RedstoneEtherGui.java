@@ -32,9 +32,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import net.minecraft.src.wirelessredstone.RedstoneEther;
-import net.minecraft.src.wirelessredstone.RedstoneEtherNode;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEtherNode;
 
 public class RedstoneEtherGui extends JFrame {
 	private static final long serialVersionUID = 1L;

@@ -7,15 +7,10 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.DimensionManager;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
-import net.minecraft.src.wirelessredstone.RedstoneEtherNode;
+import net.minecraft.src.wirelessredstone.ether.*;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketOpenWindowRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketRedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+import net.minecraft.src.wirelessredstone.smp.packet.*;
+import net.minecraft.src.wirelessredstone.tileentity.*;
 
 public class PacketHandlerRedstoneWireless {
 	

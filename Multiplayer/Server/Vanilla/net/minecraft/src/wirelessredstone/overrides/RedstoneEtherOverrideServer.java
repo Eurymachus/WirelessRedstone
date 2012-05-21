@@ -2,9 +2,7 @@ package net.minecraft.src.wirelessredstone.overrides;
 
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.RedstoneEther;
-import net.minecraft.src.wirelessredstone.RedstoneEtherNode;
-import net.minecraft.src.wirelessredstone.RedstoneEtherOverride;
+import net.minecraft.src.wirelessredstone.ether.*;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.network.PacketHandlerRedstoneWireless;
