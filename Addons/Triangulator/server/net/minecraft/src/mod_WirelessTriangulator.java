@@ -14,12 +14,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 
-public class mod_WirelessTriangulator extends NetworkMod
+public class mod_WirelessTriangulator extends BaseMod
 {
-	public static NetworkMod instance;
+	public static BaseMod instance;
 	
 	public mod_WirelessTriangulator()
 	{
@@ -32,6 +33,17 @@ public class mod_WirelessTriangulator extends NetworkMod
 		if (!WirelessTriangulator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
 			WirelessTriangulator.isLoaded = WirelessTriangulator.initialize();
+		}
+	}
+	
+	@Override
+	public boolean onTickInGame(MinecraftServer mc)
+	{
+		if (!WirelessTriangulator.isLoaded)
+			return true;
+		else
+		{
+			return WirelessTriangulator.tick(mc);
 		}
 	}
 

@@ -38,12 +38,15 @@ public class PacketHandlerWirelessTriangulator {
 		private static void handleWirelessTriangulator(PacketWirelessTriangulatorSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessTriangulatorPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-
-			int[] tx = RedstoneEther.getInstance().getClosestActiveTransmitter(packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
-			if (tx != null) {
-				PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, tx, packet.getFreq());
-			}
-			else PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, packet.getCoords(), "Reset");
+			
+			//if (packet.getCommand().equals("requestTriangulation"))
+			//{
+				int[] tx = RedstoneEther.getInstance().getClosestActiveTransmitter(packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+				if (tx != null) {
+					PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, tx, packet.getFreq());
+				}
+				else PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(entityplayer, packet.getCoords(), "Reset");
+			//}
 		}
 	}
 

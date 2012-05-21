@@ -10,10 +10,9 @@ public class PacketWirelessTriangulatorSettings extends PacketWirelessTriangulat
 		super(PacketIds.WIFI_TRIANGULATOR);
 	}
 	
-	public PacketWirelessTriangulatorSettings(String freq) {
+	public PacketWirelessTriangulatorSettings(String command) {
 		this();
-		this.payload = new PacketPayload(0,0,1,0);
-		this.setFreq(freq);
+		this.payload = new PacketPayload(0,0,2,0);
 	}
 	
 	public int[] getCoords()
@@ -23,17 +22,5 @@ public class PacketWirelessTriangulatorSettings extends PacketWirelessTriangulat
 		coords[1] = this.yPosition;
 		coords[2] = this.zPosition;
 		return coords;
-	}
-	
-	@Override
-	public void setFreq(Object freq)
-	{
-		this.payload.setStringPayload(0, freq.toString());
-	}
-	
-	@Override
-	public String getFreq()
-	{
-		return this.payload.getStringPayload(0);
 	}
 }

@@ -1,11 +1,14 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
@@ -61,5 +64,26 @@ public class WirelessTriangulator
 
 	public static void openGUI(EntityPlayer entityplayer, World world)
 	{
+	}
+
+	public static boolean tick(MinecraftServer mc)
+	{
+		World[] worlds = DimensionManager.getWorlds();
+		for (int i = 0; i < worlds.length; i++)
+		{
+			for (int j = 0; j < worlds[i].playerEntities
+					.size(); j++)
+			{
+				EntityPlayerMP player = (EntityPlayerMP)worlds[i].playerEntities.get(j);
+
+				if (Math.abs(player.posX) <= 16
+						&& Math.abs(player.posY) <= 16
+						&& Math.abs(player.posZ) <= 16)
+				{
+					
+				}
+			}
+		}
+		return false;
 	}
 }

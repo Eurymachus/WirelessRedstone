@@ -56,7 +56,7 @@ public class RedstoneWirelessPlayerEtherCoordsMem {
 			addMem(entityplayer, null);
 			return null;
 		} else {
-			return node.coords.getInstance();
+			return node.coords;
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class RedstoneWirelessPlayerEtherCoordsMem {
 		public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, WirelessCoordinates coords)
 		{
 			this.entityplayer = entityplayer;
-			this.coords = coords.getInstance();
+			this.coords = coords;
 		}
 	}
 }

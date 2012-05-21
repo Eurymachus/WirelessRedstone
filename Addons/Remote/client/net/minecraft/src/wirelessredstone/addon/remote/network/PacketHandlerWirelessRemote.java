@@ -52,7 +52,7 @@ public class PacketHandlerWirelessRemote {
 		public static void sendWirelessRemotePacket(String command, Remote remote)
 		{
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(command);
-			packet.setPosition(remote.getTransmitCoords().getX(), remote.getTransmitCoords().getY(), remote.getTransmitCoords().getZ());
+			packet.setPosition(remote.getCoords().getX(), remote.getCoords().getY(), remote.getCoords().getZ());
 			packet.setFreq(remote.getFreq());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());

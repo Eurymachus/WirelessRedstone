@@ -29,10 +29,10 @@ public class PacketHandlerWirelessTriangulator {
 	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer entityplayer)
 	{
 		if ( packet instanceof PacketWirelessTriangulatorSettings ) {
+			//entityplayer.addChatMessage("Packet here");
 			PacketHandlerInput.handleWirelessTriangulator((PacketWirelessTriangulatorSettings)packet, world, entityplayer);
 		}
 	}
-	
 
 	private static class PacketHandlerInput {
 		private static void handleWirelessTriangulator(PacketWirelessTriangulatorSettings packet, World world, EntityPlayer entityplayer)
@@ -44,9 +44,11 @@ public class PacketHandlerWirelessTriangulator {
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessTriangulatorPacket(EntityPlayer player, String freq) {
-			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(freq);
+		public static void sendWirelessTriangulatorPacket(EntityPlayer player, String command, String freq)
+		{
+			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(command);
 			packet.setPosition((int)player.posX, (int)player.posY, (int)player.posZ);
+			packet.setFreq(freq);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
 		}

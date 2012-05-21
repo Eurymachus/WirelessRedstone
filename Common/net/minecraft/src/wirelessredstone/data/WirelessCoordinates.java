@@ -48,22 +48,14 @@ public class WirelessCoordinates
 		this.z = posZ;
 	}
 	
-	public WirelessCoordinates getInstance()
-	{
-		if (this != null)
-			return this;
-		else return new WirelessCoordinates(0,0,0);
-	}
-	
 	public int[] getCoordinateArray()
 	{
 		int[] coordArray = {0,0,0};
-		if (this.getInstance() != null)
-		{
-			WirelessCoordinates coords = this.getInstance();
-			coordArray[0] = coords.getX();
-			coordArray[1] = coords.getY();
-			coordArray[2] = coords.getZ();
+		if (this != null)
+		{;
+			coordArray[0] = this.getX();
+			coordArray[1] = this.getY();
+			coordArray[2] = this.getZ();
 		}
 		return coordArray;
 	}

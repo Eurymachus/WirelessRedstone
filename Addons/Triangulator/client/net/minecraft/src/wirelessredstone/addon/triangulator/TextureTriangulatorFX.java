@@ -92,9 +92,17 @@ public class TextureTriangulatorFX extends TextureFX {
 						String freq =  RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer);
 						boolean state = RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getState(this.mc.thePlayer);
 						if (!state)
-							PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, freq);
-						WirelessCoordinates txCoords = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer); 
-						tx = txCoords.getCoordinateArray();
+							PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(this.mc.thePlayer, "requestTriangulation", freq);
+						WirelessCoordinates txCoords = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
+						try
+						{
+							if (txCoords.getCoordinateArray() != null)
+								tx = txCoords.getCoordinateArray();
+						}
+						catch (Exception e)
+						{
+							
+						}
 					}
 					else
 						try {

@@ -88,7 +88,7 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 		int[] a = {i,j,k};
 		if (WirelessProcessRemote.remote != null)
 		{
-			WirelessCoordinates remote = WirelessProcessRemote.remote.getTransmitCoords();
+			WirelessCoordinates remote = WirelessProcessRemote.remote.getCoords();
 			int[] b = {remote.getX(), remote.getY(), remote.getZ()};
 			if ( RedstoneEther.pythagoras(a, b) < 1 )
 				return true;

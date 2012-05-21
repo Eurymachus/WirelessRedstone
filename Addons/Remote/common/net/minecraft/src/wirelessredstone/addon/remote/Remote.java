@@ -28,7 +28,7 @@ public class Remote
 		this.freq = RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
 	}
     
-	public WirelessCoordinates getTransmitCoords()
+	public WirelessCoordinates getCoords()
 	{
 		return this.coords;
 	}
