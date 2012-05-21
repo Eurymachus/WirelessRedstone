@@ -54,8 +54,10 @@ public class WirelessClocker
 	private static void addRecipes() 
 	{
 		ModLoader.addRecipe(new ItemStack(blockClock, 1), new Object[] {
-            "R R", " # ", "R R", Character.valueOf('R'), Item.redstoneRepeater, Character.valueOf('#'), WirelessRedstone.blockWirelessT
-        });
+			"R R", " # ", "R R", 
+			Character.valueOf('R'), Item.redstoneRepeater, 
+			Character.valueOf('#'), WirelessRedstone.blockWirelessT
+		});
 	}
 	private static void addBlock()
 	{

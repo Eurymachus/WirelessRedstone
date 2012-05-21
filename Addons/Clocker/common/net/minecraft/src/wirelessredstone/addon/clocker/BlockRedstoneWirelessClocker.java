@@ -38,21 +38,20 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 	@Override
 	protected void onBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
 		TileEntityRedstoneWirelessClocker entity = (TileEntityRedstoneWirelessClocker)getBlockEntity();
-        world.setBlockTileEntity(i, j, k, entity);
-        ThreadWirelessClocker.getInstance().addTileEntity(entity);
-        super.onBlockRedstoneWirelessAdded(world,i,j,k);
+		world.setBlockTileEntity(i, j, k, entity);
+		ThreadWirelessClocker.getInstance().addTileEntity(entity);
+		super.onBlockRedstoneWirelessAdded(world,i,j,k);
 	}
 
 	@Override
 	protected void onBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
-        TileEntity entity = world.getBlockTileEntity(i, j, k);
-        if ( entity instanceof TileEntityRedstoneWirelessClocker)
-        	ThreadWirelessClocker.getInstance().remTileEntity((TileEntityRedstoneWirelessClocker)entity);
-        else
-        	ThreadWirelessClocker.getInstance().remTileEntity(i,j,k);
-        
-		super.onBlockRedstoneWirelessRemoved(world,i,j,k);
+		TileEntity entity = world.getBlockTileEntity(i, j, k);
+		if ( entity instanceof TileEntityRedstoneWirelessClocker)
+			ThreadWirelessClocker.getInstance().remTileEntity((TileEntityRedstoneWirelessClocker)entity);
+		else
+			ThreadWirelessClocker.getInstance().remTileEntity(i,j,k);
 		
+		super.onBlockRedstoneWirelessRemoved(world,i,j,k);	
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 	    		((TileEntityRedstoneWirelessClocker)entity).setClockState(true);
 	        // There are no powering entities, state is deactivated.
 	        else if ( !(world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) )
-	        		((TileEntityRedstoneWirelessClocker)entity).setClockState(false);
+	        	((TileEntityRedstoneWirelessClocker)entity).setClockState(false);
 		}
 	}
 

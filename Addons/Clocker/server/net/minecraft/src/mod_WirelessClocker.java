@@ -24,7 +24,11 @@ public class mod_WirelessClocker extends NetworkMod {
 	public boolean wirelessClocker = false;
 	public boolean wirelessClockerSMP = false;
 	
-	NetworkMod instance;
+	public NetworkMod instance;
+
+	public mod_WirelessClocker() {
+		instance = this;
+	}
 	
 	@Override
 	public void modsLoaded() {
@@ -38,10 +42,6 @@ public class mod_WirelessClocker extends NetworkMod {
 	@Override
 	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
-	}
-	
-	public mod_WirelessClocker() {
-		instance = this;
 	}
 
 	@Override
