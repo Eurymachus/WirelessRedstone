@@ -34,12 +34,12 @@ public class RedstoneEtherFrequency {
 	 * Registered transmitter nodes.
 	 */
 	public Map<RedstoneEtherNode,RedstoneEtherNode> txs;
-	private ReadWriteLock txLock;
+	private WirelessReadWriteLock txLock;
 	/**
 	 * Registered receiver nodes.
 	 */
 	public Map<RedstoneEtherNode,RedstoneEtherNode> rxs;
-	private ReadWriteLock rxLock;
+	private WirelessReadWriteLock rxLock;
 	
 	/**
 	 * Constructor.<br>
@@ -47,10 +47,10 @@ public class RedstoneEtherFrequency {
 	 */
 	public RedstoneEtherFrequency() {
 		txs = new TreeMap<RedstoneEtherNode,RedstoneEtherNode>();
-		txLock = new ReadWriteLock();
+		txLock = new WirelessReadWriteLock();
 		
 		rxs = new TreeMap<RedstoneEtherNode,RedstoneEtherNode>();
-		rxLock = new ReadWriteLock(); 
+		rxLock = new WirelessReadWriteLock(); 
 	}
 	
 	/**
@@ -340,37 +340,5 @@ public class RedstoneEtherFrequency {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 		}
 		return null;
-	}
-	
-	private class ReadWriteLock {
-		private int readers = 0;
-		private int writers = 0;
-		private int writeReq = 0;
-		
-		public synchronized void readLock() throws InterruptedException {
-			while (writers > 0 || writeReq > 0 ) {
-				LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("readLock", LoggerRedstoneWireless.LogLevel.INFO);
-				wait();
-			}
-			readers++;
-		}
-		public synchronized void readUnlock() {
-			readers--;
-			notifyAll();
-		}
-		
-		public synchronized void writeLock() throws InterruptedException {
-			writeReq++;
-			while ( readers > 0 || writers > 0 ) {
-				LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write("writeLock", LoggerRedstoneWireless.LogLevel.INFO);
-				wait();
-			}
-			writers++;
-			writeReq--;
-		}
-		public synchronized void writeUnlock() {
-			writers--;
-			notifyAll();
-		}
 	}
 }

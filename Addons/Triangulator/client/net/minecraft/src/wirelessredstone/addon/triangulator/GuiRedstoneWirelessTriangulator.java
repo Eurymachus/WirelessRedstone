@@ -126,6 +126,6 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	}
 	@Override
 	protected void setFreq(String freq) {
-		RedstoneWirelessPlayerMem.getInstance(world).setFreq(entityplayer,freq);
+		RedstoneWirelessPlayerMem.getInstance(world).addMem(entityplayer,freq);
 	}
 }
