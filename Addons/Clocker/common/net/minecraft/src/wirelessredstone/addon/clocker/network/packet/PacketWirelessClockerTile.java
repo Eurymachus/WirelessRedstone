@@ -11,8 +11,7 @@ public class PacketWirelessClockerTile extends PacketWirelessClocker {
 		super(PacketIds.WIFI_CLOCKERTILE);
 	}
 	
-	public PacketWirelessClockerTile(TileEntityRedstoneWirelessClocker entity)
-	{
+	public PacketWirelessClockerTile(TileEntityRedstoneWirelessClocker entity) {
 		this();
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).write("[fetchClockerTile]" + this.xPosition + this.yPosition + this.zPosition, LogLevel.INFO);
@@ -26,8 +25,7 @@ public class PacketWirelessClockerTile extends PacketWirelessClocker {
 		return this.getClockFreq()+"("+xPosition+","+yPosition+","+zPosition+")["+this.getFreq()+"]";
 	}
 
-	public String getFreq()
-	{
+	public String getFreq() {
 		return this.payload.getStringPayload(0);
 	}
 

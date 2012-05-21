@@ -20,26 +20,38 @@ public class WirelessClocker
 	{
 		loadConfig();
 		loadBlockTextures();
-		blockClock = (new BlockRedstoneWirelessClocker(clockID, 1.0F, 8.0F)).setBlockName("clocker");
+		initBlock();
 		addRecipes();
-		ModLoader.registerBlock(blockClock);
-		ModLoader.addName(blockClock, "Wireless Clocker");
-		ModLoader.registerTileEntity(TileEntityRedstoneWirelessClocker.class, "Wireless Clocker");
+		addBlock();
 		return true;
 	}
+
 	
-	public static void addRecipes() {
+	private static void loadBlockTextures() 
+	{
+		spriteSidesOff 	= 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/clockerSideOff.png");
+		spriteSidesOn 	= 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/clockerSideOn.png");
+	}
+	private static void loadConfig() 
+	{
+		clockID = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker").get("ID", Integer.class, new Integer(clockID));
+	}
+
+	private static void initBlock()
+	{
+		blockClock = (new BlockRedstoneWirelessClocker(clockID, 1.0F, 8.0F)).setBlockName("clocker");
+	}
+	
+	private static void addRecipes() 
+	{
 		ModLoader.addRecipe(new ItemStack(blockClock, 1), new Object[] {
             "R R", " # ", "R R", Character.valueOf('R'), Item.redstoneRepeater, Character.valueOf('#'), WirelessRedstone.blockWirelessT
         });
 	}
-	
-	public static void loadBlockTextures() {
-		spriteSidesOff 	= 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/clockerSideOff.png");
-		spriteSidesOn 	= 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/clockerSideOn.png");
-	}
-
-	private static void loadConfig() {
-		clockID = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker").get("ID", Integer.class, new Integer(clockID));
+	private static void addBlock()
+	{
+		ModLoader.registerBlock(blockClock);
+		ModLoader.addName(blockClock, "Wireless Clocker");
+		ModLoader.registerTileEntity(TileEntityRedstoneWirelessClocker.class, "Wireless Clocker");
 	}
 }

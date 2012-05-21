@@ -12,8 +12,7 @@ import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 
 public class PacketHandlerWirelessClocker {
 	
-	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player)
-	{
+	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player) {
 		if ( packet instanceof PacketWirelessClockerSettings ) {
 			PacketHandlerInput.handleWirelessClockerSettings((PacketWirelessClockerSettings)packet, world, player);
 		}
@@ -21,8 +20,7 @@ public class PacketHandlerWirelessClocker {
 	
 
 	private static class PacketHandlerInput {
-		private static void handleWirelessClockerSettings(PacketWirelessClockerSettings packet, World world, EntityPlayer player)
-		{
+		private static void handleWirelessClockerSettings(PacketWirelessClockerSettings packet, World world, EntityPlayer player) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessClockerPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			TileEntity tileentity = packet.getTarget(world);
 			if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessClocker) {
@@ -34,16 +32,14 @@ public class PacketHandlerWirelessClocker {
 		}
 	}
 
-	public static class PacketHandlerOutput
-	{
+	public static class PacketHandlerOutput {
 		public static void sendWirelessClockerPacket(EntityPlayer player, String clockFreq, int i, int j, int k) {
 			PacketWirelessClockerSettings packet = new PacketWirelessClockerSettings(clockFreq, i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessClockerPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}
 
-		public static void sendWirelessClockerGuiPacket(EntityPlayer player, int clockFreq, int i,
-				int j, int k) {
+		public static void sendWirelessClockerGuiPacket(EntityPlayer player, int clockFreq, int i, int j, int k) {
 			PacketWirelessClockerGui packet = new PacketWirelessClockerGui(clockFreq, i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessClockerGuiPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			((EntityPlayerMP)player).playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());

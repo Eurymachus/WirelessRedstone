@@ -22,7 +22,7 @@ import net.minecraft.src.Packet;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireless {
-	public int clockFreq;
+	private int clockFreq;
 	private boolean running;
 
 	public TileEntityRedstoneWirelessClocker() {
@@ -30,27 +30,7 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 		clockFreq = 1000;
 		running = false;
 	}
-	
-	public String getClockFreqString()
-	{	
-		String timer = "";
-		if (this.clockFreq < 1000) timer = String.valueOf(this.clockFreq) + "ms";
-		else if (this.clockFreq < 60000) {
-			long seconds, milliseconds;
-			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq);
-			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.SECONDS.toMillis(seconds);
-			timer = seconds + "sec " + milliseconds + "ms";
-		}
-		else {
-			long minutes, seconds, milliseconds;
-			minutes = TimeUnit.MILLISECONDS.toMinutes(this.clockFreq);
-			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq) - TimeUnit.MINUTES.toSeconds(minutes);
-			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.MINUTES.toMillis(minutes) - TimeUnit.SECONDS.toMillis(seconds);
-			timer = minutes + "m " + seconds + "s " + milliseconds + "ms";
-		}
-		return timer;
-	}
-	
+
 	@Override
 	public void updateEntity() {
 		String freq = getFreq();
@@ -78,7 +58,6 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 	public int getClockFreq() {
 		return clockFreq;
 	}
-	
 	public void setClockFreq(int i) {
 		if ( i > 2000000000 ) i = 2000000000;
 		if ( i < 200 ) i = 200;
@@ -87,6 +66,27 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 		
 		setClockState(running);
 	}
+	public String getClockFreqString() {	
+		String timer = "";
+		
+		if (this.clockFreq < 1000) 
+			timer = String.valueOf(this.clockFreq) + "ms";
+		else if (this.clockFreq < 60000) {
+			long seconds, milliseconds;
+			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq);
+			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.SECONDS.toMillis(seconds);
+			timer = seconds + "sec " + milliseconds + "ms";
+		} else {
+			long minutes, seconds, milliseconds;
+			minutes = TimeUnit.MILLISECONDS.toMinutes(this.clockFreq);
+			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq) - TimeUnit.MINUTES.toSeconds(minutes);
+			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.MINUTES.toMillis(minutes) - TimeUnit.SECONDS.toMillis(seconds);
+			timer = minutes + "m " + seconds + "s " + milliseconds + "ms";
+		}
+		
+		return timer;
+	}
+	
 	
 	public void setClockState(boolean state) {		
 		running = state;

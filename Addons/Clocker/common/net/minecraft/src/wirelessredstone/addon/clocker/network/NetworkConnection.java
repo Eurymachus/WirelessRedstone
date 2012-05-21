@@ -20,14 +20,15 @@ public class NetworkConnection implements INetworkConnections
 {
 
 	@Override
-	public void onPacketData(NetworkManager network, String channel,
-			byte[] bytes) {
+	public void onPacketData(NetworkManager network, String channel, byte[] bytes) 
+	{
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
 			World world = WirelessRedstone.getWorld(network);
 			EntityPlayer player = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
+			
 			switch (packetID)
 			{
 			case PacketIds.WIFI_CLOCKER:
@@ -54,18 +55,19 @@ public class NetworkConnection implements INetworkConnections
 	}
 
 	@Override
-	public void onConnect(NetworkManager network) {
-		
+	public void onConnect(NetworkManager network) 
+	{	
 	}
 
 	@Override
-	public void onLogin(NetworkManager network, Packet1Login login) {
+	public void onLogin(NetworkManager network, Packet1Login login) 
+	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-CLOCKER");
 		ModLoader.getLogger().warning("Wireless Redstone : Clocker Registered for - " + WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override
-	public void onDisconnect(NetworkManager network, String message,
-			Object[] args) {
+	public void onDisconnect(NetworkManager network, String message, Object[] args) 
+	{
 	}
 }

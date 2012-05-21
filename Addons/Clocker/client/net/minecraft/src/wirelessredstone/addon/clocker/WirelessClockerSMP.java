@@ -9,9 +9,19 @@ public class WirelessClockerSMP {
 
 	public static boolean initialize()
 	{
+		registerConnHandler();
+		addGuiOverride();
+		return true;
+	}
+	
+	private static void registerConnHandler() 
+	{
 		MinecraftForge.registerConnectionHandler(new NetworkConnection());
+	}
+	
+	private static void addGuiOverride() 
+	{
 		GuiRedstoneWirelessOverrideClient override = new GuiRedstoneWirelessOverrideClient();
 		mod_WirelessClocker.addGuiOverrideToClocker(override);
-		return true;
 	}
 }

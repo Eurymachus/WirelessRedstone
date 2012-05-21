@@ -27,21 +27,16 @@ public class mod_WirelessClocker extends NetworkMod {
 	NetworkMod instance;
 	
 	@Override
-	public void modsLoaded()
-	{
+	public void modsLoaded() {
 		if (!wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
 			wirelessClocker = WirelessClocker.initialize();
-		}
+		
 		if (wirelessClocker && !wirelessClockerSMP)
-		{
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
-		}
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
 	
@@ -50,8 +45,7 @@ public class mod_WirelessClocker extends NetworkMod {
 	}
 
 	@Override
-	public void load() {
-	}
+	public void load() {}
 
 	@Override
 	public String getVersion() {

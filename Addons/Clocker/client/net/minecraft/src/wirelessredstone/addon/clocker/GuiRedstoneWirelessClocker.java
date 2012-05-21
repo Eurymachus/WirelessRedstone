@@ -23,12 +23,12 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
 	private boolean isScrolling;
+	
 	public GuiRedstoneWirelessClocker() {
 		super();
 	}
 	
 	@Override
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void initGui() {
 		super.initGui();
 		
@@ -84,10 +84,15 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
 		if ( clockFreq > 2000000000 ) clockFreq = 2000000000;
 		if ( clockFreq < 200 ) clockFreq = 200;
 
+		// Clock frequency changed.
 		if ( oldClockFreq != clockFreq) {
 			((TileEntityRedstoneWirelessClocker)inventory).setClockFreq(clockFreq);
 			if ( ( ModLoader.getMinecraftInstance().theWorld.isRemote ) ){
-				PacketHandlerWirelessClocker.PacketHandlerOutput.sendWirelessClockerPacket(ModLoader.getMinecraftInstance().thePlayer, String.valueOf(((TileEntityRedstoneWirelessClocker)inventory).getClockFreq()), inventory.xCoord, inventory.yCoord, inventory.zCoord);
+				PacketHandlerWirelessClocker.PacketHandlerOutput.sendWirelessClockerPacket(
+						ModLoader.getMinecraftInstance().thePlayer, 
+						String.valueOf(((TileEntityRedstoneWirelessClocker)inventory).getClockFreq()), 
+						inventory.xCoord, inventory.yCoord, inventory.zCoord
+				);
 			}
 		}
 	}
@@ -101,8 +106,14 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
 				97,
 				(xSize/2)+(fontRenderer.getStringWidth("Clocking Frequency (ms)")/2)
 		);
-		fontRenderer.drawString("Clocking Frequency (ms)", (xSize/2)-(fontRenderer.getStringWidth("Clocking Frequency (ms)")/2), 97, 0x404040);
+		fontRenderer.drawString(
+				"Clocking Frequency (ms)", 
+				(xSize/2)-(fontRenderer.getStringWidth("Clocking Frequency (ms)")/2), 
+				97, 
+				0x404040
+		);
 	}
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f) {
 		int i = mc.renderEngine.getTexture("/gui/wifi_large.png");
@@ -112,5 +123,4 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
 		int k = (height - ySize) / 2;
 		drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
 	}
-
 }

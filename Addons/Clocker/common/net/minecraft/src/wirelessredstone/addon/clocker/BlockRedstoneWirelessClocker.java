@@ -65,34 +65,30 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 		TileEntity entity = world.getBlockTileEntity(i, j, k);
 		if ( entity instanceof TileEntityRedstoneWirelessClocker ) {
 	    	// It was not removed, can provide power and is indirectly getting powered.
-	        if ( l > 0 && (world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) ) {
+	        if ( l > 0 && (world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) )
 	    		((TileEntityRedstoneWirelessClocker)entity).setClockState(true);
-	        } else {
-	        	// There are no powering entities, state is deactivated.
-	        	if ( !(world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) ) {
+	        // There are no powering entities, state is deactivated.
+	        else if ( !(world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) )
 	        		((TileEntityRedstoneWirelessClocker)entity).setClockState(false);
-	        	}
-	        }
 		}
 	}
 
 	@Override
 	protected int getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 		if ( getState(iblockaccess.getBlockMetadata(i, j, k)) ) {
-			if(l == 0 || l == 1) {
-				return WirelessRedstone.spriteTopOn;
-			}
+			if(l == 0 || l == 1)
+				return WirelessRedstone.spriteTopOn; 
+			
 			return WirelessClocker.spriteSidesOn;
-		} else {
+		} else 
 			return getBlockRedstoneWirelessTextureFromSide(l);
-		}
 	}
 
 	@Override
 	protected int getBlockRedstoneWirelessTextureFromSide(int l) {
-		if(l == 0 || l == 1) {
+		if(l == 0 || l == 1)
 			return WirelessRedstone.spriteTopOff;
-		}
+		
 		return WirelessClocker.spriteSidesOff;
 	}
 

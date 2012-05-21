@@ -39,7 +39,8 @@ public class mod_WirelessClocker extends BaseMod {
 		}
 	}
 	
-	public mod_WirelessClocker() {
+	public mod_WirelessClocker() 
+	{
 		instance = this;
 	}
 
@@ -50,19 +51,21 @@ public class mod_WirelessClocker extends BaseMod {
 	}
 
 	@Override
-	public void load() {
-	}
+	public void load() {}
 
 	@Override
-	public String getVersion() {
+	public String getVersion() 
+	{
 		return "1.0";
 	}
 
-	public static void addOverrideToClocker(BlockRedstoneWirelessOverride override) {
+	public static void addOverrideToClocker(BlockRedstoneWirelessOverride override) 
+	{
 		((BlockRedstoneWireless)WirelessClocker.blockClock).addOverride(override);
 	}
 	
-	public static void addGuiOverrideToClocker(GuiRedstoneWirelessOverride override) {
+	public static void addGuiOverrideToClocker(GuiRedstoneWirelessOverride override) 
+	{
 		WirelessClocker.guiClock.addOverride(override);
 	}
 }
