@@ -14,7 +14,8 @@ public class mod_WirelessRedstone extends NetworkMod
 {
 	public static NetworkMod instance;
 	
-	public mod_WirelessRedstone() {
+	public mod_WirelessRedstone()
+	{
 		instance = this;
 		
     	MinecraftForge.registerConnectionHandler(new NetworkConnection());
@@ -25,13 +26,19 @@ public class mod_WirelessRedstone extends NetworkMod
 		WirelessRedstone.load();
 	}
 	
-	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override)
+	{
+		LoggerRedstoneWireless.getInstance("Wireless Redstone")
+		.write("Override added to "+WirelessRedstone.blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		
 		((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).addOverride(override);
 	}
 	
-	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override)
+	{
+		LoggerRedstoneWireless.getInstance("Wireless Redstone")
+		.write("Override added to "+WirelessRedstone.blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		
 		((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).addOverride(override);
 	}
 	
@@ -41,26 +48,26 @@ public class mod_WirelessRedstone extends NetworkMod
 	}
 	
 	@Override
-	public String getVersion() {
+	public String getVersion()
+	{
 		return "1.6";
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "WirelessRedstone-SMP "+getVersion();
 	}
 
 	@Override
 	public boolean clientSideRequired()
 	{
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean serverSideRequired()
 	{
-		// TODO Auto-generated method stub
 		return true;
 	}
 }

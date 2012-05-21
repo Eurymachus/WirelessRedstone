@@ -34,18 +34,13 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+	{
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if ( tileentity instanceof TileEntityRedstoneWirelessR )
 		{
-			if (!world.isRemote)
-			{
-				ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessPowerDirector((TileEntityRedstoneWirelessR)tileentity));
-				itemstack.damageItem(1, entityplayer);
-				return true;
-			}
-			else if (mod_PowerConfigurator.powerConfigSMP)
+			if (world.isRemote && PowerConfiguratorSMP.isLoaded)
 			{
 				PacketPowerConfigGui pPCGui = new PacketPowerConfigGui(i, j, k);
 				ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(pPCGui.getPacket());
@@ -54,11 +49,12 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 			}
 			else
 			{
-				return false;
+				ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessPowerDirector((TileEntityRedstoneWirelessR)tileentity));
+				itemstack.damageItem(1, entityplayer);
+				return true;
 			}
-		} else {
-			return false;
 		}
+		return false;
 	}
 	
 	@Override

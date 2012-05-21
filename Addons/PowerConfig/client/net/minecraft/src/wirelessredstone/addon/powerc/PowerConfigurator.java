@@ -5,10 +5,13 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class PowerConfigurator
 {
+	public static boolean isLoaded = false;
 	public static Item itemPowDir;
 	public static int pdID=6243;
 	
@@ -23,8 +26,13 @@ public class PowerConfigurator
 			ModLoader.addName(itemPowDir, "Power Configurator");
 			mod_WirelessRedstone.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 			return true;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
+			LoggerRedstoneWireless.getInstance(
+			LoggerRedstoneWireless.filterClassName(
+			PowerConfigurator.class.toString()))
+			.write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;
 		}
 	}

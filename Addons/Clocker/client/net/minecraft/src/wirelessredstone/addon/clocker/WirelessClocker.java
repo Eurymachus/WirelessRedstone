@@ -6,10 +6,12 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 public class WirelessClocker
 {
+	public static boolean isLoaded = false;
 	public static GuiRedstoneWireless guiClock;
 	public static Block blockClock;
 	
@@ -20,16 +22,27 @@ public class WirelessClocker
 	
 	public static boolean initialize()
 	{
-		loadConfig();
-		loadBlockTextures();
-		
-		initBlock();
-		initGui();
-		
-		addRecipes();
-		addBlock();
-		
-		return true;
+		try
+		{
+			loadConfig();
+			loadBlockTextures();
+			
+			initBlock();
+			initGui();
+			
+			addRecipes();
+			addBlock();
+			
+			return true;
+		}
+		catch (Exception e)
+		{
+			LoggerRedstoneWireless.getInstance(
+			LoggerRedstoneWireless.filterClassName(
+			WirelessClocker.class.toString()))
+			.write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
+			return false;
+		}
 	}
 	
 	private static void loadBlockTextures() 

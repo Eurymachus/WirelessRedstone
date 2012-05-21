@@ -19,22 +19,18 @@ import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfiguratorSMP;
 
 public class mod_PowerConfigurator extends BaseMod
 {
-	public static boolean powerConfig = false;
-	public static boolean powerConfigSMP = false;
 	public static BaseMod instance;
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!PowerConfigurator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			if (!powerConfig)
-				powerConfig = PowerConfigurator.initialize();
+			PowerConfigurator.isLoaded = PowerConfigurator.initialize();
 		}
-		if (powerConfig && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (PowerConfigurator.isLoaded && !PowerConfiguratorSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			if (!powerConfigSMP)
-				powerConfigSMP = PowerConfiguratorSMP.initialize();
+			PowerConfiguratorSMP.isLoaded = PowerConfiguratorSMP.initialize();
 		}
 	}
 

@@ -19,19 +19,17 @@ import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSnifferSMP;
 
 public class mod_WirelessSniffer extends BaseMod
 {
-	public static boolean wirelessSniffer = false;
-	public static boolean wirelessSnifferSMP = false;
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessSniffer.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			if (!wirelessSniffer) wirelessSniffer = WirelessSniffer.initialize();
+			WirelessSniffer.isLoaded = WirelessSniffer.initialize();
 		}
-		if (ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (WirelessSniffer.isLoaded && !WirelessSnifferSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			if (!wirelessSnifferSMP) wirelessSnifferSMP = WirelessSnifferSMP.initialize();
+			WirelessSnifferSMP.isLoaded = WirelessSnifferSMP.initialize();
 		}
 	}
 

@@ -18,14 +18,12 @@ import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 
 public class mod_WirelessSniffer extends BaseMod
 {
-	public static boolean wirelessSniffer = false;
-	
 	@Override
 	public void modsLoaded()
 	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessSniffer.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			if (!wirelessSniffer) wirelessSniffer = WirelessSniffer.initialize();
+			WirelessSniffer.isLoaded = WirelessSniffer.initialize();
 		}
 	}
 
@@ -40,11 +38,13 @@ public class mod_WirelessSniffer extends BaseMod
 	}
 
 	@Override
-	public void load() {
+	public void load()
+	{
 	}
 	
 	@Override
-	public String getVersion() {
+	public String getVersion()
+	{
 		return "1.0";
 	}
 }

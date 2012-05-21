@@ -90,7 +90,7 @@ public class WirelessProcessRemote
     
 	public static void transmitRemote(String command, World world, Remote remote)
 	{
-    	if (world.isRemote && mod_WirelessRemote.wirelessRemoteSMP)
+    	if (world.isRemote && WirelessRemoteSMP.isLoaded)
     	{
     		PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemotePacket(command, remote);
     	}

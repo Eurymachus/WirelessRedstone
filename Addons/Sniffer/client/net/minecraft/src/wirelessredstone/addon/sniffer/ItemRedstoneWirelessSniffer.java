@@ -19,7 +19,6 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessSniffer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.PacketHandlerWirelessSniffer;
 
 public class ItemRedstoneWirelessSniffer extends Item {
@@ -31,7 +30,7 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(entityplayer, world));
-		if(world.isRemote && mod_WirelessSniffer.wirelessSnifferSMP) {
+		if(world.isRemote && WirelessSniffer.isLoaded) {
 			PacketHandlerWirelessSniffer.PacketHandlerOutput.sendWirelessSnifferOpenGui(world, entityplayer);
 		}
 		return itemstack;

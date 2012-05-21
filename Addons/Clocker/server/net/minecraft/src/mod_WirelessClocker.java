@@ -19,36 +19,40 @@ import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.NetworkConnection;
 
-public class mod_WirelessClocker extends NetworkMod {
-
+public class mod_WirelessClocker extends NetworkMod
+{
 	public boolean wirelessClocker = false;
-	public boolean wirelessClockerSMP = false;
 	
 	public NetworkMod instance;
 
-	public mod_WirelessClocker() {
+	public mod_WirelessClocker()
+	{
 		instance = this;
 	}
 	
 	@Override
-	public void modsLoaded() {
+	public void modsLoaded()
+	{
 		if (!wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstone"))
+		{
 			wirelessClocker = WirelessClocker.initialize();
-		
-		if (wirelessClocker && !wirelessClockerSMP)
-			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+		}
 	}
 
 	@Override
-	public String getPriorities() {
+	public String getPriorities()
+	{
 		return "after:mod_WirelessRedstone";
 	}
 
 	@Override
-	public void load() {}
+	public void load()
+	{
+	}
 
 	@Override
-	public String getVersion() {
+	public String getVersion() 
+	{
 		return "1.0";
 	}
 }

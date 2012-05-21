@@ -20,7 +20,6 @@ import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessSniffer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPlayerPageNumber;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
@@ -149,7 +148,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 				y = j+(nodeSize*n)+n;
 				if (c <= maxEtherNodes && c >= 0)
 				{
-					if (world.isRemote && mod_WirelessSniffer.wirelessSnifferSMP)
+					if (world.isRemote && WirelessSnifferSMP.isLoaded)
 					{
 						if (this.getFreqState(c))
 							drawRect(x, y, x+nodeSize, y+nodeSize, 0xff00ff00);

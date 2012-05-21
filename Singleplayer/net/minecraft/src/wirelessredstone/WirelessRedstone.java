@@ -180,11 +180,23 @@ public class WirelessRedstone
 		addRecipes();
 	}
 
+	/**
+	 * Retrieves the world object
+	 * 
+	 * @param network the Network manager (used for Server)
+	 * @return the world
+	 */
 	public static World getWorld(NetworkManager network)
 	{
 		return ModLoader.getMinecraftInstance().theWorld;
 	}
 
+	/**
+	 * Retrieves the player object
+	 * 
+	 * @param network the Network manager (used for Server)
+	 * @return the player
+	 */
 	public static EntityPlayer getPlayer(NetworkManager network)
 	{
 		return ModLoader.getMinecraftInstance().thePlayer;

@@ -11,13 +11,16 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.World;
+import net.minecraft.src.mod_WirelessRemote;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
-public class WirelessRemote {	
+public class WirelessRemote
+{
+	public static boolean isLoaded = false;
 	public static Item itemRemote;
 	public static int remoteon, remoteoff;
 	public static int remoteID=6245;
@@ -31,17 +34,23 @@ public class WirelessRemote {
 	{
 		try
 		{
+			ModLoader.setInGameHook(mod_WirelessRemote.instance, true, true);
 			loadConfig();
 			WirelessProcessRemote.initialize();
 			itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256)).setItemName("remote");
 			loadItemTextures();
 			addRecipes();
 			addNames();
-		} catch (Exception e)
-		{
-			LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(WirelessRemote.class.toString())).write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
+			return true;
 		}
-		return true;
+		catch (Exception e)
+		{
+			LoggerRedstoneWireless.getInstance(
+			LoggerRedstoneWireless.filterClassName(
+			WirelessRemote.class.toString()))
+			.write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
+			return false;
+		}
 	}
 	
 	public static void loadItemTextures()

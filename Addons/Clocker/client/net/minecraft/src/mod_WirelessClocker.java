@@ -20,22 +20,20 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 
-public class mod_WirelessClocker extends BaseMod {
-
-	public boolean wirelessClocker = false;
-	public boolean wirelessClockerSMP = false;
+public class mod_WirelessClocker extends BaseMod
+{
 	public BaseMod instance;
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (!wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessClocker.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			wirelessClocker = WirelessClocker.initialize();
+			WirelessClocker.isLoaded = WirelessClocker.initialize();
 		}
-		if (wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (WirelessClocker.isLoaded && !WirelessClockerSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			if (!wirelessClockerSMP) wirelessClockerSMP = WirelessClockerSMP.initialize();
+			WirelessClockerSMP.isLoaded = WirelessClockerSMP.initialize();
 		}
 	}
 	

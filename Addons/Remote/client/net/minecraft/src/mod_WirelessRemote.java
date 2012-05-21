@@ -22,31 +22,32 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class mod_WirelessRemote extends BaseMod
 {
-	public static boolean wirelessRemote = false;
-	public static boolean wirelessRemoteSMP = false;
 	public static BaseMod instance;
+	
+	public mod_WirelessRemote()
+	{
+		instance = this;
+	}
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessRemote.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			if (!wirelessRemote) {
-				wirelessRemote = WirelessRemote.initialize();
-				RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
-				RedstoneEther.getInstance().addOverride(etherOverrideRemote);
-			}
+			WirelessRemote.isLoaded = WirelessRemote.initialize();
+			RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
+			RedstoneEther.getInstance().addOverride(etherOverrideRemote);
 		}
-		if (wirelessRemote && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (WirelessRemote.isLoaded && !WirelessRemoteSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			if (!wirelessRemoteSMP) wirelessRemoteSMP = WirelessRemoteSMP.initialize();
+			WirelessRemoteSMP.isLoaded = WirelessRemoteSMP.initialize();
 		}
 	}
 
 	@Override
 	public boolean onTickInGame(float var1, Minecraft var2)
 	{
-		if (!wirelessRemote)
+		if (!WirelessRemote.isLoaded)
 		{
 			return true;
 		}
@@ -61,12 +62,6 @@ public class mod_WirelessRemote extends BaseMod
 	public String getPriorities()
 	{
 		return "after:mod_WirelessRedstone";
-	}
-	
-	public mod_WirelessRemote()
-	{
-		instance = this;
-		ModLoader.setInGameHook(instance, true, true);
 	}
 
 	@Override

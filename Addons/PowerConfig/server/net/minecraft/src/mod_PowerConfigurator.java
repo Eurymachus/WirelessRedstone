@@ -16,24 +16,17 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfigurator;
-import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfiguratorSMP;
 
 public class mod_PowerConfigurator extends NetworkMod
 {
-	public static boolean powerConfig = false;
-	public static boolean powerConfigSMP = false;
 	public static BaseMod instance;
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!PowerConfigurator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			powerConfig = PowerConfigurator.initialize();
-		}
-		if (powerConfig)
-		{
-			powerConfigSMP = PowerConfiguratorSMP.initialize();
+			PowerConfigurator.isLoaded = PowerConfigurator.initialize();
 		}
 	}
 

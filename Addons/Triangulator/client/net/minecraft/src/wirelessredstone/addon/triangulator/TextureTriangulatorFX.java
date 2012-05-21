@@ -21,7 +21,6 @@ import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.TextureFX;
-import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
@@ -84,7 +83,7 @@ public class TextureTriangulatorFX extends TextureFX {
 		if(this.mc.theWorld != null && this.mc.thePlayer != null)
 		{
 			int[] tx = null;
-			if ( this.mc.theWorld.isRemote && mod_WirelessTriangulator.wirelessTriangulatorSMP)
+			if ( this.mc.theWorld.isRemote && WirelessTriangulatorSMP.isLoaded)
 			{
 				for (int stack = 0; stack < this.mc.thePlayer.inventory.getSizeInventory(); stack++)
 				{

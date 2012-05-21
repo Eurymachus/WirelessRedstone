@@ -4,11 +4,14 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.powerc.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 
 public class PowerConfigurator
 {
+	public static boolean isLoaded = false;
 	public static Item itemPowDir;
 	public static int pdID=6243;
 	
@@ -16,6 +19,7 @@ public class PowerConfigurator
 	{
 		try
 		{
+			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 			loadConfig();
 			itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID)).setItemName("powdir");
 			loadItemTextures();
@@ -23,7 +27,8 @@ public class PowerConfigurator
 			ModLoader.addName(itemPowDir, "Power Configurator");
 			mod_WirelessRedstone.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 			return true;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			return false;
 		}
@@ -34,13 +39,15 @@ public class PowerConfigurator
 		itemPowDir.setIconIndex(ModLoader.addOverride("/gui/items.png", "/WirelessSprites/pd.png"));
 	}
 
-	public static void addRecipes() {
+	public static void addRecipes()
+	{
 		ModLoader.addRecipe(new ItemStack(itemPowDir, 1), new Object[] {
             "R R", " X ", "R R", Character.valueOf('X'), WirelessRedstone.blockWirelessR, Character.valueOf('R'), Item.redstone
         });
 	}
 
-	private static void loadConfig() {
+	private static void loadConfig()
+	{
 		pdID = (Integer) ConfigStoreRedstoneWireless.getInstance("PowerConfigurator").get("ID", Integer.class, new Integer(pdID));
 	}
 }

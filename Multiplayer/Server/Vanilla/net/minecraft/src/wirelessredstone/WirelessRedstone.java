@@ -23,9 +23,6 @@ public class WirelessRedstone
 	public static int rxID=127;
 	public static int txID=126;
 	
-	//public static int etherPackID=235;
-	//public static int guiPackID=236;
-	
 	public static int manualUpdate = 10;
 	public static int initUpdate = 2;
 	public static int stateUpdate = 100;
@@ -45,7 +42,8 @@ public class WirelessRedstone
 
 	public static void load()
 	{
-		if ( !loaded ) {
+		if ( !loaded )
+		{
 			loaded = true;
 			loadConfig();
 			blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setBlockName("wifir");
@@ -57,15 +55,21 @@ public class WirelessRedstone
 			loadBlockTextures();
 			addRecipes();
 			
-			Thread thr = new Thread(new Runnable() {			
+			Thread thr = new Thread(new Runnable()
+			{			
 				@Override
-				public void run() {	
+				public void run()
+				{	
 					if ( WirelessRedstone.manualUpdate < 1 ) return;
 					
-					while ( true ) {
-						try {
+					while ( true )
+					{
+						try
+						{
 							Thread.sleep(WirelessRedstone.manualUpdate*1000);
-						} catch (InterruptedException e) {
+						} 
+						catch (InterruptedException e)
+						{
 							e.printStackTrace();
 						}
 						if (ModLoader.getMinecraftServerInstance().playersOnline() > 0)
@@ -78,19 +82,8 @@ public class WirelessRedstone
 		}
 	}
 	
-	
-/*	@Override
-	public void handleLogin(EntityPlayerMP entityplayermp) {
-		PacketHandlerRedstoneWireless.PacketHandlerOutput.sendEtherTilesTo(entityplayermp,initUpdate*1000);
-	}
-	
-	
-	@Override
-	public void handlePacket(Packet230ModLoader packet, EntityPlayerMP player) {
-		PacketHandlerRedstoneWireless.handlePacket(packet, player);
-	}*/
-	
-	public static void addRecipes() {
+	public static void addRecipes()
+	{
 		ModLoader.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
             "IRI", "RLR", "IRI", Character.valueOf('I'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('L'), Block.lever
         });
@@ -99,7 +92,8 @@ public class WirelessRedstone
         });
 	}
 	
-	public static void loadBlockTextures() {
+	public static void loadBlockTextures()
+	{
 		spriteTopOn = 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/topOn.png");
 		spriteTopOff = 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/topOff.png");
 		spriteROn = 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/rxOn.png");
@@ -108,15 +102,14 @@ public class WirelessRedstone
 		spriteTOff =	ModLoader.addOverride("/terrain.png", "/WirelessSprites/txOff.png");
 	}
 	
-	private static void loadConfig() {
+	private static void loadConfig()
+	{
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Receiver.ID", Integer.class, new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Transmitter.ID", Integer.class, new Integer(txID));
 		guiOn = (Boolean) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Gui", Boolean.class, new Boolean(guiOn));
 		manualUpdate = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Update.Intervall", Integer.class, new Integer(manualUpdate));
 		stateUpdate = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Update.StateDelay", Integer.class, new Integer(stateUpdate));
 		initUpdate = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Update.LoginDelay", Integer.class, new Integer(initUpdate));
-		//etherPackID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Packet.Ether.ID", Integer.class, new Integer(etherPackID));
-		//guiPackID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Packet.Gui.ID", Integer.class, new Integer(guiPackID));
 	}
 
 

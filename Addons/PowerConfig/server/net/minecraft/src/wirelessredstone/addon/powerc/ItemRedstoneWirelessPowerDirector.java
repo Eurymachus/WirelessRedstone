@@ -24,21 +24,23 @@ import net.minecraft.src.mod_PowerConfigurator;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
-public class ItemRedstoneWirelessPowerDirector extends Item {
-
-	protected ItemRedstoneWirelessPowerDirector(int i) {
+public class ItemRedstoneWirelessPowerDirector extends Item
+{
+	protected ItemRedstoneWirelessPowerDirector(int i)
+	{
 		super(i);
 		maxStackSize = 1;
 		setMaxDamage(64);
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+	{
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if ( tileentity instanceof TileEntityRedstoneWirelessR )
 		{
-			if (mod_PowerConfigurator.powerConfigSMP)
+			if (world.isRemote)
 			{
 				PacketPowerConfigGui pPCGui = new PacketPowerConfigGui(i, j, k);
 				EntityPlayerMP player = (EntityPlayerMP)entityplayer;
@@ -46,16 +48,12 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 				itemstack.damageItem(1, entityplayer);
 				return true;
 			}
-			else
-			{
-				return false;
-			}
-		} else {
-			return false;
 		}
+		return false;
 	}
 	
-	public boolean isFull3D() {
+	public boolean isFull3D() 
+	{
 		return true;
 	}
 }

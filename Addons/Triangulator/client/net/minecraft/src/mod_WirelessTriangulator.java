@@ -14,24 +14,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulatorSMP;
 
-public class mod_WirelessTriangulator extends BaseMod {
-	public static boolean wirelessTriangulator;
-	public static boolean wirelessTriangulatorSMP;
+public class mod_WirelessTriangulator extends BaseMod
+{
 	public static BaseMod instance;
+	
+	public mod_WirelessTriangulator()
+	{
+		instance = this;
+	}
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessTriangulator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
 		{
-			if (!wirelessTriangulator) wirelessTriangulator = WirelessTriangulator.initialize();
+			WirelessTriangulator.isLoaded = WirelessTriangulator.initialize();
 		}
-		if (ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (WirelessTriangulator.isLoaded && !WirelessTriangulatorSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
 		{
-			if (!wirelessTriangulatorSMP) wirelessTriangulatorSMP = WirelessTriangulatorSMP.initialize();
+			WirelessTriangulatorSMP.isLoaded = WirelessTriangulatorSMP.initialize();
+		}
+	}
+	
+	@Override
+	public boolean onTickInGame(float tick, Minecraft mc)
+	{
+		if (!WirelessTriangulator.isLoaded)
+			return true;
+		else
+		{
+			return WirelessTriangulator.tick(mc);
 		}
 	}
 
@@ -40,17 +56,15 @@ public class mod_WirelessTriangulator extends BaseMod {
 	{
 		return "after:mod_WirelessRedstone";
 	}
-	
-	public mod_WirelessTriangulator() {
-		instance = this;
+
+	@Override
+	public void load()
+	{
 	}
 
 	@Override
-	public void load() {
-	}
-
-	@Override
-	public String getVersion() {
-		return "0.5";
+	public String getVersion()
+	{
+		return "1.0";
 	}
 }

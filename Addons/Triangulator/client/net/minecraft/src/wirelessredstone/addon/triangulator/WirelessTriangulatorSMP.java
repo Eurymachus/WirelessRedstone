@@ -2,13 +2,27 @@ package net.minecraft.src.wirelessredstone.addon.triangulator;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
-public class WirelessTriangulatorSMP {
-
+public class WirelessTriangulatorSMP
+{
+	public static boolean isLoaded = false;
+	
 	public static boolean initialize()
 	{
-		MinecraftForge.registerConnectionHandler(new NetworkConnection());
-		return true;
+		try
+		{
+			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+			return true;
+		}
+		catch (Exception e)
+		{
+			LoggerRedstoneWireless.getInstance(
+			LoggerRedstoneWireless.filterClassName(
+			WirelessTriangulatorSMP.class.toString()))
+			.write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
+		}
+		return false;
 	}
 
 }
