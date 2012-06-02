@@ -292,7 +292,7 @@ public class RedstoneEther {
 		
 		// Run after overrides.
 		for ( RedstoneEtherOverride override: overrides) {
-			out = override.afterGetFreqState(world, freq, returnState);
+			out = override.afterGetFreqState(world, freq, out);
 		}
 		
 		return out;
@@ -460,9 +460,8 @@ public class RedstoneEther {
 		boolean out = returnState;
 		
 		// Run after overrides.
-		for (int oSize = overrides.size() - 1; oSize >= 0; --oSize) {
-			out = this.overrides.get(oSize).afterIsLoaded(world, i, j, k, returnState);
-		}
+		for ( RedstoneEtherOverride override: overrides )
+			out = override.afterIsLoaded(world, i, j, k, out);
 		
 		return out;
 	}
