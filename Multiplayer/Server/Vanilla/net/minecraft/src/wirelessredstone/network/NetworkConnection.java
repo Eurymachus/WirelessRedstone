@@ -3,9 +3,11 @@ package net.minecraft.src.wirelessredstone.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
+import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
@@ -22,14 +24,15 @@ public class NetworkConnection implements INetworkConnections
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
 		try
 		{
-			NetServerHandler net = (NetServerHandler)network.getNetHandler();
+			World world = WirelessRedstone.getWorld(network);
+			EntityPlayer player = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
 			switch (packetID)
 			{
-			case PacketIds.WIFI_ETHER:
+			case PacketIds.ETHER:
 				PacketRedstoneEther pRE = new PacketRedstoneEther();
 				pRE.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pRE, net.getPlayerEntity());
+				PacketHandlerRedstoneWireless.handlePacket(pRE, world, player);
 				break;
 			} 
 		}

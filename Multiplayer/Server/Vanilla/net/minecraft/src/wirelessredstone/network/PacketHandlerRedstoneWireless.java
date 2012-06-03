@@ -2,6 +2,7 @@ package net.minecraft.src.wirelessredstone.network;
 
 import java.util.List;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
@@ -14,11 +15,11 @@ import net.minecraft.src.wirelessredstone.tileentity.*;
 
 public class PacketHandlerRedstoneWireless
 {
-	public static void handlePacket(PacketUpdate packet, EntityPlayerMP player)
+	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player)
 	{
 		if (packet instanceof PacketRedstoneEther)
 		{
-			PacketHandlerInput.handleEther((PacketRedstoneEther)packet, player.worldObj, player);
+			PacketHandlerInput.handleEther((PacketRedstoneEther)packet, world, player);
 		}
 	}
 	
@@ -100,7 +101,7 @@ public class PacketHandlerRedstoneWireless
 
 		public static void sendEtherTileToAll(TileEntityRedstoneWireless entity, World world, int delay)
 		{
-			PacketRedstoneEther packet = prepareTileEntityPacket(entity,world);
+			PacketRedstoneEther packet = prepareTileEntityPacket(entity, world);
 			
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput")
 			.write("sendEtherTileToAll:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -110,7 +111,7 @@ public class PacketHandlerRedstoneWireless
 		
 		public static void sendEtherTileTo(EntityPlayerMP entityplayermp, TileEntityRedstoneWireless entity, World world, int delay)
 		{
-			PacketRedstoneEther packet = prepareTileEntityPacket(entity,world);
+			PacketRedstoneEther packet = prepareTileEntityPacket(entity, world);
 			
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput")
 			.write("sendEtherTileTo:"+entityplayermp.username+":"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -242,7 +243,7 @@ public class PacketHandlerRedstoneWireless
 	
 	private static class PacketHandlerInput
 	{
-		public static void handleEther(PacketRedstoneEther packet, World world, EntityPlayerMP player)
+		public static void handleEther(PacketRedstoneEther packet, World world, EntityPlayer player)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput")
 			.write("handleEther:"+player.username+":"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -258,7 +259,7 @@ public class PacketHandlerRedstoneWireless
 					((TileEntityRedstoneWireless)entity).setFreq(Integer.toString(oldFreq+dFreq));
 					entity.onInventoryChanged();
 					world.markBlockNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
-					PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWireless)entity,world,0);
+					PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWireless)entity, world, 0);
 				}
 			}
 			

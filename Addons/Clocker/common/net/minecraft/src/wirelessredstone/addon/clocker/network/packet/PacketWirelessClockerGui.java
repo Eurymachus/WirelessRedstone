@@ -6,7 +6,7 @@ import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
 public class PacketWirelessClockerGui extends PacketWirelessClocker {
 
 	public PacketWirelessClockerGui() {
-		super(PacketIds.WIFI_CLOCKERGUI);
+		super(PacketIds.GUI);
 	}
 
 	public PacketWirelessClockerGui(int clockFreq, int i, int j, int k) {

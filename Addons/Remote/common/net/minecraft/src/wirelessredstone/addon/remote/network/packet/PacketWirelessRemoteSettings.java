@@ -7,7 +7,7 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote
 {
 	public PacketWirelessRemoteSettings()
 	{
-		super(PacketIds.WIFI_REMOTE);
+		super(PacketIds.ADDON);
 	}
 	
 	public PacketWirelessRemoteSettings(String command) {

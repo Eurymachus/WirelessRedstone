@@ -8,7 +8,7 @@ import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
 
 public class PacketWirelessClockerTile extends PacketWirelessClocker {
 	public PacketWirelessClockerTile() {
-		super(PacketIds.WIFI_CLOCKERTILE);
+		super(PacketIds.TILE);
 	}
 	
 	public PacketWirelessClockerTile(TileEntityRedstoneWirelessClocker entity) {

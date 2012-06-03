@@ -27,17 +27,17 @@ public class NetworkConnection implements INetworkConnections
 			int packetID = data.read();
 			switch (packetID)
 			{
-			case PacketIds.WIFI_ETHER:
+			case PacketIds.ETHER:
 				PacketRedstoneEther pRE = new PacketRedstoneEther();
 				pRE.readData(data);
 				PacketHandlerRedstoneWireless.handlePacket(pRE, ModLoader.getMinecraftInstance().thePlayer);
 				break;
-			case PacketIds.WIFI_GUI:
+			case PacketIds.GUI:
 				PacketOpenWindowRedstoneWireless pORW = new PacketOpenWindowRedstoneWireless();
 				pORW.readData(data);
 				PacketHandlerRedstoneWireless.handlePacket(pORW, ModLoader.getMinecraftInstance().thePlayer);
 				break;
-			case PacketIds.WIFI_TILE:
+			case PacketIds.TILE:
 				PacketWirelessTile pWT = new PacketWirelessTile();
 				pWT.readData(data);
 				PacketHandlerRedstoneWireless.handlePacket(pWT, ModLoader.getMinecraftInstance().thePlayer);

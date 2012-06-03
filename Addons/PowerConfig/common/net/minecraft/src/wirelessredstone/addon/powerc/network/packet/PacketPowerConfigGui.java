@@ -6,7 +6,7 @@ public class PacketPowerConfigGui extends PacketPowerConfig
 {
 	public PacketPowerConfigGui()
 	{
-		super(PacketIds.WIFI_POWERCGUI);
+		super(PacketIds.GUI);
 	}
 	
 	public PacketPowerConfigGui(int x, int y, int z) {

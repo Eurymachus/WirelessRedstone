@@ -6,14 +6,16 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 
-public class PacketWirelessTile extends PacketWireless {
-	public PacketWirelessTile() {
-		super(PacketIds.WIFI_TILE);
+public class PacketWirelessTile extends PacketWireless
+{
+	public PacketWirelessTile()
+	{
+		super(PacketIds.TILE);
 	}
 	
 	public PacketWirelessTile(String command, TileEntityRedstoneWireless entity)
 	{
-		super(PacketIds.WIFI_TILE, new PacketPayload(0,0,2,13));
+		super(PacketIds.TILE, new PacketPayload(0,0,2,13));
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).write("[fetchTile]" + this.xPosition + this.yPosition + this.zPosition, LogLevel.INFO);
 		this.setCommand(command);
@@ -24,11 +26,13 @@ public class PacketWirelessTile extends PacketWireless {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return this.getCommand()+"("+xPosition+","+yPosition+","+zPosition+")["+this.getFreq()+"]";
 	}
 	
-	public boolean[] getPowerDirections() {
+	public boolean[] getPowerDirections()
+	{
 		int j = this.payload.getBoolSize() - 12;
 		boolean[] dir = new boolean[6];
 		for (int i = 0; i < 6; i++)
@@ -39,7 +43,8 @@ public class PacketWirelessTile extends PacketWireless {
 		return dir;
 	}
 
-	public void setPowerDirections(boolean[] dir) {
+	public void setPowerDirections(boolean[] dir)
+	{
 		int j = this.payload.getBoolSize() - 12;
 		for (int i = 0; i < 6; i++)
 		{
@@ -48,7 +53,8 @@ public class PacketWirelessTile extends PacketWireless {
 		}
 	}
 	
-	public boolean[] getInDirectlyPowering() {
+	public boolean[] getInDirectlyPowering()
+	{
 		int j = this.payload.getBoolSize() - 6;
 		boolean[] indir = new boolean[6];
 		for (int i = 0; i < 6; i++)
@@ -59,7 +65,8 @@ public class PacketWirelessTile extends PacketWireless {
 		return indir;
 	}	
 
-	public void setInDirectlyPowering(boolean[] indir) {
+	public void setInDirectlyPowering(boolean[] indir)
+	{
 		int j = this.payload.getBoolSize() - 6;
 		for (int i = 0; i < 6; i++)
 		{

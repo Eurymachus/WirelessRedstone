@@ -29,12 +29,12 @@ public class NetworkConnection implements INetworkConnections
 			int packetID = data.read();
 			switch (packetID)
 			{
-			case PacketIds.WIFI_REMOTE:
+			case PacketIds.ADDON:
 				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
 				pWR.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pWR, world, player);
 				break;
-			case PacketIds.WIFI_REMOTEGUI:
+			case PacketIds.GUI:
 				PacketWirelessRemoteGui pRG = new PacketWirelessRemoteGui();
 				pRG.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pRG, world, player);

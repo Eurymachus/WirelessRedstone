@@ -7,7 +7,7 @@ public class PacketWirelessSnifferSettings extends PacketWirelessSniffer {
 
 	public PacketWirelessSnifferSettings()
 	{
-		super(PacketIds.WIFI_SNIFFER);
+		super(PacketIds.ADDON);
 	}
 
 	public PacketWirelessSnifferSettings(String freq)

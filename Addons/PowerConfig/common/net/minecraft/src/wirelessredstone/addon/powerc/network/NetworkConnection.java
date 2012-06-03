@@ -29,12 +29,12 @@ public class NetworkConnection implements INetworkConnections
 			int packetID = data.read();
 			switch (packetID)
 			{
-			case PacketIds.WIFI_POWERC:
+			case PacketIds.ADDON:
 				PacketPowerConfigSettings pPC = new PacketPowerConfigSettings();
 				pPC.readData(data);
 				PacketHandlerPowerConfig.handlePacket(pPC, world, player);
 				break;
-			case PacketIds.WIFI_POWERCGUI:
+			case PacketIds.GUI:
 				PacketPowerConfigGui pPCGui = new PacketPowerConfigGui();
 				pPCGui.readData(data);
 				PacketHandlerPowerConfig.handlePacket(pPCGui, world, player);

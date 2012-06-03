@@ -7,7 +7,7 @@ public class PacketWirelessSnifferOpenGui extends PacketWirelessSniffer {
 
 	public PacketWirelessSnifferOpenGui()
 	{
-		super(PacketIds.WIFI_SNIFFERGUI);
+		super(PacketIds.GUI);
 	}
 
 	public PacketWirelessSnifferOpenGui(boolean open)

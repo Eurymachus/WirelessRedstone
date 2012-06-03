@@ -47,7 +47,7 @@ public class mod_WirelessTriangulator extends BaseMod
 			return true;
 		else if (WirelessTriangulatorSMP.isLoaded)
 		{
-			return WirelessTriangulator.tick(mc);
+			return WirelessTriangulatorSMP.tick(mc);
 		}
 		return true;
 	}

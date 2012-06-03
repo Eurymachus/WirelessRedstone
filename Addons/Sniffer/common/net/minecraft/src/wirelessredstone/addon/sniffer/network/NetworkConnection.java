@@ -29,17 +29,17 @@ public class NetworkConnection implements INetworkConnections
 			int packetID = data.read();
 			switch (packetID)
 			{
-			case PacketIds.WIFI_SNIFFER:
+			case PacketIds.ADDON:
 				PacketWirelessSnifferSettings pWS = new PacketWirelessSnifferSettings();
 				pWS.readData(data);
 				PacketHandlerWirelessSniffer.handlePacket(pWS, world, player);
 				break;
-			case PacketIds.WIFI_SNIFFERETHER:
+			case PacketIds.ETHER:
 				PacketWirelessSnifferEtherCopy pWSEC = new PacketWirelessSnifferEtherCopy();
 				pWSEC.readData(data);
 				PacketHandlerWirelessSniffer.handlePacket(pWSEC, world, player);
 				break;
-			case PacketIds.WIFI_SNIFFERGUI:
+			case PacketIds.GUI:
 				PacketWirelessSnifferOpenGui pWSG = new PacketWirelessSnifferOpenGui();
 				pWSG.readData(data);
 				PacketHandlerWirelessSniffer.handlePacket(pWSG, world, player);

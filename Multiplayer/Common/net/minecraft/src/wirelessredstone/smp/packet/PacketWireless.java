@@ -34,7 +34,8 @@ public class PacketWireless extends PacketUpdate
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return this.getCommand()+"("+xPosition+","+yPosition+","+zPosition+")["+this.getFreq()+"]";
 	}
 	
@@ -77,7 +78,8 @@ public class PacketWireless extends PacketUpdate
 	 * 
 	 * @param freq The command to be added
 	 */
-	public void setFreq(Object freq) {
+	public void setFreq(Object freq)
+	{
 		this.payload.setStringPayload(1, freq.toString());
 	}
 	
@@ -98,7 +100,8 @@ public class PacketWireless extends PacketUpdate
 	 * 
 	 * @param freq The command to be added
 	 */
-	public void setState(boolean state) {
+	public void setState(boolean state)
+	{
 		this.payload.setBoolPayload(0, state);
 	}
 }

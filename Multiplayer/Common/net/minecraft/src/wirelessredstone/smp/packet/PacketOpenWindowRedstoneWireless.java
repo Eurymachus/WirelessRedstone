@@ -10,17 +10,24 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT
  * @author Eurymachus
  *
  */
-public class PacketOpenWindowRedstoneWireless extends PacketWireless {
-	public PacketOpenWindowRedstoneWireless() {
-		super(PacketIds.WIFI_GUI);
+public class PacketOpenWindowRedstoneWireless extends PacketWireless
+{
+	public PacketOpenWindowRedstoneWireless()
+	{
+		super(PacketIds.GUI);
 	}
-	public PacketOpenWindowRedstoneWireless(TileEntityRedstoneWireless entity) {
-		super(PacketIds.WIFI_GUI);
+	
+	public PacketOpenWindowRedstoneWireless(TileEntityRedstoneWireless entity)
+	{
+		this();
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
 		this.payload = new PacketPayload(1,0,2,1);
-		if ( entity instanceof TileEntityRedstoneWirelessR) {
+		if ( entity instanceof TileEntityRedstoneWirelessR)
+		{
 			this.setType(0);
-		} else if ( entity instanceof TileEntityRedstoneWirelessT ) {
+		}
+		else if ( entity instanceof TileEntityRedstoneWirelessT )
+		{
 			this.setType(1);
 		}
 		this.setFreq(entity.currentFreq);
@@ -28,7 +35,8 @@ public class PacketOpenWindowRedstoneWireless extends PacketWireless {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return this.payload.getIntPayload(0)+":("+xPosition+","+yPosition+","+zPosition+")["+this.payload.getStringPayload(0)+"]";
 	}
 	

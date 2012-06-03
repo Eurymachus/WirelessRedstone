@@ -7,7 +7,7 @@ public class PacketWirelessTriangulatorSettings extends PacketWirelessTriangulat
 {
 	public PacketWirelessTriangulatorSettings()
 	{
-		super(PacketIds.WIFI_TRIANG);
+		super(PacketIds.ADDON);
 	}
 	
 	public PacketWirelessTriangulatorSettings(String command) {

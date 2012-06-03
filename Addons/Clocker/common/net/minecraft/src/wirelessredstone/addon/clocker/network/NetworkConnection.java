@@ -31,17 +31,17 @@ public class NetworkConnection implements INetworkConnections
 			
 			switch (packetID)
 			{
-			case PacketIds.WIFI_CLOCKER:
+			case PacketIds.ADDON:
 				PacketWirelessClockerSettings pWCB = new PacketWirelessClockerSettings();
 				pWCB.readData(data);
 				PacketHandlerWirelessClocker.handlePacket(pWCB, world, player);
 				break;
-			case PacketIds.WIFI_CLOCKERGUI:
+			case PacketIds.GUI:
 				PacketWirelessClockerGui pWCG = new PacketWirelessClockerGui();
 				pWCG.readData(data);
 				PacketHandlerWirelessClocker.handlePacket(pWCG, world, player);
 				break;
-			case PacketIds.WIFI_CLOCKERTILE:
+			case PacketIds.TILE:
 				PacketWirelessClockerTile pWCT = new PacketWirelessClockerTile();
 				pWCT.readData(data);
 				PacketHandlerWirelessClocker.handlePacket(pWCT, world, player);

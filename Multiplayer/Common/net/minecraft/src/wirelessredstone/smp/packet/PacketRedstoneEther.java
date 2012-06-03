@@ -14,24 +14,30 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT
  * @author Eurymachus
  *
  */
-public class PacketRedstoneEther extends PacketWireless {
-	public PacketRedstoneEther() {
-		super(PacketIds.WIFI_ETHER);
+public class PacketRedstoneEther extends PacketWireless
+{
+	public PacketRedstoneEther() 
+	{
+		super(PacketIds.ETHER);
 	}
 	
-	public PacketRedstoneEther(String command) {
-		super(PacketIds.WIFI_ETHER, new PacketPayload(0,0,2,1));
+	public PacketRedstoneEther(String command)
+	{
+		super(PacketIds.ETHER, new PacketPayload(0,0,2,1));
 		setCommand(command);
 	}
 	
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world)
 	{
-		super(PacketIds.WIFI_ETHER, new PacketPayload(0,0,2,1));
+		super(PacketIds.ETHER, new PacketPayload(0,0,2,1));
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2));
-		if ( entity instanceof TileEntityRedstoneWirelessR) {
+		if ( entity instanceof TileEntityRedstoneWirelessR)
+		{
 			setState(((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).getState(world, this.xPosition, this.yPosition, this.zPosition));
 			setCommand("addReceiver");
-		} else if ( entity instanceof TileEntityRedstoneWirelessT) {
+		}
+		else if ( entity instanceof TileEntityRedstoneWirelessT)
+		{
 			setState(((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).getState(world, this.xPosition, this.yPosition, this.zPosition));
 			setCommand("addTransmitter");
 		}

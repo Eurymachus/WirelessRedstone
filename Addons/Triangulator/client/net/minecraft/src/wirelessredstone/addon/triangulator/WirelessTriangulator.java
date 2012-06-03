@@ -22,8 +22,6 @@ public class WirelessTriangulator
 	public static TextureTriangulatorFX tex;
 	public static int pulseTime = 2500;
 	public static int maxPulseThreads=5;
-	private static int ticksInGame=0;
-	private static int ticksInGUI=0;
 	
 	public static boolean initialize()
 	{
@@ -68,33 +66,5 @@ public class WirelessTriangulator
 	public static void openGUI(EntityPlayer entityplayer, World world)
 	{
 		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(entityplayer, world));
-	}
-
-	public static boolean tick(Minecraft mc)
-	{
-		if (mc.currentScreen instanceof GuiRedstoneWirelessTriangulator)
-		{
-			++ticksInGUI;
-			return true;
-		}
-		else if (ticksInGUI != 0)
-		{
-			ticksInGUI = 0;
-		}
-		if (!(ticksInGUI > 0))
-		{
-			if (ticksInGame == 40)
-			{
-				ticksInGame = 0;
-				if (mc.thePlayer.inventory.hasItem(triangID))
-				{
-					String freq =  RedstoneWirelessPlayerMem.getInstance(mc.theWorld).getFreq(mc.thePlayer);
-					PacketHandlerWirelessTriangulator.PacketHandlerOutput.sendWirelessTriangulatorPacket(mc.thePlayer, "requestTriangulation", freq);
-				}
-			}
-			++ticksInGame;
-			return true;	
-		}
-		return true;
 	}
 }

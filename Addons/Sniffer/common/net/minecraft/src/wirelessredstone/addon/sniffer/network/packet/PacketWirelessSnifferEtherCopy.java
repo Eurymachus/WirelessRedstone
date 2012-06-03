@@ -7,7 +7,7 @@ public class PacketWirelessSnifferEtherCopy extends PacketWirelessSniffer {
 
 	public PacketWirelessSnifferEtherCopy()
 	{
-		super(PacketIds.WIFI_SNIFFERETHER);
+		super(PacketIds.ETHER);
 	}
 
 	public PacketWirelessSnifferEtherCopy(String[] activeFreqs)

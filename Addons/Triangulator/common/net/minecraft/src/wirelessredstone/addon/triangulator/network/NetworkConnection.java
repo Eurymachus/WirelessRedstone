@@ -28,7 +28,7 @@ public class NetworkConnection implements INetworkConnections
 			int packetID = data.read();
 			switch (packetID)
 			{
-			case PacketIds.WIFI_TRIANG:
+			case PacketIds.ADDON:
 				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
 				pWT.readData(data);
 				PacketHandlerWirelessTriangulator.handlePacket(pWT, world, player);

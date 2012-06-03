@@ -8,7 +8,7 @@ package net.minecraft.src.wirelessredstone.smp.packet;
  */
 public class PacketIds
 {
-	public static final int WIFI_ETHER = 0;
+	/*public static final int WIFI_ETHER = 0;
 	public static final int WIFI_GUI = 1;
 	public static final int WIFI_TILE = 2;
 	public static final int WIFI_POWERC = 3;
@@ -21,5 +21,10 @@ public class PacketIds
 	public static final int WIFI_TRIANG = 10;
 	public static final int WIFI_SNIFFER = 11;
 	public static final int WIFI_SNIFFERETHER = 12;
-	public static final int WIFI_SNIFFERGUI = 13;
+	public static final int WIFI_SNIFFERGUI = 13;*/
+	public static final int ETHER = 0;
+	public static final int TILE = 1;
+	public static final int REQUEST = 2;
+	public static final int ADDON = 3;
+	public static final int GUI = 4;
 }

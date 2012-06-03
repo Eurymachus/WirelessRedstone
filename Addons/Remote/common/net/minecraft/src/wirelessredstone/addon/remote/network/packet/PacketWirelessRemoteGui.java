@@ -7,7 +7,7 @@ public class PacketWirelessRemoteGui extends PacketWirelessRemote
 {
 	public PacketWirelessRemoteGui()
 	{
-		super(PacketIds.WIFI_REMOTEGUI);
+		super(PacketIds.GUI);
 	}
 	
 	public PacketWirelessRemoteGui(int itemDamage, int x, int y, int z)
