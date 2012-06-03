@@ -24,17 +24,19 @@ import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
 
 
-public class PacketHandlerWirelessTriangulator {
+public class PacketHandlerWirelessTriangulator
+{
 	
 	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer entityplayer)
 	{
-		if ( packet instanceof PacketWirelessTriangulatorSettings ) {
-			//entityplayer.addChatMessage("Packet here");
+		if ( packet instanceof PacketWirelessTriangulatorSettings )
+		{
 			PacketHandlerInput.handleWirelessTriangulator((PacketWirelessTriangulatorSettings)packet, world, entityplayer);
 		}
 	}
 
-	private static class PacketHandlerInput {
+	private static class PacketHandlerInput
+	{
 		private static void handleWirelessTriangulator(PacketWirelessTriangulatorSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessTriangulatorPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);

@@ -1,5 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -13,6 +15,7 @@ public class WirelessTriangulatorSMP
 		try
 		{
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+			ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true, true);
 			return true;
 		}
 		catch (Exception e)
