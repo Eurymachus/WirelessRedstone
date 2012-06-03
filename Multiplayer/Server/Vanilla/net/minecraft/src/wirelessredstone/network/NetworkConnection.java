@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
@@ -51,8 +52,8 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI");
-		NetServerHandler net = (NetServerHandler)network.getNetHandler();
-		PacketHandlerRedstoneWireless.PacketHandlerOutput.sendEtherTilesTo(net.getPlayerEntity(), WirelessRedstone.initUpdate*1000);
+		ModLoader.getLogger().fine("Wireless Redstone : Wireless Redstone Registered for - " + WirelessRedstone.getPlayer(network).username);
+		PacketHandlerRedstoneWireless.PacketHandlerOutput.sendEtherTilesTo(WirelessRedstone.getPlayer(network), WirelessRedstone.initUpdate*1000);
 	}
 
 	@Override

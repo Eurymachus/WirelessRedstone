@@ -61,7 +61,7 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-SNIFFER");
-		ModLoader.getLogger().warning("Wireless Redstone : Sniffer Registered for - " + WirelessRedstone.getPlayer(network).username);
+		ModLoader.getLogger().fine("Wireless Redstone : Sniffer Registered for - " + WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override

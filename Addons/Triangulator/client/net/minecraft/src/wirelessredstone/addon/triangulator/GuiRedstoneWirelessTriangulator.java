@@ -23,13 +23,15 @@ import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
+public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless
+{
 	protected int xSize;
 	protected int ySize;
 	protected EntityPlayer entityplayer;
 	protected World world;
 	
-	public GuiRedstoneWirelessTriangulator(EntityPlayer entityplayer, World world) {
+	public GuiRedstoneWirelessTriangulator(EntityPlayer entityplayer, World world)
+	{
 		super();
 		xSize = 176;
 		ySize = 166;
@@ -38,18 +40,23 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	}
 	
 	@Override
-	protected void actionPerformed(GuiButton guibutton) {
+	protected void actionPerformed(GuiButton guibutton)
+	{
 		Object a = getFreq();
 		Object b = a;
 		int newFreq, oldFreq;
-		try {
+		try
+		{
 			newFreq = Integer.parseInt(a.toString());
 			oldFreq = Integer.parseInt(b.toString());
-		} catch(NumberFormatException e) {
+		}
+		catch(NumberFormatException e)
+		{
 			return;
 		}
 		
-		switch ( guibutton.id ) {
+		switch ( guibutton.id ) 
+		{
 			case 0:
 				newFreq++;
 				break;
@@ -78,7 +85,8 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 				close();
 				break;
 		}
-		if ( newFreq != oldFreq) {
+		if ( newFreq != oldFreq)
+		{
 			if ( newFreq > 9999 ) newFreq -= 10000;
 			if ( newFreq < 0 ) newFreq += 10000;
 			setFreq(Integer.toString(newFreq));
@@ -86,23 +94,29 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	}
 
 	@Override
-	public void close() {
-		try {
+	public void close()
+	{
+		try
+		{
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
-		} catch ( Exception e) {
+		} 
+		catch ( Exception e)
+		{
 			LoggerRedstoneWireless.getInstance("WirelessRedstone.Triangulator: "+this.getClass().toString()).writeStackTrace(e);
 		}
 	}
 	
 	@Override
-	public void onGuiClosed() {
+	public void onGuiClosed()
+	{
 		if ( entityplayer.getCurrentEquippedItem() == null )
 			RedstoneWirelessPlayerMem.getInstance(world).remMem(entityplayer.username);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
+	protected void drawGuiContainerBackgroundLayer(float f)
+	{
 		int m = mc.renderEngine.getTexture("/gui/wifi_small.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(m);
@@ -112,20 +126,26 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	}
 	
 	@Override
-	public boolean doesGuiPauseGame(){
+	public boolean doesGuiPauseGame()
+	{
 		return false;
 	}
 
 	@Override
-	protected String getName() {
+	protected String getName()
+	{
 		return "Wireless Triangulator";
 	}
+	
 	@Override
-	protected String getFreq() {
+	protected String getFreq()
+	{
 		return RedstoneWirelessPlayerMem.getInstance(world).getFreq(entityplayer);
 	}
+	
 	@Override
-	protected void setFreq(String freq) {
+	protected void setFreq(String freq)
+	{
 		RedstoneWirelessPlayerMem.getInstance(world).addMem(entityplayer,freq);
 	}
 }

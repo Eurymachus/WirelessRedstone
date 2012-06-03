@@ -8,6 +8,7 @@ import net.minecraft.src.NetClientHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.forge.MessageManager;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketOpenWindowRedstoneWireless;
@@ -59,6 +60,7 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI");
+		ModLoader.getLogger().fine("Wireless Redstone : Wireless Redstone Registered for - " + WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override

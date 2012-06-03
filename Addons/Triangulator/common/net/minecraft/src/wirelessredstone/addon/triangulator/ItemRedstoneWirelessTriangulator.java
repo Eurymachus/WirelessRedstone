@@ -19,19 +19,24 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 
-public class ItemRedstoneWirelessTriangulator extends Item{
-	protected ItemRedstoneWirelessTriangulator(int i) {
+public class ItemRedstoneWirelessTriangulator extends Item
+{
+	protected ItemRedstoneWirelessTriangulator(int i)
+	{
 		super(i);
 		maxStackSize = 1;
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+	{
 		if(!WirelessTriangulator.isServer) WirelessTriangulator.openGUI(entityplayer, world);
 		return true;
 	}
+	
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	{
 		onItemUse(
 				itemstack, 
 				entityplayer,
@@ -44,7 +49,8 @@ public class ItemRedstoneWirelessTriangulator extends Item{
 		return itemstack;
 	}
 
-	public boolean isFull3D() {
+	public boolean isFull3D()
+	{
 		return true;
 	}
 }

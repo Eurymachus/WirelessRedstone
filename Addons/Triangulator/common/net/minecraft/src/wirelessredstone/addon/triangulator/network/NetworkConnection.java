@@ -50,7 +50,7 @@ public class NetworkConnection implements INetworkConnections
 	public void onLogin(NetworkManager network, Packet1Login login) 
 	{
 		MessageManager.getInstance().registerChannel(network, this, "WIFI-TRI");
-		ModLoader.getLogger().warning("Wireless Redstone : Triangulator Registered for - " + WirelessRedstone.getPlayer(network).username);
+		ModLoader.getLogger().fine("Wireless Redstone : Triangulator Registered for - " + WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override
