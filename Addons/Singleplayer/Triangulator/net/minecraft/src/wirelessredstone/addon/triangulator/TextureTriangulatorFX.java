@@ -86,53 +86,8 @@ public class TextureTriangulatorFX extends TextureFX
 		if(this.mc.theWorld != null && this.mc.thePlayer != null)
 		{
 			int[] tx = null;
-			if ( this.mc.theWorld.isRemote)
-			{
-				for (int stack = 0; stack < this.mc.thePlayer.inventory.getSizeInventory(); stack++)
-				{
-					if (this.mc.thePlayer.inventory.hasItem(WirelessTriangulator.itemTriang.shiftedIndex))
-					{
-						WirelessCoordinates txCoords = RedstoneWirelessPlayerEtherCoordsMem.getInstance(this.mc.theWorld).getCoords(this.mc.thePlayer);
-						try
-						{
-							if (txCoords.getCoordinateArray() != null)
-								tx = txCoords.getCoordinateArray();
-						}
-						catch (Exception e)
-						{
-							LoggerRedstoneWireless.getInstance("WirelessRedstone.Triangulator").writeStackTrace(e);
-						}
-					}
-					else
-					{
-						try
-						{
-							RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).remMem(this.mc.thePlayer.username);
-						}
-						catch(Exception e)
-						{
-							LoggerRedstoneWireless.getInstance("WirelessRedstone.Triangulator").writeStackTrace(e);
-						}
-					}
-				}
-			}
-			else
-			{
-				for (int stack = 0; stack < this.mc.thePlayer.inventory.getSizeInventory(); stack++)
-				{
-					ItemStack newstack = mc.thePlayer.inventory.getStackInSlot(stack);
-					if (newstack != null && newstack.itemID == WirelessTriangulator.itemTriang.shiftedIndex)
-					{
-						tx = RedstoneEther.getInstance().getClosestActiveTransmitter(
-								(int)this.mc.thePlayer.posX, 
-								0,
-								(int)this.mc.thePlayer.posZ, 
-								//RedstoneWirelessPlayerMem.getInstance(this.mc.theWorld).getFreq(this.mc.thePlayer)
-								RedstoneWirelessItemStackMem.getInstance(mc.theWorld).getFreq(newstack)
-						);
-					}
-				}
-			}
+			if (this.mc.theWorld.isRemote)
+				tx = new int[]{0,0,0};
 			if ( tx != null && !(tx[0] == (int)this.mc.thePlayer.posX && tx[1] == (int)this.mc.thePlayer.posY && tx[2] == (int)this.mc.thePlayer.posZ))
 			{
 				double d2 = tx[0] - this.mc.thePlayer.posX;

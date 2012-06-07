@@ -1,5 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.src.EntityPlayer;
@@ -31,6 +32,7 @@ public class Remote
 		this.world = world;
 		ItemStack itemstack = player.inventory.getStackInSlot(this.slot);
 		this.freq = RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
+		this.overrides = new ArrayList<WirelessRedstoneRemoteOverride>();
 	}
     
 	public WirelessCoordinates getCoords()

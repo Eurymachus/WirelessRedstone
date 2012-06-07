@@ -31,7 +31,7 @@ public class ItemRedstoneWirelessSniffer extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
-		WirelessSniffer.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(entityplayer, world, new Sniffer(entityplayer)));
+		WirelessSniffer.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(entityplayer, world));
 		return itemstack;
 	}
 	
@@ -40,4 +40,10 @@ public class ItemRedstoneWirelessSniffer extends Item
 	{
 		return true;
 	}
+	
+	@Override
+    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    {
+		itemstack.setItemDamage(itemstack.hashCode());
+    }
 }

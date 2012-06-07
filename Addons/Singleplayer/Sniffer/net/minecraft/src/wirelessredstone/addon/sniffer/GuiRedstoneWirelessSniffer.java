@@ -17,10 +17,12 @@ package net.minecraft.src.wirelessredstone.addon.sniffer;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPlayerPageNumber;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPageNumber;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
@@ -33,8 +35,6 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	private World world;
 	protected int xSize;
 	protected int ySize;
-	private int maxEtherNodes = 9999;
-	private boolean[] activeFreqs = new boolean[maxEtherNodes+1];
 	private int nodeSize = 4;
 	private int pageWidth = 50;
 	private int pageHeight = 30;
@@ -43,11 +43,11 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
 	
-	public GuiRedstoneWirelessSniffer(EntityPlayer player, World world, Sniffer sniffer) {
+	public GuiRedstoneWirelessSniffer(EntityPlayer player, World world) {
 		super();
 		this.player = player;
 		this.world = world;
-		this.sniffer = sniffer;
+		this.sniffer = new Sniffer(this.world, this.player);
 		xSize = 256;
 		ySize = 200;
 		thr = new ThreadWirelessSniffer(this);
@@ -55,10 +55,11 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 
 	@Override
 	public void initGui() {
+		int currentPage = this.sniffer.getPage();
 		nextButton = new GuiButtonBoolean(0, (width/2)+40, (height/2)+75, 40, 20, "Next", true);
 		prevButton = new GuiButtonBoolean(1, (width/2)-80, (height/2)+75, 40, 20, "Prev", true);
-		nextButton.enabled = (getPage() >= 0 && getPage() < maxEtherNodes/(pageWidth*pageHeight));
-		prevButton.enabled = (getPage() > 0 && getPage() <= maxEtherNodes/(pageWidth*pageHeight));
+		nextButton.enabled = (currentPage >= 0 && currentPage < WirelessRedstone.maxEtherNodes/(pageWidth*pageHeight));
+		prevButton.enabled = (currentPage > 0 && currentPage <= WirelessRedstone.maxEtherNodes/(pageWidth*pageHeight));
 		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
 		controlList.add(nextButton);
 		controlList.add(prevButton);
@@ -67,8 +68,8 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
-		int page = getPage();
-		int oldPage = getPage();
+		int page = this.sniffer.getPage();
+		int oldPage = this.sniffer.getPage();
 		switch(guibutton.id)
 		{
 			case 0:
@@ -85,16 +86,16 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		if (page < 0) page = 0;
 		if (oldPage != page) {
 			if ((oldPage-page)==-1) {
-				setPage(oldPage+1);
+				this.sniffer.setPage(oldPage+1);
 			}
 			else {
-				setPage(oldPage-1);
+				this.sniffer.setPage(oldPage-1);
 			}
 		}
-		if (nextButton.enabled && getPage() == maxEtherNodes/(pageWidth*pageHeight)) {
+		if (nextButton.enabled && this.sniffer.getPage() == WirelessRedstone.maxEtherNodes/(pageWidth*pageHeight)) {
 			nextButton.enabled = false;
 		} else nextButton.enabled = true;
-		if (prevButton.enabled && getPage() == 0) {
+		if (prevButton.enabled && this.sniffer.getPage() == 0) {
 			prevButton.enabled = false;
 		} else prevButton.enabled = true;
 	}
@@ -127,7 +128,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
 		drawFrequencies(4, 24);
 		fontRenderer.drawString("Wireless Sniffer", (xSize/2)-(fontRenderer.getStringWidth("Wireless Sniffer")/2), 6, 0x404040);
-		String drawPage = "Page [" + (this.getPage()+1) + "]";
+		String drawPage = "Page [" + (this.sniffer.getPage()+1) + "]";
 		fontRenderer.drawString(drawPage, (xSize/2)-(fontRenderer.getStringWidth(drawPage)/2), (height/2)+62, 0x00000000); 
 		GL11.glPopMatrix();
 
@@ -136,6 +137,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		GL11.glEnable(2896 /*GL_LIGHTING*/);
 		GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
 	}
+	
 	@Override
 	public boolean doesGuiPauseGame(){
 		return false;
@@ -143,14 +145,14 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	
 	private void drawFrequencies(int i, int j) {
 		int x, y;
-		int c = (pageWidth*pageHeight)*getPage();
+		int c = (pageWidth*pageHeight)*this.sniffer.getPage();
 		for ( int n = 0; n < pageHeight; n++ ) {
 			for ( int m = 0; m < pageWidth; m++ ) {
 				x = i+(nodeSize*m)+m;
 				y = j+(nodeSize*n)+n;
-				if (c <= maxEtherNodes && c >= 0)
+				if (c <= WirelessRedstone.maxEtherNodes && c >= 0)
 				{
-					if (sniffer.getFreqState(c))
+					if (RedstoneEther.getInstance().getFreqState(ModLoader.getMinecraftInstance().theWorld,Integer.toString(c)))
 						drawRect(x, y, x+nodeSize, y+nodeSize, 0xff00ff00);
 					else
 					{
@@ -162,43 +164,9 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		}
 	}
 	
-	protected int getPage()
-	{
-		return RedstoneWirelessSnifferPlayerPageNumber.getInstance(world).getPage(player);
-	}
-	
-	protected void setPage(int pageNumber)
-	{
-		RedstoneWirelessSnifferPlayerPageNumber.getInstance(world).setFreq(this.player, pageNumber);
-	}
-	
 	@Override
 	public void onGuiClosed() {
 		thr.running = false;
-	}
-
-	protected boolean getFreqState(int freq)
-	{
-		if (freq > maxEtherNodes) return false;
-		if (this.activeFreqs.length == maxEtherNodes+1)
-		{
-			return this.activeFreqs[freq];
-		}
-		else return false;
-	}
-	
-	public void setActiveFreqs(String[] activeFreqs)
-	{
-		boolean[] newActiveFreqs = new boolean[maxEtherNodes+1];
-		int j = 0;
-		for(int i = 0; i < maxEtherNodes; ++i)
-		{
-			if (activeFreqs != null && j < activeFreqs.length && String.valueOf(i).equals(activeFreqs[j]))
-			{
-				this.activeFreqs[i] = true;
-				++j;
-			}
-			else this.activeFreqs[i] = false;
-		}
+		//this.sniffer.killSniffer();
 	}
 }

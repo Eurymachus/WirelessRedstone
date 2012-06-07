@@ -88,7 +88,10 @@ public class WirelessRedstone
 	 * Wireless Receiver Item texture.
 	 */
 	public static int spriteRItem;
-	public static int wifiRenderID;
+	/**
+	 * Wireless Redstone Ether maximum nodes
+	 */
+	public static int maxEtherNodes=10000;
 
 	/**
 	 * Loads all Block textures from ModLoader override and stores the indices into the sprite integers.
@@ -159,7 +162,6 @@ public class WirelessRedstone
 	private static void loadConfig() {
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Receiver.ID", Integer.class, new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Transmitter.ID", Integer.class, new Integer(txID));
-		wifiRenderID = ModLoader.getUniqueBlockModelID(mod_WirelessRedstone.instance, true);
 	}
 
 	/**

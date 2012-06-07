@@ -5,46 +5,36 @@ import java.util.List;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPageNumber;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class Sniffer
 {
-	protected EntityPlayer player;
-	protected ItemStack itemstack;
-	protected List<WirelessRedstoneSnifferOverride> overrides;
+	public World world;
+	public EntityPlayer owner;
+	public ItemStack itemstack;
 	
-	public Sniffer(EntityPlayer player)
+	public Sniffer(World world, EntityPlayer entityplayer)
 	{
-		this.player = player;
-		this.itemstack = player.getCurrentEquippedItem();
+		this.itemstack = entityplayer.getCurrentEquippedItem();
+		this.world = world;
+		this.owner = entityplayer;
 	}
 	
-	public void addOverride(WirelessRedstoneSnifferOverride override)
+	protected int getPage()
 	{
-		overrides.add(override);
+		return RedstoneWirelessSnifferPageNumber.getInstance(this.world).getPage(this.itemstack);
 	}
-
-	public synchronized boolean getFreqState(int c)
+	
+	protected void setPage(int pageNumber)
 	{
-		boolean prematureExit = false;
-		
-		for (WirelessRedstoneSnifferOverride override: overrides)
-		{
-			if (override.beforeGetFreqState(c))
-				prematureExit = false;
-		}
-		
-		boolean returnState = false;
-		
-		if (!prematureExit)
-			returnState = RedstoneEther.getInstance().getFreqState(ModLoader.getMinecraftInstance().theWorld,Integer.toString(c));
-
-		boolean out = returnState;
-		
-		for (WirelessRedstoneSnifferOverride override: overrides)
-		{
-			out = override.afterGetFreqState(c, out);
-		}
-		return out;
+		RedstoneWirelessSnifferPageNumber.getInstance(this.world).setPage(this.itemstack, pageNumber);
+	}
+	
+	protected void killSniffer()
+	{
+		RedstoneWirelessSnifferPageNumber.getInstance(this.world).remMem(this.itemstack.getItemDamage());
 	}
 }
