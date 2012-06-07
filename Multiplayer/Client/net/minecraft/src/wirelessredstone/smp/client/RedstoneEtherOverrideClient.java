@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.smp.client;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEtherOverride;
 

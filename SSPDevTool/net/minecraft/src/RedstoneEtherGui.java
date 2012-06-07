@@ -76,6 +76,7 @@ public class RedstoneEtherGui extends JFrame {
 			this.nodePanel = nodePanel;
 		}
 		
+		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
@@ -191,6 +192,7 @@ public class RedstoneEtherGui extends JFrame {
 			this.repaint();
 		}
 		
+		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;

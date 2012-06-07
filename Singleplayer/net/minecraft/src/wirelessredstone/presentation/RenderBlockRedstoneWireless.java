@@ -45,46 +45,46 @@ public class RenderBlockRedstoneWireless
                 var11 = BlockRedstoneRepeater.repeaterTorchOffset[var7];
         }
 
-        renderblocks.renderTorchAtAngle(block, (double)i + var11, (double)j + var9, (double)k + var13, 0.0D, 0.0D);
-        renderblocks.renderTorchAtAngle(block, (double)i + var15, (double)j + var9, (double)k + var17, 0.0D, 0.0D);
+        renderblocks.renderTorchAtAngle(block, i + var11, j + var9, k + var13, 0.0D, 0.0D);
+        renderblocks.renderTorchAtAngle(block, i + var15, j + var9, k + var17, 0.0D, 0.0D);
         int var19 = block.getBlockTextureFromSide(1);
         int var20 = (var19 & 15) << 4;
         int var21 = var19 & 240;
-        double var22 = (double)((float)var20 / 256.0F);
-        double var24 = (double)(((float)var20 + 15.99F) / 256.0F);
-        double var26 = (double)((float)var21 / 256.0F);
-        double var28 = (double)(((float)var21 + 15.99F) / 256.0F);
+        double var22 = (var20 / 256.0F);
+        double var24 = ((var20 + 15.99F) / 256.0F);
+        double var26 = (var21 / 256.0F);
+        double var28 = ((var21 + 15.99F) / 256.0F);
         double var30 = 0.125D;
-        double var32 = (double)(i + 1);
-        double var34 = (double)(i + 1);
-        double var36 = (double)(i + 0);
-        double var38 = (double)(i + 0);
-        double var40 = (double)(i + 0);
-        double var42 = (double)(i + 1);
-        double var44 = (double)(i + 1);
-        double var46 = (double)(i + 0);
-        double var48 = (double)j + var30;
+        double var32 = (i + 1);
+        double var34 = (i + 1);
+        double var36 = (i + 0);
+        double var38 = (i + 0);
+        double var40 = (i + 0);
+        double var42 = (i + 1);
+        double var44 = (i + 1);
+        double var46 = (i + 0);
+        double var48 = j + var30;
 
         if (var6 == 2)
         {
-            var32 = var34 = (double)(i + 0);
-            var36 = var38 = (double)(i + 1);
-            var40 = var46 = (double)(k + 1);
-            var42 = var44 = (double)(k + 0);
+            var32 = var34 = (i + 0);
+            var36 = var38 = (i + 1);
+            var40 = var46 = (k + 1);
+            var42 = var44 = (k + 0);
         }
         else if (var6 == 3)
         {
-            var32 = var38 = (double)(i + 0);
-            var34 = var36 = (double)(i + 1);
-            var40 = var42 = (double)(k + 0);
-            var44 = var46 = (double)(k + 1);
+            var32 = var38 = (i + 0);
+            var34 = var36 = (i + 1);
+            var40 = var42 = (k + 0);
+            var44 = var46 = (k + 1);
         }
         else if (var6 == 1)
         {
-            var32 = var38 = (double)(i + 1);
-            var34 = var36 = (double)(i + 0);
-            var40 = var42 = (double)(k + 1);
-            var44 = var46 = (double)(k + 0);
+            var32 = var38 = (i + 1);
+            var34 = var36 = (i + 0);
+            var40 = var42 = (k + 1);
+            var44 = var46 = (k + 0);
         }
 
         var8.addVertexWithUV(var38, var48, var46, var22, var26);

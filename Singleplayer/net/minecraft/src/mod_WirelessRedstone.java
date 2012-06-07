@@ -21,7 +21,6 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
-import net.minecraft.src.wirelessredstone.presentation.RenderBlockRedstoneWireless;
 
 /**
  * Wireless Redstone ModLoader initializing class.
