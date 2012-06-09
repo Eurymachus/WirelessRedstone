@@ -86,8 +86,8 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 				.write("isLoaded(world, " + i + ", " + j + ", " + k + ")",
 						LoggerRedstoneWireless.LogLevel.DEBUG);
 		int[] a = { i, j, k };
-		if (WirelessRemote.remote != null) {
-			WirelessCoordinates remote = WirelessRemote.remote.getCoords();
+		if (WirelessRemote.remoteTransmitter != null) {
+			WirelessCoordinates remote = WirelessRemote.remoteTransmitter.getCoords();
 			int[] b = { remote.getX(), remote.getY(), remote.getZ() };
 			if (RedstoneEther.pythagoras(a, b) < 1)
 				return true;

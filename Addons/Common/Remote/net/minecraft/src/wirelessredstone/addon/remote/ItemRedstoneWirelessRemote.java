@@ -21,6 +21,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -64,12 +65,6 @@ public class ItemRedstoneWirelessRemote extends Item {
 	}
 
 	@Override
-	public void onCreated(ItemStack itemstack, World world,
-			EntityPlayer entityplayer) {
-		itemstack.setItemDamage(itemstack.hashCode());
-	}
-
-	@Override
 	public int getIconFromDamage(int i) {
 		if (RedstoneWirelessItemStackMem.getInstance(
 				ModLoader.getMinecraftInstance().theWorld).getState(i))
@@ -77,22 +72,34 @@ public class ItemRedstoneWirelessRemote extends Item {
 		return WirelessRemote.remoteoff;
 	}
 
+	private WirelessRemoteData getRemoteData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		return WirelessRemote.getRemoteData(itemstack, world, entityplayer);
+	}
+
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity,
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
-			String freq = this.getItemFreq(itemstack, world);
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-
+			WirelessRemoteData data = this.getRemoteData(itemstack, world, entityplayer);
+			String freq = data.getDeviceFreq();
 			if (!isHeld || !WirelessRemote.isRemoteOn(entityplayer, freq)
-					&& !WirelessRemote.deactivateRemote(entityplayer, world))
+					&& !WirelessRemote.deactivateRemote(world, entityplayer)) {
 				RedstoneWirelessItemStackMem.getInstance(world).addMem(
 						itemstack, freq);
+			}
 		}
 	}
 
 	public String getItemFreq(ItemStack itemstack, World world) {
 		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
 				itemstack);
+	}
+
+	@Override
+	public void onCreated(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
+		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
+		WirelessRemote.getRemoteData(itemstack, world, entityplayer);
 	}
 }

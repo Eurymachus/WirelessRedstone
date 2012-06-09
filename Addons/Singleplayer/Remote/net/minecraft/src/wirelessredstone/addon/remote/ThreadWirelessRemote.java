@@ -16,75 +16,53 @@ package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 
 public class ThreadWirelessRemote implements Runnable {
-	protected int i;
-	protected int j;
-	protected int k;
-	String freq;
 	protected World world;
-	protected EntityPlayer player;
+	protected EntityPlayer entityplayer;
+	protected String freq;
+	protected String command;
 	public static int tc = 0;
 
-	public ThreadWirelessRemote(EntityPlayer player, String freq) {
-		this.i = (int) player.posX;
-		this.j = (int) player.posY;
-		this.k = (int) player.posZ;
-		this.freq = freq;
-		this.player = player;
-		this.world = player.worldObj;
+	public ThreadWirelessRemote(EntityPlayer entityplayer, String command) {
+		this.world = entityplayer.worldObj;
+		this.entityplayer = entityplayer;
+		this.command = command;
 	}
 
 	@Override
 	public void run() {
 		tc++;
-		RedstoneEther.getInstance().addTransmitter(world, i, j, k, freq);
-		if (world.isRemote)
-			PacketHandlerRedstoneWireless.PacketHandlerOutput
-					.sendRedstoneEtherPacket("addTransmitter", i, j, k, freq,
-							false);
+		WirelessRemote.remotePulsing = true;
+		long pulseDuration;
+		if (command.equals("pulse")) {
+			pulseDuration = WirelessRemote.pulseTime;
+			WirelessRemote.activateRemote(world, entityplayer);
+		}
+		else
+			pulseDuration = 500;
 
-		WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteon);
-		RedstoneEther.getInstance().setTransmitterState(world, i, j, k, freq,
-				true);
-		if (world.isRemote)
-			PacketHandlerRedstoneWireless.PacketHandlerOutput
-					.sendRedstoneEtherPacket("setTransmitterState", i, j, k,
-							freq, true);
-
-		if (WirelessRemote.pulseTime > 0) {
+		if (pulseDuration > 0) {
 			try {
-				Thread.sleep(WirelessRemote.pulseTime);
+				Thread.sleep(pulseDuration);
 			} catch (InterruptedException e) {
 				LoggerRedstoneWireless.getInstance("WirelessRedstone.Remote")
 						.writeStackTrace(e);
 			}
 		}
-
-		WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteoff);
-		RedstoneEther.getInstance().remTransmitter(world, i, j, k, freq);
-		if (world.isRemote)
-			PacketHandlerRedstoneWireless.PacketHandlerOutput
-					.sendRedstoneEtherPacket("remTransmitter", i, j, k, freq,
-							false);
+		WirelessRemote.remotePulsing = false;
 		tc--;
 	}
 
-	private boolean playerChangedPosition(EntityPlayer entityplayer) {
-		if ((int) entityplayer.posX == i && (int) entityplayer.posY == j
-				&& (int) entityplayer.posZ == k) {
-			return false;
-		}
-		return true;
-	}
-
-	public static void pulse(EntityPlayer entityplayer, String freq) {
+	public static void pulse(EntityPlayer entityplayer, String command) {
 		if (tc < WirelessRemote.maxPulseThreads) {
 			Thread thr = new Thread(
-					new ThreadWirelessRemote(entityplayer, freq));
+					new ThreadWirelessRemote(entityplayer, command));
 			thr.setName("WirelessRemoteThread");
 			thr.start();
 		}

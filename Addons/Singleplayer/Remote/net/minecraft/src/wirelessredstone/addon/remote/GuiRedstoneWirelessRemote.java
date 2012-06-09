@@ -18,22 +18,26 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
-	protected EntityPlayer player;
-	protected ItemStack itemstack;
 	protected World world;
+	protected EntityPlayer entityplayer;
+	protected ItemStack itemstack;
+	protected WirelessDeviceData wirelessRemoteData;
 
-	public GuiRedstoneWirelessRemote(EntityPlayer entityplayer, World world) {
+	public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer) {
 		super();
-		this.player = entityplayer;
-		this.itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
+		this.entityplayer = entityplayer;
+		this.itemstack = entityplayer.getCurrentEquippedItem();
+		this.wirelessRemoteData = WirelessRemote.getRemoteData(this.itemstack, this.world, this.entityplayer);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -50,14 +54,14 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 		super.actionPerformed(guibutton);
 
 		if (guibutton.id == 20) {
-			ThreadWirelessRemote.pulse(player, getFreq());
+			ThreadWirelessRemote.pulse(entityplayer, "pulse");
 			close();
 		}
 	}
 
 	@Override
 	public void onGuiClosed() {
-		if (player.getCurrentEquippedItem() == null)
+		if (entityplayer.getCurrentEquippedItem() == null)
 			RedstoneWirelessItemStackMem.getInstance(world).remMem(
 					itemstack.hashCode());
 	}
@@ -79,12 +83,11 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 
 	@Override
 	protected String getFreq() {
-		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
-				itemstack);
+		return this.wirelessRemoteData.getDeviceFreq();
 	}
 
 	@Override
 	protected void setFreq(String freq) {
-		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
+		this.wirelessRemoteData.setDeviceFreq(freq);
 	}
 }
