@@ -12,14 +12,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package net.minecraft.src.wirelessredstone.smp.client;
+package net.minecraft.src.wirelessredstone.smp.overrides;
 
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.smp.client.network.PacketHandlerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class GuiRedstoneWirelessOverrideClient implements
+public class GuiRedstoneWirelessOverrideSMP implements
 		GuiRedstoneWirelessOverride {
 
 	@Override

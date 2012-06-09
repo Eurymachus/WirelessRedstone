@@ -16,10 +16,10 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.client.BlockRedstoneWirelessOverrideClient;
-import net.minecraft.src.wirelessredstone.smp.client.GuiRedstoneWirelessOverrideClient;
-import net.minecraft.src.wirelessredstone.smp.client.RedstoneEtherOverrideClient;
-import net.minecraft.src.wirelessredstone.smp.client.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
+import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessOverrideSMP;
+import net.minecraft.src.wirelessredstone.smp.overrides.RedstoneEtherOverrideSMP;
 
 public class mod_WirelessRedstoneSMP extends BaseMod {
 
@@ -30,15 +30,15 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 
-			GuiRedstoneWirelessOverrideClient GUIOverride = new GuiRedstoneWirelessOverrideClient();
+			GuiRedstoneWirelessOverrideSMP GUIOverride = new GuiRedstoneWirelessOverrideSMP();
 			mod_WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
 			mod_WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
 
-			BlockRedstoneWirelessOverrideClient blockOverride = new BlockRedstoneWirelessOverrideClient();
+			BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
 			mod_WirelessRedstone.addOverrideToReceiver(blockOverride);
 			mod_WirelessRedstone.addOverrideToTransmitter(blockOverride);
 
-			RedstoneEtherOverrideClient etherOverrideSMP = new RedstoneEtherOverrideClient();
+			RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
 			RedstoneEther.getInstance().addOverride(etherOverrideSMP);
 		}
 	}

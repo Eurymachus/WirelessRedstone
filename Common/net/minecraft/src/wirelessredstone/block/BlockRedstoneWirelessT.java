@@ -23,7 +23,6 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.injectors.BlockRedstoneWirelessTInjector;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
@@ -113,10 +112,8 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 			int j, int k, EntityPlayer entityplayer) {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
-		if (tileentity instanceof TileEntityRedstoneWirelessT) {
-			BlockRedstoneWirelessTInjector.onBlockRedstoneWirelessActivated(
-					entityplayer, (TileEntityRedstoneWirelessT) tileentity);
-		}
+		if (tileentity != null)
+			WirelessRedstone.openGUI(entityplayer, world, tileentity);
 
 		return true;
 	}

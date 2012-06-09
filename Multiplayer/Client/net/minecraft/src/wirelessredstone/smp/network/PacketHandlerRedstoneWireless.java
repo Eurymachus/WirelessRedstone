@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package net.minecraft.src.wirelessredstone.smp.client.network;
+package net.minecraft.src.wirelessredstone.smp.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
@@ -20,10 +20,10 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketOpenWindowRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketRedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketWirelessTile;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketOpenWindowRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;

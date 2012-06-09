@@ -1,11 +1,15 @@
 package net.minecraft.src.wirelessredstone;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
+import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
@@ -90,6 +94,26 @@ public class WirelessRedstone {
 	 * Wireless Redstone Ether maximum nodes
 	 */
 	public static int maxEtherFrequencies = 10000;
+	
+	public static List<BaseModOverride> overrides;
+	
+	/**
+	 * Loads configurations and initializes objects. Loads ModLoader related
+	 * stuff.<br>
+	 * - Load Block textures<br>
+	 * - Register Blocks and Tile Entities<br>
+	 * - Recipes
+	 */
+	public static void initialize() {
+		overrides = new ArrayList<BaseModOverride>();
+		loadConfig();
+		initBlocks();
+		initGUIs();
+		loadBlockTextures();
+		loadItemTextures();
+		registerBlocks();
+		addRecipes();
+	}
 
 	/**
 	 * Loads all Block textures from ModLoader override and stores the indices
@@ -186,23 +210,6 @@ public class WirelessRedstone {
 	}
 
 	/**
-	 * Loads configurations and initializes objects. Loads ModLoader related
-	 * stuff.<br>
-	 * - Load Block textures<br>
-	 * - Register Blocks and Tile Entities<br>
-	 * - Recipes
-	 */
-	public static void initialize() {
-		loadConfig();
-		initBlocks();
-		initGUIs();
-		loadBlockTextures();
-		loadItemTextures();
-		registerBlocks();
-		addRecipes();
-	}
-
-	/**
 	 * Retrieves the world object
 	 * 
 	 * @param network
@@ -223,4 +230,26 @@ public class WirelessRedstone {
 	public static EntityPlayer getPlayer(NetworkManager network) {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
+	
+	public static void addOverride(BaseModOverride override) {
+		overrides.add(override);
+	}
+
+	public static void openGUI(EntityPlayer entityplayer, World world, TileEntity tileentity) {
+		boolean prematureExit = false;
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(entityplayer, world, tileentity))
+				prematureExit = true;
+		}
+		
+		if (!prematureExit)
+			if (tileentity instanceof TileEntityRedstoneWirelessR) {
+				guiWirelessR.assTileEntity((TileEntityRedstoneWirelessR)tileentity);
+				ModLoader.openGUI(entityplayer, guiWirelessR);
+			}
+			if (tileentity instanceof TileEntityRedstoneWirelessT) {
+				guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT)tileentity);
+				ModLoader.openGUI(entityplayer, guiWirelessT);
+			}
+	}	
 }

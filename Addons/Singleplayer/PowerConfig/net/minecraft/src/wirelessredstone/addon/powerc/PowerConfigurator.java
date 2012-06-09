@@ -1,24 +1,31 @@
 package net.minecraft.src.wirelessredstone.addon.powerc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.wirelessredstone.BaseModOverride;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.powerc.overrides.BlockRedstoneWirelessROverridePC;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class PowerConfigurator {
 	public static boolean isLoaded = false;
 	public static Item itemPowDir;
 	public static int pdID = 6243;
-	private static List<PowerConfiguratorOverride> overrides;
+	private static List<BaseModOverride> overrides;
 
 	public static boolean initialize() {
 		try {
+			overrides = new ArrayList<BaseModOverride>();
 			loadConfig();
 			itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID))
 					.setItemName("powdir");
@@ -58,18 +65,18 @@ public class PowerConfigurator {
 				.get("ID", Integer.class, new Integer(pdID));
 	}
 
-	public void addOverride(PowerConfiguratorOverride override) {
+	public void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}
 
-	public static void openGUI(EntityPlayer entityplayer,
-			GuiRedstoneWirelessPowerDirector guiPowerC) {
+	public static void openGUI(EntityPlayer entityplayer, World world, TileEntity tileentity) {
 		boolean prematureExit = false;
-		for (PowerConfiguratorOverride override : overrides) {
-			if (override.beforeOpenGui(entityplayer, guiPowerC))
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(entityplayer, world, tileentity))
 				prematureExit = true;
 		}
 		if (!prematureExit)
-			ModLoader.openGUI(entityplayer, guiPowerC);
+			if (tileentity instanceof TileEntityRedstoneWirelessR)
+				ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessPowerDirector((TileEntityRedstoneWirelessR)tileentity));
 	}
 }

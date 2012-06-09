@@ -60,7 +60,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 		super();
 		this.xSize = 177;
 		this.ySize = 166;
-		overrides = new ArrayList<GuiRedstoneWirelessOverride>();
+		this.overrides = new ArrayList<GuiRedstoneWirelessOverride>();
 	}
 
 	/**
@@ -80,7 +80,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            GUI override.
 	 */
 	public void addOverride(GuiRedstoneWirelessOverride override) {
-		overrides.add(override);
+		this.overrides.add(override);
 	}
 
 	/**

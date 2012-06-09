@@ -1,9 +1,9 @@
-package net.minecraft.src.wirelessredstone.smp.client;
+package net.minecraft.src.wirelessredstone.smp.overrides;
 
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEtherOverride;
 
-public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
+public class RedstoneEtherOverrideSMP implements RedstoneEtherOverride {
 
 	@Override
 	public boolean beforeAddTransmitter(World world, int i, int j, int k,

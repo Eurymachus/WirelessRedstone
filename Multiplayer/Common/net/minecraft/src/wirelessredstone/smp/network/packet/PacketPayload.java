@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone.smp.packet;
+package net.minecraft.src.wirelessredstone.smp.network.packet;
 
 import java.util.Arrays;
 

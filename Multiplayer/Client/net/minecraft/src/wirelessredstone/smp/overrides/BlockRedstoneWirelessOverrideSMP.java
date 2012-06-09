@@ -1,18 +1,4 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
-package net.minecraft.src.wirelessredstone.addon.powerc;
+package net.minecraft.src.wirelessredstone.smp.overrides;
 
 import java.util.Random;
 
@@ -20,12 +6,13 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 
-public class BlockRedstoneWirelessROverridePC implements
+public class BlockRedstoneWirelessOverrideSMP implements
 		BlockRedstoneWirelessOverride {
+
 	@Override
 	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j,
 			int k) {
-		return false;
+		return (world.isRemote);
 	}
 
 	@Override
@@ -35,7 +22,7 @@ public class BlockRedstoneWirelessROverridePC implements
 	@Override
 	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i,
 			int j, int k) {
-		return false;
+		return (world.isRemote);
 	}
 
 	@Override
@@ -46,15 +33,7 @@ public class BlockRedstoneWirelessROverridePC implements
 	@Override
 	public boolean beforeBlockRedstoneWirelessActivated(World world, int i,
 			int j, int k, EntityPlayer entityplayer) {
-		if (world.isRemote)
-			return false;
-
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& entityplayer.getCurrentEquippedItem().itemID == PowerConfigurator.itemPowDir.shiftedIndex) {
-			return true;
-		}
-
-		return false;
+		return (world.isRemote);
 	}
 
 	@Override
@@ -65,7 +44,7 @@ public class BlockRedstoneWirelessROverridePC implements
 	@Override
 	public boolean beforeBlockRedstoneWirelessNeighborChange(World world,
 			int i, int j, int k, int l) {
-		return false;
+		return (world.isRemote);
 	}
 
 	@Override
@@ -76,7 +55,7 @@ public class BlockRedstoneWirelessROverridePC implements
 	@Override
 	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j,
 			int k, Random random) {
-		return false;
+		return (world.isRemote);
 	}
 
 	@Override

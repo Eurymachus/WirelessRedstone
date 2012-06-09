@@ -110,10 +110,8 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 			int j, int k, EntityPlayer entityplayer) {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
-		if (tileentity instanceof TileEntityRedstoneWirelessR) {
-			BlockRedstoneWirelessRInjector.onBlockRedstoneWirelessActivated(
-					entityplayer, (TileEntityRedstoneWirelessR) tileentity);
-		}
+		if (tileentity != null)
+			WirelessRedstone.openGUI(entityplayer, world, tileentity);
 
 		return true;
 	}

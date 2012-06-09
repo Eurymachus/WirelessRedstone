@@ -34,25 +34,14 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 			World world, int i, int j, int k, int l) {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
-		if (tileentity instanceof TileEntityRedstoneWirelessR) {
-			/*
-			 * PacketPowerConfigGui pPCGui = new PacketPowerConfigGui(i, j, k);
-			 * ModLoader
-			 * .getMinecraftInstance().getSendQueue().addToSendQueue(pPCGui
-			 * .getPacket()); itemstack.damageItem(1, entityplayer); return
-			 * true;
-			 */
-
-			PowerConfigurator.openGUI(entityplayer,
-					new GuiRedstoneWirelessPowerDirector(
-							(TileEntityRedstoneWirelessR) tileentity));
+		if (tileentity != null) {
+			PowerConfigurator.openGUI(entityplayer, world, tileentity);
 			itemstack.damageItem(1, entityplayer);
 			return true;
 		}
 		return false;
 	}
 
-	@Override
 	public boolean isFull3D() {
 		return true;
 	}

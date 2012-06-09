@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone.smp.packet;
+package net.minecraft.src.wirelessredstone.smp.network.packet;
 
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless.LogLevel;

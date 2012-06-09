@@ -31,13 +31,14 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
+public class CopyOfGuiRedstoneWirelessPowerDirector extends GuiScreen {
 	protected TileEntityRedstoneWirelessR inventory;
 	protected int xSize;
 	protected int ySize;
 	protected List<GuiRedstoneWirelessOverride> powerOverrides;
 
-	public GuiRedstoneWirelessPowerDirector(TileEntityRedstoneWirelessR tileentity) {
+	public CopyOfGuiRedstoneWirelessPowerDirector(
+			TileEntityRedstoneWirelessR tileentity) {
 		super();
 		inventory = tileentity;
 		xSize = 177;
@@ -214,6 +215,17 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(2896 /* GL_LIGHTING */);
 		GL11.glDisable(2929 /* GL_DEPTH_TEST */);
+
+		for (int control = 0; control < this.controlList.size(); control++) {
+			if (this.controlList.get(control) instanceof GuiButtonWifi) {
+				GuiButtonWifi button = (GuiButtonWifi) this.controlList
+						.get(control);
+
+				if (this.isMouseOverButton(button, i, j)) {
+					this.drawToolTip(button, i, j);
+				}
+			}
+		}
 		drawStringBorder(
 				(xSize / 2)
 						- (fontRenderer.getStringWidth(inventory.getInvName()) / 2),
@@ -248,53 +260,19 @@ public class GuiRedstoneWirelessPowerDirector extends GuiScreen {
 
 		GL11.glPopMatrix();
 		super.drawScreen(i, j, f);
-
-
-		for (int control = 0; control < this.controlList.size(); control++) {
-			if (this.controlList.get(control) instanceof GuiButtonWifi) {
-				GuiButtonWifi button = (GuiButtonWifi) this.controlList
-						.get(control);
-
-				if (this.isMouseOverButton(button, i, j)) {
-					this.drawToolTip(button, i, j);
-				}
-			}
-		}
 		GL11.glEnable(2896 /* GL_LIGHTING */);
 		GL11.glEnable(2929 /* GL_DEPTH_TEST */);
 	}
 
-	private void drawToolTip(GuiButtonWifi button, int x, int y) {
-        int i = 0;
-        int j = -10;
-        int l1 = fontRenderer.getStringWidth(button.getPopupText());
-
-        int j2 = (x - i) + 12;
-        int l2 = y - j - 12;
-        int i3 = l1+5;
-        int j3 = 8;
-
-        zLevel = 300.0F;
-        int k3 = 0xf0100010;
-        drawGradientRect(j2 - 3, l2 - 4, j2 + i3 + 3, l2 - 3, k3, k3);
-        drawGradientRect(j2 - 3, l2 + j3 + 3, j2 + i3 + 3, l2 + j3 + 4, k3, k3);
-        drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, l2 + j3 + 3, k3, k3);
-        drawGradientRect(j2 - 4, l2 - 3, j2 - 3, l2 + j3 + 3, k3, k3);
-        drawGradientRect(j2 + i3 + 3, l2 - 3, j2 + i3 + 4, l2 + j3 + 3, k3, k3);
-        int l3 = 0x505000ff;
-        int i4 = (l3 & 0xfefefe) >> 1 | l3 & 0xff000000;
-        drawGradientRect(j2 - 3, (l2 - 3) + 1, (j2 - 3) + 1, (l2 + j3 + 3) - 1, l3, i4);
-        drawGradientRect(j2 + i3 + 2, (l2 - 3) + 1, j2 + i3 + 3, (l2 + j3 + 3) - 1, l3, i4);
-        drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, (l2 - 3) + 1, l3, l3);
-        drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4, i4);
-
-		fontRenderer.drawSplitString(button.getPopupText(), x+15, y-1, l1*2, 0xFFFFFFFF);
-        zLevel = 0.0F;
+	private void drawToolTip(GuiButtonWifi button, int i, int j) {
+		this.drawGradientRect(button.xPosition, button.yPosition, i, j, 20, 50);
+		fontRenderer.drawSplitString(button.getPopupText(), button.xPosition,
+				button.yPosition, 16, 0);
 	}
 
-	private boolean isMouseOverButton(GuiButtonWifi button, int i, int j) {
-		if (button != null)
-			return button.inBounds(i, j);
+	private boolean isMouseOverButton(GuiButtonWifi var23, int i, int j) {
+		if (var23 != null)
+			return var23.inBounds(i, j);
 		return false;
 	}
 
