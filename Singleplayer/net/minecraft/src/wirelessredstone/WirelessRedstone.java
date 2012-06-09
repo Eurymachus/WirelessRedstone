@@ -26,10 +26,9 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT
  * To allow abstraction from the BaseMod code
  * 
  * @author Eurymachus & Aliz4
- *
+ * 
  */
-public class WirelessRedstone
-{
+public class WirelessRedstone {
 	/**
 	 * Wireless Receiver Block
 	 */
@@ -37,7 +36,7 @@ public class WirelessRedstone
 	/**
 	 * Wireless Transmitter Block
 	 */
-	public static Block blockWirelessT; 
+	public static Block blockWirelessT;
 	/**
 	 * Wireless Receiver GUI
 	 */
@@ -46,16 +45,16 @@ public class WirelessRedstone
 	 * Wireless Transmitter GUI
 	 */
 	public static GuiRedstoneWireless guiWirelessT;
-	
+
 	/**
 	 * Wireless Receiver Block ID
 	 */
-	public static int rxID=127;
+	public static int rxID = 127;
 	/**
 	 * Wireless Transmitter Block ID
 	 */
-	public static int txID=126;
-	
+	public static int txID = 126;
+
 	/**
 	 * Block texture, top, on state.
 	 */
@@ -91,34 +90,46 @@ public class WirelessRedstone
 	/**
 	 * Wireless Redstone Ether maximum nodes
 	 */
-	public static int maxEtherFrequencies=10000;
+	public static int maxEtherFrequencies = 10000;
 
 	/**
-	 * Loads all Block textures from ModLoader override and stores the indices into the sprite integers.
+	 * Loads all Block textures from ModLoader override and stores the indices
+	 * into the sprite integers.
 	 */
 	public static void loadBlockTextures() {
-		spriteTopOn = 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/topOn.png");
-		spriteTopOff = 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/topOff.png");
-		spriteROn = 	ModLoader.addOverride("/terrain.png", "/WirelessSprites/rxOn.png");
-		spriteROff =	ModLoader.addOverride("/terrain.png", "/WirelessSprites/rxOff.png");
-		spriteTOn =		ModLoader.addOverride("/terrain.png", "/WirelessSprites/txOn.png");
-		spriteTOff =	ModLoader.addOverride("/terrain.png", "/WirelessSprites/txOff.png");
+		spriteTopOn = ModLoader.addOverride("/terrain.png",
+				"/WirelessSprites/topOn.png");
+		spriteTopOff = ModLoader.addOverride("/terrain.png",
+				"/WirelessSprites/topOff.png");
+		spriteROn = ModLoader.addOverride("/terrain.png",
+				"/WirelessSprites/rxOn.png");
+		spriteROff = ModLoader.addOverride("/terrain.png",
+				"/WirelessSprites/rxOff.png");
+		spriteTOn = ModLoader.addOverride("/terrain.png",
+				"/WirelessSprites/txOn.png");
+		spriteTOff = ModLoader.addOverride("/terrain.png",
+				"/WirelessSprites/txOff.png");
 	}
 
 	/**
-	 * Loads all Item textures from ModLoader override and stores the indices into the sprite integers.
+	 * Loads all Item textures from ModLoader override and stores the indices
+	 * into the sprite integers.
 	 */
 	public static void loadItemTextures() {
-		spriteTItem =	ModLoader.addOverride("/gui/items.png", "/WirelessSprites/txOn.png");
-		spriteRItem =	ModLoader.addOverride("/gui/items.png", "/WirelessSprites/rxOn.png");
+		spriteTItem = ModLoader.addOverride("/gui/items.png",
+				"/WirelessSprites/txOn.png");
+		spriteRItem = ModLoader.addOverride("/gui/items.png",
+				"/WirelessSprites/rxOn.png");
 	}
-	
+
 	/**
 	 * Initializes Block objects.
 	 */
 	public static void initBlocks() {
-		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setBlockName("wifir");
-		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setBlockName("wifit");
+		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F))
+				.setBlockName("wifir");
+		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F))
+				.setBlockName("wifit");
 	}
 
 	/**
@@ -128,51 +139,61 @@ public class WirelessRedstone
 		guiWirelessR = new GuiRedstoneWirelessR();
 		guiWirelessT = new GuiRedstoneWirelessT();
 	}
-	
+
 	/**
 	 * Registers the Blocks and TileEntities with ModLoader
 	 */
 	public static void registerBlocks() {
-		ModLoader.registerBlock(blockWirelessR, BlockItemRedstoneWirelessR.class);
+		ModLoader.registerBlock(blockWirelessR,
+				BlockItemRedstoneWirelessR.class);
 		ModLoader.addName(blockWirelessR, "Wireless Receiver");
-		ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class, "Wireless Receiver", new TileEntityRedstoneWirelessRenderer());
-		
-		ModLoader.registerBlock(blockWirelessT, BlockItemRedstoneWirelessT.class);
+		ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class,
+				"Wireless Receiver", new TileEntityRedstoneWirelessRenderer());
+
+		ModLoader.registerBlock(blockWirelessT,
+				BlockItemRedstoneWirelessT.class);
 		ModLoader.addName(blockWirelessT, "Wireless Transmitter");
-		ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class, "Wireless Transmitter", new TileEntityRedstoneWirelessRenderer());
+		ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class,
+				"Wireless Transmitter",
+				new TileEntityRedstoneWirelessRenderer());
 	}
-	
+
 	/**
 	 * Registers receipts with ModLoader
 	 */
 	public static void addRecipes() {
 		ModLoader.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
-            "IRI", "RLR", "IRI", Character.valueOf('I'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('L'), Block.lever
-        });
+				"IRI", "RLR", "IRI", Character.valueOf('I'), Item.ingotIron,
+				Character.valueOf('R'), Item.redstone, Character.valueOf('L'),
+				Block.lever });
 		ModLoader.addRecipe(new ItemStack(blockWirelessT, 1), new Object[] {
-            "IRI", "RTR", "IRI", Character.valueOf('I'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('T'), Block.torchRedstoneActive
-        });
+				"IRI", "RTR", "IRI", Character.valueOf('I'), Item.ingotIron,
+				Character.valueOf('R'), Item.redstone, Character.valueOf('T'),
+				Block.torchRedstoneActive });
 	}
-	
+
 	/**
 	 * Loads configurations from the properties file.<br>
 	 * - Receiver block ID: (Receiver.ID)<br>
 	 * - Transmitter block ID: (Transmitter.ID)<br>
 	 */
 	private static void loadConfig() {
-		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Receiver.ID", Integer.class, new Integer(rxID));
-		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Transmitter.ID", Integer.class, new Integer(txID));
+		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance(
+				"WirelessRedstone").get("Receiver.ID", Integer.class,
+				new Integer(rxID));
+		txID = (Integer) ConfigStoreRedstoneWireless.getInstance(
+				"WirelessRedstone").get("Transmitter.ID", Integer.class,
+				new Integer(txID));
 	}
 
 	/**
-	 * Loads configurations and initializes objects.
-	 * Loads ModLoader related stuff.<br>
+	 * Loads configurations and initializes objects. Loads ModLoader related
+	 * stuff.<br>
 	 * - Load Block textures<br>
 	 * - Register Blocks and Tile Entities<br>
 	 * - Recipes
 	 */
-	public static void initialize()
-	{
+	public static void initialize() {
 		loadConfig();
 		initBlocks();
 		initGUIs();
@@ -185,22 +206,22 @@ public class WirelessRedstone
 	/**
 	 * Retrieves the world object
 	 * 
-	 * @param network the Network manager (used for Server)
+	 * @param network
+	 *            the Network manager (used for Server)
 	 * @return the world
 	 */
-	public static World getWorld(NetworkManager network)
-	{
+	public static World getWorld(NetworkManager network) {
 		return ModLoader.getMinecraftInstance().theWorld;
 	}
 
 	/**
 	 * Retrieves the player object
 	 * 
-	 * @param network the Network manager (used for Server)
+	 * @param network
+	 *            the Network manager (used for Server)
 	 * @return the player
 	 */
-	public static EntityPlayer getPlayer(NetworkManager network)
-	{
+	public static EntityPlayer getPlayer(NetworkManager network) {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
 }

@@ -4,7 +4,8 @@ import net.minecraft.src.Packet;
 
 public class TileEntityRedstoneWirelessClockerInjector {
 
-	public static Packet getDescriptionPacket(TileEntityRedstoneWirelessClocker clocker) {
+	public static Packet getDescriptionPacket(
+			TileEntityRedstoneWirelessClocker clocker) {
 		return null;
 	}
 

@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import java.util.HashMap;
@@ -20,45 +20,45 @@ import net.minecraft.src.wirelessredstone.addon.limitedsignal.WirelessLimitedSig
 
 public class mod_WirelessLimitedSignal extends BaseMod {
 	public static BaseMod instance;
-	public Map<String,Boolean> ticking;
+	public Map<String, Boolean> ticking;
 	public static boolean wirelessLimitedSignal;
-	
+
 	@Override
-	public void modsLoaded()
-	{
-		if (ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
-			if (!wirelessLimitedSignal) WirelessLimitedSignal.initialize();
+	public void modsLoaded() {
+		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			if (!wirelessLimitedSignal)
+				WirelessLimitedSignal.initialize();
 		}
 	}
-	
+
 	public mod_WirelessLimitedSignal() {
 		instance = this;
-		ticking = new HashMap<String,Boolean>();
+		ticking = new HashMap<String, Boolean>();
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
 
 	@Override
 	public void load() {
 	}
-	
+
 	@Override
 	public String getVersion() {
 		return "0.1";
 	}
-	
+
 	public void addTicking(int i, int j, int k) {
-		ticking.put(i+","+j+","+k, true);
+		ticking.put(i + "," + j + "," + k, true);
 	}
+
 	public boolean isTicking(int i, int j, int k) {
-		return ticking.containsKey(i+","+j+","+k);
+		return ticking.containsKey(i + "," + j + "," + k);
 	}
+
 	public void remTicking(int i, int j, int k) {
-		ticking.remove(i+","+j+","+k);
+		ticking.remove(i + "," + j + "," + k);
 	}
 }

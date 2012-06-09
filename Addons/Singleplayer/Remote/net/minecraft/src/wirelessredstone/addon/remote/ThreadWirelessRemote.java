@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.EntityPlayer;
@@ -28,74 +28,63 @@ public class ThreadWirelessRemote implements Runnable {
 	protected World world;
 	protected EntityPlayer player;
 	public static int tc = 0;
-	
-	public ThreadWirelessRemote(EntityPlayer player,String freq)
-	{
-		this.i = (int)player.posX;
-		this.j = (int)player.posY;
-		this.k = (int)player.posZ;
+
+	public ThreadWirelessRemote(EntityPlayer player, String freq) {
+		this.i = (int) player.posX;
+		this.j = (int) player.posY;
+		this.k = (int) player.posZ;
 		this.freq = freq;
 		this.player = player;
 		this.world = player.worldObj;
 	}
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		tc++;
-			RedstoneEther.getInstance().addTransmitter(
-					world,
-					i,j,k,
-					freq
-			);
-			if (world.isRemote) PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("addTransmitter", i, j, k, freq, false);
+		RedstoneEther.getInstance().addTransmitter(world, i, j, k, freq);
+		if (world.isRemote)
+			PacketHandlerRedstoneWireless.PacketHandlerOutput
+					.sendRedstoneEtherPacket("addTransmitter", i, j, k, freq,
+							false);
 
-			WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteon);
-	    	RedstoneEther.getInstance().setTransmitterState(
-					world,
-					i,j,k,
-					freq,
-					true
-	    	);
-			if (world.isRemote) PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("setTransmitterState", i, j, k, freq, true);
-	    	
-	    	if ( WirelessRemote.pulseTime > 0 )
-	    	{
-				try 
-				{
-					Thread.sleep(WirelessRemote.pulseTime);
-				}
-				catch (InterruptedException e)
-				{
-					LoggerRedstoneWireless.getInstance("WirelessRedstone.Remote").writeStackTrace(e);
-				}
-	    	}
+		WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteon);
+		RedstoneEther.getInstance().setTransmitterState(world, i, j, k, freq,
+				true);
+		if (world.isRemote)
+			PacketHandlerRedstoneWireless.PacketHandlerOutput
+					.sendRedstoneEtherPacket("setTransmitterState", i, j, k,
+							freq, true);
 
-			WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteoff);
-			RedstoneEther.getInstance().remTransmitter(
-					world,
-					i,j,k,
-					freq
-			);
-			if (world.isRemote) PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("remTransmitter", i, j, k, freq, false);
+		if (WirelessRemote.pulseTime > 0) {
+			try {
+				Thread.sleep(WirelessRemote.pulseTime);
+			} catch (InterruptedException e) {
+				LoggerRedstoneWireless.getInstance("WirelessRedstone.Remote")
+						.writeStackTrace(e);
+			}
+		}
+
+		WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteoff);
+		RedstoneEther.getInstance().remTransmitter(world, i, j, k, freq);
+		if (world.isRemote)
+			PacketHandlerRedstoneWireless.PacketHandlerOutput
+					.sendRedstoneEtherPacket("remTransmitter", i, j, k, freq,
+							false);
 		tc--;
 	}
-	
-	private boolean playerChangedPosition(EntityPlayer entityplayer)
-	{
-		if ((int)entityplayer.posX == i &&
-			(int)entityplayer.posY == j &&
-			(int)entityplayer.posZ == k) {
+
+	private boolean playerChangedPosition(EntityPlayer entityplayer) {
+		if ((int) entityplayer.posX == i && (int) entityplayer.posY == j
+				&& (int) entityplayer.posZ == k) {
 			return false;
 		}
 		return true;
 	}
 
-	public static void pulse(EntityPlayer entityplayer, String freq)
-	{
-		if ( tc < WirelessRemote.maxPulseThreads )
-		{
-			Thread thr = new Thread(new ThreadWirelessRemote(entityplayer, freq));
+	public static void pulse(EntityPlayer entityplayer, String freq) {
+		if (tc < WirelessRemote.maxPulseThreads) {
+			Thread thr = new Thread(
+					new ThreadWirelessRemote(entityplayer, freq));
 			thr.setName("WirelessRemoteThread");
 			thr.start();
 		}

@@ -2,7 +2,6 @@ package net.minecraft.src.wirelessredstone.block;
 
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 
-
 public class BlockItemRedstoneWirelessR extends BlockItemRedstoneWireless {
 
 	public BlockItemRedstoneWirelessR(int par1) {

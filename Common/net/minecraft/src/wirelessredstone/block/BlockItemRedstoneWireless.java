@@ -8,6 +8,6 @@ public abstract class BlockItemRedstoneWireless extends ItemBlock {
 		super(par1);
 		setIconIndex(getRedstoneWirelessItemIndex());
 	}
-	
+
 	protected abstract int getRedstoneWirelessItemIndex();
 }

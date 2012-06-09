@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +21,8 @@ import net.minecraft.src.NBTTagList;
 import net.minecraft.src.Packet;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireless {
+public class TileEntityRedstoneWirelessClocker extends
+		TileEntityRedstoneWireless {
 	private int clockFreq;
 	private boolean running;
 
@@ -34,19 +35,15 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 	@Override
 	public void updateEntity() {
 		String freq = getFreq();
-		
-		if ( !oldFreq.equals(freq) || firstTick) {
+
+		if (!oldFreq.equals(freq) || firstTick) {
 			ThreadWirelessClocker.getInstance().addTileEntity(this);
-			((BlockRedstoneWirelessClocker)WirelessClocker.blockClock).changeFreq(
-					this.worldObj,
-					getBlockCoord(0),
-					getBlockCoord(1),
-					getBlockCoord(2),
-					oldFreq,
-					freq
-			);
+			((BlockRedstoneWirelessClocker) WirelessClocker.blockClock)
+					.changeFreq(this.worldObj, getBlockCoord(0),
+							getBlockCoord(1), getBlockCoord(2), oldFreq, freq);
 			oldFreq = freq;
-			if (firstTick) firstTick = false;
+			if (firstTick)
+				firstTick = false;
 		}
 	}
 
@@ -58,40 +55,47 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 	public int getClockFreq() {
 		return clockFreq;
 	}
+
 	public void setClockFreq(int i) {
-		if ( i > 2000000000 ) i = 2000000000;
-		if ( i < 200 ) i = 200;
-		
+		if (i > 2000000000)
+			i = 2000000000;
+		if (i < 200)
+			i = 200;
+
 		clockFreq = i;
-		
+
 		setClockState(running);
 	}
-	public String getClockFreqString() {	
+
+	public String getClockFreqString() {
 		String timer = "";
-		
-		if (this.clockFreq < 1000) 
+
+		if (this.clockFreq < 1000)
 			timer = String.valueOf(this.clockFreq) + "ms";
 		else if (this.clockFreq < 60000) {
 			long seconds, milliseconds;
 			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq);
-			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.SECONDS.toMillis(seconds);
+			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq)
+					- TimeUnit.SECONDS.toMillis(seconds);
 			timer = seconds + "sec " + milliseconds + "ms";
 		} else {
 			long minutes, seconds, milliseconds;
 			minutes = TimeUnit.MILLISECONDS.toMinutes(this.clockFreq);
-			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq) - TimeUnit.MINUTES.toSeconds(minutes);
-			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq) - TimeUnit.MINUTES.toMillis(minutes) - TimeUnit.SECONDS.toMillis(seconds);
+			seconds = TimeUnit.MILLISECONDS.toSeconds(this.clockFreq)
+					- TimeUnit.MINUTES.toSeconds(minutes);
+			milliseconds = TimeUnit.MILLISECONDS.toMillis(this.clockFreq)
+					- TimeUnit.MINUTES.toMillis(minutes)
+					- TimeUnit.SECONDS.toMillis(seconds);
 			timer = minutes + "m " + seconds + "s " + milliseconds + "ms";
 		}
-		
+
 		return timer;
 	}
-	
-	
-	public void setClockState(boolean state) {		
+
+	public void setClockState(boolean state) {
 		running = state;
 	}
-	
+
 	public boolean getClockState() {
 		return running;
 	}
@@ -99,26 +103,26 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		
+
 		NBTTagList nbttaglist3 = nbttagcompound.getTagList("ClockFrequency");
-		NBTTagCompound nbttagcompound3 = (NBTTagCompound)nbttaglist3.tagAt(0);
-		clockFreq = nbttagcompound3.getInteger("clockFreq");	
-		
+		NBTTagCompound nbttagcompound3 = (NBTTagCompound) nbttaglist3.tagAt(0);
+		clockFreq = nbttagcompound3.getInteger("clockFreq");
+
 		NBTTagList nbttaglist2 = nbttagcompound.getTagList("ClockState");
-		NBTTagCompound nbttagcompound2 = (NBTTagCompound)nbttaglist2.tagAt(0);
-		running = nbttagcompound2.getBoolean("clockState");	
+		NBTTagCompound nbttagcompound2 = (NBTTagCompound) nbttaglist2.tagAt(0);
+		running = nbttagcompound2.getBoolean("clockState");
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
-		
+
 		NBTTagList nbttaglist3 = new NBTTagList();
 		NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 		nbttagcompound1.setInteger("clockFreq", clockFreq);
 		nbttaglist3.appendTag(nbttagcompound1);
 		nbttagcompound.setTag("ClockFrequency", nbttaglist3);
-		
+
 		NBTTagList nbttaglist2 = new NBTTagList();
 		NBTTagCompound nbttagcompound2 = new NBTTagCompound();
 		nbttagcompound2.setBoolean("clockState", running);
@@ -128,6 +132,7 @@ public class TileEntityRedstoneWirelessClocker extends TileEntityRedstoneWireles
 
 	@Override
 	public Packet getDescriptionPacket() {
-		return TileEntityRedstoneWirelessClockerInjector.getDescriptionPacket(this);
+		return TileEntityRedstoneWirelessClockerInjector
+				.getDescriptionPacket(this);
 	}
 }

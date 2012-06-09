@@ -27,7 +27,7 @@ public class RedstoneEtherOverrideSSP implements RedstoneEtherOverride {
 	@Override
 	public void afterRemTransmitter(World world, int i, int j, int k,
 			String freq) {
-		
+
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class RedstoneEtherOverrideSSP implements RedstoneEtherOverride {
 	@Override
 	public void afterSetTransmitterState(World world, int i, int j, int k,
 			String freq, boolean state) {
-		
+
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class RedstoneEtherOverrideSSP implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public void afterAddReceiver(World world, int i, int j, int k, String freq) {		
+	public void afterAddReceiver(World world, int i, int j, int k, String freq) {
 	}
 
 	@Override
@@ -79,20 +79,22 @@ public class RedstoneEtherOverrideSSP implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
-		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideSSP").write("isLoaded(world, "+i+", "+j+", "+k+")", LoggerRedstoneWireless.LogLevel.DEBUG);
-		if ( ModLoader.getMinecraftInstance() == null || ModLoader.getMinecraftInstance().thePlayer == null )
+	public boolean afterIsLoaded(World world, int i, int j, int k,
+			boolean returnState) {
+		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideSSP").write(
+				"isLoaded(world, " + i + ", " + j + ", " + k + ")",
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		if (ModLoader.getMinecraftInstance() == null
+				|| ModLoader.getMinecraftInstance().thePlayer == null)
 			return false;
 
-		int[] a = {i,j,k};
-		int[] b = {
-				(int) ModLoader.getMinecraftInstance().thePlayer.posX,
+		int[] a = { i, j, k };
+		int[] b = { (int) ModLoader.getMinecraftInstance().thePlayer.posX,
 				(int) ModLoader.getMinecraftInstance().thePlayer.posY,
-				(int) ModLoader.getMinecraftInstance().thePlayer.posZ
-		};
-		if ( RedstoneEther.pythagoras(a, b) < 1 ) // Is player
+				(int) ModLoader.getMinecraftInstance().thePlayer.posZ };
+		if (RedstoneEther.pythagoras(a, b) < 1) // Is player
 			return true;
-		
+
 		return returnState;
 	}
 }

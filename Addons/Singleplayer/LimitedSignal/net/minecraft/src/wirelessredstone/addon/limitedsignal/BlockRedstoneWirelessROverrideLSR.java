@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.limitedsignal;
 
 import java.util.Random;
@@ -25,71 +25,93 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.ThreadWirelessLimitedSignal;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
-public class BlockRedstoneWirelessROverrideLSR implements BlockRedstoneWirelessOverride {
+public class BlockRedstoneWirelessROverrideLSR implements
+		BlockRedstoneWirelessOverride {
 	@Override
-	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
-		if ( world.isRemote ) return false;
-		
-		if ( ((mod_WirelessLimitedSignal)mod_WirelessLimitedSignal.instance).isTicking(i, j, k) ) return true;
-		((mod_WirelessLimitedSignal)mod_WirelessLimitedSignal.instance).addTicking(i, j, k);
-		
-		String freq = ((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).getFreq(world,i,j,k);
-		
-		int[] tx = RedstoneEther.getInstance().getClosestActiveTransmitter(i, j, k, freq);
+	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j,
+			int k, Random random) {
+		if (world.isRemote)
+			return false;
+
+		if (((mod_WirelessLimitedSignal) mod_WirelessLimitedSignal.instance)
+				.isTicking(i, j, k))
+			return true;
+		((mod_WirelessLimitedSignal) mod_WirelessLimitedSignal.instance)
+				.addTicking(i, j, k);
+
+		String freq = ((BlockRedstoneWirelessR) WirelessRedstone.blockWirelessR)
+				.getFreq(world, i, j, k);
+
+		int[] tx = RedstoneEther.getInstance().getClosestActiveTransmitter(i,
+				j, k, freq);
 		float SNR = 0.0f;
 		float range = 0.0f;
-		int[] rx = {i,j,k};
-		if ( tx != null) {
+		int[] rx = { i, j, k };
+		if (tx != null) {
 			SNR = WirelessLimitedSignal.getSNRMultiplier(rx, tx, world);
 			range = WirelessLimitedSignal.getRange(rx, tx);
 		} else {
-			tx = RedstoneEther.getInstance().getClosestTransmitter(i, j, k, freq);
-			if ( tx != null) {
+			tx = RedstoneEther.getInstance().getClosestTransmitter(i, j, k,
+					freq);
+			if (tx != null) {
 				SNR = WirelessLimitedSignal.getSNRMultiplier(rx, tx, world);
 				range = WirelessLimitedSignal.getRange(rx, tx);
 			}
 		}
-		
-		Thread th = new Thread(new ThreadWirelessLimitedSignal(i,j,k,world,SNR,range));
+
+		Thread th = new Thread(new ThreadWirelessLimitedSignal(i, j, k, world,
+				SNR, range));
 		th.setName("WirelessLimitedSignalThread");
 		th.start();
-		
+
 		return true;
 	}
 
 	@Override
-	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {}
+	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+	}
 
 	@Override
-	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {}
+	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j,
+			int k) {
+	}
 
 	@Override
-	public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {}
+	public void afterBlockRedstoneWirelessActivated(World world, int i, int j,
+			int k, EntityPlayer entityplayer) {
+	}
 
 	@Override
-	public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {}
+	public void afterBlockRedstoneWirelessNeighborChange(World world, int i,
+			int j, int k, int l) {
+	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+	public boolean beforeBlockRedstoneWirelessActivated(World world, int i,
+			int j, int k, EntityPlayer entityplayer) {
 		return false;
 	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j,
+			int k) {
 		return false;
 	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i,
+			int j, int k) {
 		return false;
 	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+	public boolean beforeBlockRedstoneWirelessNeighborChange(World world,
+			int i, int j, int k, int l) {
 		return false;
 	}
 
 	@Override
-	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+	public void afterUpdateRedstoneWirelessTick(World world, int i, int j,
+			int k, Random random) {
 	}
 }

@@ -11,12 +11,11 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.tileentity;
 
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
-
 
 public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
 	public TileEntityRedstoneWirelessT() {
@@ -26,21 +25,17 @@ public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
 	@Override
 	public void updateEntity() {
 		String freq = getFreq().toString();
-		
-		if ( !oldFreq.equals(freq) || firstTick) {
-			((BlockRedstoneWirelessT)WirelessRedstone.blockWirelessT).changeFreq(
-					worldObj,
-					getBlockCoord(0),
-					getBlockCoord(1),
-					getBlockCoord(2),
-					oldFreq,
-					freq
-			);
+
+		if (!oldFreq.equals(freq) || firstTick) {
+			((BlockRedstoneWirelessT) WirelessRedstone.blockWirelessT)
+					.changeFreq(worldObj, getBlockCoord(0), getBlockCoord(1),
+							getBlockCoord(2), oldFreq, freq);
 			oldFreq = freq;
-			if (firstTick) firstTick = false;
+			if (firstTick)
+				firstTick = false;
 		}
 	}
-	
+
 	@Override
 	public String getInvName() {
 		return "Wireless Transmitter";

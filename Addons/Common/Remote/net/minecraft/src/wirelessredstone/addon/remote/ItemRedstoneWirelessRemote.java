@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.Entity;
@@ -29,61 +29,70 @@ public class ItemRedstoneWirelessRemote extends Item {
 		super(i);
 		maxStackSize = 1;
 	}
-	
+
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
+			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
 			WirelessRemote.openGUI(entityplayer, world);
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
-			if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless)
+			if (tileentity != null
+					&& tileentity instanceof TileEntityRedstoneWireless)
 				return true;
 		}
 		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;
 	}
-    
+
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public ItemStack onItemRightClick(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
 		if (!entityplayer.isSneaking())
 			WirelessRemote.activateRemote(world, entityplayer);
 		else
-			onItemUse(itemstack, entityplayer, world, 
-					(int)Math.round(entityplayer.posX),
-					(int)Math.round(entityplayer.posY), 
-					(int)Math.round(entityplayer.posZ), 0);
+			onItemUse(itemstack, entityplayer, world,
+					(int) Math.round(entityplayer.posX),
+					(int) Math.round(entityplayer.posY),
+					(int) Math.round(entityplayer.posZ), 0);
 		return itemstack;
 	}
 
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
 	@Override
-    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)  {
+	public void onCreated(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(itemstack.hashCode());
-    }
-	
+	}
+
 	@Override
 	public int getIconFromDamage(int i) {
-		if (RedstoneWirelessItemStackMem.getInstance(ModLoader.getMinecraftInstance().theWorld).getState(i))
+		if (RedstoneWirelessItemStackMem.getInstance(
+				ModLoader.getMinecraftInstance().theWorld).getState(i))
 			return WirelessRemote.remoteon;
 		return WirelessRemote.remoteoff;
 	}
-	
+
 	@Override
-	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld) {
+	public void onUpdate(ItemStack itemstack, World world, Entity entity,
+			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			String freq = this.getItemFreq(itemstack, world);
-			EntityPlayer entityplayer = (EntityPlayer)entity;
+			EntityPlayer entityplayer = (EntityPlayer) entity;
 
-			if (!isHeld || !WirelessRemote.isRemoteOn(entityplayer, freq) && !WirelessRemote.deactivateRemote(entityplayer, world))
-				RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
+			if (!isHeld || !WirelessRemote.isRemoteOn(entityplayer, freq)
+					&& !WirelessRemote.deactivateRemote(entityplayer, world))
+				RedstoneWirelessItemStackMem.getInstance(world).addMem(
+						itemstack, freq);
 		}
 	}
 
-    public String getItemFreq(ItemStack itemstack, World world) {
-    	return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
-    }
+	public String getItemFreq(ItemStack itemstack, World world) {
+		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
+				itemstack);
+	}
 }

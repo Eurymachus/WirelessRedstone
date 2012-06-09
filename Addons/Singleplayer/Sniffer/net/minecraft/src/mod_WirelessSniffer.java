@@ -11,37 +11,33 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 
-public class mod_WirelessSniffer extends BaseMod
-{
-	
+public class mod_WirelessSniffer extends BaseMod {
+
 	@Override
-	public void modsLoaded()
-	{
-		if (!WirelessSniffer.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
+	public void modsLoaded() {
+		if (!WirelessSniffer.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			WirelessSniffer.isLoaded = WirelessSniffer.initialize();
 		}
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
-	
-	public mod_WirelessSniffer()
-	{
+
+	public mod_WirelessSniffer() {
 	}
 
 	@Override
 	public void load() {
 	}
-	
+
 	@Override
 	public String getVersion() {
 		return "1.0";

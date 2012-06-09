@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
@@ -27,94 +27,113 @@ import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
  * 
  * @author ali4z
  */
-public class mod_WirelessRedstone extends BaseMod
-{
-	
+public class mod_WirelessRedstone extends BaseMod {
+
 	/**
 	 * Instance object.
 	 */
 	public static BaseMod instance;
-	
+
 	/**
 	 * Adds a Block override to the Receiver.
 	 * 
-	 * @param override Block override
+	 * @param override
+	 *            Block override
 	 */
-	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override) 
-	{
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-		((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).addOverride(override);
+	public static void addOverrideToReceiver(
+			BlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.blockWirelessR.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless) WirelessRedstone.blockWirelessR)
+				.addOverride(override);
 	}
-	
+
 	/**
 	 * Adds a Block override to the Transmitter.
 	 * 
-	 * @param override Block override
+	 * @param override
+	 *            Block override
 	 */
-	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override)
-	{
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-		((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).addOverride(override);
+	public static void addOverrideToTransmitter(
+			BlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.blockWirelessT.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless) WirelessRedstone.blockWirelessT)
+				.addOverride(override);
 	}
 
 	/**
 	 * Adds a GUI override to the Receiver.
 	 * 
-	 * @param override GUI override
+	 * @param override
+	 *            GUI override
 	 */
-	public static void addGuiOverrideToReceiver(GuiRedstoneWirelessOverride override)
-	{
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.guiWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+	public static void addGuiOverrideToReceiver(
+			GuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.guiWirelessR.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 		WirelessRedstone.guiWirelessR.addOverride(override);
 	}
 
 	/**
 	 * Adds a GUI override to the Transmitter.
 	 * 
-	 * @param override GUI override
+	 * @param override
+	 *            GUI override
 	 */
-	public static void addGuiOverrideToTransmitter(GuiRedstoneWirelessOverride override)
-	{
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write("Override added to "+WirelessRedstone.guiWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+	public static void addGuiOverrideToTransmitter(
+			GuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.guiWirelessT.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 		WirelessRedstone.guiWirelessT.addOverride(override);
 	}
+
 	/**
 	 * Constructor sets the instance.
 	 */
-	public mod_WirelessRedstone()
-	{
+	public mod_WirelessRedstone() {
 		instance = this;
 		WirelessRedstone.initialize();
 		RedstoneEtherOverrideSSP etherOverride = new RedstoneEtherOverrideSSP();
 		RedstoneEther.getInstance().addOverride(etherOverride);
 	}
-	
+
 	/**
 	 * Contains the mod's version.
 	 */
 	@Override
-	public String getVersion()
-	{
+	public String getVersion() {
 		return "1.6";
 	}
 
 	@Override
-    public boolean renderWorldBlock(RenderBlocks var1, IBlockAccess var2, int var3, int var4, int var5, Block var6, int var7)
-    {
-        return true;//RenderBlockRedstoneWireless.renderBlockRedstoneWireless(var1, var2, var3, var4, var5, var6, var7);
-    }
+	public boolean renderWorldBlock(RenderBlocks var1, IBlockAccess var2,
+			int var3, int var4, int var5, Block var6, int var7) {
+		return true;// RenderBlockRedstoneWireless.renderBlockRedstoneWireless(var1,
+					// var2, var3, var4, var5, var6, var7);
+	}
 
 	/**
 	 * Returns the mod's name.
 	 */
 	@Override
-	public String toString()
-	{
-		return "WirelessRedstone "+getVersion();
+	public String toString() {
+		return "WirelessRedstone " + getVersion();
 	}
-	
+
 	@Override
-	public void load()
-	{
+	public void load() {
 	}
 }

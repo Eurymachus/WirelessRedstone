@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.overrides;
 
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -21,16 +21,22 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * Used for injecting code into existing Wireless GUI screens.<br>
  * Useful for addons that changes the mechanics of existing GUIs.<br>
  * NOTE: All methods must be implemented, content is optional.
+ * 
  * @author ali4z
- *
+ * 
  */
 public interface GuiRedstoneWirelessOverride {
 	/**
 	 * Triggers before the frequency is changed.
-	 * @param entity TileEntity
-	 * @param oldFreq old frequency
-	 * @param newFreq new frequency
+	 * 
+	 * @param entity
+	 *            TileEntity
+	 * @param oldFreq
+	 *            old frequency
+	 * @param newFreq
+	 *            new frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity, Object oldFreq, Object newFreq);
+	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
+			Object oldFreq, Object newFreq);
 }

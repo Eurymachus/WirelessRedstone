@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
@@ -21,41 +21,37 @@ import net.minecraft.src.wirelessredstone.smp.client.GuiRedstoneWirelessOverride
 import net.minecraft.src.wirelessredstone.smp.client.RedstoneEtherOverrideClient;
 import net.minecraft.src.wirelessredstone.smp.client.network.NetworkConnection;
 
-public class mod_WirelessRedstoneSMP extends BaseMod
-{
+public class mod_WirelessRedstoneSMP extends BaseMod {
 
 	public static BaseMod instance;
-	
+
 	@Override
-	public void modsLoaded()
-	{
-		if(ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
-	    	MinecraftForge.registerConnectionHandler(new NetworkConnection());
-			
+	public void modsLoaded() {
+		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+
 			GuiRedstoneWirelessOverrideClient GUIOverride = new GuiRedstoneWirelessOverrideClient();
 			mod_WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
 			mod_WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
-	
+
 			BlockRedstoneWirelessOverrideClient blockOverride = new BlockRedstoneWirelessOverrideClient();
 			mod_WirelessRedstone.addOverrideToReceiver(blockOverride);
 			mod_WirelessRedstone.addOverrideToTransmitter(blockOverride);
-			
+
 			RedstoneEtherOverrideClient etherOverrideSMP = new RedstoneEtherOverrideClient();
 			RedstoneEther.getInstance().addOverride(etherOverrideSMP);
 		}
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
-	
+
 	public mod_WirelessRedstoneSMP() {
 		instance = this;
 	}
-	
+
 	@Override
 	public String getVersion() {
 		return "1.6";

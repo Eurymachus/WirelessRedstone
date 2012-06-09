@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.EntityPlayer;
@@ -28,36 +28,38 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	protected EntityPlayer player;
 	protected ItemStack itemstack;
 	protected World world;
-	
+
 	public GuiRedstoneWirelessRemote(EntityPlayer entityplayer, World world) {
 		super();
 		this.player = entityplayer;
 		this.itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void initGui() {
 		super.initGui();
 
-		controlList.add(new GuiButtonBoolean(20, (width/2)-20, (height/2)+5, 40, 20, "Pulse", false));
+		controlList.add(new GuiButtonBoolean(20, (width / 2) - 20,
+				(height / 2) + 5, 40, 20, "Pulse", false));
 	}
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		super.actionPerformed(guibutton);
-		
-		if ( guibutton.id ==  20 ) {
-			ThreadWirelessRemote.pulse(player,getFreq());
+
+		if (guibutton.id == 20) {
+			ThreadWirelessRemote.pulse(player, getFreq());
 			close();
 		}
 	}
-	
+
 	@Override
 	public void onGuiClosed() {
-		if ( player.getCurrentEquippedItem() == null )
-			RedstoneWirelessItemStackMem.getInstance(world).remMem(itemstack.hashCode());
+		if (player.getCurrentEquippedItem() == null)
+			RedstoneWirelessItemStackMem.getInstance(world).remMem(
+					itemstack.hashCode());
 	}
 
 	@Override
@@ -74,14 +76,15 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	protected String getName() {
 		return "Wireless Remote";
 	}
-	
+
 	@Override
 	protected String getFreq() {
-		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
+		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
+				itemstack);
 	}
-	
+
 	@Override
 	protected void setFreq(String freq) {
-		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack,freq);
+		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
 	}
 }

@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.ether;
 
 import net.minecraft.src.EntityPlayer;
@@ -47,13 +47,16 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 	 * Unixtimestamp, milliseconds, added.
 	 */
 	public long time;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param i world X coordinate
-	 * @param j world Y coordinate
-	 * @param k world Z coordinate
+	 * @param i
+	 *            world X coordinate
+	 * @param j
+	 *            world Y coordinate
+	 * @param k
+	 *            world Z coordinate
 	 */
 	public RedstoneEtherNode(int i, int j, int k) {
 		this.i = i;
@@ -63,24 +66,23 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 		freq = "0";
 		time = System.currentTimeMillis();
 	}
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param playerName Player Name
-	 *
-	public RedstoneEtherNode(EntityPlayer player) {
-		this.player = player;
-		state = false;
-		freq = "0";
-		time = System.currentTimeMillis();
-	}*/
+	 * @param playerName
+	 *            Player Name
+	 * 
+	 *            public RedstoneEtherNode(EntityPlayer player) { this.player =
+	 *            player; state = false; freq = "0"; time =
+	 *            System.currentTimeMillis(); }
+	 */
 
 	@Override
 	public int compareTo(RedstoneEtherNode arg0) {
-		if ( arg0.i == i )  {
-			if ( arg0.j == j ) {
-				if ( arg0.k == k )
+		if (arg0.i == i) {
+			if (arg0.j == j) {
+				if (arg0.k == k)
 					return 0;
 				else
 					return k - arg0.k;
@@ -89,17 +91,19 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 		} else
 			return i - arg0.i;
 	}
-	
+
 	@Override
 	public boolean equals(Object node) {
-		if ( node instanceof RedstoneEtherNode ) 
-			return ( ((RedstoneEtherNode)node).i == i && ((RedstoneEtherNode)node).j == j && ((RedstoneEtherNode)node).k == k );
-		else 
+		if (node instanceof RedstoneEtherNode)
+			return (((RedstoneEtherNode) node).i == i
+					&& ((RedstoneEtherNode) node).j == j && ((RedstoneEtherNode) node).k == k);
+		else
 			return false;
 	}
 
 	@Override
 	public String toString() {
-		return time+":["+freq+"]:("+i+","+j+","+k+"):"+state;
+		return time + ":[" + freq + "]:(" + i + "," + j + "," + k + "):"
+				+ state;
 	}
 }

@@ -10,18 +10,18 @@ import net.minecraft.src.World;
 public class RedstoneWirelessSnifferPageNumber {
 
 	private static RedstoneWirelessSnifferPageNumber instance;
-	private Map<Integer,SnifferPageNumber> pageNumber;
+	private Map<Integer, SnifferPageNumber> pageNumber;
 	private World world;
-	
+
 	private RedstoneWirelessSnifferPageNumber(World world) {
-		pageNumber = new HashMap<Integer,SnifferPageNumber>();
+		pageNumber = new HashMap<Integer, SnifferPageNumber>();
 		this.world = world;
 	}
-	
+
 	public static RedstoneWirelessSnifferPageNumber getInstance(World world) {
-		if ( instance == null || instance.world.hashCode() != world.hashCode() ) 
+		if (instance == null || instance.world.hashCode() != world.hashCode())
 			instance = new RedstoneWirelessSnifferPageNumber(world);
-		
+
 		return instance;
 	}
 
@@ -29,19 +29,18 @@ public class RedstoneWirelessSnifferPageNumber {
 		SnifferPageNumber memnode = new SnifferPageNumber(sniffer, page);
 		pageNumber.put(sniffer.getItemDamage(), memnode);
 	}
-	
+
 	public void remMem(int itemdamage) {
 		pageNumber.remove(itemdamage);
 	}
 
-	public void setPage(ItemStack sniffer, int page)
-	{
+	public void setPage(ItemStack sniffer, int page) {
 		addMem(sniffer, page);
 	}
 
 	public int getPage(ItemStack sniffer) {
 		SnifferPageNumber node = pageNumber.get(sniffer.getItemDamage());
-		if ( node == null ) {
+		if (node == null) {
 			addMem(sniffer, 0);
 			return 0;
 		} else {

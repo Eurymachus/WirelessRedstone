@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
@@ -19,46 +19,43 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 
-public class mod_WirelessClocker extends BaseMod
-{
+public class mod_WirelessClocker extends BaseMod {
 	public BaseMod instance;
-	
+
 	@Override
-	public void modsLoaded()
-	{
-		if (!WirelessClocker.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
+	public void modsLoaded() {
+		if (!WirelessClocker.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			WirelessClocker.isLoaded = WirelessClocker.initialize();
 		}
 	}
-	
-	public mod_WirelessClocker() 
-	{
+
+	public mod_WirelessClocker() {
 		instance = this;
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
 
 	@Override
-	public void load() {}
+	public void load() {
+	}
 
 	@Override
-	public String getVersion() 
-	{
+	public String getVersion() {
 		return "1.0";
 	}
 
-	public static void addOverrideToClocker(BlockRedstoneWirelessOverride override) 
-	{
-		((BlockRedstoneWireless)WirelessClocker.blockClock).addOverride(override);
+	public static void addOverrideToClocker(
+			BlockRedstoneWirelessOverride override) {
+		((BlockRedstoneWireless) WirelessClocker.blockClock)
+				.addOverride(override);
 	}
-	
-	public static void addGuiOverrideToClocker(GuiRedstoneWirelessOverride override) 
-	{
+
+	public static void addGuiOverrideToClocker(
+			GuiRedstoneWirelessOverride override) {
 		WirelessClocker.guiClock.addOverride(override);
 	}
 }

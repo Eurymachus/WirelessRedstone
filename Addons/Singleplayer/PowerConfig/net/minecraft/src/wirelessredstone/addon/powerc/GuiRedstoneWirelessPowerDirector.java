@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.powerc;
 
 import java.util.ArrayList;
@@ -37,119 +37,137 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 	protected int xSize;
 	protected int ySize;
 	protected List<GuiRedstoneWirelessOverride> powerOverrides;
-	
-	public GuiRedstoneWirelessPowerDirector(TileEntityRedstoneWirelessR tileentity){
+
+	public GuiRedstoneWirelessPowerDirector(
+			TileEntityRedstoneWirelessR tileentity) {
 		super();
 		inventory = tileentity;
 		xSize = 177;
 		ySize = 166;
 	}
-	
+
 	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initGui() {
-        controlList = new ArrayList();
-		controlList.add(new GuiButtonBoolean(0, (width/2)-60, (height/2)-42, 20, 20, "N", inventory.isPoweringDirection(3), "North Face"));
-		controlList.add(new GuiButtonBoolean(1, (width/2)-40, (height/2)-42, 20, 20, "E", inventory.isPoweringDirection(4), "East Face"));
-		controlList.add(new GuiButtonBoolean(2, (width/2)-20, (height/2)-42, 20, 20, "S", inventory.isPoweringDirection(2), "South Face"));
-		controlList.add(new GuiButtonBoolean(3, (width/2), (height/2)-42, 20, 20, "W", inventory.isPoweringDirection(5), "West Face"));
-		controlList.add(new GuiButtonBoolean(4, (width/2)+20, (height/2)-42, 20, 20, "U", inventory.isPoweringDirection(0), "Upward Face"));
-		controlList.add(new GuiButtonBoolean(5, (width/2)+40, (height/2)-42, 20, 20, "D", inventory.isPoweringDirection(1), "Downward Face"));
-		
+		controlList = new ArrayList();
+		controlList.add(new GuiButtonBoolean(0, (width / 2) - 60,
+				(height / 2) - 42, 20, 20, "N", inventory
+						.isPoweringDirection(3), "North Face"));
+		controlList.add(new GuiButtonBoolean(1, (width / 2) - 40,
+				(height / 2) - 42, 20, 20, "E", inventory
+						.isPoweringDirection(4), "East Face"));
+		controlList.add(new GuiButtonBoolean(2, (width / 2) - 20,
+				(height / 2) - 42, 20, 20, "S", inventory
+						.isPoweringDirection(2), "South Face"));
+		controlList.add(new GuiButtonBoolean(3, (width / 2), (height / 2) - 42,
+				20, 20, "W", inventory.isPoweringDirection(5), "West Face"));
+		controlList.add(new GuiButtonBoolean(4, (width / 2) + 20,
+				(height / 2) - 42, 20, 20, "U", inventory
+						.isPoweringDirection(0), "Upward Face"));
+		controlList.add(new GuiButtonBoolean(5, (width / 2) + 40,
+				(height / 2) - 42, 20, 20, "D", inventory
+						.isPoweringDirection(1), "Downward Face"));
 
-		controlList.add(new GuiButtonBoolean(6, (width/2)-60, (height/2), 20, 20, "N", inventory.isPoweringIndirectly(3), "North Face"));
-		controlList.add(new GuiButtonBoolean(7, (width/2)-40, (height/2), 20, 20, "E", inventory.isPoweringIndirectly(4), "East Face"));
-		controlList.add(new GuiButtonBoolean(8, (width/2)-20, (height/2), 20, 20, "S", inventory.isPoweringIndirectly(2), "South Face"));
-		controlList.add(new GuiButtonBoolean(9, (width/2), (height/2), 20, 20, "W", inventory.isPoweringIndirectly(5), "West Face"));
-		controlList.add(new GuiButtonBoolean(10, (width/2)+20, (height/2), 20, 20, "U", inventory.isPoweringIndirectly(0), "Upward Face"));
-		controlList.add(new GuiButtonBoolean(11, (width/2)+40, (height/2), 20, 20, "D", inventory.isPoweringIndirectly(1), "Downward Face"));
-		
-		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
+		controlList.add(new GuiButtonBoolean(6, (width / 2) - 60, (height / 2),
+				20, 20, "N", inventory.isPoweringIndirectly(3), "North Face"));
+		controlList.add(new GuiButtonBoolean(7, (width / 2) - 40, (height / 2),
+				20, 20, "E", inventory.isPoweringIndirectly(4), "East Face"));
+		controlList.add(new GuiButtonBoolean(8, (width / 2) - 20, (height / 2),
+				20, 20, "S", inventory.isPoweringIndirectly(2), "South Face"));
+		controlList.add(new GuiButtonBoolean(9, (width / 2), (height / 2), 20,
+				20, "W", inventory.isPoweringIndirectly(5), "West Face"));
+		controlList.add(new GuiButtonBoolean(10, (width / 2) + 20,
+				(height / 2), 20, 20, "U", inventory.isPoweringIndirectly(0),
+				"Upward Face"));
+		controlList.add(new GuiButtonBoolean(11, (width / 2) + 40,
+				(height / 2), 20, 20, "D", inventory.isPoweringIndirectly(1),
+				"Downward Face"));
+
+		controlList.add(new GuiButtonWifiExit(100, (((width - xSize) / 2)
+				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 		super.initGui();
 	}
-	
+
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
-		if ( inventory instanceof TileEntityRedstoneWirelessR ) {
+		if (inventory instanceof TileEntityRedstoneWirelessR) {
 			int dir = -1;
 			int indir = -1;
-			switch ( guibutton.id ) {
-				case 0: // N
-					dir = 3;
-					break;
-				case 1: // E
-					dir = 4;
-					break;
-				case 2: // S
-					dir = 2;
-					break;
-				case 3: // W
-					dir = 5;
-					break;
-				case 4: // U
-					dir = 0;
-					break;
-				case 5: // D
-					dir = 1;
-					break;
-				case 6: // N
-					indir = 3;
-					break;
-				case 7: // E
-					indir = 4;
-					break;
-				case 8: // S
-					indir = 2;
-					break;
-				case 9: // W
-					indir = 5;
-					break;
-				case 10: // U
-					indir = 0;
-					break;
-				case 11: // D
-					indir = 1;
-					break;
-				case 100:
-					close();
-					break;
+			switch (guibutton.id) {
+			case 0: // N
+				dir = 3;
+				break;
+			case 1: // E
+				dir = 4;
+				break;
+			case 2: // S
+				dir = 2;
+				break;
+			case 3: // W
+				dir = 5;
+				break;
+			case 4: // U
+				dir = 0;
+				break;
+			case 5: // D
+				dir = 1;
+				break;
+			case 6: // N
+				indir = 3;
+				break;
+			case 7: // E
+				indir = 4;
+				break;
+			case 8: // S
+				indir = 2;
+				break;
+			case 9: // W
+				indir = 5;
+				break;
+			case 10: // U
+				indir = 0;
+				break;
+			case 11: // D
+				indir = 1;
+				break;
+			case 100:
+				close();
+				break;
 			}
 			boolean prematureExit = false;
-			for (GuiRedstoneWirelessOverride override: powerOverrides)
-			{
-				if ( dir >= 0 )
-				{
-					if (override.beforeFrequencyChange(inventory, "Power Direction", dir))
+			for (GuiRedstoneWirelessOverride override : powerOverrides) {
+				if (dir >= 0) {
+					if (override.beforeFrequencyChange(inventory,
+							"Power Direction", dir))
 						prematureExit = true;
 				}
-				if ( indir >= 0 )
-				{
-					if (override.beforeFrequencyChange(inventory, "Indirect Power", indir))
+				if (indir >= 0) {
+					if (override.beforeFrequencyChange(inventory,
+							"Indirect Power", indir))
 						prematureExit = true;
 				}
 			}
-			if (!prematureExit)
-			{
-				if ( dir >= 0 )
-				{
-/*					if (ModLoader.getMinecraftInstance().theWorld.isRemote)
-					{
-						PacketHandlerPowerConfig.PacketHandlerOutput.sendPowerConfigPacket(
-								"Power Direction",
-								inventory.xCoord, inventory.yCoord, inventory.zCoord, dir);
-					}*/
+			if (!prematureExit) {
+				if (dir >= 0) {
+					/*
+					 * if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
+					 * PacketHandlerPowerConfig
+					 * .PacketHandlerOutput.sendPowerConfigPacket(
+					 * "Power Direction", inventory.xCoord, inventory.yCoord,
+					 * inventory.zCoord, dir); }
+					 */
 					inventory.flipPowerDirection(dir);
 					notifyNeighbors();
 					initGui();
 				}
-				if ( indir >= 0 )
-				{
-/*					if (ModLoader.getMinecraftInstance().theWorld.isRemote)
-					{
-						PacketHandlerPowerConfig.PacketHandlerOutput.sendPowerConfigPacket(
-								"Indirect Power",
-								inventory.xCoord, inventory.yCoord, inventory.zCoord, indir);
-					}*/
+				if (indir >= 0) {
+					/*
+					 * if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
+					 * PacketHandlerPowerConfig
+					 * .PacketHandlerOutput.sendPowerConfigPacket(
+					 * "Indirect Power", inventory.xCoord, inventory.yCoord,
+					 * inventory.zCoord, indir); }
+					 */
 					inventory.flipIndirectPower(indir);
 					notifyNeighbors();
 					initGui();
@@ -158,23 +176,24 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 		}
 	}
 
-	
 	public void close() {
 		try {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone.PowerConfigurator: "+this.getClass().toString()).writeStackTrace(e);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone.PowerConfigurator: "
+							+ this.getClass().toString()).writeStackTrace(e);
 		}
 	}
-	
+
 	private void notifyNeighbors() {
 		int i = inventory.getBlockCoord(0);
 		int j = inventory.getBlockCoord(1);
 		int k = inventory.getBlockCoord(2);
 		BlockRedstoneWireless.notifyNeighbors(inventory.worldObj, i, j, k);
 	}
-	
+
 	@Override
 	public void drawScreen(int i, int j, float f) {
 		drawDefaultBackground();
@@ -185,58 +204,66 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-		
+
 		GL11.glPushMatrix();
 		GL11.glTranslatef((width - xSize) / 2, (height - ySize) / 2, 0.0F);
-		GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+		GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
 		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(2896 /*GL_LIGHTING*/);
-		GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+		GL11.glDisable(2896 /* GL_LIGHTING */);
+		GL11.glDisable(2929 /* GL_DEPTH_TEST */);
 
+		for (int control = 0; control < this.controlList.size(); control++) {
+			if (this.controlList.get(control) instanceof GuiButtonWifi) {
+				GuiButtonWifi button = (GuiButtonWifi) this.controlList
+						.get(control);
 
-        for (int control = 0; control < this.controlList.size(); control++)
-        {
-            if (this.controlList.get(control) instanceof GuiButtonWifi)
-            {
-            	GuiButtonWifi button = (GuiButtonWifi)this.controlList.get(control);
-
-	            if (this.isMouseOverButton(button, i, j))
-	            {
-	                this.drawToolTip(button, i, j);
-	            }
-            }
-        }
+				if (this.isMouseOverButton(button, i, j)) {
+					this.drawToolTip(button, i, j);
+				}
+			}
+		}
 		drawStringBorder(
-				(xSize/2)-(fontRenderer.getStringWidth(inventory.getInvName())/2),
+				(xSize / 2)
+						- (fontRenderer.getStringWidth(inventory.getInvName()) / 2),
 				6,
-				(xSize/2)+(fontRenderer.getStringWidth(inventory.getInvName())/2)
-		);
-		fontRenderer.drawString(inventory.getInvName(), (xSize/2)-(fontRenderer.getStringWidth(inventory.getInvName())/2), 6, 0x404040);
+				(xSize / 2)
+						+ (fontRenderer.getStringWidth(inventory.getInvName()) / 2));
+		fontRenderer.drawString(inventory.getInvName(), (xSize / 2)
+				- (fontRenderer.getStringWidth(inventory.getInvName()) / 2), 6,
+				0x404040);
 
 		drawStringBorder(
-				(xSize/2)-(fontRenderer.getStringWidth("Power Direction")/2),
+				(xSize / 2)
+						- (fontRenderer.getStringWidth("Power Direction") / 2),
 				28,
-				(xSize/2)+(fontRenderer.getStringWidth("Power Direction")/2)
-		);
-		fontRenderer.drawString("Power Direction", (xSize/2)-(fontRenderer.getStringWidth("Power Direction")/2), 28, 0x404040);
+				(xSize / 2)
+						+ (fontRenderer.getStringWidth("Power Direction") / 2));
+		fontRenderer.drawString("Power Direction",
+				(xSize / 2)
+						- (fontRenderer.getStringWidth("Power Direction") / 2),
+				28, 0x404040);
 
 		drawStringBorder(
-				(xSize/2)-(fontRenderer.getStringWidth("Indirect Power")/2),
+				(xSize / 2)
+						- (fontRenderer.getStringWidth("Indirect Power") / 2),
 				70,
-				(xSize/2)+(fontRenderer.getStringWidth("Indirect Power")/2)
-		);
-		fontRenderer.drawString("Indirect Power", (xSize/2)-(fontRenderer.getStringWidth("Indirect Power")/2), 70, 0x404040);
-		
+				(xSize / 2)
+						+ (fontRenderer.getStringWidth("Indirect Power") / 2));
+		fontRenderer.drawString("Indirect Power",
+				(xSize / 2)
+						- (fontRenderer.getStringWidth("Indirect Power") / 2),
+				70, 0x404040);
+
 		GL11.glPopMatrix();
 		super.drawScreen(i, j, f);
-		GL11.glEnable(2896 /*GL_LIGHTING*/);
-		GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+		GL11.glEnable(2896 /* GL_LIGHTING */);
+		GL11.glEnable(2929 /* GL_DEPTH_TEST */);
 	}
-	
-	private void drawToolTip(GuiButtonWifi button, int i, int j)
-	{
+
+	private void drawToolTip(GuiButtonWifi button, int i, int j) {
 		this.drawGradientRect(button.xPosition, button.yPosition, i, j, 20, 50);
-		fontRenderer.drawSplitString(button.getPopupText(), button.xPosition, button.yPosition, 16, 0);
+		fontRenderer.drawSplitString(button.getPopupText(), button.xPosition,
+				button.yPosition, 16, 0);
 	}
 
 	private boolean isMouseOverButton(GuiButtonWifi var23, int i, int j) {
@@ -246,30 +273,18 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 	}
 
 	protected void drawStringBorder(int x1, int y1, int x2) {
-		drawRect(
-				x1-3,
-				y1-3,
-				x2+3,
-				y1+10,
-				0xff000000
-		);
-		drawRect(
-				x1-2,
-				y1-2,
-				x2+2,
-				y1+9,
-				0xffffffff
-		);
+		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
+		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
 	}
-	
+
 	@Override
-	public boolean doesGuiPauseGame(){
+	public boolean doesGuiPauseGame() {
 		return false;
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

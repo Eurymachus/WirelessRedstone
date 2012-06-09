@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.sniffer;
 
 import net.minecraft.src.EntityPlayer;
@@ -20,30 +20,28 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 
-public class ItemRedstoneWirelessSniffer extends Item
-{
-	protected ItemRedstoneWirelessSniffer(int i)
-	{
+public class ItemRedstoneWirelessSniffer extends Item {
+	protected ItemRedstoneWirelessSniffer(int i) {
 		super(i);
 		maxStackSize = 1;
 	}
-	
+
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
-	{
-		WirelessSniffer.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(entityplayer, world));
+	public ItemStack onItemRightClick(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
+		WirelessSniffer.openGUI(entityplayer, new GuiRedstoneWirelessSniffer(
+				entityplayer, world));
 		return itemstack;
 	}
-	
+
 	@Override
-	public boolean isFull3D()
-	{
+	public boolean isFull3D() {
 		return true;
 	}
-	
+
 	@Override
-    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
-    {
+	public void onCreated(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(itemstack.hashCode());
-    }
+	}
 }

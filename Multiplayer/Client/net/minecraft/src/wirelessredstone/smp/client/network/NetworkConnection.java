@@ -15,56 +15,55 @@ import net.minecraft.src.wirelessredstone.smp.packet.PacketOpenWindowRedstoneWir
 import net.minecraft.src.wirelessredstone.smp.packet.PacketRedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.packet.PacketWirelessTile;
 
-public class NetworkConnection implements INetworkConnections
-{
+public class NetworkConnection implements INetworkConnections {
 
 	@Override
-	public void onPacketData(NetworkManager network, String channel, byte[] bytes) 
-	{
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(bytes));
-		try
-		{
-			NetClientHandler net = (NetClientHandler)network.getNetHandler();
+	public void onPacketData(NetworkManager network, String channel,
+			byte[] bytes) {
+		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
+				bytes));
+		try {
+			NetClientHandler net = (NetClientHandler) network.getNetHandler();
 			int packetID = data.read();
-			switch (packetID)
-			{
+			switch (packetID) {
 			case PacketIds.ETHER:
 				PacketRedstoneEther pRE = new PacketRedstoneEther();
 				pRE.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pRE, ModLoader.getMinecraftInstance().thePlayer);
+				PacketHandlerRedstoneWireless.handlePacket(pRE,
+						ModLoader.getMinecraftInstance().thePlayer);
 				break;
 			case PacketIds.GUI:
 				PacketOpenWindowRedstoneWireless pORW = new PacketOpenWindowRedstoneWireless();
 				pORW.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pORW, ModLoader.getMinecraftInstance().thePlayer);
+				PacketHandlerRedstoneWireless.handlePacket(pORW,
+						ModLoader.getMinecraftInstance().thePlayer);
 				break;
 			case PacketIds.TILE:
 				PacketWirelessTile pWT = new PacketWirelessTile();
 				pWT.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pWT, ModLoader.getMinecraftInstance().thePlayer);
+				PacketHandlerRedstoneWireless.handlePacket(pWT,
+						ModLoader.getMinecraftInstance().thePlayer);
 				break;
-			} 
-		}
-		catch(Exception ex)
-		{
+			}
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
 	@Override
-	public void onConnect(NetworkManager network)
-	{
+	public void onConnect(NetworkManager network) {
 	}
 
 	@Override
-	public void onLogin(NetworkManager network, Packet1Login login) 
-	{
+	public void onLogin(NetworkManager network, Packet1Login login) {
 		MessageManager.getInstance().registerChannel(network, this, "WIFI");
-		ModLoader.getLogger().fine("Wireless Redstone : Wireless Redstone Registered for - " + WirelessRedstone.getPlayer(network).username);
+		ModLoader.getLogger().fine(
+				"Wireless Redstone : Wireless Redstone Registered for - "
+						+ WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override
-	public void onDisconnect(NetworkManager network, String message, Object[] args) 
-	{
+	public void onDisconnect(NetworkManager network, String message,
+			Object[] args) {
 	}
 }

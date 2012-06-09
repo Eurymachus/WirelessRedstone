@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
@@ -19,14 +19,15 @@ import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulato
 
 public class mod_WirelessTriangulator extends BaseMod {
 	public static BaseMod instance;
-	
+
 	public mod_WirelessTriangulator() {
 		instance = this;
 	}
-	
+
 	@Override
 	public void modsLoaded() {
-		if (!WirelessTriangulator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessTriangulator.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstone"))
 			WirelessTriangulator.isLoaded = WirelessTriangulator.initialize();
 	}
 
@@ -34,7 +35,7 @@ public class mod_WirelessTriangulator extends BaseMod {
 	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
-	
+
 	@Override
 	public boolean onTickInGame(float tick, Minecraft mc) {
 		WirelessTriangulator.onTickInGame(tick, mc);

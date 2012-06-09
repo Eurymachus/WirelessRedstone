@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
 import net.minecraft.src.EntityPlayer;
@@ -25,16 +25,15 @@ import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless
-{
+public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	protected int xSize;
 	protected int ySize;
 	protected EntityPlayer player;
 	protected ItemStack itemstack;
 	protected World world;
-	
-	public GuiRedstoneWirelessTriangulator(EntityPlayer entityplayer, World world)
-	{
+
+	public GuiRedstoneWirelessTriangulator(EntityPlayer entityplayer,
+			World world) {
 		super();
 		xSize = 176;
 		ySize = 166;
@@ -42,85 +41,78 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless
 		this.itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
 	}
-	
+
 	@Override
-	protected void actionPerformed(GuiButton guibutton)
-	{
+	protected void actionPerformed(GuiButton guibutton) {
 		Object a = getFreq();
 		Object b = a;
 		int newFreq, oldFreq;
-		try
-		{
+		try {
 			newFreq = Integer.parseInt(a.toString());
 			oldFreq = Integer.parseInt(b.toString());
-		}
-		catch(NumberFormatException e)
-		{
+		} catch (NumberFormatException e) {
 			return;
 		}
-		
-		switch ( guibutton.id ) 
-		{
-			case 0:
-				newFreq++;
-				break;
-			case 1:
-				newFreq--;
-				break;
-			case 2:
-				newFreq += 10;
-				break;
-			case 3:
-				newFreq -= 10;
-				break;
-			case 4:
-				newFreq += 100;
-				break;
-			case 5:
-				newFreq -= 100;
-				break;
-			case 6:
-				newFreq += 1000;
-				break;
-			case 7:
-				newFreq -= 1000;
-				break;
-			case 100:
-				close();
-				break;
+
+		switch (guibutton.id) {
+		case 0:
+			newFreq++;
+			break;
+		case 1:
+			newFreq--;
+			break;
+		case 2:
+			newFreq += 10;
+			break;
+		case 3:
+			newFreq -= 10;
+			break;
+		case 4:
+			newFreq += 100;
+			break;
+		case 5:
+			newFreq -= 100;
+			break;
+		case 6:
+			newFreq += 1000;
+			break;
+		case 7:
+			newFreq -= 1000;
+			break;
+		case 100:
+			close();
+			break;
 		}
-		if ( newFreq != oldFreq)
-		{
-			if ( newFreq > 9999 ) newFreq -= 10000;
-			if ( newFreq < 0 ) newFreq += 10000;
+		if (newFreq != oldFreq) {
+			if (newFreq > 9999)
+				newFreq -= 10000;
+			if (newFreq < 0)
+				newFreq += 10000;
 			setFreq(Integer.toString(newFreq));
 		}
 	}
 
 	@Override
-	public void close()
-	{
-		try
-		{
+	public void close() {
+		try {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
-		} 
-		catch ( Exception e)
-		{
-			LoggerRedstoneWireless.getInstance("WirelessRedstone.Triangulator: "+this.getClass().toString()).writeStackTrace(e);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone.Triangulator: "
+							+ this.getClass().toString()).writeStackTrace(e);
 		}
-	}
-	
-	@Override
-	public void onGuiClosed()
-	{
-		if ( player.getCurrentEquippedItem() == null )
-			RedstoneWirelessItemStackMem.getInstance(world).remMem(itemstack.hashCode());
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f)
-	{
+	public void onGuiClosed() {
+		if (player.getCurrentEquippedItem() == null)
+			RedstoneWirelessItemStackMem.getInstance(world).remMem(
+					itemstack.hashCode());
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f) {
 		int m = mc.renderEngine.getTexture("/gui/wifi_small.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(m);
@@ -128,28 +120,25 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless
 		int y = (height - ySize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
-	
+
 	@Override
-	public boolean doesGuiPauseGame()
-	{
+	public boolean doesGuiPauseGame() {
 		return false;
 	}
 
 	@Override
-	protected String getName()
-	{
+	protected String getName() {
 		return "Wireless Triangulator";
 	}
-	
+
 	@Override
-	protected String getFreq()
-	{
-		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
+	protected String getFreq() {
+		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
+				itemstack);
 	}
-	
+
 	@Override
-	protected void setFreq(String freq)
-	{
-		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack,freq);
+	protected void setFreq(String freq) {
+		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
 	}
 }

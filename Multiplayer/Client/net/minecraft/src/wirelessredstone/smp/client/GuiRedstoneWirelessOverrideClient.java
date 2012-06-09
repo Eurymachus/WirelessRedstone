@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.smp.client;
 
 import net.minecraft.src.ModLoader;
@@ -19,14 +19,19 @@ import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.smp.client.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class GuiRedstoneWirelessOverrideClient implements GuiRedstoneWirelessOverride {
+public class GuiRedstoneWirelessOverrideClient implements
+		GuiRedstoneWirelessOverride {
 
 	@Override
-	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity, Object oldFreq, Object newFreq) {
-		if ( ( ModLoader.getMinecraftInstance().theWorld.isRemote ) ) {
+	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
+			Object oldFreq, Object newFreq) {
+		if ((ModLoader.getMinecraftInstance().theWorld.isRemote)) {
 			int OLD = Integer.parseInt(oldFreq.toString());
 			int NEW = Integer.parseInt(newFreq.toString());
-			PacketHandlerRedstoneWireless.PacketHandlerOutput.sendRedstoneEtherPacket("changeFreq", entity.getBlockCoord(0), entity.getBlockCoord(1), entity.getBlockCoord(2), (NEW-OLD), false);
+			PacketHandlerRedstoneWireless.PacketHandlerOutput
+					.sendRedstoneEtherPacket("changeFreq",
+							entity.getBlockCoord(0), entity.getBlockCoord(1),
+							entity.getBlockCoord(2), (NEW - OLD), false);
 			return true;
 		}
 		return false;

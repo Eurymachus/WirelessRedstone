@@ -1,38 +1,31 @@
 package net.minecraft.src.wirelessredstone.data;
 
-public class WirelessCoordinates
-{
+public class WirelessCoordinates {
 	int x, y, z;
-	
-	public WirelessCoordinates(int x, int y, int z)
-	{
+
+	public WirelessCoordinates(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
-	public WirelessCoordinates(int[] coordinates)
-	{
-		if (coordinates.length <= 3 && coordinates.length > 0)
-		{
+
+	public WirelessCoordinates(int[] coordinates) {
+		if (coordinates.length <= 3 && coordinates.length > 0) {
 			this.x = coordinates[0];
 			this.y = coordinates[1];
 			this.z = coordinates[2];
 		}
 	}
-	
-	public int getX()
-	{
+
+	public int getX() {
 		return this.x;
 	}
-	
-	public int getY()
-	{
+
+	public int getY() {
 		return this.y;
 	}
-	
-	public int getZ()
-	{
+
+	public int getZ() {
 		return this.z;
 	}
 
@@ -47,12 +40,11 @@ public class WirelessCoordinates
 	public void setZ(int posZ) {
 		this.z = posZ;
 	}
-	
-	public int[] getCoordinateArray()
-	{
-		int[] coordArray = {0,0,0};
-		if (this != null)
-		{;
+
+	public int[] getCoordinateArray() {
+		int[] coordArray = { 0, 0, 0 };
+		if (this != null) {
+			;
 			coordArray[0] = this.getX();
 			coordArray[1] = this.getY();
 			coordArray[2] = this.getZ();

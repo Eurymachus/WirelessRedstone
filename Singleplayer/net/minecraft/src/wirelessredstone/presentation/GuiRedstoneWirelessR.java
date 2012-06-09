@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.presentation;
 
 import org.lwjgl.opengl.GL11;
@@ -21,7 +21,7 @@ import org.lwjgl.opengl.GL11;
  * 
  * @author ali4z
  */
-public class GuiRedstoneWirelessR extends GuiRedstoneWireless {	
+public class GuiRedstoneWirelessR extends GuiRedstoneWireless {
 	public GuiRedstoneWirelessR() {
 		super();
 	}

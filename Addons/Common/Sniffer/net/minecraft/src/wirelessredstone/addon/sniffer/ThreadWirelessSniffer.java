@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.sniffer;
 
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -19,7 +19,7 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 public class ThreadWirelessSniffer implements Runnable {
 	protected GuiRedstoneWirelessSniffer gui;
 	public boolean running;
-	
+
 	public ThreadWirelessSniffer(GuiRedstoneWirelessSniffer gui) {
 		this.gui = gui;
 	}
@@ -27,13 +27,14 @@ public class ThreadWirelessSniffer implements Runnable {
 	@Override
 	public void run() {
 		running = true;
-		while ( running ) {
+		while (running) {
 			gui.initGui();
-			
+
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				LoggerRedstoneWireless.getInstance("WirelessRedstone.Sniffer").writeStackTrace(e);
+				LoggerRedstoneWireless.getInstance("WirelessRedstone.Sniffer")
+						.writeStackTrace(e);
 			}
 		}
 	}

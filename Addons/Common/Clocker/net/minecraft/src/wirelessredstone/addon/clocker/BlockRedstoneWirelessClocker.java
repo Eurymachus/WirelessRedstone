@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
 import net.minecraft.src.Block;
@@ -29,65 +29,76 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 		super(i, hardness, resistance);
 		this.setStepSound(Block.soundMetalFootstep);
 	}
-	
-	
+
 	public void toggleState(World world, int i, int j, int k) {
-		setState(world,i,j,k, !getState(world,i,j,k));
+		setState(world, i, j, k, !getState(world, i, j, k));
 	}
 
 	@Override
 	protected void onBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
-		TileEntityRedstoneWirelessClocker entity = (TileEntityRedstoneWirelessClocker)getBlockEntity();
+		TileEntityRedstoneWirelessClocker entity = (TileEntityRedstoneWirelessClocker) getBlockEntity();
 		world.setBlockTileEntity(i, j, k, entity);
 		ThreadWirelessClocker.getInstance().addTileEntity(entity);
-		super.onBlockRedstoneWirelessAdded(world,i,j,k);
+		super.onBlockRedstoneWirelessAdded(world, i, j, k);
 	}
 
 	@Override
-	protected void onBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+	protected void onBlockRedstoneWirelessRemoved(World world, int i, int j,
+			int k) {
 		TileEntity entity = world.getBlockTileEntity(i, j, k);
-		if ( entity instanceof TileEntityRedstoneWirelessClocker)
-			ThreadWirelessClocker.getInstance().remTileEntity((TileEntityRedstoneWirelessClocker)entity);
+		if (entity instanceof TileEntityRedstoneWirelessClocker)
+			ThreadWirelessClocker.getInstance().remTileEntity(
+					(TileEntityRedstoneWirelessClocker) entity);
 		else
-			ThreadWirelessClocker.getInstance().remTileEntity(i,j,k);
-		
-		super.onBlockRedstoneWirelessRemoved(world,i,j,k);	
+			ThreadWirelessClocker.getInstance().remTileEntity(i, j, k);
+
+		super.onBlockRedstoneWirelessRemoved(world, i, j, k);
 	}
 
 	@Override
-	protected boolean onBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-		return BlockRedstoneWirelessClockerInjector.onBlockRedstoneWirelessActivated(world, i, j, k, entityplayer);
+	protected boolean onBlockRedstoneWirelessActivated(World world, int i,
+			int j, int k, EntityPlayer entityplayer) {
+		return BlockRedstoneWirelessClockerInjector
+				.onBlockRedstoneWirelessActivated(world, i, j, k, entityplayer);
 	}
 
 	@Override
-	protected void onBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+	protected void onBlockRedstoneWirelessNeighborChange(World world, int i,
+			int j, int k, int l) {
 		TileEntity entity = world.getBlockTileEntity(i, j, k);
-		if ( entity instanceof TileEntityRedstoneWirelessClocker ) {
-	    	// It was not removed, can provide power and is indirectly getting powered.
-	        if ( l > 0 && (world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) )
-	    		((TileEntityRedstoneWirelessClocker)entity).setClockState(true);
-	        // There are no powering entities, state is deactivated.
-	        else if ( !(world.isBlockGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i,j,k)) )
-	        	((TileEntityRedstoneWirelessClocker)entity).setClockState(false);
+		if (entity instanceof TileEntityRedstoneWirelessClocker) {
+			// It was not removed, can provide power and is indirectly getting
+			// powered.
+			if (l > 0
+					&& (world.isBlockGettingPowered(i, j, k) || world
+							.isBlockIndirectlyGettingPowered(i, j, k)))
+				((TileEntityRedstoneWirelessClocker) entity)
+						.setClockState(true);
+			// There are no powering entities, state is deactivated.
+			else if (!(world.isBlockGettingPowered(i, j, k) || world
+					.isBlockIndirectlyGettingPowered(i, j, k)))
+				((TileEntityRedstoneWirelessClocker) entity)
+						.setClockState(false);
 		}
 	}
 
 	@Override
-	protected int getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-		if ( getState(iblockaccess.getBlockMetadata(i, j, k)) ) {
-			if(l == 0 || l == 1)
-				return WirelessRedstone.spriteTopOn; 
-			
+	protected int getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess,
+			int i, int j, int k, int l) {
+		if (getState(iblockaccess.getBlockMetadata(i, j, k))) {
+			if (l == 0 || l == 1)
+				return WirelessRedstone.spriteTopOn;
+
 			return WirelessClocker.spriteSidesOn;
-		} else 
+		} else
 			return getBlockRedstoneWirelessTextureFromSide(l);
 	}
 
 	@Override
 	protected int getBlockRedstoneWirelessTextureFromSide(int l) {
-		if(l == 0 || l == 1)
+		if (l == 0 || l == 1)
 			return WirelessRedstone.spriteTopOff;
-		
+
 		return WirelessClocker.spriteSidesOff;
 	}
 

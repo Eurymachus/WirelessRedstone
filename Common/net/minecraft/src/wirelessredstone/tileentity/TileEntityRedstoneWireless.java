@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.tileentity;
 
 import net.minecraft.src.EntityPlayer;
@@ -24,13 +24,14 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.injectors.TileEntityRedstoneWirelessInjector;
 
-public abstract class TileEntityRedstoneWireless extends TileEntity implements IInventory {
+public abstract class TileEntityRedstoneWireless extends TileEntity implements
+		IInventory {
 	public boolean firstTick = true;
 	public String oldFreq;
 	public String currentFreq;
 	protected boolean[] powerRoute;
 	protected boolean[] indirPower;
-    
+
 	public TileEntityRedstoneWireless() {
 		firstTick = true;
 		oldFreq = "";
@@ -39,7 +40,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		flushPowerRoute();
 		flushIndirPower();
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 0;
@@ -53,33 +54,35 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	public String getFreq() {
 		return currentFreq;
 	}
-	
+
 	public void setFreq(String i) {
-		try {			
+		try {
 			currentFreq = i;
-			if ( TileEntityRedstoneWirelessInjector.doUpdateEntity(worldObj) )
+			if (TileEntityRedstoneWirelessInjector.doUpdateEntity(worldObj))
 				updateEntity();
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
 		}
 	}
 
 	public int getBlockCoord(int i) {
-		switch(i) {
-			case 0:
-				return this.xCoord;
-			case 1:
-				return this.yCoord;
-			case 2:
-				return this.zCoord;
-			default:
-				return 0;
+		switch (i) {
+		case 0:
+			return this.xCoord;
+		case 1:
+			return this.yCoord;
+		case 2:
+			return this.zCoord;
+		default:
+			return 0;
 		}
 	}
 
 	@Override
 	public abstract void updateEntity();
-	
+
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
 		return null;
@@ -94,88 +97,91 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	public abstract String getInvName();
 
 	public boolean isPoweringDirection(int l) {
-		if ( l < 6 )
+		if (l < 6)
 			return powerRoute[l];
-		else return false;
+		else
+			return false;
 	}
-	
+
 	public void flipPowerDirection(int l) {
-		if ( isPoweringIndirectly(l) && powerRoute[l] )
+		if (isPoweringIndirectly(l) && powerRoute[l])
 			flipIndirectPower(l);
 		powerRoute[l] = !powerRoute[l];
 	}
-	
+
 	public void flushPowerRoute() {
 		powerRoute = new boolean[6];
-		for ( int i = 0; i < powerRoute.length; i++ ) {
+		for (int i = 0; i < powerRoute.length; i++) {
 			powerRoute[i] = true;
 		}
 	}
-	
+
 	/**
 	 * Retrieves the directions the Wireless Tile Entity is powering
 	 * 
 	 * @return powerRoute
 	 */
-	public boolean[] getPowerDirections()
-	{
+	public boolean[] getPowerDirections() {
 		return powerRoute;
 	}
-	
+
 	/**
 	 * Retrieves the directions the Wireless Tile Entity is indirectly powering
 	 * 
 	 * @return
 	 */
-	public boolean[] getInDirectlyPowering()
-	{
+	public boolean[] getInDirectlyPowering() {
 		return indirPower;
 	}
-	
+
 	/**
 	 * Sets the directions the Wireless Tile Entity is powering
 	 * 
-	 * @param dir is the new set of directions
+	 * @param dir
+	 *            is the new set of directions
 	 */
-	public void setPowerDirections(boolean[] dir)
-	{
-		try
-		{
+	public void setPowerDirections(boolean[] dir) {
+		try {
 			powerRoute = dir;
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
 		}
 	}
-	
+
 	/**
 	 * Sets the directions the Wireless Tile Entity is powering
 	 * 
-	 * @param indir is the new set of directions
+	 * @param indir
+	 *            is the new set of directions
 	 */
-	public void setInDirectlyPowering(boolean[] indir)
-	{
-		try
-		{
+	public void setInDirectlyPowering(boolean[] indir) {
+		try {
 			indirPower = indir;
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
 		}
 	}
 
 	public void flipIndirectPower(int l) {
-		if ( !isPoweringDirection(l) && !indirPower[l] )
+		if (!isPoweringDirection(l) && !indirPower[l])
 			flipPowerDirection(l);
 		indirPower[l] = !indirPower[l];
 	}
+
 	public boolean isPoweringIndirectly(int l) {
-		if ( l < 6 )
+		if (l < 6)
 			return indirPower[l];
-		else return false;
+		else
+			return false;
 	}
 
 	public void flushIndirPower() {
 		indirPower = new boolean[6];
-		for ( int i = 0; i < indirPower.length; i++ ) {
+		for (int i = 0; i < indirPower.length; i++) {
 			indirPower[i] = true;
 		}
 	}
@@ -184,36 +190,40 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		try {
 			super.readFromNBT(nbttagcompound);
-			
+
 			NBTTagList nbttaglist3 = nbttagcompound.getTagList("Frequency");
-			NBTTagCompound nbttagcompound3 = (NBTTagCompound)nbttaglist3.tagAt(0);
+			NBTTagCompound nbttagcompound3 = (NBTTagCompound) nbttaglist3
+					.tagAt(0);
 			currentFreq = nbttagcompound3.getString("freq");
-	
-			
+
 			NBTTagList nbttaglist1 = nbttagcompound.getTagList("PowerRoute");
-			if ( nbttaglist1.tagCount() == 6 ) {
-				for(int i = 0; i < nbttaglist1.tagCount(); i++) {
-					NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist1.tagAt(i);
+			if (nbttaglist1.tagCount() == 6) {
+				for (int i = 0; i < nbttaglist1.tagCount(); i++) {
+					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist1
+							.tagAt(i);
 					powerRoute[i] = nbttagcompound1.getBoolean("b");
 				}
 			} else {
 				flushPowerRoute();
 				writeToNBT(nbttagcompound);
 			}
-			
+
 			NBTTagList nbttaglist4 = nbttagcompound.getTagList("IndirPower");
-			if ( nbttaglist4.tagCount() == 6 ) {
-				for(int i = 0; i < nbttaglist4.tagCount(); i++) {
-					NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist4.tagAt(i);
+			if (nbttaglist4.tagCount() == 6) {
+				for (int i = 0; i < nbttaglist4.tagCount(); i++) {
+					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist4
+							.tagAt(i);
 					indirPower[i] = nbttagcompound1.getBoolean("b");
 				}
 			} else {
 				flushIndirPower();
 				writeToNBT(nbttagcompound);
 			}
-			
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
 		}
 	}
 
@@ -221,34 +231,36 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		try {
 			super.writeToNBT(nbttagcompound);
-			
+
 			NBTTagList nbttaglist3 = new NBTTagList();
 			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 			nbttagcompound1.setString("freq", currentFreq.toString());
 			nbttaglist3.appendTag(nbttagcompound1);
 			nbttagcompound.setTag("Frequency", nbttaglist3);
-			
+
 			NBTTagList nbttaglist2 = new NBTTagList();
-			for(int i = 0; i < powerRoute.length; i++) {
+			for (int i = 0; i < powerRoute.length; i++) {
 				NBTTagCompound nbttagcompound2 = new NBTTagCompound();
 				nbttagcompound2.setBoolean("b", powerRoute[i]);
 				nbttaglist2.appendTag(nbttagcompound2);
 			}
 			nbttagcompound.setTag("PowerRoute", nbttaglist2);
-			
+
 			NBTTagList nbttaglist4 = new NBTTagList();
-			for(int i = 0; i < indirPower.length; i++) {
+			for (int i = 0; i < indirPower.length; i++) {
 				NBTTagCompound nbttagcompound2 = new NBTTagCompound();
 				nbttagcompound2.setBoolean("b", indirPower[i]);
 				nbttaglist4.appendTag(nbttagcompound2);
 			}
 			nbttagcompound.setTag("IndirPower", nbttaglist4);
-			
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
 		}
 	}
-    
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 64;
@@ -257,21 +269,26 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
 		try {
-			if(worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
+			if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
 				return false;
 			}
-			return entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+			return entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D,
+					zCoord + 0.5D) <= 64D;
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
 			return false;
 		}
 	}
 
 	@Override
-	public void openChest() {}
+	public void openChest() {
+	}
 
 	@Override
-	public void closeChest() {}
+	public void closeChest() {
+	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {

@@ -11,43 +11,37 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfigurator;
 
-public class mod_PowerConfigurator extends BaseMod
-{
+public class mod_PowerConfigurator extends BaseMod {
 	public static BaseMod instance;
-	
+
 	@Override
-	public void modsLoaded()
-	{
-		if (!PowerConfigurator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
+	public void modsLoaded() {
+		if (!PowerConfigurator.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			PowerConfigurator.isLoaded = PowerConfigurator.initialize();
 		}
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
-	
-	public mod_PowerConfigurator()
-	{
+
+	public mod_PowerConfigurator() {
 		instance = this;
 	}
 
 	@Override
-	public void load()
-	{
+	public void load() {
 	}
-	
+
 	@Override
-	public String getVersion()
-	{
+	public String getVersion() {
 		return "1.0";
 	}
 }

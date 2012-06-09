@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.block;
 
 import net.minecraft.src.World;
@@ -26,10 +26,11 @@ public class ThreadWirelessLimitedSignal implements Runnable {
 	private float range;
 	private int i;
 	private int j;
-	private int k;	
+	private int k;
 	private World world;
-	
-	public ThreadWirelessLimitedSignal(int i, int j, int k, World world, float SNR, float range) {
+
+	public ThreadWirelessLimitedSignal(int i, int j, int k, World world,
+			float SNR, float range) {
 		this.SNR = SNR;
 		this.range = range;
 		this.i = i;
@@ -40,15 +41,21 @@ public class ThreadWirelessLimitedSignal implements Runnable {
 
 	@Override
 	public void run() {
-		if ( range > WirelessLimitedSignal.getMaxRange() ) return;
-		
+		if (range > WirelessLimitedSignal.getMaxRange())
+			return;
+
 		try {
-			Thread.sleep((long) Math.ceil(SNR*WirelessLimitedSignal.getRangeMultiplier()*range));
+			Thread.sleep((long) Math.ceil(SNR
+					* WirelessLimitedSignal.getRangeMultiplier() * range));
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone.LimitedSignal").writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance("WirelessRedstone.LimitedSignal")
+					.writeStackTrace(e);
 		}
-		
-		((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).updateRedstoneWirelessTick(world, i, j, k, null);
-		((mod_WirelessLimitedSignal)mod_WirelessLimitedSignal.instance).remTicking(i, j, k);
+
+		((BlockRedstoneWirelessR) WirelessRedstone.blockWirelessR)
+				.updateRedstoneWirelessTick(world, i, j, k, null);
+		((mod_WirelessLimitedSignal) mod_WirelessLimitedSignal.instance)
+				.remTicking(i, j, k);
 	}
 }

@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.data;
 
 import java.util.HashMap;
@@ -22,51 +22,52 @@ import net.minecraft.src.World;
 
 public class RedstoneWirelessPlayerEtherCoordsMem {
 	private static RedstoneWirelessPlayerEtherCoordsMem instance;
-	private Map<String,PlayerEtherCoordsMemNode> coords;
+	private Map<String, PlayerEtherCoordsMemNode> coords;
 	private World world;
-	
+
 	private RedstoneWirelessPlayerEtherCoordsMem(World world) {
-		coords = new HashMap<String,PlayerEtherCoordsMemNode>();
+		coords = new HashMap<String, PlayerEtherCoordsMemNode>();
 		this.world = world;
 	}
-	
+
 	public static RedstoneWirelessPlayerEtherCoordsMem getInstance(World world) {
-		if ( instance == null || instance.world.hashCode() != world.hashCode() ) 
+		if (instance == null || instance.world.hashCode() != world.hashCode())
 			instance = new RedstoneWirelessPlayerEtherCoordsMem(world);
-		
+
 		return instance;
 	}
-	
+
 	public void addMem(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
-		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
+		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(
+				entityplayer, newcoords);
 		coords.put(entityplayer.username, memnode);
 	}
-	
+
 	public void remMem(String username) {
 		coords.remove(username);
 	}
-	
-	public void setCoords(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
+
+	public void setCoords(EntityPlayer entityplayer,
+			WirelessCoordinates newcoords) {
 		addMem(entityplayer, newcoords);
 	}
-	
+
 	public WirelessCoordinates getCoords(EntityPlayer entityplayer) {
 		PlayerEtherCoordsMemNode node = coords.get(entityplayer.username);
-		if ( node == null ) {
+		if (node == null) {
 			addMem(entityplayer, null);
 			return null;
 		} else {
 			return node.coords;
 		}
 	}
-	
-	public class PlayerEtherCoordsMemNode
-	{
+
+	public class PlayerEtherCoordsMemNode {
 		EntityPlayer entityplayer;
 		WirelessCoordinates coords;
-		
-		public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, WirelessCoordinates coords)
-		{
+
+		public PlayerEtherCoordsMemNode(EntityPlayer entityplayer,
+				WirelessCoordinates coords) {
 			this.entityplayer = entityplayer;
 			this.coords = coords;
 		}

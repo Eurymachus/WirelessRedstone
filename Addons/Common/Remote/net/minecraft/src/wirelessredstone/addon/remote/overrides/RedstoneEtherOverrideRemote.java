@@ -28,7 +28,7 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	@Override
 	public void afterRemTransmitter(World world, int i, int j, int k,
 			String freq) {
-		
+
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	@Override
 	public void afterSetTransmitterState(World world, int i, int j, int k,
 			String freq, boolean state) {
-		
+
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public void afterAddReceiver(World world, int i, int j, int k, String freq) {		
+	public void afterAddReceiver(World world, int i, int j, int k, String freq) {
 	}
 
 	@Override
@@ -80,15 +80,16 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState)
-	{
-		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideRemote").write("isLoaded(world, "+i+", "+j+", "+k+")", LoggerRedstoneWireless.LogLevel.DEBUG);
-		int[] a = {i,j,k};
-		if (WirelessRemote.remote != null)
-		{
+	public boolean afterIsLoaded(World world, int i, int j, int k,
+			boolean returnState) {
+		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideRemote")
+				.write("isLoaded(world, " + i + ", " + j + ", " + k + ")",
+						LoggerRedstoneWireless.LogLevel.DEBUG);
+		int[] a = { i, j, k };
+		if (WirelessRemote.remote != null) {
 			WirelessCoordinates remote = WirelessRemote.remote.getCoords();
-			int[] b = {remote.getX(), remote.getY(), remote.getZ()};
-			if ( RedstoneEther.pythagoras(a, b) < 1 )
+			int[] b = { remote.getX(), remote.getY(), remote.getZ() };
+			if (RedstoneEther.pythagoras(a, b) < 1)
 				return true;
 		}
 		return returnState;

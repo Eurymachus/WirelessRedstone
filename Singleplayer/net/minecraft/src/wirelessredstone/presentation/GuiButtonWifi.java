@@ -11,39 +11,38 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.presentation;
 
 import net.minecraft.src.GuiButton;
 
 /**
  * A GUI Button<br>
- * PopupText is the mouseover text 
+ * PopupText is the mouseover text
  * 
  * @author Eurymachus
- *
+ * 
  */
-public class GuiButtonWifi extends GuiButton
-{
+public class GuiButtonWifi extends GuiButton {
 	private String popupText;
-	
-	public GuiButtonWifi(int i, int j, int k, int l, int i1, String s, String popupText) {
+
+	public GuiButtonWifi(int i, int j, int k, int l, int i1, String s,
+			String popupText) {
 		super(i, j, k, l, i1, s);
 		this.popupText = popupText;
 	}
-	
+
 	public GuiButtonWifi(int i, int j, int k, int l, int i1, String s) {
 		super(i, j, k, l, i1, s);
 	}
 
-	public boolean inBounds(int x, int y)
-	{
-		boolean flag = x >= xPosition && y >= yPosition && x < xPosition + width && y < yPosition + height;
+	public boolean inBounds(int x, int y) {
+		boolean flag = x >= xPosition && y >= yPosition
+				&& x < xPosition + width && y < yPosition + height;
 		return flag;
 	}
-	
-	public String getPopupText()
-	{
+
+	public String getPopupText() {
 		return this.popupText;
 	}
 }

@@ -11,12 +11,11 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.tileentity;
 
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
-
 
 public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
 	public TileEntityRedstoneWirelessR() {
@@ -26,29 +25,21 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
 	@Override
 	public void updateEntity() {
 		String freq = getFreq().toString();
-		if ( !oldFreq.equals(freq) || firstTick) {
-			((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).changeFreq(
-					worldObj,
-					getBlockCoord(0),
-					getBlockCoord(1),
-					getBlockCoord(2),
-					oldFreq,
-					freq
-			);
+		if (!oldFreq.equals(freq) || firstTick) {
+			((BlockRedstoneWirelessR) WirelessRedstone.blockWirelessR)
+					.changeFreq(worldObj, getBlockCoord(0), getBlockCoord(1),
+							getBlockCoord(2), oldFreq, freq);
 			oldFreq = freq;
-			if (firstTick) firstTick = false;
+			if (firstTick)
+				firstTick = false;
 		}
-		if ( !((BlockRedstoneWirelessR)WirelessRedstone.blockWirelessR).hasTicked() ) {
-			WirelessRedstone.blockWirelessR.updateTick(
-					worldObj, 
-					getBlockCoord(0),
-					getBlockCoord(1),
-					getBlockCoord(2),
-					null
-			);
+		if (!((BlockRedstoneWirelessR) WirelessRedstone.blockWirelessR)
+				.hasTicked()) {
+			WirelessRedstone.blockWirelessR.updateTick(worldObj,
+					getBlockCoord(0), getBlockCoord(1), getBlockCoord(2), null);
 		}
 	}
-	
+
 	@Override
 	public String getInvName() {
 		return "Wireless Receiver";

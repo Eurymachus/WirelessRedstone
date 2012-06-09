@@ -6,45 +6,57 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEtherOverride;
 public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
 
 	@Override
-	public boolean beforeAddTransmitter(World world, int i, int j, int k, String freq) {
+	public boolean beforeAddTransmitter(World world, int i, int j, int k,
+			String freq) {
 		return (world == null || world.isRemote);
 	}
 
 	@Override
-	public void afterAddTransmitter(World world, int i, int j, int k, String freq) {}
+	public void afterAddTransmitter(World world, int i, int j, int k,
+			String freq) {
+	}
 
 	@Override
-	public boolean beforeRemTransmitter(World world, int i, int j, int k, String freq) {
+	public boolean beforeRemTransmitter(World world, int i, int j, int k,
+			String freq) {
 		return (world == null || world.isRemote);
 	}
 
 	@Override
-	public void afterRemTransmitter(World world, int i, int j, int k, String freq) {}
+	public void afterRemTransmitter(World world, int i, int j, int k,
+			String freq) {
+	}
 
 	@Override
-	public boolean beforeSetTransmitterState(World world, int i, int j, int k, String freq, boolean state) {
+	public boolean beforeSetTransmitterState(World world, int i, int j, int k,
+			String freq, boolean state) {
 		return (world == null || world.isRemote);
 	}
 
 	@Override
-	public void afterSetTransmitterState(World world, int i, int j, int k, String freq, boolean state) {
+	public void afterSetTransmitterState(World world, int i, int j, int k,
+			String freq, boolean state) {
 	}
 
 	@Override
-	public boolean beforeAddReceiver(World world, int i, int j, int k, String freq) {
+	public boolean beforeAddReceiver(World world, int i, int j, int k,
+			String freq) {
 		return (world == null || world.isRemote);
 	}
 
 	@Override
-	public void afterAddReceiver(World world, int i, int j, int k, String freq) { }
+	public void afterAddReceiver(World world, int i, int j, int k, String freq) {
+	}
 
 	@Override
-	public boolean beforeRemReceiver(World world, int i, int j, int k, String freq) {
+	public boolean beforeRemReceiver(World world, int i, int j, int k,
+			String freq) {
 		return (world == null || world.isRemote);
 	}
 
 	@Override
-	public void afterRemReceiver(World world, int i, int j, int k, String freq) {}
+	public void afterRemReceiver(World world, int i, int j, int k, String freq) {
+	}
 
 	@Override
 	public boolean beforeGetFreqState(World world, String freq) {
@@ -52,7 +64,8 @@ public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public boolean afterGetFreqState(World world, String freq, boolean returnState) {
+	public boolean afterGetFreqState(World world, String freq,
+			boolean returnState) {
 		return returnState;
 	}
 
@@ -62,7 +75,8 @@ public class RedstoneEtherOverrideClient implements RedstoneEtherOverride {
 	}
 
 	@Override
-	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
+	public boolean afterIsLoaded(World world, int i, int j, int k,
+			boolean returnState) {
 		return returnState;
 	}
 }

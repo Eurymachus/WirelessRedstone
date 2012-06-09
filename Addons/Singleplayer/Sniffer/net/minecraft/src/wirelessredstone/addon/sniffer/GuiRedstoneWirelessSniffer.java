@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.sniffer;
 
 import net.minecraft.src.EntityPlayer;
@@ -42,7 +42,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	private Sniffer sniffer;
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
-	
+
 	public GuiRedstoneWirelessSniffer(EntityPlayer player, World world) {
 		super();
 		this.player = player;
@@ -56,11 +56,16 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	@Override
 	public void initGui() {
 		int currentPage = this.sniffer.getPage();
-		nextButton = new GuiButtonBoolean(0, (width/2)+40, (height/2)+75, 40, 20, "Next", true);
-		prevButton = new GuiButtonBoolean(1, (width/2)-80, (height/2)+75, 40, 20, "Prev", true);
-		nextButton.enabled = (currentPage >= 0 && currentPage < WirelessRedstone.maxEtherFrequencies/(pageWidth*pageHeight));
-		prevButton.enabled = (currentPage > 0 && currentPage <= WirelessRedstone.maxEtherFrequencies/(pageWidth*pageHeight));
-		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
+		nextButton = new GuiButtonBoolean(0, (width / 2) + 40,
+				(height / 2) + 75, 40, 20, "Next", true);
+		prevButton = new GuiButtonBoolean(1, (width / 2) - 80,
+				(height / 2) + 75, 40, 20, "Prev", true);
+		nextButton.enabled = (currentPage >= 0 && currentPage < WirelessRedstone.maxEtherFrequencies
+				/ (pageWidth * pageHeight));
+		prevButton.enabled = (currentPage > 0 && currentPage <= WirelessRedstone.maxEtherFrequencies
+				/ (pageWidth * pageHeight));
+		controlList.add(new GuiButtonWifiExit(100, (((width - xSize) / 2)
+				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 		controlList.add(nextButton);
 		controlList.add(prevButton);
 		super.initGui();
@@ -70,45 +75,51 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	protected void actionPerformed(GuiButton guibutton) {
 		int page = this.sniffer.getPage();
 		int oldPage = this.sniffer.getPage();
-		switch(guibutton.id)
-		{
-			case 0:
-				++page;
-				break;
-			case 1:
-				--page;
-				break;
-			case 100:
-				close();
-				break;
+		switch (guibutton.id) {
+		case 0:
+			++page;
+			break;
+		case 1:
+			--page;
+			break;
+		case 100:
+			close();
+			break;
 		}
-		if (page > 6) page = 6;
-		if (page < 0) page = 0;
+		if (page > 6)
+			page = 6;
+		if (page < 0)
+			page = 0;
 		if (oldPage != page) {
-			if ((oldPage-page)==-1) {
-				this.sniffer.setPage(oldPage+1);
-			}
-			else {
-				this.sniffer.setPage(oldPage-1);
+			if ((oldPage - page) == -1) {
+				this.sniffer.setPage(oldPage + 1);
+			} else {
+				this.sniffer.setPage(oldPage - 1);
 			}
 		}
-		if (nextButton.enabled && this.sniffer.getPage() == WirelessRedstone.maxEtherFrequencies/(pageWidth*pageHeight)) {
+		if (nextButton.enabled
+				&& this.sniffer.getPage() == WirelessRedstone.maxEtherFrequencies
+						/ (pageWidth * pageHeight)) {
 			nextButton.enabled = false;
-		} else nextButton.enabled = true;
+		} else
+			nextButton.enabled = true;
 		if (prevButton.enabled && this.sniffer.getPage() == 0) {
 			prevButton.enabled = false;
-		} else prevButton.enabled = true;
+		} else
+			prevButton.enabled = true;
 	}
 
 	public void close() {
 		try {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
-		} catch ( Exception e) {
-			LoggerRedstoneWireless.getInstance("WirelessRedstone.Sniffer: "+this.getClass().toString()).writeStackTrace(e);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone.Sniffer: " + this.getClass().toString())
+					.writeStackTrace(e);
 		}
 	}
-	
+
 	@Override
 	public void drawScreen(int i, int j, float f) {
 		drawDefaultBackground();
@@ -118,55 +129,63 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		mc.renderEngine.bindTexture(m);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
-		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);;
-		
+		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+		;
+
 		GL11.glPushMatrix();
 		GL11.glTranslatef(x, y, 0.0F);
-		GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+		GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
 		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(2896 /*GL_LIGHTING*/);
-		GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+		GL11.glDisable(2896 /* GL_LIGHTING */);
+		GL11.glDisable(2929 /* GL_DEPTH_TEST */);
 		drawFrequencies(4, 24);
-		fontRenderer.drawString("Wireless Sniffer", (xSize/2)-(fontRenderer.getStringWidth("Wireless Sniffer")/2), 6, 0x404040);
-		String drawPage = "Page [" + (this.sniffer.getPage()+1) + "]";
-		fontRenderer.drawString(drawPage, (xSize/2)-(fontRenderer.getStringWidth(drawPage)/2), (height/2)+62, 0x00000000); 
+		fontRenderer
+				.drawString(
+						"Wireless Sniffer",
+						(xSize / 2)
+								- (fontRenderer
+										.getStringWidth("Wireless Sniffer") / 2),
+						6, 0x404040);
+		String drawPage = "Page [" + (this.sniffer.getPage() + 1) + "]";
+		fontRenderer.drawString(drawPage,
+				(xSize / 2) - (fontRenderer.getStringWidth(drawPage) / 2),
+				(height / 2) + 62, 0x00000000);
 		GL11.glPopMatrix();
 
-		
 		super.drawScreen(i, j, f);
-		GL11.glEnable(2896 /*GL_LIGHTING*/);
-		GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+		GL11.glEnable(2896 /* GL_LIGHTING */);
+		GL11.glEnable(2929 /* GL_DEPTH_TEST */);
 	}
-	
+
 	@Override
-	public boolean doesGuiPauseGame(){
+	public boolean doesGuiPauseGame() {
 		return false;
 	}
-	
+
 	private void drawFrequencies(int i, int j) {
 		int x, y;
-		int c = (pageWidth*pageHeight)*this.sniffer.getPage();
-		for ( int n = 0; n < pageHeight; n++ ) {
-			for ( int m = 0; m < pageWidth; m++ ) {
-				x = i+(nodeSize*m)+m;
-				y = j+(nodeSize*n)+n;
-				if (c <= WirelessRedstone.maxEtherFrequencies && c >= 0)
-				{
-					if (RedstoneEther.getInstance().getFreqState(ModLoader.getMinecraftInstance().theWorld,Integer.toString(c)))
-						drawRect(x, y, x+nodeSize, y+nodeSize, 0xff00ff00);
-					else
-					{
-						drawRect(x, y, x+nodeSize, y+nodeSize, 0xffff0000);
+		int c = (pageWidth * pageHeight) * this.sniffer.getPage();
+		for (int n = 0; n < pageHeight; n++) {
+			for (int m = 0; m < pageWidth; m++) {
+				x = i + (nodeSize * m) + m;
+				y = j + (nodeSize * n) + n;
+				if (c <= WirelessRedstone.maxEtherFrequencies && c >= 0) {
+					if (RedstoneEther.getInstance().getFreqState(
+							ModLoader.getMinecraftInstance().theWorld,
+							Integer.toString(c)))
+						drawRect(x, y, x + nodeSize, y + nodeSize, 0xff00ff00);
+					else {
+						drawRect(x, y, x + nodeSize, y + nodeSize, 0xffff0000);
 					}
 				}
 				c++;
 			}
 		}
 	}
-	
+
 	@Override
 	public void onGuiClosed() {
 		thr.running = false;
-		//this.sniffer.killSniffer();
+		// this.sniffer.killSniffer();
 	}
 }
