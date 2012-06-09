@@ -17,38 +17,36 @@ package net.minecraft.src;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 
-public class mod_WirelessTriangulator extends BaseMod
-{
+public class mod_WirelessTriangulator extends BaseMod {
 	public static BaseMod instance;
 	
-	public mod_WirelessTriangulator()
-	{
+	public mod_WirelessTriangulator() {
 		instance = this;
 	}
 	
 	@Override
-	public void modsLoaded()
-	{
+	public void modsLoaded() {
 		if (!WirelessTriangulator.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
 			WirelessTriangulator.isLoaded = WirelessTriangulator.initialize();
-		}
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
 	}
-
+	
 	@Override
-	public void load()
-	{
+	public boolean onTickInGame(float tick, Minecraft mc) {
+		WirelessTriangulator.onTickInGame(tick, mc);
+		return true;
 	}
 
 	@Override
-	public String getVersion()
-	{
+	public void load() {
+	}
+
+	@Override
+	public String getVersion() {
 		return "1.0";
 	}
 }

@@ -36,13 +36,14 @@ public class TextureTriangulatorFX extends TextureFX
 	private double field_4229_i;
 	private double field_4228_j;
 	private boolean firstTick = false;
-	private ItemStack itemstack;
+	private int freq;
 
-	public TextureTriangulatorFX(Minecraft minecraft)
+	public TextureTriangulatorFX(Minecraft minecraft, int freq)
 	{
 		super(WirelessTriangulator.itemTriang.getIconFromDamage(0));
 		this.triangulatorIconImageData = new int[256];
 		this.mc = minecraft;
+		this.freq = freq;
 		this.tileImage = 1;
 		try
 		{
@@ -85,10 +86,17 @@ public class TextureTriangulatorFX extends TextureFX
 
 		if(this.mc.theWorld != null && this.mc.thePlayer != null)
 		{
+			int x = (int)this.mc.thePlayer.posX;
+			int y = (int)this.mc.thePlayer.posY;
+			int z = (int)this.mc.thePlayer.posZ;
 			int[] tx = null;
-			if (this.mc.theWorld.isRemote)
-				tx = new int[]{0,0,0};
-			if ( tx != null && !(tx[0] == (int)this.mc.thePlayer.posX && tx[1] == (int)this.mc.thePlayer.posY && tx[2] == (int)this.mc.thePlayer.posZ))
+			ItemStack itemstack = this.mc.thePlayer.getCurrentEquippedItem();
+			if (itemstack != null && itemstack.itemID == WirelessTriangulator.itemTriang.shiftedIndex) 
+			{
+				String itemFreq = RedstoneWirelessItemStackMem.getInstance(this.mc.theWorld).getFreq(itemstack);
+				tx = RedstoneEther.getInstance().getClosestActiveTransmitter(x, y, z, String.valueOf(itemFreq));
+			}
+			if ( tx != null && !(tx[0] == x && tx[1] == y && tx[2] == z))
 			{
 				double d2 = tx[0] - this.mc.thePlayer.posX;
 				double d4 = tx[2] - this.mc.thePlayer.posZ;

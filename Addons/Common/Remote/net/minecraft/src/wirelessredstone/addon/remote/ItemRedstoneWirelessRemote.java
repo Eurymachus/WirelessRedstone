@@ -18,85 +18,72 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class ItemRedstoneWirelessRemote extends Item
-{
-	protected ItemRedstoneWirelessRemote(int i)
-	{
+public class ItemRedstoneWirelessRemote extends Item {
+	protected ItemRedstoneWirelessRemote(int i) {
 		super(i);
 		maxStackSize = 1;
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
-	{
-		if (entityplayer.isSneaking())
-		{
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+		if (entityplayer.isSneaking()) {
 			WirelessRemote.openGUI(entityplayer, world);
 			return true;
-		}
-		else
-		{
+		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 			if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless)
-			{
 				return true;
-			}
 		}
 		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;
 	}
     
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
-	{
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		if (!entityplayer.isSneaking())
-		{
-			WirelessRemoteProcess.activateRemote(world, entityplayer);
-		}
+			WirelessRemote.activateRemote(world, entityplayer);
 		else
-		{
 			onItemUse(itemstack, entityplayer, world, 
 					(int)Math.round(entityplayer.posX),
 					(int)Math.round(entityplayer.posY), 
 					(int)Math.round(entityplayer.posZ), 0);
-		}
 		return itemstack;
 	}
 
-	public boolean isFull3D()
-	{
+	public boolean isFull3D() {
 		return true;
 	}
 	
 	@Override
-    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
-    {
+    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)  {
 		itemstack.setItemDamage(itemstack.hashCode());
-		this.iconIndex = WirelessRemote.remoteoff;
     }
 	
 	@Override
-	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld)
-	{
-		if (entity instanceof EntityPlayer)
-		{
+	public int getIconFromDamage(int i) {
+		if (RedstoneWirelessItemStackMem.getInstance(ModLoader.getMinecraftInstance().theWorld).getState(i))
+			return WirelessRemote.remoteon;
+		return WirelessRemote.remoteoff;
+	}
+	
+	@Override
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld) {
+		if (entity instanceof EntityPlayer) {
 			String freq = this.getItemFreq(itemstack, world);
 			EntityPlayer entityplayer = (EntityPlayer)entity;
 
-			if (!isHeld || !WirelessRemoteProcess.isRemoteOn(entityplayer, freq) && !WirelessRemoteProcess.deactivateRemote(entityplayer, world))
-			{
+			if (!isHeld || !WirelessRemote.isRemoteOn(entityplayer, freq) && !WirelessRemote.deactivateRemote(entityplayer, world))
 				RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
-			}
 		}
 	}
 
-    public String getItemFreq(ItemStack itemstack, World world)
-    {
+    public String getItemFreq(ItemStack itemstack, World world) {
     	return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
     }
 }

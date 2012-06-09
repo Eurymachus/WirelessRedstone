@@ -361,8 +361,19 @@ public class RedstoneEther {
 		else return null;
 	}
 	/**
-	 * Get the hypotenuse between two points by using the pythagorean theorem.<br>
-	 * IE, returns the distrance between two points.
+	 * Fetch the state of a given frequency from the ether regardless of location
+	 * 
+	 * @param world current World
+	 * @param freq frequency
+	 * @return State of the given frequency
+	 */
+	public synchronized boolean isFrequencyActive(World world, String freq)
+	{
+		return ether.get(freq).getState(world);
+	}
+	/**
+	 * Get the hypotenuse between two points by using pythagorus theorem.<br>
+	 * IE, returns the distance between two points.
 	 * @param a point A: {x,y,z} or {x,y}
 	 * @param b point B: {x,y,z} or {x,y}
 	 * @return Length between the two points.

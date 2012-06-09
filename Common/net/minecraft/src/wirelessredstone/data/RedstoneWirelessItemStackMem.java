@@ -32,7 +32,6 @@ public class RedstoneWirelessItemStackMem {
 		lock = new WirelessReadWriteLock();
 		this.world = world;
 	}
-
 	/**
 	 * Fetch the ItemStackMem singleton instance.
 	 * 
@@ -44,7 +43,6 @@ public class RedstoneWirelessItemStackMem {
 		
 		return instance;
 	}
-	
 	/**
 	 * Add an ItemStack to the memory with a set frequency. <br>
 	 * ID is the item damage.
@@ -53,32 +51,102 @@ public class RedstoneWirelessItemStackMem {
 	 * @param freq Frequency.
 	 */
 	public void addMem(ItemStack itemstack, String freq) {
-		RedstoneWirelessItemStackMemNode memnode = new RedstoneWirelessItemStackMemNode(itemstack, freq);
+		addMem(itemstack.getItemDamage(), freq);
+	}
+	/**
+	 * Add an ItemStack to the memory with a set frequency. <br>
+	 * ID is the item damage.
+	 * 
+	 * @param itemstack The ItemStack.
+	 * @param freq Frequency.
+	 */
+	public void addMem(int id, String freq) {
+		RedstoneWirelessItemStackMemNode memnode = new RedstoneWirelessItemStackMemNode(id, freq);
 		
 		try {
 			lock.writeLock();
-			itemFreqs.put(itemstack.getItemDamage(), memnode);
+			itemFreqs.put(id, memnode);
 			lock.writeUnlock();
 		} catch (InterruptedException e) {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 		}
 	}
-	
 	/**
-	 * Remove a memory node based on ID/item damage.
+	 * Remove a memory node based on ID.
 	 * 
-	 * @param stackDamage The ID/item damage
+	 * @param id The ID
 	 */
-	public void remMem(int stackDamage) {
+	public void remMem(int id) {
 		try {
 			lock.writeLock();
-			itemFreqs.remove(stackDamage);
+			itemFreqs.remove(id);
 			lock.writeUnlock();
 		} catch (InterruptedException e) {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
 		}
 	}
-	
+	/**
+	 * Set the state of a particular ItemStack <br>
+	 * ID is the item damage.
+	 * 
+	 * @param itemstack The ItemStack.
+	 * @param state.
+	 */
+	public void setState(ItemStack itemstack, boolean state) {
+		setState(itemstack.getItemDamage(), state);
+	}
+	/**
+	 * Set the state of a particular id <br>
+	 * ID is the item damage.
+	 * 
+	 * @param id The Memory ID.
+	 * @param state.
+	 */
+	public void setState(int id, boolean state) {
+		try {
+			lock.readLock();
+			RedstoneWirelessItemStackMemNode node = itemFreqs.get(id);
+			lock.readUnlock();
+			if (node != null)
+			{
+				lock.writeLock();
+				node.state = state;
+				lock.writeUnlock();
+			}
+		} catch (InterruptedException e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+	}
+	/**
+	 * Get the state of a particular ItemStack <br>
+	 * ID is the item damage.
+	 * 
+	 * @param itemstack The ItemStack.
+	 * @return state.
+	 */
+	public boolean getState(ItemStack itemstack) {
+		return getState(itemstack.getItemDamage());
+	}
+	/**
+	 * Get the state of a particular id <br>
+	 * ID is the item damage.
+	 * 
+	 * @param id The Memory ID.
+	 * @return state.
+	 */
+	public boolean getState(int id) {
+		try {
+			lock.readLock();
+			RedstoneWirelessItemStackMemNode node = itemFreqs.get(id);
+			lock.readUnlock();
+			
+			if ( node != null)
+				return node.state;
+		} catch (InterruptedException e) {
+			LoggerRedstoneWireless.getInstance("WirelessRedstone: "+this.getClass().toString()).writeStackTrace(e);
+		}
+		return false;
+	}
 	/**
 	 * Get the frequency of a particular ItemStack <br>
 	 * ID is the item damage.
@@ -87,13 +155,23 @@ public class RedstoneWirelessItemStackMem {
 	 * @return Frequency.
 	 */
 	public String getFreq(ItemStack itemstack) {
+		return getFreq(itemstack.getItemDamage());
+	}
+	/**
+	 * Get the frequency of a particular id <br>
+	 * ID is the item damage.
+	 * 
+	 * @param id The Memory ID.
+	 * @return Frequency.
+	 */
+	public String getFreq(int id) {
 		try {
 			lock.readLock();
-			RedstoneWirelessItemStackMemNode node = itemFreqs.get(itemstack.getItemDamage());
+			RedstoneWirelessItemStackMemNode node = itemFreqs.get(id);
 			lock.readUnlock();
 			
 			if ( node == null ) {
-				addMem(itemstack, "0");
+				addMem(id, "0");
 				return "0";
 			} else {
 				return node.freq;
@@ -106,12 +184,14 @@ public class RedstoneWirelessItemStackMem {
 	}
 	
 	private class RedstoneWirelessItemStackMemNode {
-		ItemStack itemstack;
+		int id;
 		String freq;
+		boolean state;
 		
-		public RedstoneWirelessItemStackMemNode(ItemStack itemstack, String freq){
-			this.itemstack = itemstack;
+		public RedstoneWirelessItemStackMemNode(int id, String freq) {
+			this.id = id;
 			this.freq = freq;
+			this.state = false;
 		}
 	}
 }

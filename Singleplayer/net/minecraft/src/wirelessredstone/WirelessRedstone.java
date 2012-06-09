@@ -91,7 +91,7 @@ public class WirelessRedstone
 	/**
 	 * Wireless Redstone Ether maximum nodes
 	 */
-	public static int maxEtherNodes=10000;
+	public static int maxEtherFrequencies=10000;
 
 	/**
 	 * Loads all Block textures from ModLoader override and stores the indices into the sprite integers.

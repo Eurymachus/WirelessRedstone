@@ -29,13 +29,6 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	protected ItemStack itemstack;
 	protected World world;
 	
-	//public GuiRedstoneWirelessRemote(ItemStack itemstack, World world, EntityPlayer entityplayer, int i, int j, int k) {
-	//	super();
-	//	player = entityplayer;
-	//	this.itemstack = itemstack;
-	//	this.world = world;
-	//}
-	
 	public GuiRedstoneWirelessRemote(EntityPlayer entityplayer, World world) {
 		super();
 		this.player = entityplayer;
@@ -78,20 +71,17 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	}
 
 	@Override
-	protected String getName()
-	{
+	protected String getName() {
 		return "Wireless Remote";
 	}
 	
 	@Override
-	protected String getFreq()
-	{
+	protected String getFreq() {
 		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
 	}
 	
 	@Override
-	protected void setFreq(String freq)
-	{
+	protected void setFreq(String freq) {
 		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack,freq);
 	}
 }

@@ -15,8 +15,7 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
  * @author Eurymachus
  *
  */
-public class Remote
-{
+public class Remote {
 	protected EntityPlayer player;
 	protected String freq;
 	protected int slot;
@@ -24,8 +23,7 @@ public class Remote
 	protected World world;
 	protected List<WirelessRedstoneRemoteOverride> overrides;
 
-	public Remote(EntityPlayer player, World world)
-	{
+	public Remote(EntityPlayer player, World world) {
 		this.player = player;
 		this.coords = new WirelessCoordinates((int)player.posX, (int)player.posY, (int)player.posZ);
 		this.slot = player.inventory.currentItem;
@@ -35,37 +33,33 @@ public class Remote
 		this.overrides = new ArrayList<WirelessRedstoneRemoteOverride>();
 	}
     
-	public WirelessCoordinates getCoords()
-	{
+	public WirelessCoordinates getCoords() {
 		return this.coords;
 	}
 
-	public String getFreq()
-	{
+	public String getFreq() {
 		return this.freq;
 	}
 
-	public boolean isBeingHeld()
-	{
+	public boolean isBeingHeld() {
 		ItemStack itemstack = this.player.inventory.getCurrentItem();
 		return this.player.inventory.currentItem == this.slot && itemstack != null && itemstack.getItem() == WirelessRemote.itemRemote && (RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack)) == this.freq;
 	}
     
-	public void activate() 
-	{
-		WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteon);
-		transmitRemote("activateRemote", world, this);
-	}
-
-	public void deactivate()
-	{
+	public void activate() {
 		ItemStack itemstack = this.player.inventory.getStackInSlot(this.slot);
-
+		RedstoneWirelessItemStackMem.getInstance(this.world).setState(itemstack, true);
 		if (itemstack != null)
 		{
-			WirelessRemote.itemRemote.setIconIndex(WirelessRemote.remoteoff);
-			transmitRemote("deactivateRemote", world, this);
+			transmitRemote("activateRemote", world, this);
 		}
+	}
+
+	public void deactivate() {
+		ItemStack itemstack = this.player.inventory.getStackInSlot(this.slot);
+		RedstoneWirelessItemStackMem.getInstance(this.world).setState(itemstack, false);
+		if (itemstack != null)
+			transmitRemote("deactivateRemote", world, this);
 	}
 	
 	/**
@@ -73,8 +67,7 @@ public class Remote
 	 * 
 	 * @param override Remote override.
 	 */
-	public void addOverride(WirelessRedstoneRemoteOverride override)
-	{
+	public void addOverride(WirelessRedstoneRemoteOverride override) {
 		overrides.add(override);
 	}
     
@@ -85,19 +78,16 @@ public class Remote
 	 * @param world World Transmitted to/from
 	 * @param remote Remote that is transmitting
 	 */
-	public void transmitRemote(String command, World world, Remote remote)
-	{
+	public void transmitRemote(String command, World world, Remote remote) {
 		boolean prematureExit = false;
-		for(WirelessRedstoneRemoteOverride override: overrides)
-		{
+		for(WirelessRedstoneRemoteOverride override: overrides) {
 			prematureExit = override.beforeTransmitRemote(command, world, remote);
 		}
 		if (prematureExit) return;
 		
 		if (command.equals("deactivateRemote"))
 			RedstoneEther.getInstance().remTransmitter(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq());
-		else
-		{
+		else {
 			RedstoneEther.getInstance().addTransmitter(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq());
 			RedstoneEther.getInstance().setTransmitterState(world, remote.coords.getX(), remote.coords.getY(), remote.coords.getZ(), remote.getFreq(), true);
 		}

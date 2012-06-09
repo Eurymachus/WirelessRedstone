@@ -1,7 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.remote.overrides;
 
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemoteProcess;
+import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
@@ -84,9 +84,9 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 	{
 		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideRemote").write("isLoaded(world, "+i+", "+j+", "+k+")", LoggerRedstoneWireless.LogLevel.DEBUG);
 		int[] a = {i,j,k};
-		if (WirelessRemoteProcess.remote != null)
+		if (WirelessRemote.remote != null)
 		{
-			WirelessCoordinates remote = WirelessRemoteProcess.remote.getCoords();
+			WirelessCoordinates remote = WirelessRemote.remote.getCoords();
 			int[] b = {remote.getX(), remote.getY(), remote.getZ()};
 			if ( RedstoneEther.pythagoras(a, b) < 1 )
 				return true;

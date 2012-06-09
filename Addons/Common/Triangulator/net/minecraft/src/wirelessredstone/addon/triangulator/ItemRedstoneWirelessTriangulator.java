@@ -23,74 +23,58 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class ItemRedstoneWirelessTriangulator extends Item
-{
-	protected ItemRedstoneWirelessTriangulator(int i)
-	{
+public class ItemRedstoneWirelessTriangulator extends Item {
+	protected ItemRedstoneWirelessTriangulator(int i) {
 		super(i);
+		this.setNoRepair();
 		maxStackSize = 1;
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
-	{
-		if(entityplayer.isSneaking())
-		{
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+		if(entityplayer.isSneaking()) {
 			WirelessTriangulator.openGUI(entityplayer, world);
 			return true;
-		}
-		else
-		{
+		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 			if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless)
-			{
 				return true;
-			}
 		}
 		return false;
 	}
     
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
-	{
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		if (entityplayer.isSneaking())
-		{
 			onItemUse(itemstack, entityplayer, world, 
 					(int)Math.round(entityplayer.posX),
 					(int)Math.round(entityplayer.posY), 
 					(int)Math.round(entityplayer.posZ), 0);
-		}
 		return itemstack;
 	}
 
-	public boolean isFull3D()
-	{
+	public boolean isFull3D() {
 		return true;
 	}
 	
 	@Override
-    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer)
-    {
+    public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		itemstack.setItemDamage(itemstack.hashCode());
     }
 	
 	@Override
-	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld)
-	{
-		if (entity instanceof EntityPlayer)
-		{
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld) {
+		if (entity instanceof EntityPlayer) {
+			itemstack.setItemDamage(itemstack.hashCode());
 			String freq = this.getItemFreq(itemstack, world);
 			EntityPlayer entityplayer = (EntityPlayer)entity;
 
 			if (!isHeld)
-			{
 				RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
-			}
 		}
 	}
 
-    public String getItemFreq(ItemStack itemstack, World world)
-    {
+    public String getItemFreq(ItemStack itemstack, World world) {
     	return RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack);
     }
 }

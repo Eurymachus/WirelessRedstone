@@ -58,8 +58,8 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		int currentPage = this.sniffer.getPage();
 		nextButton = new GuiButtonBoolean(0, (width/2)+40, (height/2)+75, 40, 20, "Next", true);
 		prevButton = new GuiButtonBoolean(1, (width/2)-80, (height/2)+75, 40, 20, "Prev", true);
-		nextButton.enabled = (currentPage >= 0 && currentPage < WirelessRedstone.maxEtherNodes/(pageWidth*pageHeight));
-		prevButton.enabled = (currentPage > 0 && currentPage <= WirelessRedstone.maxEtherNodes/(pageWidth*pageHeight));
+		nextButton.enabled = (currentPage >= 0 && currentPage < WirelessRedstone.maxEtherFrequencies/(pageWidth*pageHeight));
+		prevButton.enabled = (currentPage > 0 && currentPage <= WirelessRedstone.maxEtherFrequencies/(pageWidth*pageHeight));
 		controlList.add(new GuiButtonWifiExit(100, (((width - xSize)/2)+xSize-13-1), (((height - ySize)/2)+1)));
 		controlList.add(nextButton);
 		controlList.add(prevButton);
@@ -92,7 +92,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 				this.sniffer.setPage(oldPage-1);
 			}
 		}
-		if (nextButton.enabled && this.sniffer.getPage() == WirelessRedstone.maxEtherNodes/(pageWidth*pageHeight)) {
+		if (nextButton.enabled && this.sniffer.getPage() == WirelessRedstone.maxEtherFrequencies/(pageWidth*pageHeight)) {
 			nextButton.enabled = false;
 		} else nextButton.enabled = true;
 		if (prevButton.enabled && this.sniffer.getPage() == 0) {
@@ -150,7 +150,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 			for ( int m = 0; m < pageWidth; m++ ) {
 				x = i+(nodeSize*m)+m;
 				y = j+(nodeSize*n)+n;
-				if (c <= WirelessRedstone.maxEtherNodes && c >= 0)
+				if (c <= WirelessRedstone.maxEtherFrequencies && c >= 0)
 				{
 					if (RedstoneEther.getInstance().getFreqState(ModLoader.getMinecraftInstance().theWorld,Integer.toString(c)))
 						drawRect(x, y, x+nodeSize, y+nodeSize, 0xff00ff00);
