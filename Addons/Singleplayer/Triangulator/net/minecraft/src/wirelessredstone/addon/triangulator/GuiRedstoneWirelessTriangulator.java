@@ -20,7 +20,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerMem;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;

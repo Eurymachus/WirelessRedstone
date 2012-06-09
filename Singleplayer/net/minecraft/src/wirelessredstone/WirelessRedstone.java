@@ -7,7 +7,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;

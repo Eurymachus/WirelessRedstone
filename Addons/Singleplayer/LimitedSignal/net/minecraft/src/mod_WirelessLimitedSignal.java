@@ -16,6 +16,7 @@ package net.minecraft.src;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import net.minecraft.src.wirelessredstone.addon.limitedsignal.WirelessLimitedSignal;
 
 public class mod_WirelessLimitedSignal extends BaseMod {

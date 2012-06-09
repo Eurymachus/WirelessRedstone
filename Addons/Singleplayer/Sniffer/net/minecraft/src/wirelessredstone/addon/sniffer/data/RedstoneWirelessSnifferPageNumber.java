@@ -3,7 +3,6 @@ package net.minecraft.src.wirelessredstone.addon.sniffer.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 

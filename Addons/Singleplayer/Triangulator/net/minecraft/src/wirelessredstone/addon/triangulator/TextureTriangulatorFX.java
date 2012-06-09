@@ -24,9 +24,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.TextureFX;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerMem;
-import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class TextureTriangulatorFX extends TextureFX {

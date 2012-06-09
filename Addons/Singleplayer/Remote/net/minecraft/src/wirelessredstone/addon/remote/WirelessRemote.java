@@ -1,7 +1,5 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
@@ -16,6 +14,8 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+
+import org.lwjgl.input.Mouse;
 
 public class WirelessRemote {
 	public static boolean isLoaded = false;

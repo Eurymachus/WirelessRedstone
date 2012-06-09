@@ -18,7 +18,6 @@ import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessLimitedSignal;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.limitedsignal.WirelessLimitedSignal;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class ThreadWirelessLimitedSignal implements Runnable {

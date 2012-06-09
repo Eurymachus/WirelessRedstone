@@ -17,7 +17,6 @@ package net.minecraft.src.wirelessredstone.addon.clocker;
 import java.util.List;
 
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 

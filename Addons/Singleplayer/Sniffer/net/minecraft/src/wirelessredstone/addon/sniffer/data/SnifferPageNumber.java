@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.addon.sniffer.data;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 
 public class SnifferPageNumber {

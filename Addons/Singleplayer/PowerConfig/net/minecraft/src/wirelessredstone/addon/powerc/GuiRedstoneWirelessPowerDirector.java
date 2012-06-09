@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -176,6 +174,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 		}
 	}
 
+	@Override
 	public void close() {
 		try {
 			mc.displayGuiScreen(null);
@@ -272,6 +271,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 		return false;
 	}
 
+	@Override
 	protected void drawStringBorder(int x1, int y1, int x2) {
 		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
 		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
