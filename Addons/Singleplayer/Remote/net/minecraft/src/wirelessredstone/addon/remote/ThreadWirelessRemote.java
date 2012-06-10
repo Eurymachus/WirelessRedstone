@@ -16,11 +16,7 @@ package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
-import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 
 public class ThreadWirelessRemote implements Runnable {
 	protected World world;
@@ -43,8 +39,7 @@ public class ThreadWirelessRemote implements Runnable {
 		if (command.equals("pulse")) {
 			pulseDuration = WirelessRemote.pulseTime;
 			WirelessRemote.activateRemote(world, entityplayer);
-		}
-		else
+		} else
 			pulseDuration = 500;
 
 		if (pulseDuration > 0) {
@@ -61,8 +56,8 @@ public class ThreadWirelessRemote implements Runnable {
 
 	public static void pulse(EntityPlayer entityplayer, String command) {
 		if (tc < WirelessRemote.maxPulseThreads) {
-			Thread thr = new Thread(
-					new ThreadWirelessRemote(entityplayer, command));
+			Thread thr = new Thread(new ThreadWirelessRemote(entityplayer,
+					command));
 			thr.setName("WirelessRemoteThread");
 			thr.start();
 		}

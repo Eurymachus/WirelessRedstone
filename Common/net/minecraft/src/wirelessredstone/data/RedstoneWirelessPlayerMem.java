@@ -19,7 +19,6 @@ import java.util.Map;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class RedstoneWirelessPlayerMem {
 	private static RedstoneWirelessPlayerMem instance;

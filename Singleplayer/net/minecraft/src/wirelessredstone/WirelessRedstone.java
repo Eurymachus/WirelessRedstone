@@ -11,13 +11,17 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
+import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessT;
@@ -96,9 +100,9 @@ public class WirelessRedstone {
 	 * Wireless Redstone Ether maximum nodes
 	 */
 	public static int maxEtherFrequencies = 10000;
-	
+
 	public static List<BaseModOverride> overrides;
-	
+
 	/**
 	 * Loads configurations and initializes objects. Loads ModLoader related
 	 * stuff.<br>
@@ -109,12 +113,21 @@ public class WirelessRedstone {
 	public static void initialize() {
 		overrides = new ArrayList<BaseModOverride>();
 		loadConfig();
+		addOverrides();
 		initBlocks();
 		initGUIs();
 		loadBlockTextures();
 		loadItemTextures();
 		registerBlocks();
 		addRecipes();
+	}
+
+	/**
+	 * Creates the ether override for SSP
+	 */
+	private static void addOverrides() {
+		RedstoneEtherOverrideSSP etherOverride = new RedstoneEtherOverrideSSP();
+		RedstoneEther.getInstance().addOverride(etherOverride);
 	}
 
 	/**
@@ -210,7 +223,6 @@ public class WirelessRedstone {
 				"WirelessRedstone").get("Transmitter.ID", Integer.class,
 				new Integer(txID));
 	}
-
 	/**
 	 * Retrieves the world object without parameters
 	 * 
@@ -219,7 +231,6 @@ public class WirelessRedstone {
 	public static World getWorld() {
 		return ModLoader.getMinecraftInstance().theWorld;
 	}
-
 	/**
 	 * Retrieves the world object
 	 * 
@@ -230,7 +241,14 @@ public class WirelessRedstone {
 	public static World getWorld(NetworkManager network) {
 		return getWorld();
 	}
-
+	/**
+	 * Retrieves the player object
+	 * 
+	 * @return the player
+	 */
+	public static EntityPlayer getPlayer() {
+		return ModLoader.getMinecraftInstance().thePlayer;
+	}
 	/**
 	 * Retrieves the player object
 	 * 
@@ -242,35 +260,100 @@ public class WirelessRedstone {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
 
-/*	public static WirelessDeviceData getWirelessData(WirelessDeviceData wirelessDeviceData, ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		wirelessDeviceData.setDeviceID(itemstack);
-		wirelessDeviceData.setDeviceName(itemstack.getItemNameandInformation().get(0).toString());
-		wirelessDeviceData.setDeviceOwner(entityplayer);
-		wirelessDeviceData.setDeviceDimension(world);
-		wirelessDeviceData.setDeviceFreq(RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack));
-		wirelessDeviceData.markDirty();
-		return wirelessDeviceData;
-	}*/
-	
+	/**
+	 * Adds a Block override to the Receiver.
+	 * 
+	 * @param override
+	 *            Block override
+	 */
+	public static void addOverrideToReceiver(
+			BlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.blockWirelessR.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless) WirelessRedstone.blockWirelessR)
+				.addOverride(override);
+	}
+
+	/**
+	 * Adds a Block override to the Transmitter.
+	 * 
+	 * @param override
+	 *            Block override
+	 */
+	public static void addOverrideToTransmitter(
+			BlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.blockWirelessT.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless) WirelessRedstone.blockWirelessT)
+				.addOverride(override);
+	}
+
+	/**
+	 * Adds a GUI override to the Receiver.
+	 * 
+	 * @param override
+	 *            GUI override
+	 */
+	public static void addGuiOverrideToReceiver(
+			GuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.guiWirelessR.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		WirelessRedstone.guiWirelessR.addOverride(override);
+	}
+
+	/**
+	 * Adds a GUI override to the Transmitter.
+	 * 
+	 * @param override
+	 *            GUI override
+	 */
+	public static void addGuiOverrideToTransmitter(
+			GuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ WirelessRedstone.guiWirelessT.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		WirelessRedstone.guiWirelessT.addOverride(override);
+	}
+
+	/**
+	 * Adds a Base override to the The Mod.
+	 * 
+	 * @param override
+	 *            Mod override
+	 */
 	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}
 
-	public static void openGUI(EntityPlayer entityplayer, World world, TileEntity tileentity) {
+	public static void openGUI(EntityPlayer entityplayer, World world,
+			TileEntity tileentity) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {
 			if (override.beforeOpenGui(entityplayer, world, tileentity))
 				prematureExit = true;
 		}
-		
+
 		if (!prematureExit)
 			if (tileentity instanceof TileEntityRedstoneWirelessR) {
-				guiWirelessR.assTileEntity((TileEntityRedstoneWirelessR)tileentity);
+				guiWirelessR
+						.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
 				ModLoader.openGUI(entityplayer, guiWirelessR);
 			}
-			if (tileentity instanceof TileEntityRedstoneWirelessT) {
-				guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT)tileentity);
-				ModLoader.openGUI(entityplayer, guiWirelessT);
-			}
-	}	
+		if (tileentity instanceof TileEntityRedstoneWirelessT) {
+			guiWirelessT
+					.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
+			ModLoader.openGUI(entityplayer, guiWirelessT);
+		}
+	}
 }

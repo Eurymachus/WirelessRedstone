@@ -22,9 +22,9 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
-import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWifiExit;
@@ -49,7 +49,8 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		this.world = world;
 		this.entityplayer = entityplayer;
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessSnifferData = WirelessSniffer.getSnifferData(itemstack, this.world, this.entityplayer);
+		this.wirelessSnifferData = WirelessSniffer.getSnifferData(itemstack,
+				this.world, this.entityplayer);
 		xSize = 256;
 		ySize = 200;
 		thr = new ThreadWirelessSniffer(this);
@@ -74,11 +75,12 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	}
 
 	private int getPage() {
-		return ((WirelessSnifferData)this.wirelessSnifferData).getPageNumber();
+		return ((WirelessSnifferData) this.wirelessSnifferData).getPageNumber();
 	}
-	
+
 	private void setPage(int pageNumber) {
-		((WirelessSnifferData)this.wirelessSnifferData).setPageNumber(pageNumber);
+		((WirelessSnifferData) this.wirelessSnifferData)
+				.setPageNumber(pageNumber);
 	}
 
 	@Override

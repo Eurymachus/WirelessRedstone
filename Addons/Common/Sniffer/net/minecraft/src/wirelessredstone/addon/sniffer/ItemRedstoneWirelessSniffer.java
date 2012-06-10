@@ -18,15 +18,11 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPageNumber;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessSniffer extends Item {
@@ -55,9 +51,8 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		if (!entityplayer.isSneaking()) {
-			
-		}
-		else
+
+		} else
 			onItemUse(itemstack, entityplayer, world,
 					(int) Math.round(entityplayer.posX),
 					(int) Math.round(entityplayer.posY),
@@ -65,17 +60,21 @@ public class ItemRedstoneWirelessSniffer extends Item {
 		return itemstack;
 	}
 
+	@Override
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
+	@Override
 	public int getIconFromDamage(int i) {
-		//if (RedstoneWirelessItemStackMem.getInstance(WirelessRedstone.getWorld()).getState(i))
-		//	return WirelessSniffer.snifferon;
+		// if
+		// (RedstoneWirelessItemStackMem.getInstance(WirelessRedstone.getWorld()).getState(i))
+		// return WirelessSniffer.snifferon;
 		return WirelessSniffer.snifferoff;
 	}
-	
-	private WirelessSnifferData getSnifferData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+
+	private WirelessSnifferData getSnifferData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
 		return WirelessSniffer.getSnifferData(itemstack, world, entityplayer);
 	}
 
@@ -84,11 +83,10 @@ public class ItemRedstoneWirelessSniffer extends Item {
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-			WirelessSnifferData data = this.getSnifferData(itemstack, world, entityplayer);
+			WirelessSnifferData data = this.getSnifferData(itemstack, world,
+					entityplayer);
 			String freq = data.getDeviceFreq();
-			int pageNumber = ((WirelessSnifferData)data).getPageNumber();
-			RedstoneWirelessItemStackMem.getInstance(world).addMem(
-					itemstack, freq);
+			int pageNumber = data.getPageNumber();
 			RedstoneWirelessSnifferPageNumber.getInstance(world).setPage(
 					itemstack, pageNumber);
 		}

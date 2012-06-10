@@ -20,6 +20,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
@@ -27,7 +28,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	protected int xSize;
 	protected int ySize;
-	protected EntityPlayer player;
+	protected EntityPlayer entityplayer;
 	protected ItemStack itemstack;
 	protected World world;
 
@@ -36,9 +37,14 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 		super();
 		xSize = 176;
 		ySize = 166;
-		this.player = entityplayer;
-		this.itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
+		this.entityplayer = entityplayer;
+		this.itemstack = entityplayer.getCurrentEquippedItem();
+		this.wirelessDeviceData = WirelessTriangulator
+				.getTriangulatorData(
+						this.itemstack.getItem().getItemName(), 
+						this.itemstack.getItemDamage(),
+						this.world, this.entityplayer);
 	}
 
 	@Override
@@ -105,8 +111,7 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 
 	@Override
 	public void onGuiClosed() {
-		if (player.getCurrentEquippedItem() == null)
-			RedstoneWirelessItemStackMem.getInstance(world).remMem(itemstack);
+		if (entityplayer.getCurrentEquippedItem() == null) {}
 	}
 
 	@Override
@@ -131,12 +136,11 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 
 	@Override
 	protected String getFreq() {
-		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
-				itemstack);
+		return this.wirelessDeviceData.getDeviceFreq();
 	}
 
 	@Override
 	protected void setFreq(String freq) {
-		RedstoneWirelessItemStackMem.getInstance(world).addMem(itemstack, freq);
+		this.wirelessDeviceData.setDeviceFreq(freq);
 	}
 }

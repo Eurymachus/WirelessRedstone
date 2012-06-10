@@ -6,7 +6,7 @@ import java.util.Map;
 import net.minecraft.src.Block;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
@@ -16,7 +16,7 @@ public class WirelessLimitedSignal {
 	private static float rangeMultiplier;
 
 	public static boolean initialize() {
-		mod_WirelessRedstone
+		WirelessRedstone
 				.addOverrideToReceiver(new BlockRedstoneWirelessROverrideLSR());
 		matSignalMultipliers = new HashMap<String, Float>();
 		loadConfig();

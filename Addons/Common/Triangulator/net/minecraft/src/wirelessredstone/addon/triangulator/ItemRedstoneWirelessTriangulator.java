@@ -20,13 +20,13 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessTriangulator extends Item {
 	protected ItemRedstoneWirelessTriangulator(int i) {
 		super(i);
-		this.setNoRepair();
 		maxStackSize = 1;
 	}
 
@@ -60,28 +60,25 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 		return true;
 	}
 
-	@Override
-	public void onCreated(ItemStack itemstack, World world,
+	private WirelessTriangulatorData getTriangulatorData(String itemname, int id, World world,
 			EntityPlayer entityplayer) {
-		itemstack.setItemDamage(itemstack.hashCode());
+		return WirelessTriangulator.getTriangulatorData(itemname, id, world, entityplayer);
 	}
-
+	
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity,
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
-			itemstack.setItemDamage(itemstack.hashCode());
-			String freq = this.getItemFreq(itemstack, world);
-			EntityPlayer entityplayer = (EntityPlayer) entity;
-
-			if (!isHeld)
-				RedstoneWirelessItemStackMem.getInstance(world).addMem(
-						itemstack, freq);
+			EntityPlayer entityplayer = (EntityPlayer)entity;
+			WirelessTriangulatorData data = this.getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+			String freq = data.getDeviceFreq();
 		}
 	}
 
-	public String getItemFreq(ItemStack itemstack, World world) {
-		return RedstoneWirelessItemStackMem.getInstance(world).getFreq(
-				itemstack);
+	@Override
+	public void onCreated(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
+		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
+		this.getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
 	}
 }

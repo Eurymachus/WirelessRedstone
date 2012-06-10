@@ -19,7 +19,6 @@ import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
@@ -94,8 +93,8 @@ public class WirelessRemote {
 	}
 
 	public static void openGUI(EntityPlayer entityplayer, World world) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(
-				world, entityplayer));
+		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(world,
+				entityplayer));
 	}
 
 	public static void activateRemote(World world, EntityPlayer entityplayer) {
@@ -137,20 +136,24 @@ public class WirelessRemote {
 	}
 
 	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
-		return remoteTransmitter == null ? false : remoteTransmitter.getFreq() == freq;
+		return remoteTransmitter == null ? false
+				: remoteTransmitter.getFreq() == freq;
 	}
 
-	public static WirelessRemoteData getRemoteData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		String remoteName = "remote_"+itemstack.getItemDamage();
-		WirelessRemoteData wirelessRemoteData = (WirelessRemoteData) world.loadItemData(WirelessRemoteData.class, remoteName);
+	public static WirelessRemoteData getRemoteData(String itemname, int id,
+			World world, EntityPlayer entityplayer) {
+		String remoteName = itemname + "[" + id + "]";
+		WirelessRemoteData wirelessRemoteData = (WirelessRemoteData) world
+				.loadItemData(WirelessRemoteData.class, remoteName);
 		if (wirelessRemoteData == null) {
 			wirelessRemoteData = new WirelessRemoteData(remoteName);
 			world.setItemData(remoteName, wirelessRemoteData);
-			wirelessRemoteData.setDeviceID(itemstack);
-			wirelessRemoteData.setDeviceName(itemstack.getItemNameandInformation().get(0).toString());
-			wirelessRemoteData.setDeviceOwner(entityplayer);
+			wirelessRemoteData.setDeviceID(id);
+			wirelessRemoteData.setDeviceName(itemname);
+			//wirelessRemoteData.setDeviceOwner(entityplayer);
 			wirelessRemoteData.setDeviceDimension(world);
-			wirelessRemoteData.setDeviceFreq(RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack));
+			wirelessRemoteData.setDeviceFreq("0");
+			wirelessRemoteData.setDeviceState(false);
 		}
 		return wirelessRemoteData;
 	}
@@ -164,6 +167,7 @@ public class WirelessRemote {
 	public void addOverride(WirelessRedstoneRemoteOverride override) {
 		overrides.add(override);
 	}
+
 	/**
 	 * Transmits Wireless Remote Signal
 	 * 
@@ -174,7 +178,8 @@ public class WirelessRemote {
 	 * @param remote
 	 *            Remote that is transmitting
 	 */
-	public static void transmitRemote(String command, World world, WirelessRemoteDevice remote) {
+	public static void transmitRemote(String command, World world,
+			WirelessRemoteDevice remote) {
 		boolean prematureExit = false;
 		for (WirelessRedstoneRemoteOverride override : overrides) {
 			prematureExit = override.beforeTransmitRemote(command, world,

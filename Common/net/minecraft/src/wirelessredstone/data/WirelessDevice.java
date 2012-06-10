@@ -5,14 +5,14 @@ import net.minecraft.src.World;
 
 public class WirelessDevice implements IWirelessDevice {
 	
-	protected World world;
 	protected EntityPlayer owner;
-	protected String freq;
+	protected World world;
+	protected WirelessDeviceData data;
 	protected WirelessCoordinates coords;
 
 	@Override
 	public String getFreq() {
-		return this.freq;
+		return this.data.getDeviceFreq();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void setFreq(String freq) {
-		this.freq = freq;
+		this.data.setDeviceFreq(freq);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import net.minecraft.src.GuiScreen;
 import net.minecraft.src.KeyBinding;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -47,6 +48,10 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * Height
 	 */
 	protected int ySize;
+	/**
+	 * Associated Wireless Device
+	 */
+	protected WirelessDeviceData wirelessDeviceData;
 	/**
 	 * GUI overrides.
 	 */

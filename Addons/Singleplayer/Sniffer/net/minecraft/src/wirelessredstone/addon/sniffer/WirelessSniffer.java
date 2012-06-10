@@ -10,7 +10,6 @@ import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 
 public class WirelessSniffer {
 	public static boolean isLoaded = false;
@@ -53,23 +52,27 @@ public class WirelessSniffer {
 				.get("ID", Integer.class, new Integer(sniffID));
 	}
 
-	public static WirelessSnifferData getSnifferData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		String snifferName = "sniffer_"+itemstack.getItemDamage();
-		WirelessSnifferData wirelessSnifferData = (WirelessSnifferData)world.loadItemData(WirelessSnifferData.class, snifferName);
+	public static WirelessSnifferData getSnifferData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
+		String snifferName = "sniffer_" + itemstack.getItemDamage();
+		WirelessSnifferData wirelessSnifferData = (WirelessSnifferData) world
+				.loadItemData(WirelessSnifferData.class, snifferName);
 		if (wirelessSnifferData == null) {
 			wirelessSnifferData = new WirelessSnifferData(snifferName);
 			world.setItemData(snifferName, wirelessSnifferData);
 			wirelessSnifferData.setDeviceID(itemstack);
-			wirelessSnifferData.setDeviceName(itemstack.getItemNameandInformation().get(0).toString());
-			wirelessSnifferData.setDeviceOwner(entityplayer);
+			wirelessSnifferData.setDeviceName(itemstack
+					.getItemNameandInformation().get(0).toString());
+			//wirelessSnifferData.setDeviceOwner(entityplayer);
 			wirelessSnifferData.setDeviceDimension(world);
-			wirelessSnifferData.setDeviceFreq(RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack));
+			wirelessSnifferData.setDeviceFreq("0");
 		}
 		return wirelessSnifferData;
 	}
 
 	public static void openGUI(World world, EntityPlayer entityplayer) {
-		GuiRedstoneWirelessSniffer guiSniffer = new GuiRedstoneWirelessSniffer(world, entityplayer);
+		GuiRedstoneWirelessSniffer guiSniffer = new GuiRedstoneWirelessSniffer(
+				world, entityplayer);
 		ModLoader.openGUI(entityplayer, guiSniffer);
 	}
 }

@@ -9,7 +9,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wirelessredstone.BaseModOverride;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.powerc.overrides.BlockRedstoneWirelessROverridePC;
@@ -32,7 +31,7 @@ public class PowerConfigurator {
 			loadItemTextures();
 			addRecipes();
 			ModLoader.addName(itemPowDir, "Power Configurator");
-			mod_WirelessRedstone
+			WirelessRedstone
 					.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 			return true;
 		} catch (Exception e) {
@@ -69,7 +68,8 @@ public class PowerConfigurator {
 		overrides.add(override);
 	}
 
-	public static void openGUI(EntityPlayer entityplayer, World world, TileEntity tileentity) {
+	public static void openGUI(EntityPlayer entityplayer, World world,
+			TileEntity tileentity) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {
 			if (override.beforeOpenGui(entityplayer, world, tileentity))
@@ -77,6 +77,8 @@ public class PowerConfigurator {
 		}
 		if (!prematureExit)
 			if (tileentity instanceof TileEntityRedstoneWirelessR)
-				ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessPowerDirector((TileEntityRedstoneWirelessR)tileentity));
+				ModLoader.openGUI(entityplayer,
+						new GuiRedstoneWirelessPowerDirector(
+								(TileEntityRedstoneWirelessR) tileentity));
 	}
 }

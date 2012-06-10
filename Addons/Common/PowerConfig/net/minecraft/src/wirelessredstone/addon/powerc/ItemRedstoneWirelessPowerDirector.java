@@ -19,7 +19,6 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ItemRedstoneWirelessPowerDirector extends Item {
 
@@ -42,6 +41,7 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 		return false;
 	}
 
+	@Override
 	public boolean isFull3D() {
 		return true;
 	}

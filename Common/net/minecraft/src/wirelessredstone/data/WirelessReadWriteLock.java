@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.data;
 
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class WirelessReadWriteLock {
 	private int readers = 0;

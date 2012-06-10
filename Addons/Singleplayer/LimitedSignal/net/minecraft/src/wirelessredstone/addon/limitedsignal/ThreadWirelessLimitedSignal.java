@@ -16,8 +16,6 @@ package net.minecraft.src.wirelessredstone.addon.limitedsignal;
 
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessLimitedSignal;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class ThreadWirelessLimitedSignal implements Runnable {
@@ -52,8 +50,8 @@ public class ThreadWirelessLimitedSignal implements Runnable {
 					.writeStackTrace(e);
 		}
 
-		//((BlockRedstoneWirelessR) WirelessRedstone.blockWirelessR)
-		//		.updateRedstoneWirelessTick(world, i, j, k, null);
+		// ((BlockRedstoneWirelessR) WirelessRedstone.blockWirelessR)
+		// .updateRedstoneWirelessTick(world, i, j, k, null);
 		((mod_WirelessLimitedSignal) mod_WirelessLimitedSignal.instance)
 				.remTicking(i, j, k);
 	}

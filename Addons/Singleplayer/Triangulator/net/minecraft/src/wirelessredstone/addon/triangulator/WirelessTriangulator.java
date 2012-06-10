@@ -8,8 +8,10 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 
 public class WirelessTriangulator {
 	public static final boolean isServer = false;
@@ -28,7 +30,7 @@ public class WirelessTriangulator {
 					true);
 			loadConfig();
 			itemTriang = (new ItemRedstoneWirelessTriangulator(triangID - 256))
-					.setItemName("triang");
+					.setItemName("wirelessredstone.triang");
 			loadItemTextures();
 			addRecipes();
 			ModLoader.addName(itemTriang, "Wireless Triangulator");
@@ -56,6 +58,23 @@ public class WirelessTriangulator {
 		 * ModLoader.getMinecraftInstance().renderEngine.registerTextureFX(tex
 		 * [i]); }
 		 */
+	}
+
+	public static WirelessTriangulatorData getTriangulatorData(String itemname, int id,
+			World world, EntityPlayer entityplayer) {
+		String triangulatorName = itemname + id;
+		WirelessTriangulatorData wirelessTriangulatorData = (WirelessTriangulatorData) world
+				.loadItemData(WirelessTriangulatorData.class, triangulatorName);
+		if (wirelessTriangulatorData == null) {
+			wirelessTriangulatorData = new WirelessTriangulatorData(triangulatorName);
+			world.setItemData(triangulatorName, wirelessTriangulatorData);
+			wirelessTriangulatorData.setDeviceID(id);
+			wirelessTriangulatorData.setDeviceName(itemname);
+			//wirelessTriangulatorData.setDeviceOwner(entityplayer);
+			wirelessTriangulatorData.setDeviceDimension(world);
+			wirelessTriangulatorData.setDeviceFreq("0");
+		}
+		return wirelessTriangulatorData;
 	}
 
 	public static void addRecipes() {

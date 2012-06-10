@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
@@ -31,12 +32,12 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 
 			GuiRedstoneWirelessOverrideSMP GUIOverride = new GuiRedstoneWirelessOverrideSMP();
-			mod_WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
-			mod_WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
+			WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
+			WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
 
 			BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
-			mod_WirelessRedstone.addOverrideToReceiver(blockOverride);
-			mod_WirelessRedstone.addOverrideToTransmitter(blockOverride);
+			WirelessRedstone.addOverrideToReceiver(blockOverride);
+			WirelessRedstone.addOverrideToTransmitter(blockOverride);
 
 			RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
 			RedstoneEther.getInstance().addOverride(etherOverrideSMP);
