@@ -17,20 +17,20 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		super(par1Str);
 	}
 
-	public void setDeviceID(ItemStack itemstack) {
-		this.setDeviceID(itemstack.getItemDamage());
+	public void setID(ItemStack itemstack) {
+		this.setID(itemstack.getItemDamage());
 	}
 
 	//public void setDeviceOwner(EntityPlayer entityplayer) {
 	//	this.setDeviceOwner(entityplayer.username);
 	//}
 
-	public void setDeviceID(int id) {
+	public void setID(int id) {
 		this.id = id;
 		this.markDirty();
 	}
 
-	public void setDeviceName(String name) {
+	public void setName(String name) {
 		this.name = name;
 		this.markDirty();
 	}
@@ -40,17 +40,17 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 	//	this.markDirty();
 	//}
 
-	public void setDeviceDimension(World world) {
+	public void setDimension(World world) {
 		this.dimension = (byte) world.worldProvider.worldType;
 		this.markDirty();
 	}
 
-	public void setDeviceFreq(String freq) {
+	public void setFreq(String freq) {
 		this.freq = freq;
 		this.markDirty();
 	}
 
-	public int getDeviceID() {
+	public int getID() {
 		return this.id;
 	}
 
@@ -58,15 +58,15 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 	//	return this.owner;
 	//}
 
-	public String getDeviceName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public Byte getDeviceDimension() {
+	public Byte getDimension() {
 		return this.dimension;
 	}
 
-	public String getDeviceFreq() {
+	public String getFreq() {
 		return this.freq;
 	}
 

@@ -25,7 +25,7 @@ import org.lwjgl.opengl.GL11;
  * 
  * @author ali4z
  */
-public class GuiButtonBoolean extends GuiButtonWifi {
+public class GuiButtonBoolean extends GuiButtonWireless {
 	/**
 	 * Button state
 	 */

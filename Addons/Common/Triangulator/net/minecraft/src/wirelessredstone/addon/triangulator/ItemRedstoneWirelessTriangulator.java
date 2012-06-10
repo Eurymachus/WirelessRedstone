@@ -71,7 +71,7 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer)entity;
 			WirelessTriangulatorData data = this.getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
-			String freq = data.getDeviceFreq();
+			String freq = data.getFreq();
 		}
 	}
 

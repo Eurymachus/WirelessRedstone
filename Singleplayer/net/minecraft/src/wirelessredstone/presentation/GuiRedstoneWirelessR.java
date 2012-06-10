@@ -21,7 +21,7 @@ import org.lwjgl.opengl.GL11;
  * 
  * @author ali4z
  */
-public class GuiRedstoneWirelessR extends GuiRedstoneWireless {
+public class GuiRedstoneWirelessR extends GuiRedstoneWirelessInventory {
 	public GuiRedstoneWirelessR() {
 		super();
 	}

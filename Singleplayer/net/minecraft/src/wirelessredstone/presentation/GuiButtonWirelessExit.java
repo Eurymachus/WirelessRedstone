@@ -26,7 +26,7 @@ import org.lwjgl.opengl.GL11;
  * @author ali4z
  * 
  */
-public class GuiButtonWifiExit extends GuiButton {
+public class GuiButtonWirelessExit extends GuiButtonWireless {
 	/**
 	 * Constructor.<br>
 	 * Height and Width is always 13, text is empty.
@@ -38,7 +38,7 @@ public class GuiButtonWifiExit extends GuiButton {
 	 * @param k
 	 *            screen Y coordinate
 	 */
-	public GuiButtonWifiExit(int i, int j, int k) {
+	public GuiButtonWirelessExit(int i, int j, int k) {
 		super(i, j, k, 13, 13, "");
 	}
 

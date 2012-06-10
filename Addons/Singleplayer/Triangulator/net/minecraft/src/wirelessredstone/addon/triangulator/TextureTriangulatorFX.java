@@ -85,7 +85,7 @@ public class TextureTriangulatorFX extends TextureFX {
 			ItemStack itemstack = this.mc.thePlayer.getCurrentEquippedItem();
 			if (itemstack != null
 					&& itemstack.itemID == WirelessTriangulator.itemTriang.shiftedIndex) {
-				String itemFreq = WirelessTriangulator.getTriangulatorData(itemstack.getItem().getItemName(), itemstack.getItemDamage(), mc.theWorld, mc.thePlayer).getDeviceFreq();
+				String itemFreq = WirelessTriangulator.getTriangulatorData(itemstack.getItem().getItemName(), itemstack.getItemDamage(), mc.theWorld, mc.thePlayer).getFreq();
 				tx = RedstoneEther.getInstance().getClosestActiveTransmitter(x,
 						y, z, String.valueOf(itemFreq));
 			}

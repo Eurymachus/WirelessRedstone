@@ -20,7 +20,7 @@ import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 import org.lwjgl.input.Mouse;
 
@@ -130,7 +130,7 @@ public class WirelessRemote {
 				&& remoteTransmitter == null
 				&& entityplayer.inventory.getCurrentItem() != null
 				&& entityplayer.inventory.getCurrentItem().getItem() == WirelessRemote.itemRemote
-				&& gui != null && gui instanceof GuiRedstoneWireless
+				&& gui != null && gui instanceof GuiRedstoneWirelessInventory
 				&& !entityplayer.isSneaking() && WirelessRemote.ticksInGui > 0)
 			activateRemote(world, entityplayer);
 	}
@@ -148,11 +148,11 @@ public class WirelessRemote {
 		if (wirelessRemoteData == null) {
 			wirelessRemoteData = new WirelessRemoteData(remoteName);
 			world.setItemData(remoteName, wirelessRemoteData);
-			wirelessRemoteData.setDeviceID(id);
-			wirelessRemoteData.setDeviceName(itemname);
+			wirelessRemoteData.setID(id);
+			wirelessRemoteData.setName(itemname);
 			//wirelessRemoteData.setDeviceOwner(entityplayer);
-			wirelessRemoteData.setDeviceDimension(world);
-			wirelessRemoteData.setDeviceFreq("0");
+			wirelessRemoteData.setDimension(world);
+			wirelessRemoteData.setFreq("0");
 			wirelessRemoteData.setDeviceState(false);
 		}
 		return wirelessRemoteData;

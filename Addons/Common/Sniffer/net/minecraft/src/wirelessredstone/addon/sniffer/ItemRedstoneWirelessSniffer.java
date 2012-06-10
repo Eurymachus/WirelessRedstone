@@ -85,7 +85,7 @@ public class ItemRedstoneWirelessSniffer extends Item {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
 			WirelessSnifferData data = this.getSnifferData(itemstack, world,
 					entityplayer);
-			String freq = data.getDeviceFreq();
+			String freq = data.getFreq();
 			int pageNumber = data.getPageNumber();
 			RedstoneWirelessSnifferPageNumber.getInstance(world).setPage(
 					itemstack, pageNumber);

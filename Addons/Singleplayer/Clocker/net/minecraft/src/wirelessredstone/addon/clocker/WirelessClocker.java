@@ -7,11 +7,11 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 public class WirelessClocker {
 	public static boolean isLoaded = false;
-	public static GuiRedstoneWireless guiClock;
+	public static GuiRedstoneWirelessInventory guiClock;
 	public static Block blockClock;
 
 	public static int clockID = 128;

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wirelessredstone.smp.overrides;
 
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -34,6 +35,13 @@ public class GuiRedstoneWirelessOverrideSMP implements
 							entity.getBlockCoord(2), (NEW - OLD), false);
 			return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean beforeFrequencyChange(WirelessDeviceData data,
+			Object oldFreq, Object newFreq) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

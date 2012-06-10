@@ -27,15 +27,12 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
-import net.minecraft.src.wirelessredstone.presentation.GuiButtonWifiExit;
+import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessSniffer extends GuiScreen {
-	protected EntityPlayer entityplayer;
-	private World world;
-	protected int xSize;
-	protected int ySize;
+public class GuiRedstoneWirelessSniffer extends GuiRedstoneWireless {
 	private int nodeSize = 4;
 	private int pageWidth = 50;
 	private int pageHeight = 30;
@@ -60,14 +57,14 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	public void initGui() {
 		int currentPage = this.getPage();
 		nextButton = new GuiButtonBoolean(0, (width / 2) + 40,
-				(height / 2) + 75, 40, 20, "Next", true);
+				(height / 2) + 75, 40, 20, "Next", true, "Next Page");
 		prevButton = new GuiButtonBoolean(1, (width / 2) - 80,
-				(height / 2) + 75, 40, 20, "Prev", true);
+				(height / 2) + 75, 40, 20, "Prev", true, "Previous Page");
 		nextButton.enabled = (currentPage >= 0 && currentPage < WirelessRedstone.maxEtherFrequencies
 				/ (pageWidth * pageHeight));
 		prevButton.enabled = (currentPage > 0 && currentPage <= WirelessRedstone.maxEtherFrequencies
 				/ (pageWidth * pageHeight));
-		controlList.add(new GuiButtonWifiExit(100, (((width - xSize) / 2)
+		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 		controlList.add(nextButton);
 		controlList.add(prevButton);
@@ -121,17 +118,6 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 			prevButton.enabled = true;
 	}
 
-	public void close() {
-		try {
-			mc.displayGuiScreen(null);
-			mc.setIngameFocus();
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone.Sniffer: " + this.getClass().toString())
-					.writeStackTrace(e);
-		}
-	}
-
 	@Override
 	public void drawScreen(int i, int j, float f) {
 		drawDefaultBackground();
@@ -142,7 +128,6 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-		;
 
 		GL11.glPushMatrix();
 		GL11.glTranslatef(x, y, 0.0F);
@@ -167,11 +152,6 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		super.drawScreen(i, j, f);
 		GL11.glEnable(2896 /* GL_LIGHTING */);
 		GL11.glEnable(2929 /* GL_DEPTH_TEST */);
-	}
-
-	@Override
-	public boolean doesGuiPauseGame() {
-		return false;
 	}
 
 	private void drawFrequencies(int i, int j) {
@@ -199,5 +179,29 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	public void onGuiClosed() {
 		thr.running = false;
 		// this.sniffer.killSniffer();
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected Object getFreq() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void setFreq(String freq) {
+		// TODO Auto-generated method stub
+		
 	}
 }

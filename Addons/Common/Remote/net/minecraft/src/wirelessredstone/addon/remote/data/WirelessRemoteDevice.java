@@ -43,7 +43,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 						itemstack.getItemDamage(), 
 						this.world, 
 						this.owner)
-							.getDeviceFreq() == this.getFreq();
+							.getFreq() == this.getFreq();
 	}
 
 	@Override

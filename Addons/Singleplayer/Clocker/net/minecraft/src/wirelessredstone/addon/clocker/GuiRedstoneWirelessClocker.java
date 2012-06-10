@@ -17,12 +17,13 @@ package net.minecraft.src.wirelessredstone.addon.clocker;
 import java.util.List;
 
 import net.minecraft.src.GuiButton;
+import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
+public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	private boolean isScrolling;
 	protected List<GuiRedstoneWirelessOverride> clockerOverrides;
 
@@ -117,7 +118,7 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWireless {
 
 		boolean prematureExit = false;
 		for (GuiRedstoneWirelessOverride override : clockerOverrides) {
-			if (override.beforeFrequencyChange(inventory, oldClockFreq,
+			if (((GuiRedstoneWirelessInventoryOverride)override).beforeFrequencyChange(inventory, oldClockFreq,
 					clockFreq))
 				prematureExit = true;
 		}

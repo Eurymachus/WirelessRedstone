@@ -22,7 +22,7 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
@@ -49,11 +49,11 @@ public class WirelessRedstone {
 	/**
 	 * Wireless Receiver GUI
 	 */
-	public static GuiRedstoneWireless guiWirelessR;
+	public static GuiRedstoneWirelessInventory guiWirelessR;
 	/**
 	 * Wireless Transmitter GUI
 	 */
-	public static GuiRedstoneWireless guiWirelessT;
+	public static GuiRedstoneWirelessInventory guiWirelessT;
 
 	/**
 	 * Wireless Receiver Block ID

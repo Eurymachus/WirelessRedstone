@@ -40,7 +40,7 @@ public class WirelessTriangulatorDevice extends WirelessDevice {
 		return this.owner.inventory.currentItem == this.slot
 				&& itemstack != null
 				&& itemstack.getItem() == WirelessRemote.itemRemote
-				&& (WirelessTriangulator.getTriangulatorData(itemstack.getItem().getItemName(), itemstack.getItemDamage(), this.world, this.owner).getDeviceFreq()) == this.getFreq();
+				&& (WirelessTriangulator.getTriangulatorData(itemstack.getItem().getItemName(), itemstack.getItemDamage(), this.world, this.owner).getFreq()) == this.getFreq();
 	}
 
 	@Override

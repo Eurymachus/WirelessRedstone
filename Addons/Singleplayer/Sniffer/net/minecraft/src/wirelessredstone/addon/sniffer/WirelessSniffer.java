@@ -60,12 +60,12 @@ public class WirelessSniffer {
 		if (wirelessSnifferData == null) {
 			wirelessSnifferData = new WirelessSnifferData(snifferName);
 			world.setItemData(snifferName, wirelessSnifferData);
-			wirelessSnifferData.setDeviceID(itemstack);
-			wirelessSnifferData.setDeviceName(itemstack
+			wirelessSnifferData.setID(itemstack);
+			wirelessSnifferData.setName(itemstack
 					.getItemNameandInformation().get(0).toString());
 			//wirelessSnifferData.setDeviceOwner(entityplayer);
-			wirelessSnifferData.setDeviceDimension(world);
-			wirelessSnifferData.setDeviceFreq("0");
+			wirelessSnifferData.setDimension(world);
+			wirelessSnifferData.setFreq("0");
 		}
 		return wirelessSnifferData;
 	}

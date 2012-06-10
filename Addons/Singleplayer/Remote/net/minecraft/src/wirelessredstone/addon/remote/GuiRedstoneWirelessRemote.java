@@ -21,11 +21,12 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
+public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 	protected World world;
 	protected EntityPlayer entityplayer;
 	protected ItemStack itemstack;
@@ -74,20 +75,5 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 		int b = (width - xSize) / 2;
 		int c = (height - ySize) / 2;
 		drawTexturedModalRect(b, c, 0, 0, xSize, ySize);
-	}
-
-	@Override
-	protected String getName() {
-		return "Wireless Remote";
-	}
-
-	@Override
-	protected String getFreq() {
-		return this.wirelessDeviceData.getDeviceFreq();
-	}
-
-	@Override
-	protected void setFreq(String freq) {
-		this.wirelessDeviceData.setDeviceFreq(freq);
 	}
 }

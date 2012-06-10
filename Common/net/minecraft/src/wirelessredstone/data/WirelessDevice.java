@@ -12,7 +12,7 @@ public class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public String getFreq() {
-		return this.data.getDeviceFreq();
+		return this.data.getFreq();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void setFreq(String freq) {
-		this.data.setDeviceFreq(freq);
+		this.data.setFreq(freq);
 	}
 
 	@Override

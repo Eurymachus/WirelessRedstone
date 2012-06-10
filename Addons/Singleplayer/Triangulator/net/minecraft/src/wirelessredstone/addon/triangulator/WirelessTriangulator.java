@@ -68,11 +68,11 @@ public class WirelessTriangulator {
 		if (wirelessTriangulatorData == null) {
 			wirelessTriangulatorData = new WirelessTriangulatorData(triangulatorName);
 			world.setItemData(triangulatorName, wirelessTriangulatorData);
-			wirelessTriangulatorData.setDeviceID(id);
-			wirelessTriangulatorData.setDeviceName(itemname);
+			wirelessTriangulatorData.setID(id);
+			wirelessTriangulatorData.setName(itemname);
 			//wirelessTriangulatorData.setDeviceOwner(entityplayer);
-			wirelessTriangulatorData.setDeviceDimension(world);
-			wirelessTriangulatorData.setDeviceFreq("0");
+			wirelessTriangulatorData.setDimension(world);
+			wirelessTriangulatorData.setFreq("0");
 		}
 		return wirelessTriangulatorData;
 	}

@@ -21,16 +21,12 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
-	protected int xSize;
-	protected int ySize;
-	protected EntityPlayer entityplayer;
-	protected ItemStack itemstack;
-	protected World world;
+public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWirelessDevice {
 
 	public GuiRedstoneWirelessTriangulator(EntityPlayer entityplayer,
 			World world) {
@@ -39,74 +35,12 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 		ySize = 166;
 		this.world = world;
 		this.entityplayer = entityplayer;
-		this.itemstack = entityplayer.getCurrentEquippedItem();
+		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
 		this.wirelessDeviceData = WirelessTriangulator
 				.getTriangulatorData(
-						this.itemstack.getItem().getItemName(), 
-						this.itemstack.getItemDamage(),
+						itemstack.getItem().getItemName(), 
+						itemstack.getItemDamage(),
 						this.world, this.entityplayer);
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton guibutton) {
-		Object a = getFreq();
-		Object b = a;
-		int newFreq, oldFreq;
-		try {
-			newFreq = Integer.parseInt(a.toString());
-			oldFreq = Integer.parseInt(b.toString());
-		} catch (NumberFormatException e) {
-			return;
-		}
-
-		switch (guibutton.id) {
-		case 0:
-			newFreq++;
-			break;
-		case 1:
-			newFreq--;
-			break;
-		case 2:
-			newFreq += 10;
-			break;
-		case 3:
-			newFreq -= 10;
-			break;
-		case 4:
-			newFreq += 100;
-			break;
-		case 5:
-			newFreq -= 100;
-			break;
-		case 6:
-			newFreq += 1000;
-			break;
-		case 7:
-			newFreq -= 1000;
-			break;
-		case 100:
-			close();
-			break;
-		}
-		if (newFreq != oldFreq) {
-			if (newFreq > 9999)
-				newFreq -= 10000;
-			if (newFreq < 0)
-				newFreq += 10000;
-			setFreq(Integer.toString(newFreq));
-		}
-	}
-
-	@Override
-	public void close() {
-		try {
-			mc.displayGuiScreen(null);
-			mc.setIngameFocus();
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone.Triangulator: "
-							+ this.getClass().toString()).writeStackTrace(e);
-		}
 	}
 
 	@Override
@@ -122,25 +56,5 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-	}
-
-	@Override
-	public boolean doesGuiPauseGame() {
-		return false;
-	}
-
-	@Override
-	protected String getName() {
-		return "Wireless Triangulator";
-	}
-
-	@Override
-	protected String getFreq() {
-		return this.wirelessDeviceData.getDeviceFreq();
-	}
-
-	@Override
-	protected void setFreq(String freq) {
-		this.wirelessDeviceData.setDeviceFreq(freq);
 	}
 }
