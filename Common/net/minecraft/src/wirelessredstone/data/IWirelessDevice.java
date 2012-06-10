@@ -2,9 +2,11 @@ package net.minecraft.src.wirelessredstone.data;
 
 public interface IWirelessDevice {
 	
-	public String getFreq();
+	void setFreq(String freq);
 	
-	public WirelessCoordinates getCoords();
+	String getFreq();
+	
+	WirelessCoordinates getCoords();
 
 	void activate();
 

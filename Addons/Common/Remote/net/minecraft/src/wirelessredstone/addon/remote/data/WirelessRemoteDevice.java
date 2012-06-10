@@ -18,11 +18,10 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
  * 
  */
 public class WirelessRemoteDevice extends WirelessDevice {
-	protected EntityPlayer player;
 	protected int slot;
 
-	public WirelessRemoteDevice(EntityPlayer player, World world) {
-		this.player = player;
+	public WirelessRemoteDevice(World world, EntityPlayer player) {
+		this.owner = player;
 		this.coords = new WirelessCoordinates((int) player.posX,
 				(int) player.posY, (int) player.posZ);
 		this.slot = player.inventory.currentItem;
@@ -33,8 +32,8 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	}
 
 	public boolean isBeingHeld() {
-		ItemStack itemstack = this.player.inventory.getCurrentItem();
-		return this.player.inventory.currentItem == this.slot
+		ItemStack itemstack = this.owner.inventory.getCurrentItem();
+		return this.owner.inventory.currentItem == this.slot
 				&& itemstack != null
 				&& itemstack.getItem() == WirelessRemote.itemRemote
 				&& (RedstoneWirelessItemStackMem.getInstance(world)
@@ -43,20 +42,20 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	
 	@Override
 	public void activate() {
-		ItemStack itemstack = this.player.inventory.getStackInSlot(this.slot);
-		RedstoneWirelessItemStackMem.getInstance(this.world).setState(
-				itemstack, true);
+		ItemStack itemstack = this.owner.inventory.getStackInSlot(this.slot);
 		if (itemstack != null) {
+			RedstoneWirelessItemStackMem.getInstance(this.world).setState(
+					itemstack, true);
 			WirelessRemote.transmitRemote("activateRemote", world, this);
 		}
 	}
 
 	@Override
 	public void deactivate() {
-		ItemStack itemstack = this.player.inventory.getStackInSlot(this.slot);
-		RedstoneWirelessItemStackMem.getInstance(this.world).setState(
-				itemstack, false);
+		ItemStack itemstack = this.owner.inventory.getStackInSlot(this.slot);
 		if (itemstack != null)
+			RedstoneWirelessItemStackMem.getInstance(this.world).setState(
+					itemstack, false);
 			WirelessRemote.transmitRemote("deactivateRemote", world, this);
 	}
 }

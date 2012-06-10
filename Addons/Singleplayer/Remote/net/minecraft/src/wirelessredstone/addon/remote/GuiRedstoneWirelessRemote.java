@@ -62,8 +62,7 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWireless {
 	@Override
 	public void onGuiClosed() {
 		if (entityplayer.getCurrentEquippedItem() == null)
-			RedstoneWirelessItemStackMem.getInstance(world).remMem(
-					itemstack.hashCode());
+			RedstoneWirelessItemStackMem.getInstance(world).remMem(this.itemstack);
 	}
 
 	@Override

@@ -1,9 +1,12 @@
 package net.minecraft.src.wirelessredstone.data;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 
-public abstract class WirelessDevice implements IWirelessDevice {
+public class WirelessDevice implements IWirelessDevice {
+	
 	protected World world;
+	protected EntityPlayer owner;
 	protected String freq;
 	protected WirelessCoordinates coords;
 
@@ -15,5 +18,18 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	@Override
 	public WirelessCoordinates getCoords() {
 		return this.coords;
+	}
+
+	@Override
+	public void setFreq(String freq) {
+		this.freq = freq;
+	}
+
+	@Override
+	public void activate() {
+	}
+
+	@Override
+	public void deactivate() {
 	}
 }

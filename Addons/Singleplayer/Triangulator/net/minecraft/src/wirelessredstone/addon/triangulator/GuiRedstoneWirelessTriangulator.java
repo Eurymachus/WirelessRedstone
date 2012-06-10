@@ -106,8 +106,7 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWireless {
 	@Override
 	public void onGuiClosed() {
 		if (player.getCurrentEquippedItem() == null)
-			RedstoneWirelessItemStackMem.getInstance(world).remMem(
-					itemstack.hashCode());
+			RedstoneWirelessItemStackMem.getInstance(world).remMem(itemstack);
 	}
 
 	@Override

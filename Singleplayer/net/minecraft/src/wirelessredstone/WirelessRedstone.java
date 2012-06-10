@@ -11,11 +11,13 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessT;
@@ -210,6 +212,15 @@ public class WirelessRedstone {
 	}
 
 	/**
+	 * Retrieves the world object without parameters
+	 * 
+	 * @return the world
+	 */
+	public static World getWorld() {
+		return ModLoader.getMinecraftInstance().theWorld;
+	}
+
+	/**
 	 * Retrieves the world object
 	 * 
 	 * @param network
@@ -217,7 +228,7 @@ public class WirelessRedstone {
 	 * @return the world
 	 */
 	public static World getWorld(NetworkManager network) {
-		return ModLoader.getMinecraftInstance().theWorld;
+		return getWorld();
 	}
 
 	/**
@@ -230,6 +241,16 @@ public class WirelessRedstone {
 	public static EntityPlayer getPlayer(NetworkManager network) {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
+
+/*	public static WirelessDeviceData getWirelessData(WirelessDeviceData wirelessDeviceData, ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		wirelessDeviceData.setDeviceID(itemstack);
+		wirelessDeviceData.setDeviceName(itemstack.getItemNameandInformation().get(0).toString());
+		wirelessDeviceData.setDeviceOwner(entityplayer);
+		wirelessDeviceData.setDeviceDimension(world);
+		wirelessDeviceData.setDeviceFreq(RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack));
+		wirelessDeviceData.markDirty();
+		return wirelessDeviceData;
+	}*/
 	
 	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);

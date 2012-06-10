@@ -19,6 +19,7 @@ import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 
@@ -104,7 +105,7 @@ public class WirelessRemote {
 
 			deactivateRemote(world, entityplayer);
 		}
-		remoteTransmitter = new WirelessRemoteDevice(entityplayer, world);
+		remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
 		remoteTransmitter.activate();
 	}
 
@@ -141,7 +142,7 @@ public class WirelessRemote {
 
 	public static WirelessRemoteData getRemoteData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		String remoteName = "remote_"+itemstack.getItemDamage();
-		WirelessRemoteData wirelessRemoteData = (WirelessRemoteData)world.loadItemData(WirelessRemoteData.class, remoteName);
+		WirelessRemoteData wirelessRemoteData = (WirelessRemoteData) world.loadItemData(WirelessRemoteData.class, remoteName);
 		if (wirelessRemoteData == null) {
 			wirelessRemoteData = new WirelessRemoteData(remoteName);
 			world.setItemData(remoteName, wirelessRemoteData);
@@ -150,7 +151,6 @@ public class WirelessRemote {
 			wirelessRemoteData.setDeviceOwner(entityplayer);
 			wirelessRemoteData.setDeviceDimension(world);
 			wirelessRemoteData.setDeviceFreq(RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack));
-			wirelessRemoteData.markDirty();
 		}
 		return wirelessRemoteData;
 	}

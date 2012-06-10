@@ -17,11 +17,14 @@ package net.minecraft.src.wirelessredstone.addon.sniffer;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWifiExit;
@@ -29,7 +32,7 @@ import net.minecraft.src.wirelessredstone.presentation.GuiButtonWifiExit;
 import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessSniffer extends GuiScreen {
-	protected EntityPlayer player;
+	protected EntityPlayer entityplayer;
 	private World world;
 	protected int xSize;
 	protected int ySize;
@@ -37,15 +40,16 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 	private int pageWidth = 50;
 	private int pageHeight = 30;
 	private ThreadWirelessSniffer thr;
-	private Sniffer sniffer;
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
+	protected WirelessDeviceData wirelessSnifferData;
 
-	public GuiRedstoneWirelessSniffer(EntityPlayer player, World world) {
+	public GuiRedstoneWirelessSniffer(World world, EntityPlayer entityplayer) {
 		super();
-		this.player = player;
 		this.world = world;
-		this.sniffer = new Sniffer(this.world, this.player);
+		this.entityplayer = entityplayer;
+		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
+		this.wirelessSnifferData = WirelessSniffer.getSnifferData(itemstack, this.world, this.entityplayer);
 		xSize = 256;
 		ySize = 200;
 		thr = new ThreadWirelessSniffer(this);
@@ -53,7 +57,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		int currentPage = this.sniffer.getPage();
+		int currentPage = this.getPage();
 		nextButton = new GuiButtonBoolean(0, (width / 2) + 40,
 				(height / 2) + 75, 40, 20, "Next", true);
 		prevButton = new GuiButtonBoolean(1, (width / 2) - 80,
@@ -69,10 +73,18 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 		super.initGui();
 	}
 
+	private int getPage() {
+		return ((WirelessSnifferData)this.wirelessSnifferData).getPageNumber();
+	}
+	
+	private void setPage(int pageNumber) {
+		((WirelessSnifferData)this.wirelessSnifferData).setPageNumber(pageNumber);
+	}
+
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
-		int page = this.sniffer.getPage();
-		int oldPage = this.sniffer.getPage();
+		int page = this.getPage();
+		int oldPage = this.getPage();
 		switch (guibutton.id) {
 		case 0:
 			++page;
@@ -90,18 +102,18 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 			page = 0;
 		if (oldPage != page) {
 			if ((oldPage - page) == -1) {
-				this.sniffer.setPage(oldPage + 1);
+				this.setPage(oldPage + 1);
 			} else {
-				this.sniffer.setPage(oldPage - 1);
+				this.setPage(oldPage - 1);
 			}
 		}
 		if (nextButton.enabled
-				&& this.sniffer.getPage() == WirelessRedstone.maxEtherFrequencies
+				&& this.getPage() == WirelessRedstone.maxEtherFrequencies
 						/ (pageWidth * pageHeight)) {
 			nextButton.enabled = false;
 		} else
 			nextButton.enabled = true;
-		if (prevButton.enabled && this.sniffer.getPage() == 0) {
+		if (prevButton.enabled && this.getPage() == 0) {
 			prevButton.enabled = false;
 		} else
 			prevButton.enabled = true;
@@ -144,7 +156,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 								- (fontRenderer
 										.getStringWidth("Wireless Sniffer") / 2),
 						6, 0x404040);
-		String drawPage = "Page [" + (this.sniffer.getPage() + 1) + "]";
+		String drawPage = "Page [" + (this.getPage() + 1) + "]";
 		fontRenderer.drawString(drawPage,
 				(xSize / 2) - (fontRenderer.getStringWidth(drawPage) / 2),
 				(height / 2) + 62, 0x00000000);
@@ -162,7 +174,7 @@ public class GuiRedstoneWirelessSniffer extends GuiScreen {
 
 	private void drawFrequencies(int i, int j) {
 		int x, y;
-		int c = (pageWidth * pageHeight) * this.sniffer.getPage();
+		int c = (pageWidth * pageHeight) * this.getPage();
 		for (int n = 0; n < pageHeight; n++) {
 			for (int m = 0; m < pageWidth; m++) {
 				x = i + (nodeSize * m) + m;

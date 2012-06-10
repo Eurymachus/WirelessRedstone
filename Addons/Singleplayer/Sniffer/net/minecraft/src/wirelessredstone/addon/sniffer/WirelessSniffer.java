@@ -4,20 +4,25 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 
 public class WirelessSniffer {
 	public static boolean isLoaded = false;
 	public static Item itemSniffer;
+	public static int snifferon, snifferoff;
 	public static int sniffID = 6244;
 
 	public static boolean initialize() {
 		try {
 			loadConfig();
 			itemSniffer = (new ItemRedstoneWirelessSniffer(sniffID - 256))
-					.setItemName("sniffer");
+					.setItemName("wirelessredstone.sniffer");
 			loadItemTextures();
 			ModLoader.addName(itemSniffer, "Wireless Sniffer");
 			addRecipes();
@@ -33,8 +38,8 @@ public class WirelessSniffer {
 	}
 
 	public static void loadItemTextures() {
-		itemSniffer.setIconIndex(ModLoader.addOverride("/gui/items.png",
-				"/WirelessSprites/sniff.png"));
+		snifferoff = ModLoader.addOverride("/gui/items.png",
+				"/WirelessSprites/sniff.png");
 	}
 
 	public static void addRecipes() {
@@ -48,8 +53,23 @@ public class WirelessSniffer {
 				.get("ID", Integer.class, new Integer(sniffID));
 	}
 
-	public static void openGUI(EntityPlayer entityplayer,
-			GuiRedstoneWirelessSniffer guiRedstoneWirelessSniffer) {
-		ModLoader.openGUI(entityplayer, guiRedstoneWirelessSniffer);
+	public static WirelessSnifferData getSnifferData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		String snifferName = "sniffer_"+itemstack.getItemDamage();
+		WirelessSnifferData wirelessSnifferData = (WirelessSnifferData)world.loadItemData(WirelessSnifferData.class, snifferName);
+		if (wirelessSnifferData == null) {
+			wirelessSnifferData = new WirelessSnifferData(snifferName);
+			world.setItemData(snifferName, wirelessSnifferData);
+			wirelessSnifferData.setDeviceID(itemstack);
+			wirelessSnifferData.setDeviceName(itemstack.getItemNameandInformation().get(0).toString());
+			wirelessSnifferData.setDeviceOwner(entityplayer);
+			wirelessSnifferData.setDeviceDimension(world);
+			wirelessSnifferData.setDeviceFreq(RedstoneWirelessItemStackMem.getInstance(world).getFreq(itemstack));
+		}
+		return wirelessSnifferData;
+	}
+
+	public static void openGUI(World world, EntityPlayer entityplayer) {
+		GuiRedstoneWirelessSniffer guiSniffer = new GuiRedstoneWirelessSniffer(world, entityplayer);
+		ModLoader.openGUI(entityplayer, guiSniffer);
 	}
 }
