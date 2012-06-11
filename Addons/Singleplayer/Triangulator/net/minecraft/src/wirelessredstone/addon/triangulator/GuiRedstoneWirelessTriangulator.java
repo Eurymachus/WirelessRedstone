@@ -18,6 +18,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
@@ -28,7 +29,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWirelessDevice {
 
-	public GuiRedstoneWirelessTriangulator(EntityPlayer entityplayer,
+	public GuiRedstoneWirelessTriangulator(WirelessTriangulatorData data, EntityPlayer entityplayer,
 			World world) {
 		super();
 		xSize = 176;
@@ -36,11 +37,7 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWirelessDevice {
 		this.world = world;
 		this.entityplayer = entityplayer;
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = WirelessTriangulator
-				.getTriangulatorData(
-						itemstack.getItem().getItemName(), 
-						itemstack.getItemDamage(),
-						this.world, this.entityplayer);
+		this.wirelessDeviceData = data;
 	}
 
 	@Override

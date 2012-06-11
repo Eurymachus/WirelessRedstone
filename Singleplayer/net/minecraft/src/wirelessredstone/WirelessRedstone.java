@@ -11,6 +11,8 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.WorldSavedData;
+import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -19,6 +21,7 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
@@ -355,5 +358,11 @@ public class WirelessRedstone {
 					.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
 			ModLoader.openGUI(entityplayer, guiWirelessT);
 		}
+	}
+
+	public static WorldSavedData getDeviceData(Class class1, String indexname,
+			int id, World world, EntityPlayer entityplayer) {
+		String deviceName = indexname + "_" + id;
+		return world.loadItemData(class1, deviceName);
 	}
 }

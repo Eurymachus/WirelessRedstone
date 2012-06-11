@@ -52,27 +52,21 @@ public class WirelessSniffer {
 				.get("ID", Integer.class, new Integer(sniffID));
 	}
 
-	public static WirelessSnifferData getSnifferData(ItemStack itemstack,
+	public static WirelessSnifferData newSnifferDevice(String fullitemname, String indexname, int id,
 			World world, EntityPlayer entityplayer) {
-		String snifferName = "sniffer_" + itemstack.getItemDamage();
-		WirelessSnifferData wirelessSnifferData = (WirelessSnifferData) world
-				.loadItemData(WirelessSnifferData.class, snifferName);
-		if (wirelessSnifferData == null) {
-			wirelessSnifferData = new WirelessSnifferData(snifferName);
-			world.setItemData(snifferName, wirelessSnifferData);
-			wirelessSnifferData.setID(itemstack);
-			wirelessSnifferData.setName(itemstack
-					.getItemNameandInformation().get(0).toString());
-			//wirelessSnifferData.setDeviceOwner(entityplayer);
-			wirelessSnifferData.setDimension(world);
-			wirelessSnifferData.setFreq("0");
-		}
+		String snifferName = indexname + "_" + id;
+		WirelessSnifferData wirelessSnifferData = new WirelessSnifferData(snifferName);
+		world.setItemData(snifferName, wirelessSnifferData);
+		wirelessSnifferData.setID(id);
+		wirelessSnifferData.setName(fullitemname);
+		wirelessSnifferData.setDimension(world);
+		wirelessSnifferData.setFreq("0");
 		return wirelessSnifferData;
 	}
 
-	public static void openGUI(World world, EntityPlayer entityplayer) {
+	public static void openGUI(WirelessSnifferData data, World world, EntityPlayer entityplayer) {
 		GuiRedstoneWirelessSniffer guiSniffer = new GuiRedstoneWirelessSniffer(
-				world, entityplayer);
+				data, world, entityplayer);
 		ModLoader.openGUI(entityplayer, guiSniffer);
 	}
 }

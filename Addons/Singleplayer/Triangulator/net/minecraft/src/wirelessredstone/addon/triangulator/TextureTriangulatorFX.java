@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TextureFX;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
@@ -85,7 +87,14 @@ public class TextureTriangulatorFX extends TextureFX {
 			ItemStack itemstack = this.mc.thePlayer.getCurrentEquippedItem();
 			if (itemstack != null
 					&& itemstack.itemID == WirelessTriangulator.itemTriang.shiftedIndex) {
-				String itemFreq = WirelessTriangulator.getTriangulatorData(itemstack.getItem().getItemName(), itemstack.getItemDamage(), mc.theWorld, mc.thePlayer).getFreq();
+				String itemFreq = ((WirelessTriangulatorData)WirelessRedstone
+						.getDeviceData(
+								WirelessTriangulatorData.class,
+								itemstack.getItem().getItemName(),
+								itemstack.getItemDamage(),
+								mc.theWorld,
+								mc.thePlayer))
+									.getFreq();
 				tx = RedstoneEther.getInstance().getClosestActiveTransmitter(x,
 						y, z, String.valueOf(itemFreq));
 			}

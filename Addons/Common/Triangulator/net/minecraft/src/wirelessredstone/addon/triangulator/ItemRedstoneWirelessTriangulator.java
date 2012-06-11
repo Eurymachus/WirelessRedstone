@@ -20,6 +20,7 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -34,7 +35,7 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			WirelessTriangulator.openGUI(entityplayer, world);
+			WirelessTriangulator.openGUI(getTriangulatorData(itemstack, world, entityplayer), entityplayer, world);
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -60,9 +61,14 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 		return true;
 	}
 
+	private WirelessTriangulatorData getTriangulatorData(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
+		return getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+	}
+
 	private WirelessTriangulatorData getTriangulatorData(String itemname, int id, World world,
 			EntityPlayer entityplayer) {
-		return WirelessTriangulator.getTriangulatorData(itemname, id, world, entityplayer);
+		return (WirelessTriangulatorData) WirelessRedstone.getDeviceData(WirelessTriangulatorData.class, itemname, id, world, entityplayer);
 	}
 	
 	@Override
@@ -79,6 +85,6 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		this.getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+		WirelessTriangulator.newTriangulatorDevice(this.getItemDisplayName(itemstack), this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
 	}
 }

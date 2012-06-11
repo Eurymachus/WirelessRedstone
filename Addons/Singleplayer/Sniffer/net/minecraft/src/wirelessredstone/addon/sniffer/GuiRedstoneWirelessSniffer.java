@@ -41,13 +41,12 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
 
-	public GuiRedstoneWirelessSniffer(World world, EntityPlayer entityplayer) {
+	public GuiRedstoneWirelessSniffer(WirelessSnifferData data, World world, EntityPlayer entityplayer) {
 		super();
 		this.world = world;
 		this.entityplayer = entityplayer;
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = WirelessSniffer.getSnifferData(itemstack,
-				this.world, this.entityplayer);
+		this.wirelessDeviceData = (WirelessSnifferData) data;
 		xSize = 256;
 		ySize = 200;
 		thr = new ThreadWirelessSniffer(this);
@@ -71,12 +70,12 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	}
 
 	private int getPage() {
-		return ((WirelessSnifferData) this.wirelessDeviceData).getPageNumber();
+		return ((WirelessSnifferData) this.wirelessDeviceData).getPage();
 	}
 
 	private void setPage(int pageNumber) {
 		((WirelessSnifferData) this.wirelessDeviceData)
-				.setPageNumber(pageNumber);
+				.setPage(pageNumber);
 	}
 
 	@Override

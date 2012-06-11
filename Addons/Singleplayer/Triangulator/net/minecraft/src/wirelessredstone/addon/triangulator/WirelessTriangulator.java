@@ -60,20 +60,15 @@ public class WirelessTriangulator {
 		 */
 	}
 
-	public static WirelessTriangulatorData getTriangulatorData(String itemname, int id,
+	public static WirelessTriangulatorData newTriangulatorDevice(String fullitemname, String indexname, int id,
 			World world, EntityPlayer entityplayer) {
-		String triangulatorName = itemname + id;
-		WirelessTriangulatorData wirelessTriangulatorData = (WirelessTriangulatorData) world
-				.loadItemData(WirelessTriangulatorData.class, triangulatorName);
-		if (wirelessTriangulatorData == null) {
-			wirelessTriangulatorData = new WirelessTriangulatorData(triangulatorName);
-			world.setItemData(triangulatorName, wirelessTriangulatorData);
-			wirelessTriangulatorData.setID(id);
-			wirelessTriangulatorData.setName(itemname);
-			//wirelessTriangulatorData.setDeviceOwner(entityplayer);
-			wirelessTriangulatorData.setDimension(world);
-			wirelessTriangulatorData.setFreq("0");
-		}
+		String triangulatorName = indexname + "_" + id;
+		WirelessTriangulatorData wirelessTriangulatorData = new WirelessTriangulatorData(triangulatorName);
+		world.setItemData(triangulatorName, wirelessTriangulatorData);
+		wirelessTriangulatorData.setID(id);
+		wirelessTriangulatorData.setName(fullitemname);
+		wirelessTriangulatorData.setDimension(world);
+		wirelessTriangulatorData.setFreq("0");
 		return wirelessTriangulatorData;
 	}
 
@@ -88,8 +83,8 @@ public class WirelessTriangulator {
 				"Triangulator").get("ID", Integer.class, new Integer(triangID));
 	}
 
-	public static void openGUI(EntityPlayer entityplayer, World world) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(
+	public static void openGUI(WirelessTriangulatorData data, EntityPlayer entityplayer, World world) {
+		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(data,
 				entityplayer, world));
 	}
 

@@ -11,11 +11,11 @@ public class WirelessSnifferData extends WirelessDeviceData {
 		super(par1Str);
 	}
 
-	public int getPageNumber() {
+	public int getPage() {
 		return this.pageNumber;
 	}
 
-	public void setPageNumber(int pageNumber) {
+	public void setPage(int pageNumber) {
 		this.pageNumber = pageNumber;
 		this.markDirty();
 	}
