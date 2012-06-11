@@ -16,14 +16,12 @@ package net.minecraft.src.wirelessredstone.smp.overrides;
 
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
+import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class GuiRedstoneWirelessOverrideSMP implements
-		GuiRedstoneWirelessOverride {
+public class GuiRedstoneWirelessOverrideSMP implements GuiRedstoneWirelessInventoryOverride {
 
-	@Override
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq) {
 		if ((ModLoader.getMinecraftInstance().theWorld.isRemote)) {

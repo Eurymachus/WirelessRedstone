@@ -79,6 +79,14 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	public void addOverride(GuiRedstoneWirelessOverride override) {
 		this.overrides.add(override);
 	}
+	
+	/**
+	 * Adds a selection of controls to be used in the GUI
+	 * 
+	 * Override to replace control set
+	 * use super.addControls() if adding to control set
+	 */
+	protected abstract void addControls();
 
 	/**
 	 * Initializes the GUI.<br>
@@ -86,16 +94,9 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 */
 	@Override
 	public void initGui() {
+		addControls();
 		super.initGui();
 	}
-
-	/**
-	 * Draws the background layer.
-	 * 
-	 * @param f
-	 *            tick partial
-	 */
-	protected abstract void drawGuiContainerBackgroundLayer(float f);
 
 	/**
 	 * Check is Mouse pointer is within the bounds of a given GuiButtonWireless
@@ -110,6 +111,35 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			return button.inBounds(i, j);
 		return false;
 	}
+	
+	/**
+	 * Fetches the Background Image to be used
+	 * 
+	 * @return Background Image
+	 */
+	protected abstract String getBackgroundImage();
+	
+	/**
+	 * Fetches the Gui Name to display at the top of the Gui
+	 * 
+	 * @return Gui Name
+	 */
+	protected abstract String getGuiName();
+
+	/**
+	 * Fetches the frequency
+	 * 
+	 * @return Frequency.
+	 */
+	protected abstract Object getFreq();
+
+	/**
+	 * Sets the frequency
+	 * 
+	 * @param freq
+	 *            frequency.
+	 */
+	protected abstract void setFreq(String freq);
 
 	/**
 	 * Draws the entire GUI to the screen.
@@ -123,14 +153,152 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 */
 	@Override
 	public void drawScreen(int i, int j, float f) {
-		super.drawScreen(i, j, f);
+		try {
+			drawDefaultBackground();
+			int k = (width - xSize) / 2;
+			int l = (height - ySize) / 2;
+			drawGuiContainerBackgroundLayer(i, j, f);
+	
+			GL11.glPushMatrix();
+				GL11.glTranslatef(k, l, 0.0F);
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+				GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
+				
+				RenderHelper.disableStandardItemLighting();
+				
+				GL11.glDisable(2896 /* GL_LIGHTING */);
+				GL11.glDisable(2929 /* GL_DEPTH_TEST */);
+				
+				drawGuiName();
+				drawGuiContainerForegroundLayer(i, j, f);
+			
+			GL11.glPopMatrix();
+			
+			
+			super.drawScreen(i, j, f);
+			
+			drawButtonTooltips(i, j, f);
+	
+			GL11.glEnable(2896 /* GL_LIGHTING */);
+			GL11.glEnable(2929 /* GL_DEPTH_TEST */);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessRedstone: " + this.getClass().toString())
+					.writeStackTrace(e);
+		}
+	}
+	
+	/**
+	 * Draw a bordered box around a string.<br>
+	 * Outer height is always 10, inner 8.
+	 * 
+	 * @param x1
+	 *            screen X coordinate, top left
+	 * @param y1
+	 *            screen Y coordinate, top left
+	 * @param x2
+	 *            screen X coordinate, bottom right
+	 */
+	protected void drawStringBorder(int x1, int y1, int x2) {
+		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
+		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
+	}
+	
+	/**
+	 * Draws the Name of the Gui at the top of the Gui
+	 */
+	protected void drawGuiName() {
+		drawStringBorder((xSize / 2)
+				- (fontRenderer.getStringWidth(getGuiName()) / 2), 6, (xSize / 2)
+				+ (fontRenderer.getStringWidth(getGuiName()) / 2));
+		fontRenderer.drawString(getGuiName(),
+				(xSize / 2) - (fontRenderer.getStringWidth(getGuiName()) / 2), 6,
+				0x404040);
+	}
+	
+	/**
+	 * Draws the frequency at a distance at Y from the centred value
+	 * @param y
+	 */
+	protected void drawFrequency(int y) {
+		fontRenderer
+		.drawString(
+				getFreq() + "",
+				(xSize / 2)
+						- (fontRenderer.getStringWidth(getFreq()
+								+ "") / 2), (ySize / 2) + y,
+				0x404040);
+	}
+	
+	/**
+	 * Draws the frequency with a border at a distance at Y from the centred value
+	 * 
+	 * Y the Y position of the text
+	 */
+	protected void drawFrequencyAndBox(int y) {
+		drawStringBorder(
+				(xSize / 2)
+						- (fontRenderer.getStringWidth(getFreq() + "") / 2),
+				(ySize / 2) + y,
+				(xSize / 2)
+						+ (fontRenderer.getStringWidth(getFreq() + "") / 2));
+		drawFrequency(y);
+	}
+	
+	protected void drawFrequencyLabel(int y) {
+		fontRenderer.drawString("Frequency",
+				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
+				y, 0x404040);
+	}
+	
+	protected void drawFrequencyLabelAndBox(int y) {
+		drawStringBorder(
+				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
+				y, (xSize / 2)
+						+ (fontRenderer.getStringWidth("Frequency") / 2));
+		drawFrequencyLabel(y);
+	}
+
+	/**
+	 * Draws the strings.<br>
+	 * - Name.<br>
+	 * - Frequency.
+	 */
+	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
+		drawFrequencyLabelAndBox(32);
+		drawFrequencyAndBox(-35);
+	}
+
+	/**
+	 * Draws the background layer.
+	 * 
+	 * @param f
+	 *            tick partial
+	 */
+	protected void drawGuiContainerBackgroundLayer(int i, int j, float f) {
+		int tex = mc.renderEngine.getTexture(getBackgroundImage());
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.renderEngine.bindTexture(tex);
+		int sizeX = (width - xSize) / 2;
+		int sizeY = (height - ySize) / 2;
+		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
+	}
+	
+	/**
+	 * Draws the tooltips of a button when Mouse is hovered
+	 * 
+	 * @param i x Coordinate
+	 * @param j y Coordinate
+	 * @param f tick partial
+	 */
+	private void drawButtonTooltips(int i, int j, float f) {
 		for (int control = 0; control < this.controlList.size(); control++) {
 			if (this.controlList.get(control) instanceof GuiButtonWireless) {
 				GuiButtonWireless button = (GuiButtonWireless) this.controlList
 						.get(control);
 
 				if (this.isMouseOverButton(button, i, j)) {
-					this.drawToolTip(button, i, j);
+					button.drawToolTip(fontRenderer, i, j);
 				}
 			}
 		}
@@ -210,71 +378,6 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	}
 
 	/**
-	 * Draw a bordered box around a string.<br>
-	 * Outer height is always 10, inner 8.
-	 * 
-	 * @param x1
-	 *            screen X coordinate, top left
-	 * @param y1
-	 *            screen Y coordinate, top left
-	 * @param x2
-	 *            screen X coordinate, bottom right
-	 */
-	protected void drawStringBorder(int x1, int y1, int x2) {
-		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
-		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
-	}
-
-	/**
-	 * Draw a tooltip at the mouse pointer when.<br>
-	 * Called when the mouse pointer is within button bounds.
-	 * 
-	 * @param button A GuiButtonWireless
-	 * @param x mouse X coordinate
-	 * @param y mouse Y coordinate
-	 */
-	protected void drawToolTip(GuiButtonWireless button, int x, int y) {
-		String buttonPopupText = button.getPopupText();
-		if (!buttonPopupText.isEmpty()) {
-			
-			int l1 = fontRenderer.getStringWidth(button.getPopupText());
-			int i = 0;
-			int j = -10;
-			int j2 = (x - i) + 12;
-			int l2 = y - j - 12;
-			int i3 = l1 + 5;
-			int j3 = 8;
-	
-			zLevel = 300.0F;
-			int k3 = 0xf0100010;
-			drawGradientRect(j2 - 3, l2 - 4, j2 + i3 + 3, l2 - 3, k3, k3);
-			drawGradientRect(j2 - 3, l2 + j3 + 3, j2 + i3 + 3, l2 + j3 + 4, k3, k3);
-			drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, l2 + j3 + 3, k3, k3);
-			drawGradientRect(j2 - 4, l2 - 3, j2 - 3, l2 + j3 + 3, k3, k3);
-			drawGradientRect(j2 + i3 + 3, l2 - 3, j2 + i3 + 4, l2 + j3 + 3, k3, k3);
-			int l3 = 0x505000ff;
-			int i4 = (l3 & 0xfefefe) >> 1 | l3 & 0xff000000;
-			drawGradientRect(j2 - 3, (l2 - 3) + 1, (j2 - 3) + 1, (l2 + j3 + 3) - 1,
-					l3, i4);
-			drawGradientRect(j2 + i3 + 2, (l2 - 3) + 1, j2 + i3 + 3,
-					(l2 + j3 + 3) - 1, l3, i4);
-			drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, (l2 - 3) + 1, l3, l3);
-			drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4, i4);
-	
-			fontRenderer.drawSplitString(button.getPopupText(), x + 15, y - 1,
-					l1 * 2, 0xFFFFFFFF);
-			zLevel = 0.0F;
-		}
-	}
-
-	/**
-	 * Draws the strings.<br>
-	 * - Name.<br>
-	 * - Frequency.
-	 */
-	protected abstract void drawGuiContainerForegroundLayer() ;
-
-	/**
 	 * Always returns false, prevents game from pausing when GUI is open.
 	 * 
 	 * @return false
@@ -282,21 +385,5 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
-	}
-
-	/**
-	 * Fetches the frequency
-	 * 
-	 * @return Frequency.
-	 */
-	protected abstract Object getFreq();
-
-	/**
-	 * Sets the frequency
-	 * 
-	 * @param freq
-	 *            frequency.
-	 */
-	protected abstract void setFreq(String freq);
-	
+	}	
 }

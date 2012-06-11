@@ -35,10 +35,15 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	public void addOverride(GuiRedstoneWirelessOverride clockerOverride) {
 		clockerOverrides.add(clockerOverride);
 	}
+	
+	@Override
+	public String getBackgroundImage() {
+		return "/gui/wifi_large.png";
+	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	protected void addControls() {
+		super.addControls();
 
 		controlList.add(new GuiButton(8, (width / 2) + 1, (height / 2) + 45,
 				24, 20, "+10"));
@@ -131,8 +136,8 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer() {
-		super.drawGuiContainerForegroundLayer();
+	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
+		super.drawGuiContainerForegroundLayer(i, j, f);
 
 		drawStringBorder(
 				(xSize / 2)
@@ -145,15 +150,5 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 		fontRenderer.drawString("Clocking Frequency (ms)", (xSize / 2)
 				- (fontRenderer.getStringWidth("Clocking Frequency (ms)") / 2),
 				97, 0x404040);
-	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
-		int i = mc.renderEngine.getTexture("/gui/wifi_large.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(i);
-		int j = (width - xSize) / 2;
-		int k = (height - ySize) / 2;
-		drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
 	}
 }

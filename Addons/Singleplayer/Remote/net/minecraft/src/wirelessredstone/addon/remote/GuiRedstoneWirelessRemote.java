@@ -42,14 +42,17 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 						this.itemstack.getItemDamage(),
 						this.world, this.entityplayer);
 	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	
 	@Override
-	public void initGui() {
-		super.initGui();
-
+	protected void addControls() {
+		super.addControls();
 		controlList.add(new GuiButtonBoolean(20, (width / 2) - 20,
 				(height / 2) + 5, 40, 20, "Pulse", false));
+	}
+
+	@Override
+	protected String getBackgroundImage() {
+		return "/gui/wifi_medium.png";
 	}
 
 	@Override
@@ -65,15 +68,5 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 	@Override
 	public void onGuiClosed() {
 		if (entityplayer.getCurrentEquippedItem() == null) {}
-	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
-		int a = mc.renderEngine.getTexture("/gui/wifi_medium.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(a);
-		int b = (width - xSize) / 2;
-		int c = (height - ySize) / 2;
-		drawTexturedModalRect(b, c, 0, 0, xSize, ySize);
 	}
 }

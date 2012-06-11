@@ -26,17 +26,9 @@ public class GuiRedstoneWirelessT extends GuiRedstoneWirelessInventory {
 		super();
 	}
 
-	/**
-	 * Draws the background layer.<br>
-	 * Uses gui/wifi_small.png
-	 */
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
-		int i = mc.renderEngine.getTexture("/gui/wifi_small.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(i);
-		int j = (width - xSize) / 2;
-		int k = (height - ySize) / 2;
-		drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+	protected String getBackgroundImage() {
+		return "/gui/wifi_small.png";
 	}
+
 }

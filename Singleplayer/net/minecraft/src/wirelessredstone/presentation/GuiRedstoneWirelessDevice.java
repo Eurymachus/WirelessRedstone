@@ -42,22 +42,14 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	 */
 	protected WirelessDeviceData wirelessDeviceData;
 
-	/**
-	 * Constructor.<br>
-	 * Sets default width,height and initializes override list object.
-	 */
 	public GuiRedstoneWirelessDevice() {
 		super();
 		this.xSize = 177;
 		this.ySize = 166;
 	}
-
-	/**
-	 * Initializes the GUI.<br>
-	 * Adds buttons.
-	 */
+	
 	@Override
-	public void initGui() {
+	protected void addControls() {
 		controlList.add(new GuiButtonWireless(0, (width / 2) + 10, (height / 2) - 20,
 				20, 20, "+"));
 		controlList.add(new GuiButtonWireless(1, (width / 2) - 30, (height / 2) - 20,
@@ -77,82 +69,7 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 
 		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
-		super.initGui();
 	}
-
-	/**
-	 * Draws the background layer.
-	 * 
-	 * @param f
-	 *            tick partial
-	 */
-	protected abstract void drawGuiContainerBackgroundLayer(float f);
-
-	/**
-	 * Draws the entire GUI to the screen.
-	 * 
-	 * @param i
-	 *            mouse X coordinate
-	 * @param j
-	 *            mouse Y coordinate
-	 * @param f
-	 *            tick partial
-	 */
-	@Override
-	public void drawScreen(int i, int j, float f) {
-		try {
-			drawDefaultBackground();
-			int k = (width - xSize) / 2;
-			int l = (height - ySize) / 2;
-			drawGuiContainerBackgroundLayer(f);
-
-			GL11.glPushMatrix();
-			GL11.glTranslatef(k, l, 0.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
-			RenderHelper.disableStandardItemLighting();
-			GL11.glDisable(2896 /* GL_LIGHTING */);
-			GL11.glDisable(2929 /* GL_DEPTH_TEST */);
-			drawGuiContainerForegroundLayer();
-			GL11.glPopMatrix();
-
-			super.drawScreen(i, j, f);
-
-			GL11.glEnable(2896 /* GL_LIGHTING */);
-			GL11.glEnable(2929 /* GL_DEPTH_TEST */);
-
-			GL11.glDisable(2896 /* GL_LIGHTING */);
-			drawStringBorder(
-					(width / 2)
-							- (fontRenderer.getStringWidth(getFreq() + "") / 2),
-					(height / 2) - 35,
-					(width / 2)
-							+ (fontRenderer.getStringWidth(getFreq() + "") / 2));
-
-			fontRenderer
-					.drawString(
-							getFreq() + "",
-							(width / 2)
-									- (fontRenderer.getStringWidth(getFreq()
-											+ "") / 2), (height / 2) - 35,
-							0x404040);
-			GL11.glEnable(2896 /* GL_LIGHTING */);
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
-		}
-	}
-
-	/**
-	 * Action listener.<br>
-	 * Triggers when a button was clicked on the GUI.<br>
-	 * - Runs all override beforeFrequencyChange, exits if premature exit was
-	 * returned, skipping the frequency from being set.
-	 * 
-	 * @param guibutton
-	 *            button that was clicked
-	 */
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		try {
@@ -218,138 +135,21 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	}
 
 	/**
-	 * Handles keyboard input.<br>
-	 * If inventory key is pressed or ESC, close the GUI.
-	 */
-	@Override
-	public void handleKeyboardInput() {
-		try {
-			super.handleKeyboardInput();
-
-			if (Keyboard.getEventKeyState()) {
-				int inventoryKey = 0;
-				for (Object o : KeyBinding.keybindArray) {
-					if (((KeyBinding) o).keyDescription.equals("key.inventory")) {
-						inventoryKey = ((KeyBinding) o).keyCode;
-						break;
-					}
-				}
-				if (Keyboard.getEventKey() == inventoryKey
-						|| Keyboard.getEventKey() == 28) {
-					close();
-					return;
-				}
-			}
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
-		}
-	}
-
-	/**
-	 * Handles mouse input.<br>
-	 * Close GUI on right click.
-	 */
-	@Override
-	public void handleMouseInput() {
-		try {
-			super.handleMouseInput();
-			if (Mouse.getEventButton() == 1 && Mouse.getEventButtonState())
-				close();
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
-		}
-	}
-
-	/**
-	 * Closes the GUI.
-	 */
-	public void close() {
-		try {
-			mc.displayGuiScreen(null);
-			mc.setIngameFocus();
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
-		}
-	}
-
-	/**
-	 * Draw a bordered box around a string.<br>
-	 * Outer height is always 10, inner 8.
-	 * 
-	 * @param x1
-	 *            screen X coordinate, top left
-	 * @param y1
-	 *            screen Y coordinate, top left
-	 * @param x2
-	 *            screen X coordinate, bottom right
-	 */
-	protected void drawStringBorder(int x1, int y1, int x2) {
-		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
-		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
-	}
-
-	/**
-	 * Draws the strings.<br>
-	 * - Name.<br>
-	 * - Frequency.
-	 */
-	protected void drawGuiContainerForegroundLayer() {
-		drawStringBorder((xSize / 2)
-				- (fontRenderer.getStringWidth(getName()) / 2), 6, (xSize / 2)
-				+ (fontRenderer.getStringWidth(getName()) / 2));
-		fontRenderer.drawString(getName(),
-				(xSize / 2) - (fontRenderer.getStringWidth(getName()) / 2), 6,
-				0x404040);
-
-		drawStringBorder(
-				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
-				32, (xSize / 2)
-						+ (fontRenderer.getStringWidth("Frequency") / 2));
-		fontRenderer.drawString("Frequency",
-				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
-				32, 0x404040);
-	}
-
-	/**
-	 * Always returns false, prevents game from pausing when GUI is open.
-	 * 
-	 * @return false
-	 */
-	@Override
-	public boolean doesGuiPauseGame() {
-		return false;
-	}
-
-	/**
 	 * WirelessDeviceData name.
 	 * 
 	 * @return Name.
 	 */
-	protected String getName() {
+	@Override
+	protected String getGuiName() {
 		return this.wirelessDeviceData.getName();
 	}
-
-	/**
-	 * Fetches the frequency from the WirelessDeviceData
-	 * 
-	 * @return Frequency.
-	 */
+	
+	@Override
 	protected Object getFreq() {
 		return this.wirelessDeviceData.getFreq();
 	}
-
-	/**
-	 * Sets the frequency in the WirelessDeviceData.
-	 * 
-	 * @param freq
-	 *            frequency.
-	 */
+	
+	@Override
 	protected void setFreq(String freq) {
 		this.wirelessDeviceData.setFreq(freq);
 	}

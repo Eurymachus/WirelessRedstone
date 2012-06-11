@@ -29,32 +29,32 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessSniffer extends GuiRedstoneWireless {
+public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	private int nodeSize = 4;
 	private int pageWidth = 50;
 	private int pageHeight = 30;
 	private ThreadWirelessSniffer thr;
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
-	protected WirelessDeviceData wirelessSnifferData;
 
 	public GuiRedstoneWirelessSniffer(World world, EntityPlayer entityplayer) {
 		super();
 		this.world = world;
 		this.entityplayer = entityplayer;
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessSnifferData = WirelessSniffer.getSnifferData(itemstack,
+		this.wirelessDeviceData = WirelessSniffer.getSnifferData(itemstack,
 				this.world, this.entityplayer);
 		xSize = 256;
 		ySize = 200;
 		thr = new ThreadWirelessSniffer(this);
 	}
-
+	
 	@Override
-	public void initGui() {
+	protected void addControls() {
 		int currentPage = this.getPage();
 		nextButton = new GuiButtonBoolean(0, (width / 2) + 40,
 				(height / 2) + 75, 40, 20, "Next", true, "Next Page");
@@ -68,15 +68,14 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWireless {
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 		controlList.add(nextButton);
 		controlList.add(prevButton);
-		super.initGui();
 	}
 
 	private int getPage() {
-		return ((WirelessSnifferData) this.wirelessSnifferData).getPageNumber();
+		return ((WirelessSnifferData) this.wirelessDeviceData).getPageNumber();
 	}
 
 	private void setPage(int pageNumber) {
-		((WirelessSnifferData) this.wirelessSnifferData)
+		((WirelessSnifferData) this.wirelessDeviceData)
 				.setPageNumber(pageNumber);
 	}
 
@@ -117,41 +116,10 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWireless {
 		} else
 			prevButton.enabled = true;
 	}
-
+	
 	@Override
-	public void drawScreen(int i, int j, float f) {
-		drawDefaultBackground();
-
-		int m = mc.renderEngine.getTexture("/gui/wifi_xlarge.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(m);
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-
-		GL11.glPushMatrix();
-		GL11.glTranslatef(x, y, 0.0F);
-		GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
-		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(2896 /* GL_LIGHTING */);
-		GL11.glDisable(2929 /* GL_DEPTH_TEST */);
-		drawFrequencies(4, 24);
-		fontRenderer
-				.drawString(
-						"Wireless Sniffer",
-						(xSize / 2)
-								- (fontRenderer
-										.getStringWidth("Wireless Sniffer") / 2),
-						6, 0x404040);
-		String drawPage = "Page [" + (this.getPage() + 1) + "]";
-		fontRenderer.drawString(drawPage,
-				(xSize / 2) - (fontRenderer.getStringWidth(drawPage) / 2),
-				(height / 2) + 62, 0x00000000);
-		GL11.glPopMatrix();
-
-		super.drawScreen(i, j, f);
-		GL11.glEnable(2896 /* GL_LIGHTING */);
-		GL11.glEnable(2929 /* GL_DEPTH_TEST */);
+	protected String getBackgroundImage() {
+		return "/gui/wifi_xlarge.png";
 	}
 
 	private void drawFrequencies(int i, int j) {
@@ -182,15 +150,19 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWireless {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer() {
-		// TODO Auto-generated method stub
-		
+	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
+		drawFrequencies(4, 24);
+		fontRenderer
+				.drawString(
+						"Wireless Sniffer",
+						(xSize / 2)
+								- (fontRenderer
+										.getStringWidth("Wireless Sniffer") / 2),
+						6, 0x404040);
+		String drawPage = "Page [" + (this.getPage() + 1) + "]";
+		fontRenderer.drawString(drawPage,
+				(xSize / 2) - (fontRenderer.getStringWidth(drawPage) / 2),
+				(height / 2) + 62, 0x00000000);
 	}
 
 	@Override

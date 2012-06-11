@@ -28,12 +28,12 @@ import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
-	protected TileEntityRedstoneWirelessR inventory;
+public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWirelessInventory {
 	protected List<GuiRedstoneWirelessOverride> powerOverrides;
 
 	public GuiRedstoneWirelessPowerDirector(
@@ -50,8 +50,12 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 	}
 
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void initGui() {
+	public String getBackgroundImage() {
+		return "/gui/wifi_medium.png";
+	}
+	
+	@Override
+	protected void addControls() {
 		controlList = new ArrayList();
 		controlList.add(new GuiButtonBoolean(0, (width / 2) - 60,
 				(height / 2) - 42, 20, 20, "N", inventory
@@ -88,7 +92,6 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 
 		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
-		super.initGui();
 	}
 
 	@Override
@@ -187,32 +190,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 	}
 
 	@Override
-	public void drawScreen(int i, int j, float f) {
-		drawDefaultBackground();
-
-		int m = mc.renderEngine.getTexture("/gui/wifi_medium.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(m);
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-
-		GL11.glPushMatrix();
-		GL11.glTranslatef((width - xSize) / 2, (height - ySize) / 2, 0.0F);
-		GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
-		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(2896 /* GL_LIGHTING */);
-		GL11.glDisable(2929 /* GL_DEPTH_TEST */);
-		drawStringBorder(
-				(xSize / 2)
-						- (fontRenderer.getStringWidth(inventory.getInvName()) / 2),
-				6,
-				(xSize / 2)
-						+ (fontRenderer.getStringWidth(inventory.getInvName()) / 2));
-		fontRenderer.drawString(inventory.getInvName(), (xSize / 2)
-				- (fontRenderer.getStringWidth(inventory.getInvName()) / 2), 6,
-				0x404040);
-
+	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
 		drawStringBorder(
 				(xSize / 2)
 						- (fontRenderer.getStringWidth("Power Direction") / 2),
@@ -234,39 +212,5 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWireless {
 				(xSize / 2)
 						- (fontRenderer.getStringWidth("Indirect Power") / 2),
 				70, 0x404040);
-
-		GL11.glPopMatrix();
-		super.drawScreen(i, j, f);
-		GL11.glEnable(2896 /* GL_LIGHTING */);
-		GL11.glEnable(2929 /* GL_DEPTH_TEST */);
-	}
-
-	protected void drawStringBorder(int x1, int y1, int x2) {
-		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
-		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
-	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected Object getFreq() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected void setFreq(String freq) {
-		// TODO Auto-generated method stub
-		
 	}
 }

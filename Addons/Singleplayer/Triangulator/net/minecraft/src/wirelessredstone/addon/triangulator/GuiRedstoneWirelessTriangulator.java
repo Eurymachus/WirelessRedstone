@@ -49,12 +49,7 @@ public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWirelessDevice {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f) {
-		int m = mc.renderEngine.getTexture("/gui/wifi_small.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(m);
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+	protected String getBackgroundImage() {
+		return "/gui/wifi_small.png";
 	}
 }
