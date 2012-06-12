@@ -20,8 +20,10 @@ import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventory
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class GuiRedstoneWirelessOverrideSMP implements GuiRedstoneWirelessInventoryOverride {
+public class GuiRedstoneWirelessOverrideSMP implements
+		GuiRedstoneWirelessInventoryOverride {
 
+	@Override
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq) {
 		if ((ModLoader.getMinecraftInstance().theWorld.isRemote)) {

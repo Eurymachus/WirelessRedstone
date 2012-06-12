@@ -25,7 +25,8 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * @author ali4z
  * 
  */
-public interface GuiRedstoneWirelessInventoryOverride extends GuiRedstoneWirelessOverride {
+public interface GuiRedstoneWirelessInventoryOverride extends
+		GuiRedstoneWirelessOverride {
 	/**
 	 * Triggers before the frequency is changed.
 	 * 
@@ -37,6 +38,7 @@ public interface GuiRedstoneWirelessInventoryOverride extends GuiRedstoneWireles
 	 *            new frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
+	@Override
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq);
 }

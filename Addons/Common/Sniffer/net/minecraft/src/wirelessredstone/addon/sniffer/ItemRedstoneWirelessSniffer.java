@@ -21,9 +21,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.sniffer.data.RedstoneWirelessSnifferPageNumber;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessSniffer extends Item {
@@ -36,7 +34,9 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			WirelessSniffer.openGUI(getSnifferData(itemstack, world, entityplayer), world, entityplayer);
+			WirelessSniffer.openGUI(
+					getSnifferData(itemstack, world, entityplayer), world,
+					entityplayer);
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -73,14 +73,17 @@ public class ItemRedstoneWirelessSniffer extends Item {
 		// return WirelessSniffer.snifferon;
 		return WirelessSniffer.snifferoff;
 	}
-	
-	private WirelessSnifferData getSnifferData(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		return getSnifferData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+
+	private WirelessSnifferData getSnifferData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
+		return getSnifferData(this.getItemName(), itemstack.getItemDamage(),
+				world, entityplayer);
 	}
 
 	private WirelessSnifferData getSnifferData(String indexname, int id,
 			World world, EntityPlayer entityplayer) {
-		return (WirelessSnifferData) WirelessRedstone.getDeviceData(WirelessSnifferData.class,indexname, id, world, entityplayer);
+		return (WirelessSnifferData) WirelessRedstone.getDeviceData(
+				WirelessSnifferData.class, indexname, id, world, entityplayer);
 	}
 
 	@Override
@@ -88,12 +91,8 @@ public class ItemRedstoneWirelessSniffer extends Item {
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-			WirelessSnifferData data = this
-					.getSnifferData(
-							this.getItemName(),
-							itemstack.getItemDamage(),
-							world,
-							entityplayer);
+			WirelessSnifferData data = this.getSnifferData(this.getItemName(),
+					itemstack.getItemDamage(), world, entityplayer);
 			String freq = data.getFreq();
 			int pageNumber = data.getPage();
 		}
@@ -103,6 +102,8 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		WirelessSniffer.newSnifferDevice(this.getItemDisplayName(itemstack), this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+		WirelessSniffer.newSnifferDevice(this.getItemDisplayName(itemstack),
+				this.getItemName(), itemstack.getItemDamage(), world,
+				entityplayer);
 	}
 }

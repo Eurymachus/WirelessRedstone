@@ -11,7 +11,6 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 
 public class WirelessTriangulator {
 	public static final boolean isServer = false;
@@ -60,10 +59,12 @@ public class WirelessTriangulator {
 		 */
 	}
 
-	public static WirelessTriangulatorData newTriangulatorDevice(String fullitemname, String indexname, int id,
-			World world, EntityPlayer entityplayer) {
+	public static WirelessTriangulatorData newTriangulatorDevice(
+			String fullitemname, String indexname, int id, World world,
+			EntityPlayer entityplayer) {
 		String triangulatorName = indexname + "_" + id;
-		WirelessTriangulatorData wirelessTriangulatorData = new WirelessTriangulatorData(triangulatorName);
+		WirelessTriangulatorData wirelessTriangulatorData = new WirelessTriangulatorData(
+				triangulatorName);
 		world.setItemData(triangulatorName, wirelessTriangulatorData);
 		wirelessTriangulatorData.setID(id);
 		wirelessTriangulatorData.setName(fullitemname);
@@ -83,9 +84,10 @@ public class WirelessTriangulator {
 				"Triangulator").get("ID", Integer.class, new Integer(triangID));
 	}
 
-	public static void openGUI(WirelessTriangulatorData data, EntityPlayer entityplayer, World world) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(data,
-				entityplayer, world));
+	public static void openGUI(WirelessTriangulatorData data,
+			EntityPlayer entityplayer, World world) {
+		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(
+				data, entityplayer, world));
 	}
 
 	public static void onTickInGame(float tick, Minecraft mc) {

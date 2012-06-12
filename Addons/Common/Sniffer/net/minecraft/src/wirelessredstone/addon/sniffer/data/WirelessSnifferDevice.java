@@ -5,7 +5,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.data.WirelessDevice;
 
 public class WirelessSnifferDevice extends WirelessDevice {
@@ -15,19 +14,16 @@ public class WirelessSnifferDevice extends WirelessDevice {
 		this.world = world;
 		this.owner = entityplayer;
 		this.data = (WirelessSnifferData) WirelessRedstone.getDeviceData(
-						WirelessSnifferData.class,
-						itemstack.getItem().getItemName(),
-						itemstack.getItemDamage(),
-						world,
-						entityplayer);
+				WirelessSnifferData.class, itemstack.getItem().getItemName(),
+				itemstack.getItemDamage(), world, entityplayer);
 	}
 
 	public int getPage() {
-		return ((WirelessSnifferData)data).getPage();
+		return ((WirelessSnifferData) data).getPage();
 	}
 
 	public void setPage(int pageNumber) {
-		((WirelessSnifferData)data).setPage(pageNumber);
+		((WirelessSnifferData) data).setPage(pageNumber);
 	}
 
 	public boolean isInPlayerInventory() {
@@ -43,11 +39,13 @@ public class WirelessSnifferDevice extends WirelessDevice {
 
 	@Override
 	public void activate() {
-		if (this.data != null) {}
+		if (this.data != null) {
+		}
 	}
 
 	@Override
 	public void deactivate() {
-		if (this.data != null) {}
+		if (this.data != null) {
+		}
 	}
 }

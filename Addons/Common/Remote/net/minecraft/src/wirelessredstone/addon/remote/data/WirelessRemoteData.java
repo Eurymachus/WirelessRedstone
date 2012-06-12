@@ -25,7 +25,7 @@ public class WirelessRemoteData extends WirelessDeviceData {
 	public boolean getDeviceState() {
 		return this.state;
 	}
-	
+
 	public void setDeviceState(boolean state) {
 		this.state = state;
 		this.markDirty();

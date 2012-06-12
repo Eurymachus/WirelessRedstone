@@ -25,7 +25,8 @@ import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
  * @author ali4z
  * 
  */
-public interface GuiRedstoneWirelessDeviceOverride extends GuiRedstoneWirelessOverride {
+public interface GuiRedstoneWirelessDeviceOverride extends
+		GuiRedstoneWirelessOverride {
 	/**
 	 * Triggers before the frequency is changed.
 	 * 
@@ -37,6 +38,7 @@ public interface GuiRedstoneWirelessDeviceOverride extends GuiRedstoneWirelessOv
 	 *            new frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
+	@Override
 	public boolean beforeFrequencyChange(WirelessDeviceData data,
 			Object oldFreq, Object newFreq);
 }

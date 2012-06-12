@@ -22,7 +22,6 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessTriangulator extends Item {
@@ -35,7 +34,9 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			WirelessTriangulator.openGUI(getTriangulatorData(itemstack, world, entityplayer), entityplayer, world);
+			WirelessTriangulator.openGUI(
+					getTriangulatorData(itemstack, world, entityplayer),
+					entityplayer, world);
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -61,22 +62,27 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 		return true;
 	}
 
-	private WirelessTriangulatorData getTriangulatorData(ItemStack itemstack, World world,
-			EntityPlayer entityplayer) {
-		return getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+	private WirelessTriangulatorData getTriangulatorData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
+		return getTriangulatorData(this.getItemName(),
+				itemstack.getItemDamage(), world, entityplayer);
 	}
 
-	private WirelessTriangulatorData getTriangulatorData(String itemname, int id, World world,
-			EntityPlayer entityplayer) {
-		return (WirelessTriangulatorData) WirelessRedstone.getDeviceData(WirelessTriangulatorData.class, itemname, id, world, entityplayer);
+	private WirelessTriangulatorData getTriangulatorData(String itemname,
+			int id, World world, EntityPlayer entityplayer) {
+		return (WirelessTriangulatorData) WirelessRedstone.getDeviceData(
+				WirelessTriangulatorData.class, itemname, id, world,
+				entityplayer);
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity,
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer)entity;
-			WirelessTriangulatorData data = this.getTriangulatorData(this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+			EntityPlayer entityplayer = (EntityPlayer) entity;
+			WirelessTriangulatorData data = this.getTriangulatorData(
+					this.getItemName(), itemstack.getItemDamage(), world,
+					entityplayer);
 			String freq = data.getFreq();
 		}
 	}
@@ -85,6 +91,8 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		WirelessTriangulator.newTriangulatorDevice(this.getItemDisplayName(itemstack), this.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+		WirelessTriangulator.newTriangulatorDevice(
+				this.getItemDisplayName(itemstack), this.getItemName(),
+				itemstack.getItemDamage(), world, entityplayer);
 	}
 }

@@ -35,7 +35,7 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	public void addOverride(GuiRedstoneWirelessOverride clockerOverride) {
 		clockerOverrides.add(clockerOverride);
 	}
-	
+
 	@Override
 	public String getBackgroundImage() {
 		return "/gui/wifi_large.png";
@@ -123,8 +123,8 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 
 		boolean prematureExit = false;
 		for (GuiRedstoneWirelessOverride override : clockerOverrides) {
-			if (((GuiRedstoneWirelessInventoryOverride)override).beforeFrequencyChange(inventory, oldClockFreq,
-					clockFreq))
+			if (((GuiRedstoneWirelessInventoryOverride) override)
+					.beforeFrequencyChange(inventory, oldClockFreq, clockFreq))
 				prematureExit = true;
 		}
 		if (prematureExit)

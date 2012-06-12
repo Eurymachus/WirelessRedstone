@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.data;
 
-
 public class WirelessReadWriteLock {
 	private int readers = 0;
 	private int writers = 0;

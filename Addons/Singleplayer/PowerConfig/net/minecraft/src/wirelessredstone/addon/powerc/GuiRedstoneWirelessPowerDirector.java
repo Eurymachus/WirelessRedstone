@@ -18,22 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.RenderHelper;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
-import net.minecraft.src.wirelessredstone.presentation.GuiButtonWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
-import org.lwjgl.opengl.GL11;
-
-public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWirelessInventory {
+public class GuiRedstoneWirelessPowerDirector extends
+		GuiRedstoneWirelessInventory {
 	protected List<GuiRedstoneWirelessOverride> powerOverrides;
 
 	public GuiRedstoneWirelessPowerDirector(
@@ -45,6 +39,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWirelessInvento
 		this.powerOverrides = new ArrayList<GuiRedstoneWirelessOverride>();
 	}
 
+	@Override
 	public void addOverride(GuiRedstoneWirelessOverride override) {
 		this.powerOverrides.add(override);
 	}
@@ -53,7 +48,7 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWirelessInvento
 	public String getBackgroundImage() {
 		return "/gui/wifi_medium.png";
 	}
-	
+
 	@Override
 	protected void addControls() {
 		controlList = new ArrayList();
@@ -143,13 +138,15 @@ public class GuiRedstoneWirelessPowerDirector extends GuiRedstoneWirelessInvento
 			boolean prematureExit = false;
 			for (GuiRedstoneWirelessOverride override : powerOverrides) {
 				if (dir >= 0) {
-					if (((GuiRedstoneWirelessInventoryOverride)override).beforeFrequencyChange(inventory,
-							"Power Direction", dir))
+					if (((GuiRedstoneWirelessInventoryOverride) override)
+							.beforeFrequencyChange(inventory,
+									"Power Direction", dir))
 						prematureExit = true;
 				}
 				if (indir >= 0) {
-					if (((GuiRedstoneWirelessInventoryOverride)override).beforeFrequencyChange(inventory,
-							"Indirect Power", indir))
+					if (((GuiRedstoneWirelessInventoryOverride) override)
+							.beforeFrequencyChange(inventory, "Indirect Power",
+									indir))
 						prematureExit = true;
 				}
 			}

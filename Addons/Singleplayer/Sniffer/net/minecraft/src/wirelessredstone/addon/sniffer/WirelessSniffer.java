@@ -9,7 +9,6 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 
 public class WirelessSniffer {
 	public static boolean isLoaded = false;
@@ -52,10 +51,11 @@ public class WirelessSniffer {
 				.get("ID", Integer.class, new Integer(sniffID));
 	}
 
-	public static WirelessSnifferData newSnifferDevice(String fullitemname, String indexname, int id,
-			World world, EntityPlayer entityplayer) {
+	public static WirelessSnifferData newSnifferDevice(String fullitemname,
+			String indexname, int id, World world, EntityPlayer entityplayer) {
 		String snifferName = indexname + "_" + id;
-		WirelessSnifferData wirelessSnifferData = new WirelessSnifferData(snifferName);
+		WirelessSnifferData wirelessSnifferData = new WirelessSnifferData(
+				snifferName);
 		world.setItemData(snifferName, wirelessSnifferData);
 		wirelessSnifferData.setID(id);
 		wirelessSnifferData.setName(fullitemname);
@@ -64,7 +64,8 @@ public class WirelessSniffer {
 		return wirelessSnifferData;
 	}
 
-	public static void openGUI(WirelessSnifferData data, World world, EntityPlayer entityplayer) {
+	public static void openGUI(WirelessSnifferData data, World world,
+			EntityPlayer entityplayer) {
 		GuiRedstoneWirelessSniffer guiSniffer = new GuiRedstoneWirelessSniffer(
 				data, world, entityplayer);
 		ModLoader.openGUI(entityplayer, guiSniffer);

@@ -18,7 +18,6 @@ import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
@@ -150,7 +149,7 @@ public class WirelessRemote {
 			world.setItemData(remoteName, wirelessRemoteData);
 			wirelessRemoteData.setID(id);
 			wirelessRemoteData.setName(itemname);
-			//wirelessRemoteData.setDeviceOwner(entityplayer);
+			// wirelessRemoteData.setDeviceOwner(entityplayer);
 			wirelessRemoteData.setDimension(world);
 			wirelessRemoteData.setFreq("0");
 			wirelessRemoteData.setDeviceState(false);

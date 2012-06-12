@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.data;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
@@ -9,7 +8,7 @@ import net.minecraft.src.WorldSavedData;
 public abstract class WirelessDeviceData extends WorldSavedData {
 	protected int id;
 	protected String name;
-	//protected String owner;
+	// protected String owner;
 	protected Byte dimension;
 	protected String freq;
 
@@ -21,9 +20,9 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		this.setID(itemstack.getItemDamage());
 	}
 
-	//public void setDeviceOwner(EntityPlayer entityplayer) {
-	//	this.setDeviceOwner(entityplayer.username);
-	//}
+	// public void setDeviceOwner(EntityPlayer entityplayer) {
+	// this.setDeviceOwner(entityplayer.username);
+	// }
 
 	public void setID(int id) {
 		this.id = id;
@@ -35,10 +34,10 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		this.markDirty();
 	}
 
-	//public void setDeviceOwner(String name) {
-	//	this.owner = name;
-	//	this.markDirty();
-	//}
+	// public void setDeviceOwner(String name) {
+	// this.owner = name;
+	// this.markDirty();
+	// }
 
 	public void setDimension(World world) {
 		this.dimension = (byte) world.worldProvider.worldType;
@@ -54,9 +53,9 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		return this.id;
 	}
 
-	//public String getDeviceOwner() {
-	//	return this.owner;
-	//}
+	// public String getDeviceOwner() {
+	// return this.owner;
+	// }
 
 	public String getName() {
 		return this.name;
@@ -74,7 +73,7 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		this.id = nbttagcompound.getInteger("id");
 		this.name = nbttagcompound.getString("name");
-	//	this.owner = nbttagcompound.getString("owner");
+		// this.owner = nbttagcompound.getString("owner");
 		this.dimension = nbttagcompound.getByte("dimension");
 		this.freq = nbttagcompound.getString("freq");
 	}
@@ -83,7 +82,7 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		nbttagcompound.setInteger("id", this.id);
 		nbttagcompound.setString("name", this.name);
-	//	nbttagcompound.setString("owner", this.owner);
+		// nbttagcompound.setString("owner", this.owner);
 		nbttagcompound.setByte("dimension", this.dimension);
 		nbttagcompound.setString("freq", this.freq);
 	}

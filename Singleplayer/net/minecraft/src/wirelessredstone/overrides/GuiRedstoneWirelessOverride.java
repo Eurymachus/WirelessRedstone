@@ -8,8 +8,7 @@ public abstract interface GuiRedstoneWirelessOverride {
 	boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq);
 
-	boolean beforeFrequencyChange(WirelessDeviceData data,
-			Object oldFreq, Object newFreq);
-
+	boolean beforeFrequencyChange(WirelessDeviceData data, Object oldFreq,
+			Object newFreq);
 
 }

@@ -53,14 +53,17 @@ public class GuiButtonWireless extends GuiButton {
 	 * Draw a tooltip at the mouse pointer when.<br>
 	 * Called when the mouse pointer is within button bounds.
 	 * 
-	 * @param button A GuiButtonWireless
-	 * @param x mouse X coordinate
-	 * @param y mouse Y coordinate
+	 * @param button
+	 *            A GuiButtonWireless
+	 * @param x
+	 *            mouse X coordinate
+	 * @param y
+	 *            mouse Y coordinate
 	 */
 	protected void drawToolTip(FontRenderer fontRenderer, int x, int y) {
 		String buttonPopupText = this.getPopupText();
 		if (!buttonPopupText.isEmpty()) {
-			
+
 			int l1 = fontRenderer.getStringWidth(this.getPopupText());
 			int i = 0;
 			int j = -10;
@@ -68,23 +71,26 @@ public class GuiButtonWireless extends GuiButton {
 			int l2 = y - j - 12;
 			int i3 = l1 + 5;
 			int j3 = 8;
-	
+
 			zLevel = 300.0F;
 			int k3 = 0xf0100010;
 			drawGradientRect(j2 - 3, l2 - 4, j2 + i3 + 3, l2 - 3, k3, k3);
-			drawGradientRect(j2 - 3, l2 + j3 + 3, j2 + i3 + 3, l2 + j3 + 4, k3, k3);
+			drawGradientRect(j2 - 3, l2 + j3 + 3, j2 + i3 + 3, l2 + j3 + 4, k3,
+					k3);
 			drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, l2 + j3 + 3, k3, k3);
 			drawGradientRect(j2 - 4, l2 - 3, j2 - 3, l2 + j3 + 3, k3, k3);
-			drawGradientRect(j2 + i3 + 3, l2 - 3, j2 + i3 + 4, l2 + j3 + 3, k3, k3);
+			drawGradientRect(j2 + i3 + 3, l2 - 3, j2 + i3 + 4, l2 + j3 + 3, k3,
+					k3);
 			int l3 = 0x505000ff;
 			int i4 = (l3 & 0xfefefe) >> 1 | l3 & 0xff000000;
-			drawGradientRect(j2 - 3, (l2 - 3) + 1, (j2 - 3) + 1, (l2 + j3 + 3) - 1,
-					l3, i4);
+			drawGradientRect(j2 - 3, (l2 - 3) + 1, (j2 - 3) + 1,
+					(l2 + j3 + 3) - 1, l3, i4);
 			drawGradientRect(j2 + i3 + 2, (l2 - 3) + 1, j2 + i3 + 3,
 					(l2 + j3 + 3) - 1, l3, i4);
 			drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, (l2 - 3) + 1, l3, l3);
-			drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4, i4);
-	
+			drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4,
+					i4);
+
 			fontRenderer.drawSplitString(this.getPopupText(), x + 15, y - 1,
 					l1 * 2, 0xFFFFFFFF);
 			zLevel = 0.0F;

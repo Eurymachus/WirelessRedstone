@@ -18,13 +18,8 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessItemStackMem;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
-
-import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 	protected World world;
@@ -36,13 +31,11 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 		this.world = world;
 		this.entityplayer = entityplayer;
 		this.itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = WirelessRemote
-				.getRemoteData(
-						this.itemstack.getItem().getItemName(), 
-						this.itemstack.getItemDamage(),
-						this.world, this.entityplayer);
+		this.wirelessDeviceData = WirelessRemote.getRemoteData(this.itemstack
+				.getItem().getItemName(), this.itemstack.getItemDamage(),
+				this.world, this.entityplayer);
 	}
-	
+
 	@Override
 	protected void addControls() {
 		super.addControls();
@@ -67,6 +60,7 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
 	@Override
 	public void onGuiClosed() {
-		if (entityplayer.getCurrentEquippedItem() == null) {}
+		if (entityplayer.getCurrentEquippedItem() == null) {
+		}
 	}
 }

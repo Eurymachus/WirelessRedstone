@@ -16,22 +16,15 @@ package net.minecraft.src.wirelessredstone.addon.sniffer;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
-
-import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	private int nodeSize = 4;
@@ -41,17 +34,18 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
 
-	public GuiRedstoneWirelessSniffer(WirelessSnifferData data, World world, EntityPlayer entityplayer) {
+	public GuiRedstoneWirelessSniffer(WirelessSnifferData data, World world,
+			EntityPlayer entityplayer) {
 		super();
 		this.world = world;
 		this.entityplayer = entityplayer;
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = (WirelessSnifferData) data;
+		this.wirelessDeviceData = data;
 		xSize = 256;
 		ySize = 200;
 		thr = new ThreadWirelessSniffer(this);
 	}
-	
+
 	@Override
 	protected void addControls() {
 		int currentPage = this.getPage();
@@ -74,8 +68,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	}
 
 	private void setPage(int pageNumber) {
-		((WirelessSnifferData) this.wirelessDeviceData)
-				.setPage(pageNumber);
+		((WirelessSnifferData) this.wirelessDeviceData).setPage(pageNumber);
 	}
 
 	@Override
@@ -115,7 +108,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 		} else
 			prevButton.enabled = true;
 	}
-	
+
 	@Override
 	protected String getBackgroundImage() {
 		return "/gui/wifi_xlarge.png";
@@ -173,6 +166,6 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	@Override
 	protected void setFreq(String freq) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

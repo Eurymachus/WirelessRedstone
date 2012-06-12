@@ -20,7 +20,6 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
@@ -225,6 +224,7 @@ public class WirelessRedstone {
 				"WirelessRedstone").get("Transmitter.ID", Integer.class,
 				new Integer(txID));
 	}
+
 	/**
 	 * Retrieves the world object without parameters
 	 * 
@@ -233,6 +233,7 @@ public class WirelessRedstone {
 	public static World getWorld() {
 		return ModLoader.getMinecraftInstance().theWorld;
 	}
+
 	/**
 	 * Retrieves the world object
 	 * 
@@ -243,6 +244,7 @@ public class WirelessRedstone {
 	public static World getWorld(NetworkManager network) {
 		return getWorld();
 	}
+
 	/**
 	 * Retrieves the player object
 	 * 
@@ -251,6 +253,7 @@ public class WirelessRedstone {
 	public static EntityPlayer getPlayer() {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
+
 	/**
 	 * Retrieves the player object
 	 * 
@@ -338,7 +341,8 @@ public class WirelessRedstone {
 		overrides.add(override);
 	}
 
-	public static void openGUI(TileEntity tileentity, EntityPlayer entityplayer, World world) {
+	public static void openGUI(TileEntity tileentity,
+			EntityPlayer entityplayer, World world) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {
 			if (override.beforeOpenGui(entityplayer, world, tileentity))

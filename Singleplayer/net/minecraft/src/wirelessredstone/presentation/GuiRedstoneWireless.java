@@ -24,9 +24,7 @@ import net.minecraft.src.KeyBinding;
 import net.minecraft.src.RenderHelper;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -79,12 +77,12 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	public void addOverride(GuiRedstoneWirelessOverride override) {
 		this.overrides.add(override);
 	}
-	
+
 	/**
 	 * Adds a selection of controls to be used in the GUI
 	 * 
-	 * Override to replace control set
-	 * use super.addControls() if adding to control set
+	 * Override to replace control set use super.addControls() if adding to
+	 * control set
 	 */
 	protected abstract void addControls();
 
@@ -101,9 +99,12 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	/**
 	 * Check is Mouse pointer is within the bounds of a given GuiButtonWireless
 	 * 
-	 * @param button A GuiButtonWireless
-	 * @param i mouse X coordinate
-	 * @param j mouse Y coordinate
+	 * @param button
+	 *            A GuiButtonWireless
+	 * @param i
+	 *            mouse X coordinate
+	 * @param j
+	 *            mouse Y coordinate
 	 * @return
 	 */
 	private boolean isMouseOverButton(GuiButtonWireless button, int i, int j) {
@@ -111,14 +112,14 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			return button.inBounds(i, j);
 		return false;
 	}
-	
+
 	/**
 	 * Fetches the Background Image to be used
 	 * 
 	 * @return Background Image
 	 */
 	protected abstract String getBackgroundImage();
-	
+
 	/**
 	 * Fetches the Gui Name to display at the top of the Gui
 	 * 
@@ -158,27 +159,26 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			int k = (width - xSize) / 2;
 			int l = (height - ySize) / 2;
 			drawGuiContainerBackgroundLayer(i, j, f);
-	
+
 			GL11.glPushMatrix();
-				GL11.glTranslatef(k, l, 0.0F);
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-				GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
-				
-				RenderHelper.disableStandardItemLighting();
-				
-				GL11.glDisable(2896 /* GL_LIGHTING */);
-				GL11.glDisable(2929 /* GL_DEPTH_TEST */);
-				
-				drawGuiName();
-				drawGuiContainerForegroundLayer(i, j, f);
-			
+			GL11.glTranslatef(k, l, 0.0F);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
+
+			RenderHelper.disableStandardItemLighting();
+
+			GL11.glDisable(2896 /* GL_LIGHTING */);
+			GL11.glDisable(2929 /* GL_DEPTH_TEST */);
+
+			drawGuiName();
+			drawGuiContainerForegroundLayer(i, j, f);
+
 			GL11.glPopMatrix();
-			
-			
+
 			super.drawScreen(i, j, f);
-			
+
 			drawButtonTooltips(i, j, f);
-	
+
 			GL11.glEnable(2896 /* GL_LIGHTING */);
 			GL11.glEnable(2929 /* GL_DEPTH_TEST */);
 		} catch (Exception e) {
@@ -187,7 +187,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 					.writeStackTrace(e);
 		}
 	}
-	
+
 	/**
 	 * Draw a bordered box around a string.<br>
 	 * Outer height is always 10, inner 8.
@@ -203,59 +203,58 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
 		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
 	}
-	
+
 	/**
 	 * Draws the Name of the Gui at the top of the Gui
 	 */
 	protected void drawGuiName() {
-		drawStringBorder((xSize / 2)
-				- (fontRenderer.getStringWidth(getGuiName()) / 2), 6, (xSize / 2)
-				+ (fontRenderer.getStringWidth(getGuiName()) / 2));
+		drawStringBorder(
+				(xSize / 2) - (fontRenderer.getStringWidth(getGuiName()) / 2),
+				6, (xSize / 2)
+						+ (fontRenderer.getStringWidth(getGuiName()) / 2));
 		fontRenderer.drawString(getGuiName(),
-				(xSize / 2) - (fontRenderer.getStringWidth(getGuiName()) / 2), 6,
-				0x404040);
+				(xSize / 2) - (fontRenderer.getStringWidth(getGuiName()) / 2),
+				6, 0x404040);
 	}
-	
+
 	/**
 	 * Draws the frequency at a distance at Y from the centred value
+	 * 
 	 * @param y
 	 */
 	protected void drawFrequency(int y) {
 		fontRenderer
-		.drawString(
-				getFreq() + "",
-				(xSize / 2)
-						- (fontRenderer.getStringWidth(getFreq()
-								+ "") / 2), (ySize / 2) + y,
-				0x404040);
+				.drawString(
+						getFreq() + "",
+						(xSize / 2)
+								- (fontRenderer.getStringWidth(getFreq() + "") / 2),
+						(ySize / 2) + y, 0x404040);
 	}
-	
+
 	/**
-	 * Draws the frequency with a border at a distance at Y from the centred value
+	 * Draws the frequency with a border at a distance at Y from the centred
+	 * value
 	 * 
 	 * Y the Y position of the text
 	 */
 	protected void drawFrequencyAndBox(int y) {
 		drawStringBorder(
-				(xSize / 2)
-						- (fontRenderer.getStringWidth(getFreq() + "") / 2),
+				(xSize / 2) - (fontRenderer.getStringWidth(getFreq() + "") / 2),
 				(ySize / 2) + y,
-				(xSize / 2)
-						+ (fontRenderer.getStringWidth(getFreq() + "") / 2));
+				(xSize / 2) + (fontRenderer.getStringWidth(getFreq() + "") / 2));
 		drawFrequency(y);
 	}
-	
+
 	protected void drawFrequencyLabel(int y) {
 		fontRenderer.drawString("Frequency",
 				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
 				y, 0x404040);
 	}
-	
+
 	protected void drawFrequencyLabelAndBox(int y) {
 		drawStringBorder(
 				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
-				y, (xSize / 2)
-						+ (fontRenderer.getStringWidth("Frequency") / 2));
+				y, (xSize / 2) + (fontRenderer.getStringWidth("Frequency") / 2));
 		drawFrequencyLabel(y);
 	}
 
@@ -283,13 +282,16 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 		int sizeY = (height - ySize) / 2;
 		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
 	}
-	
+
 	/**
 	 * Draws the tooltips of a button when Mouse is hovered
 	 * 
-	 * @param i x Coordinate
-	 * @param j y Coordinate
-	 * @param f tick partial
+	 * @param i
+	 *            x Coordinate
+	 * @param j
+	 *            y Coordinate
+	 * @param f
+	 *            tick partial
 	 */
 	private void drawButtonTooltips(int i, int j, float f) {
 		for (int control = 0; control < this.controlList.size(); control++) {
@@ -314,7 +316,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            button that was clicked
 	 */
 	@Override
-	protected abstract void actionPerformed(GuiButton guibutton) ;
+	protected abstract void actionPerformed(GuiButton guibutton);
 
 	/**
 	 * Handles keyboard input.<br>
@@ -385,5 +387,5 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
-	}	
+	}
 }

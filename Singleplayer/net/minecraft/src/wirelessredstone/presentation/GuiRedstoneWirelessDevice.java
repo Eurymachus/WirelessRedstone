@@ -14,22 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.presentation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.KeyBinding;
-import net.minecraft.src.RenderHelper;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessDeviceOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
-
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Wireless Redstone GUI screen.
@@ -47,29 +36,30 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 		this.xSize = 177;
 		this.ySize = 166;
 	}
-	
+
 	@Override
 	protected void addControls() {
-		controlList.add(new GuiButtonWireless(0, (width / 2) + 10, (height / 2) - 20,
-				20, 20, "+"));
-		controlList.add(new GuiButtonWireless(1, (width / 2) - 30, (height / 2) - 20,
-				20, 20, "-"));
-		controlList.add(new GuiButtonWireless(2, (width / 2) + 32, (height / 2) - 20,
-				20, 20, "+10"));
-		controlList.add(new GuiButtonWireless(3, (width / 2) - 52, (height / 2) - 20,
-				20, 20, "-10"));
-		controlList.add(new GuiButtonWireless(4, (width / 2) + 54, (height / 2) - 20,
-				26, 20, "+100"));
-		controlList.add(new GuiButtonWireless(5, (width / 2) - 80, (height / 2) - 20,
-				26, 20, "-100"));
-		controlList.add(new GuiButtonWireless(6, (width / 2) + 48, (height / 2) - 42,
-				32, 20, "+1000"));
-		controlList.add(new GuiButtonWireless(7, (width / 2) - 80, (height / 2) - 42,
-				32, 20, "-1000"));
+		controlList.add(new GuiButtonWireless(0, (width / 2) + 10,
+				(height / 2) - 20, 20, 20, "+"));
+		controlList.add(new GuiButtonWireless(1, (width / 2) - 30,
+				(height / 2) - 20, 20, 20, "-"));
+		controlList.add(new GuiButtonWireless(2, (width / 2) + 32,
+				(height / 2) - 20, 20, 20, "+10"));
+		controlList.add(new GuiButtonWireless(3, (width / 2) - 52,
+				(height / 2) - 20, 20, 20, "-10"));
+		controlList.add(new GuiButtonWireless(4, (width / 2) + 54,
+				(height / 2) - 20, 26, 20, "+100"));
+		controlList.add(new GuiButtonWireless(5, (width / 2) - 80,
+				(height / 2) - 20, 26, 20, "-100"));
+		controlList.add(new GuiButtonWireless(6, (width / 2) + 48,
+				(height / 2) - 42, 32, 20, "+1000"));
+		controlList.add(new GuiButtonWireless(7, (width / 2) - 80,
+				(height / 2) - 42, 32, 20, "-1000"));
 
 		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
+
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		try {
@@ -119,7 +109,9 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 
 			boolean prematureExit = false;
 			for (GuiRedstoneWirelessOverride override : overrides) {
-				if (((GuiRedstoneWirelessDeviceOverride)override).beforeFrequencyChange(wirelessDeviceData, oldFreq, freq))
+				if (((GuiRedstoneWirelessDeviceOverride) override)
+						.beforeFrequencyChange(wirelessDeviceData, oldFreq,
+								freq))
 					prematureExit = true;
 			}
 			if (prematureExit)
@@ -143,12 +135,12 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	protected String getGuiName() {
 		return this.wirelessDeviceData.getName();
 	}
-	
+
 	@Override
 	protected Object getFreq() {
 		return this.wirelessDeviceData.getFreq();
 	}
-	
+
 	@Override
 	protected void setFreq(String freq) {
 		this.wirelessDeviceData.setFreq(freq);

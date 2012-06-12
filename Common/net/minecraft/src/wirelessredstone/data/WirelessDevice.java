@@ -4,7 +4,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 
 public class WirelessDevice implements IWirelessDevice {
-	
+
 	protected EntityPlayer owner;
 	protected World world;
 	protected WirelessDeviceData data;
