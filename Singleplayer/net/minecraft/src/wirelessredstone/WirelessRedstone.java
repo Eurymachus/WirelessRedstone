@@ -11,7 +11,6 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.WorldSavedData;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -360,11 +359,5 @@ public class WirelessRedstone {
 					.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
 			ModLoader.openGUI(entityplayer, guiWirelessT);
 		}
-	}
-
-	public static WorldSavedData getDeviceData(Class class1, String indexname,
-			int id, World world, EntityPlayer entityplayer) {
-		String deviceName = indexname + "_" + id;
-		return world.loadItemData(class1, deviceName);
 	}
 }

@@ -139,22 +139,24 @@ public class WirelessRemote {
 				: remoteTransmitter.getFreq() == freq;
 	}
 
-	public static WirelessRemoteData getRemoteData(String itemname, int id,
-			World world, EntityPlayer entityplayer) {
-		String remoteName = itemname + "[" + id + "]";
-		WirelessRemoteData wirelessRemoteData = (WirelessRemoteData) world
-				.loadItemData(WirelessRemoteData.class, remoteName);
-		if (wirelessRemoteData == null) {
-			wirelessRemoteData = new WirelessRemoteData(remoteName);
-			world.setItemData(remoteName, wirelessRemoteData);
-			wirelessRemoteData.setID(id);
-			wirelessRemoteData.setName(itemname);
-			// wirelessRemoteData.setDeviceOwner(entityplayer);
-			wirelessRemoteData.setDimension(world);
-			wirelessRemoteData.setFreq("0");
-			wirelessRemoteData.setDeviceState(false);
+	public static WirelessRemoteData getDeviceData(String index, int id,
+			String name, World world, EntityPlayer entityplayer) {
+		index = index + "[" + id + "]";
+		WirelessRemoteData data = (WirelessRemoteData) world.loadItemData(
+				WirelessRemoteData.class, index);
+		if (data == null) {
+			data = new WirelessRemoteData(index, id, name, world, entityplayer);
+			world.setItemData(index, data);
 		}
-		return wirelessRemoteData;
+		return data;
+	}
+
+	public static WirelessRemoteData getDeviceData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
+		String index = itemstack.getItem().getItemName();
+		int id = itemstack.getItemDamage();
+		String name = itemstack.getItem().getItemDisplayName(itemstack);
+		return getDeviceData(index, id, name, world, entityplayer);
 	}
 
 	/**

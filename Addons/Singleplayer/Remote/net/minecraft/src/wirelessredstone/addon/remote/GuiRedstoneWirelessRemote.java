@@ -22,17 +22,13 @@ import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
-	protected World world;
-	protected EntityPlayer entityplayer;
-	protected ItemStack itemstack;
 
 	public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer) {
 		super();
 		this.world = world;
 		this.entityplayer = entityplayer;
-		this.itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = WirelessRemote.getRemoteData(this.itemstack
-				.getItem().getItemName(), this.itemstack.getItemDamage(),
+		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
+		this.wirelessDeviceData = WirelessRemote.getDeviceData(itemstack,
 				this.world, this.entityplayer);
 	}
 

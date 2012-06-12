@@ -3,8 +3,8 @@ package net.minecraft.src.wirelessredstone.addon.triangulator.data;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
+import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.data.WirelessDevice;
 
@@ -21,9 +21,7 @@ public class WirelessTriangulatorDevice extends WirelessDevice {
 		this.world = world;
 		this.slot = entityplayer.inventory.currentItem;
 		ItemStack itemstack = entityplayer.inventory.getStackInSlot(this.slot);
-		this.data = (WirelessTriangulatorData) WirelessRedstone.getDeviceData(
-				WirelessTriangulatorData.class, itemstack.getItem()
-						.getItemName(), itemstack.getItemDamage(), world,
+		this.data = WirelessTriangulator.getDeviceData(itemstack, world,
 				entityplayer);
 		this.coords = new WirelessCoordinates((int) entityplayer.posX,
 				(int) entityplayer.posY, (int) entityplayer.posZ);
@@ -34,10 +32,8 @@ public class WirelessTriangulatorDevice extends WirelessDevice {
 		return this.owner.inventory.currentItem == this.slot
 				&& itemstack != null
 				&& itemstack.getItem() == WirelessRemote.itemRemote
-				&& ((WirelessTriangulatorData) WirelessRedstone.getDeviceData(
-						WirelessTriangulatorData.class, itemstack.getItem()
-								.getItemName(), itemstack.getItemDamage(),
-						this.world, this.owner)).getFreq() == this.getFreq();
+				&& WirelessTriangulator.getDeviceData(itemstack, this.world,
+						this.owner).getFreq() == this.getFreq();
 	}
 
 	@Override

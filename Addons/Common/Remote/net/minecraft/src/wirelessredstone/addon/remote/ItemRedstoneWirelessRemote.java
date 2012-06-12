@@ -66,16 +66,12 @@ public class ItemRedstoneWirelessRemote extends Item {
 
 	@Override
 	public int getIconFromDamage(int i) {
-		if (this.getRemoteData(this.getItemName(), i,
-				WirelessRedstone.getWorld(), WirelessRedstone.getPlayer())
-				.getDeviceState())
-			return WirelessRemote.remoteon;
-		return WirelessRemote.remoteoff;
-	}
-
-	private WirelessRemoteData getRemoteData(String itemname, int id,
-			World world, EntityPlayer entityplayer) {
-		return WirelessRemote.getRemoteData(itemname, id, world, entityplayer);
+		String index = this.getItemName() + "[" + i + "]";
+		WirelessRemoteData data = (WirelessRemoteData) WirelessRedstone
+				.getWorld().loadItemData(WirelessRemoteData.class, index);
+		if (data == null || !data.getDeviceState())
+			return WirelessRemote.remoteoff;
+		return WirelessRemote.remoteon;
 	}
 
 	@Override
@@ -83,8 +79,8 @@ public class ItemRedstoneWirelessRemote extends Item {
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-			WirelessRemoteData data = this.getRemoteData(this.getItemName(),
-					itemstack.getItemDamage(), world, entityplayer);
+			WirelessRemoteData data = WirelessRemote.getDeviceData(itemstack,
+					world, entityplayer);
 			String freq = data.getFreq();
 			if (!isHeld || !WirelessRemote.isRemoteOn(entityplayer, freq)
 					&& !WirelessRemote.deactivateRemote(world, entityplayer)) {
@@ -96,7 +92,6 @@ public class ItemRedstoneWirelessRemote extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		this.getRemoteData(this.getItemName(), itemstack.getItemDamage(),
-				world, entityplayer);
+		WirelessRemote.getDeviceData(itemstack, world, entityplayer);
 	}
 }

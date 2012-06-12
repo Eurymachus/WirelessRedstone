@@ -20,8 +20,8 @@ public class WirelessRemoteDevice extends WirelessDevice {
 		this.world = world;
 		this.slot = entityplayer.inventory.currentItem;
 		ItemStack itemstack = entityplayer.inventory.getStackInSlot(this.slot);
-		this.data = WirelessRemote.getRemoteData(itemstack.getItem()
-				.getItemName(), itemstack.getItemDamage(), world, entityplayer);
+		this.data = WirelessRemote
+				.getDeviceData(itemstack, world, entityplayer);
 		this.coords = new WirelessCoordinates((int) entityplayer.posX,
 				(int) entityplayer.posY, (int) entityplayer.posZ);
 	}
@@ -31,10 +31,8 @@ public class WirelessRemoteDevice extends WirelessDevice {
 		return this.owner.inventory.currentItem == this.slot
 				&& itemstack != null
 				&& itemstack.getItem() == WirelessRemote.itemRemote
-				&& WirelessRemote.getRemoteData(
-						itemstack.getItem().getItemName(),
-						itemstack.getItemDamage(), this.world, this.owner)
-						.getFreq() == this.getFreq();
+				&& WirelessRemote.getDeviceData(itemstack, this.world,
+						this.owner).getFreq() == this.getFreq();
 	}
 
 	@Override

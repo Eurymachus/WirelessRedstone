@@ -59,18 +59,25 @@ public class WirelessTriangulator {
 		 */
 	}
 
-	public static WirelessTriangulatorData newTriangulatorDevice(
-			String fullitemname, String indexname, int id, World world,
-			EntityPlayer entityplayer) {
-		String triangulatorName = indexname + "_" + id;
-		WirelessTriangulatorData wirelessTriangulatorData = new WirelessTriangulatorData(
-				triangulatorName);
-		world.setItemData(triangulatorName, wirelessTriangulatorData);
-		wirelessTriangulatorData.setID(id);
-		wirelessTriangulatorData.setName(fullitemname);
-		wirelessTriangulatorData.setDimension(world);
-		wirelessTriangulatorData.setFreq("0");
-		return wirelessTriangulatorData;
+	public static WirelessTriangulatorData getDeviceData(String index, int id,
+			String name, World world, EntityPlayer entityplayer) {
+		index = index + "[" + id + "]";
+		WirelessTriangulatorData data = (WirelessTriangulatorData) world
+				.loadItemData(WirelessTriangulatorData.class, index);
+		if (data == null) {
+			data = new WirelessTriangulatorData(index, id, name, world,
+					entityplayer);
+			world.setItemData(index, data);
+		}
+		return data;
+	}
+
+	public static WirelessTriangulatorData getDeviceData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
+		String index = itemstack.getItem().getItemName();
+		int id = itemstack.getItemDamage();
+		String name = itemstack.getItem().getItemDisplayName(itemstack);
+		return getDeviceData(index, id, name, world, entityplayer);
 	}
 
 	public static void addRecipes() {

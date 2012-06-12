@@ -1,14 +1,16 @@
 package net.minecraft.src.wirelessredstone.addon.sniffer.data;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NBTTagCompound;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 
 public class WirelessSnifferData extends WirelessDeviceData {
-
 	protected int pageNumber;
 
-	public WirelessSnifferData(String par1Str) {
-		super(par1Str);
+	public WirelessSnifferData(String index, int id, String name, World world,
+			EntityPlayer entityplayer) {
+		super(index, id, name, world, entityplayer);
 	}
 
 	public int getPage() {

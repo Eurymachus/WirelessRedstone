@@ -51,17 +51,24 @@ public class WirelessSniffer {
 				.get("ID", Integer.class, new Integer(sniffID));
 	}
 
-	public static WirelessSnifferData newSnifferDevice(String fullitemname,
-			String indexname, int id, World world, EntityPlayer entityplayer) {
-		String snifferName = indexname + "_" + id;
-		WirelessSnifferData wirelessSnifferData = new WirelessSnifferData(
-				snifferName);
-		world.setItemData(snifferName, wirelessSnifferData);
-		wirelessSnifferData.setID(id);
-		wirelessSnifferData.setName(fullitemname);
-		wirelessSnifferData.setDimension(world);
-		wirelessSnifferData.setFreq("0");
-		return wirelessSnifferData;
+	public static WirelessSnifferData getDeviceData(String index, int id,
+			String name, World world, EntityPlayer entityplayer) {
+		index = index + "[" + id + "]";
+		WirelessSnifferData data = (WirelessSnifferData) world.loadItemData(
+				WirelessSnifferData.class, index);
+		if (data == null) {
+			data = new WirelessSnifferData(index, id, name, world, entityplayer);
+			world.setItemData(index, data);
+		}
+		return data;
+	}
+
+	public static WirelessSnifferData getDeviceData(ItemStack itemstack,
+			World world, EntityPlayer entityplayer) {
+		String index = itemstack.getItem().getItemName();
+		int id = itemstack.getItemDamage();
+		String name = itemstack.getItem().getItemDisplayName(itemstack);
+		return getDeviceData(index, id, name, world, entityplayer);
 	}
 
 	public static void openGUI(WirelessSnifferData data, World world,

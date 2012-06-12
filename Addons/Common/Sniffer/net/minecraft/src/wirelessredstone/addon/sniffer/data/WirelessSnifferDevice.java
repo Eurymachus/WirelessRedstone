@@ -3,7 +3,6 @@ package net.minecraft.src.wirelessredstone.addon.sniffer.data;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 import net.minecraft.src.wirelessredstone.data.WirelessDevice;
 
@@ -13,9 +12,8 @@ public class WirelessSnifferDevice extends WirelessDevice {
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
 		this.owner = entityplayer;
-		this.data = (WirelessSnifferData) WirelessRedstone.getDeviceData(
-				WirelessSnifferData.class, itemstack.getItem().getItemName(),
-				itemstack.getItemDamage(), world, entityplayer);
+		this.data = WirelessSniffer.getDeviceData(itemstack, world,
+				entityplayer);
 	}
 
 	public int getPage() {
