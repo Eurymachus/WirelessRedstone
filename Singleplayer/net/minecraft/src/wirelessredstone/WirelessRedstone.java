@@ -12,7 +12,6 @@ import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldSavedData;
-import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -339,8 +338,7 @@ public class WirelessRedstone {
 		overrides.add(override);
 	}
 
-	public static void openGUI(EntityPlayer entityplayer, World world,
-			TileEntity tileentity) {
+	public static void openGUI(TileEntity tileentity, EntityPlayer entityplayer, World world) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {
 			if (override.beforeOpenGui(entityplayer, world, tileentity))
