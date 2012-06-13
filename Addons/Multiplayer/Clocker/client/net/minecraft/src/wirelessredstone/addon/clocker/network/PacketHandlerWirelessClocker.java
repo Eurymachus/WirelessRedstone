@@ -10,7 +10,7 @@ import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWir
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerSettings;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerTile;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessClocker {
 	
@@ -39,24 +39,25 @@ public class PacketHandlerWirelessClocker {
 
 	private static class PacketHandlerInput 
 	{
-		private static void handleWirelessClockerSettings(PacketWirelessClockerSettings packet, World world, EntityPlayer player)
+		private static void handleWirelessClockerSettings(PacketWirelessClockerSettings packet, World world, EntityPlayer entityplayer)
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessClockerSettingsPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 
-		private static void handleWirelessClockerGui(PacketWirelessClockerGui packet, World world, EntityPlayer player) 
+		private static void handleWirelessClockerGui(PacketWirelessClockerGui packet, World world, EntityPlayer entityplayer) 
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessClockerGuiPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 
 			TileEntity tileentity = packet.getTarget(world);
 			if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessClocker) 
 			{
-				WirelessClocker.guiClock.assTileEntity((TileEntityRedstoneWirelessClocker)tileentity);
-				ModLoader.openGUI(player, WirelessClocker.guiClock);
+				//WirelessClocker.guiClock.assTileEntity((TileEntityRedstoneWirelessClocker)tileentity);
+				//ModLoader.openGUI(player, WirelessClocker.guiClock);
+				WirelessClocker.openGui((TileEntityRedstoneWirelessClocker)tileentity, world, entityplayer);
 			}
 		}
 
-		public static void handleWirelessClockerTile(PacketWirelessClockerTile packet, World world, EntityPlayer player) 
+		public static void handleWirelessClockerTile(PacketWirelessClockerTile packet, World world, EntityPlayer entityplayer) 
 		{
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessClockerTilePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 
@@ -66,14 +67,14 @@ public class PacketHandlerWirelessClocker {
 				((TileEntityRedstoneWirelessClocker)tileentity).setClockFreq(Integer.parseInt(packet.getClockFreq()));
 				((TileEntityRedstoneWirelessClocker)tileentity).setFreq(packet.getFreq());
 				tileentity.onInventoryChanged();
-				player.worldObj.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
+				entityplayer.worldObj.markBlockAsNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
 			}
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessClockerPacket(EntityPlayer player, String clockFreq, int i, int j, int k) 
+		public static void sendWirelessClockerPacket(EntityPlayer entityplayer, String clockFreq, int i, int j, int k) 
 		{
 			PacketWirelessClockerSettings packet = new PacketWirelessClockerSettings(clockFreq, i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessClockerPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);

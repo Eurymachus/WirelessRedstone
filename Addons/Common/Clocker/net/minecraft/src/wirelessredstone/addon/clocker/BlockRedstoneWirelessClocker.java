@@ -17,6 +17,7 @@ package net.minecraft.src.wirelessredstone.addon.clocker;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
@@ -58,8 +59,15 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 	@Override
 	protected boolean onBlockRedstoneWirelessActivated(World world, int i,
 			int j, int k, EntityPlayer entityplayer) {
-		return BlockRedstoneWirelessClockerInjector
-				.onBlockRedstoneWirelessActivated(world, i, j, k, entityplayer);
+		if (!world.isRemote) {
+			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
+
+			if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
+				WirelessClocker.openGui((TileEntityRedstoneWirelessClocker)tileentity, world, entityplayer);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	@Override

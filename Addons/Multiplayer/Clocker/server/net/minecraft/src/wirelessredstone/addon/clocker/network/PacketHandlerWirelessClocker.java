@@ -8,7 +8,7 @@ import net.minecraft.src.wirelessredstone.addon.clocker.TileEntityRedstoneWirele
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerGui;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessClocker {
 	

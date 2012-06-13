@@ -520,7 +520,6 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @return Block texture ID
 	 */
-	@Override
 	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k,
 			int l) {
 		try {
@@ -631,7 +630,6 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	/**
 	 * Overridden to do nothing at all.
 	 */
-	@Override
 	public void randomDisplayTick(World world, int i, int j, int k,
 			Random random) {
 	}

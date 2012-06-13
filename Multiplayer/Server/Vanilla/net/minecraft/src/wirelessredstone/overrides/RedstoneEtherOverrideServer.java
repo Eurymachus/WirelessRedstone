@@ -5,7 +5,7 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.ether.*;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.network.PacketHandlerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 
 public class RedstoneEtherOverrideServer implements RedstoneEtherOverride
 {

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
@@ -22,9 +23,9 @@ import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOve
 import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.RedstoneEtherOverrideSMP;
 
-public class mod_WirelessRedstoneSMP extends BaseMod {
+public class mod_WirelessRedstoneSMP extends NetworkMod {
 
-	public static BaseMod instance;
+	public static NetworkMod instance;
 
 	@Override
 	public void modsLoaded() {
@@ -60,5 +61,17 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 
 	@Override
 	public void load() {
+	}
+
+	@Override
+	public boolean clientSideRequired()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean serverSideRequired()
+	{
+		return false;
 	}
 }

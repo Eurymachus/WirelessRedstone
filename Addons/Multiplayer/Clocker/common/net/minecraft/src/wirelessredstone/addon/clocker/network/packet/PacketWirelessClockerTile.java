@@ -3,8 +3,8 @@ package net.minecraft.src.wirelessredstone.addon.clocker.network.packet;
 import net.minecraft.src.wirelessredstone.addon.clocker.TileEntityRedstoneWirelessClocker;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless.LogLevel;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
 public class PacketWirelessClockerTile extends PacketWirelessClocker {
 	public PacketWirelessClockerTile() {

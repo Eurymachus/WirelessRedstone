@@ -1,13 +1,17 @@
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.clocker.network.PacketHandlerWirelessClocker;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class WirelessClocker
 {
@@ -58,5 +62,16 @@ public class WirelessClocker
 		ModLoader.registerBlock(blockClock);
 		ModLoader.addName(blockClock, "Wireless Clocker");
 		ModLoader.registerTileEntity(TileEntityRedstoneWirelessClocker.class, "Wireless Clocker");
+	}
+
+
+	public static void openGui(TileEntityRedstoneWirelessClocker tileentity,
+			World world, EntityPlayer entityplayer) {
+		PacketHandlerWirelessClocker.PacketHandlerOutput.sendWirelessClockerGuiPacket(
+				entityplayer, 
+				tileentity.getClockFreq(), 
+				tileentity.xCoord, tileentity.yCoord, tileentity.zCoord
+		);
+		
 	}
 }

@@ -7,14 +7,14 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideServer;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 
-public class mod_WirelessRedstone extends NetworkMod
+public class mod_WirelessRedstoneSMP extends NetworkMod
 {
 	public static NetworkMod instance;
 	
-	public mod_WirelessRedstone()
+	public mod_WirelessRedstoneSMP()
 	{
 		instance = this;
 		
@@ -51,12 +51,6 @@ public class mod_WirelessRedstone extends NetworkMod
 	public String getVersion()
 	{
 		return "1.6";
-	}
-
-	@Override
-	public String toString()
-	{
-		return "WirelessRedstone-SMP "+getVersion();
 	}
 
 	@Override

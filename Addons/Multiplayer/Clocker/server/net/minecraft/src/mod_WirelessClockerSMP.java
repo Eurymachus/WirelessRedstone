@@ -17,13 +17,13 @@ package net.minecraft.src;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 
-public class mod_WirelessClocker extends NetworkMod
+public class mod_WirelessClockerSMP extends NetworkMod
 {
 	public boolean wirelessClocker = false;
 	
 	public NetworkMod instance;
 
-	public mod_WirelessClocker()
+	public mod_WirelessClockerSMP()
 	{
 		instance = this;
 	}
@@ -31,7 +31,7 @@ public class mod_WirelessClocker extends NetworkMod
 	@Override
 	public void modsLoaded()
 	{
-		if (!wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstoneSMP"))
 		{
 			wirelessClocker = WirelessClocker.initialize();
 		}
@@ -40,7 +40,7 @@ public class mod_WirelessClocker extends NetworkMod
 	@Override
 	public String getPriorities()
 	{
-		return "after:mod_WirelessRedstone";
+		return "after:mod_WirelessRedstoneSMP";
 	}
 
 	@Override
@@ -52,5 +52,17 @@ public class mod_WirelessClocker extends NetworkMod
 	public String getVersion() 
 	{
 		return "1.0";
+	}
+
+	@Override
+	public boolean clientSideRequired()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean serverSideRequired()
+	{
+		return true;
 	}
 }

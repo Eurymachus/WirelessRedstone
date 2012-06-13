@@ -2,16 +2,19 @@ package net.minecraft.src.wirelessredstone;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
+import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
-import net.minecraft.src.wirelessredstone.network.PacketHandlerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
@@ -124,5 +127,12 @@ public class WirelessRedstone
 	{
 		NetServerHandler net = (NetServerHandler)network.getNetHandler();
 		return net.getPlayerEntity();
+	}
+
+	public static void openGUI(TileEntity tileentity, EntityPlayer entityplayer, World world) {
+		if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless) {
+			TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless)tileentity;
+			PacketHandlerRedstoneWireless.PacketHandlerOutput.sendGuiPacketTo((EntityPlayerMP)entityplayer, tileentityredstonewireless, 0);	
+		}
 	}
 }

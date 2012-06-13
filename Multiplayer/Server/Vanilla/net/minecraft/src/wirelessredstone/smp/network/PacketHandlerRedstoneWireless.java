@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone.network;
+package net.minecraft.src.wirelessredstone.smp.network;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.wirelessredstone.ether.*;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.*;
+import net.minecraft.src.wirelessredstone.smp.network.packet.*;
 import net.minecraft.src.wirelessredstone.tileentity.*;
 
 public class PacketHandlerRedstoneWireless

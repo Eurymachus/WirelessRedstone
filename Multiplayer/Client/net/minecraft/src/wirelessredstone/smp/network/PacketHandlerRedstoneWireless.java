@@ -17,6 +17,7 @@ package net.minecraft.src.wirelessredstone.smp.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
@@ -30,7 +31,7 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT
 
 public class PacketHandlerRedstoneWireless {
 
-	public static void handlePacket(PacketUpdate packet, EntityPlayer player) {
+	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player) {
 		if (packet instanceof PacketOpenWindowRedstoneWireless) {
 			PacketHandlerInput.openGUI(
 					(PacketOpenWindowRedstoneWireless) packet, player);

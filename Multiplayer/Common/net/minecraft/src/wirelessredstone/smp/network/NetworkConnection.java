@@ -10,6 +10,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketOpenWindowRedstoneWireless;
@@ -31,17 +32,17 @@ public class NetworkConnection implements INetworkConnections {
 			case PacketIds.ETHER:
 				PacketRedstoneEther pRE = new PacketRedstoneEther();
 				pRE.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pRE, player);
+				PacketHandlerRedstoneWireless.handlePacket(pRE, world, player);
 				break;
 			case PacketIds.GUI:
 				PacketOpenWindowRedstoneWireless pORW = new PacketOpenWindowRedstoneWireless();
 				pORW.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pORW, player);
+				PacketHandlerRedstoneWireless.handlePacket(pORW, world, player);
 				break;
 			case PacketIds.TILE:
 				PacketWirelessTile pWT = new PacketWirelessTile();
 				pWT.readData(data);
-				PacketHandlerRedstoneWireless.handlePacket(pWT, player);
+				PacketHandlerRedstoneWireless.handlePacket(pWT, world, player);
 				break;
 			}
 		} catch (Exception ex) {

@@ -1,7 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.clocker.network.packet;
 
-import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
 public class PacketWirelessClockerSettings extends PacketWirelessClocker {
 
