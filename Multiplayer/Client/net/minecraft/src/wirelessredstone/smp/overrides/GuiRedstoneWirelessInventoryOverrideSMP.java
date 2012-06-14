@@ -22,7 +22,7 @@ import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWirel
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class GuiRedstoneWirelessInventoryOverrideSMP implements
-		GuiRedstoneWirelessInventoryOverride, GuiRedstoneWirelessDeviceOverride {
+		GuiRedstoneWirelessInventoryOverride {
 
 	@Override
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
@@ -35,19 +35,6 @@ public class GuiRedstoneWirelessInventoryOverrideSMP implements
 							entity.getBlockCoord(0), entity.getBlockCoord(1),
 							entity.getBlockCoord(2), (NEW - OLD), false);
 			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean beforeFrequencyChange(WirelessDeviceData data,
-			Object oldFreq, Object newFreq) {
-		if ((ModLoader.getMinecraftInstance().theWorld.isRemote)) {
-			int OLD = Integer.parseInt(oldFreq.toString());
-			int NEW = Integer.parseInt(newFreq.toString());
-			PacketHandlerRedstoneWireless.PacketHandlerOutput
-			.sendRedstoneDevicePacket("changeFreq",
-					data.getID(), (NEW - OLD), false);
 		}
 		return false;
 	}
