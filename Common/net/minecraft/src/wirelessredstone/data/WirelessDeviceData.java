@@ -11,6 +11,7 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 	protected String name;
 	protected Byte dimension;
 	protected String freq;
+	protected boolean state;
 
 	public WirelessDeviceData(String par1Str) {
 		super(par1Str);
@@ -49,6 +50,11 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		this.markDirty();
 	}
 
+	public void setState(boolean state) {
+		this.state = state;
+		this.markDirty();
+	}
+
 	public int getID() {
 		return this.id;
 	}
@@ -65,12 +71,17 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		return this.freq;
 	}
 
+	public boolean getState() {
+		return this.state;
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		this.id = nbttagcompound.getInteger("id");
 		this.name = nbttagcompound.getString("name");
 		this.dimension = nbttagcompound.getByte("dimension");
 		this.freq = nbttagcompound.getString("freq");
+		this.state = nbttagcompound.getBoolean("state");
 	}
 
 	@Override
@@ -79,6 +90,7 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		nbttagcompound.setString("name", this.name);
 		nbttagcompound.setByte("dimension", this.dimension);
 		nbttagcompound.setString("freq", this.freq);
+		nbttagcompound.setBoolean("state", this.state);
 	}
 
 }

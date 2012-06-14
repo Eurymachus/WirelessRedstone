@@ -69,7 +69,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 		String index = this.getItemName() + "[" + i + "]";
 		WirelessRemoteData data = (WirelessRemoteData) WirelessRedstone
 				.getWorld().loadItemData(WirelessRemoteData.class, index);
-		if (data == null || !data.getDeviceState())
+		if (data == null || !data.getState())
 			return WirelessRemote.remoteoff;
 		return WirelessRemote.remoteon;
 	}

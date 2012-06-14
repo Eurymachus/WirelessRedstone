@@ -39,7 +39,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	public void activate() {
 		ItemStack itemstack = this.owner.inventory.getStackInSlot(this.slot);
 		if (itemstack != null) {
-			((WirelessRemoteData) this.data).setDeviceState(true);
+			((WirelessRemoteData) this.data).setState(true);
 			WirelessRemote.transmitRemote("activateRemote", world, this);
 		}
 	}
@@ -48,7 +48,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	public void deactivate() {
 		ItemStack itemstack = this.owner.inventory.getStackInSlot(this.slot);
 		if (itemstack != null)
-			((WirelessRemoteData) this.data).setDeviceState(false);
+			((WirelessRemoteData) this.data).setState(false);
 		WirelessRemote.transmitRemote("deactivateRemote", world, this);
 	}
 }

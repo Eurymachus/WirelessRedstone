@@ -15,9 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 
 public class mod_WirelessClocker extends BaseMod {
 	public BaseMod instance;
@@ -46,16 +43,5 @@ public class mod_WirelessClocker extends BaseMod {
 	@Override
 	public String getVersion() {
 		return "1.0";
-	}
-
-	public static void addOverrideToClocker(
-			BlockRedstoneWirelessOverride override) {
-		((BlockRedstoneWireless) WirelessClocker.blockClock)
-				.addOverride(override);
-	}
-
-	public static void addGuiOverrideToClocker(
-			GuiRedstoneWirelessOverride override) {
-		WirelessClocker.guiClock.addOverride(override);
 	}
 }

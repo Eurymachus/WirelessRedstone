@@ -15,11 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClockerSMP;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 
 public class mod_WirelessClockerSMP extends NetworkMod
 {
@@ -28,7 +24,7 @@ public class mod_WirelessClockerSMP extends NetworkMod
 	@Override
 	public void modsLoaded()
 	{
-		if (!WirelessClockerSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (!WirelessClockerSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneSMP"))
 		{
 			WirelessClockerSMP.isLoaded = WirelessClockerSMP.initialize();
 		}
@@ -42,7 +38,7 @@ public class mod_WirelessClockerSMP extends NetworkMod
 	@Override
 	public String getPriorities()
 	{
-		return "after:mod_WirelessRedstone";
+		return "after:mod_WirelessRedstoneSMP;after:mod_WirelessClocker";
 	}
 
 	@Override

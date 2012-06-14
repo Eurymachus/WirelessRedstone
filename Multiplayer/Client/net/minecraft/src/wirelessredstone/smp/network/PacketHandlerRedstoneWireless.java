@@ -22,6 +22,7 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketOpenWindowRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneDevice;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
@@ -177,6 +178,14 @@ public class PacketHandlerRedstoneWireless {
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue()
 					.addToSendQueue(packet.getPacket());
+		}
+
+		public static void sendRedstoneDevicePacket(String command, int id,
+			 Object freq, boolean state) {
+			PacketRedstoneDevice packet = new PacketRedstoneDevice(command);
+			packet.setID(id);
+			packet.setFreq(freq);
+			packet.setState(state);
 		}
 	}
 }

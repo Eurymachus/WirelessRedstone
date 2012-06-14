@@ -1,10 +1,10 @@
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
-import net.minecraft.src.mod_WirelessClocker;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.clocker.overrides.GuiRedstoneWirelessClockerOverride;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessOverrideSMP;
+import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 
 public class WirelessClockerSMP
 {
@@ -35,7 +35,9 @@ public class WirelessClockerSMP
 	
 	private static void addGuiOverride() 
 	{
-		GuiRedstoneWirelessOverrideSMP override = new GuiRedstoneWirelessOverrideSMP();
-		mod_WirelessClocker.addGuiOverrideToClocker(override);
+		GuiRedstoneWirelessInventoryOverrideSMP override = new GuiRedstoneWirelessInventoryOverrideSMP();
+		WirelessClocker.addGuiOverrideToClocker(override);
+		GuiRedstoneWirelessClockerOverride clockerOverride = new GuiRedstoneWirelessClockerOverride();
+		WirelessClocker.addGuiOverrideToClocker(clockerOverride);
 	}
 }

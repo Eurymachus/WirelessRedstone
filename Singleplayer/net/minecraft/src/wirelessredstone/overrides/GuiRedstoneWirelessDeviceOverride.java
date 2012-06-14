@@ -18,11 +18,11 @@ import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 
 /**
  * GUI override.<br>
- * Used for injecting code into existing Wireless GUI screens.<br>
+ * Used for injecting code into existing Wireless Device GUI screens.<br>
  * Useful for addons that changes the mechanics of existing GUIs.<br>
  * NOTE: All methods must be implemented, content is optional.
  * 
- * @author ali4z
+ * @author Eurymachus
  * 
  */
 public interface GuiRedstoneWirelessDeviceOverride extends
@@ -38,7 +38,6 @@ public interface GuiRedstoneWirelessDeviceOverride extends
 	 *            new frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	@Override
 	public boolean beforeFrequencyChange(WirelessDeviceData data,
 			Object oldFreq, Object newFreq);
 }

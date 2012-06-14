@@ -20,7 +20,7 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
-import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessOverrideSMP;
+import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.RedstoneEtherOverrideSMP;
 
 public class mod_WirelessRedstoneSMP extends NetworkMod {
@@ -32,7 +32,7 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 
-			GuiRedstoneWirelessOverrideSMP GUIOverride = new GuiRedstoneWirelessOverrideSMP();
+			GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
 			WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
 			WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
 

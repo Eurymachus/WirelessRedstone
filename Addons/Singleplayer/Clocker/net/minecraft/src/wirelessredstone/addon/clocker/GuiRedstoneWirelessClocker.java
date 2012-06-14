@@ -18,23 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
+import net.minecraft.src.wirelessredstone.addon.clocker.overrides.GuiRedstoneWirelessClockerOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	private boolean isScrolling;
-	protected List<GuiRedstoneWirelessOverride> clockerOverrides;
+	protected List<GuiRedstoneWirelessClockerOverride> clockerOverrides;
 
 	public GuiRedstoneWirelessClocker() {
 		super();
 		clockerOverrides = new ArrayList();
 	}
 
-	@Override
-	public void addOverride(GuiRedstoneWirelessOverride clockerOverride) {
+	public void addOverride(GuiRedstoneWirelessClockerOverride clockerOverride) {
 		clockerOverrides.add(clockerOverride);
 	}
 
@@ -124,8 +122,8 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 		// Clock frequency changed.
 
 		boolean prematureExit = false;
-		for (GuiRedstoneWirelessOverride override : clockerOverrides) {
-			if (((GuiRedstoneWirelessInventoryOverride) override)
+		for (GuiRedstoneWirelessClockerOverride override : clockerOverrides) {
+			if (override
 					.beforeFrequencyChange(inventory, oldClockFreq, clockFreq))
 				prematureExit = true;
 		}

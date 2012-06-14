@@ -23,4 +23,5 @@ public class PacketIds {
 	public static final int REQUEST = 2;
 	public static final int ADDON = 3;
 	public static final int GUI = 4;
+	public static final int DEVICE = 5;
 }
