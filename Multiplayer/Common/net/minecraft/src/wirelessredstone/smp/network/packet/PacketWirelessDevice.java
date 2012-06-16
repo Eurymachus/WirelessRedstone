@@ -13,6 +13,7 @@ import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 public class PacketWirelessDevice extends PacketWireless {
 	public PacketWirelessDevice(int packetId) {
 		super(packetId);
+		
 	}
 
 	public PacketWirelessDevice(int packetId, String name) {
