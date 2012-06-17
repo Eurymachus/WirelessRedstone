@@ -129,7 +129,7 @@ public class PacketPayload {
 	 * @return true if successful or false if unsuccessful
 	 */
 	public boolean setIntPayload(int index, int newInt) {
-		if (this.intPayload != null && index < this.getFloatSize()) {
+		if (this.intPayload != null && index < this.getIntSize()) {
 			this.intPayload[index] = newInt;
 			return true;
 		}
