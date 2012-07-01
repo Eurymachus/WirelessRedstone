@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.powerc;
 
 import java.util.Random;
@@ -20,54 +20,66 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 
-public class BlockRedstoneWirelessROverridePC implements BlockRedstoneWirelessOverride {
+public class BlockRedstoneWirelessROverridePC implements
+		BlockRedstoneWirelessOverride {
 	@Override
-	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j,
+			int k) {
 		return false;
 	}
-	@Override
-	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {}
-
-	
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+	}
+
+	@Override
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i,
+			int j, int k) {
 		return false;
 	}
-	@Override
-	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {}
 
-	
-	
 	@Override
-	public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j,
+			int k) {
+	}
 
-		if ( entityplayer.getCurrentEquippedItem() != null  && entityplayer.getCurrentEquippedItem().itemID == PowerConfigurator.itemPowDir.shiftedIndex ) {
+	@Override
+	public boolean beforeBlockRedstoneWirelessActivated(World world, int i,
+			int j, int k, EntityPlayer entityplayer) {
+
+		if (entityplayer.getCurrentEquippedItem() != null
+				&& entityplayer.getCurrentEquippedItem().itemID == PowerConfigurator.itemPowDir.shiftedIndex) {
 			return true;
 		}
-		
-		return false;
-	}
-	@Override
-	public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {}
 
-
-	
-	@Override
-	public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-		return false;
-	}
-	@Override
-	public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {}
-
-	
-	
-	@Override
-	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
 		return false;
 	}
 
 	@Override
-	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {}
+	public void afterBlockRedstoneWirelessActivated(World world, int i, int j,
+			int k, EntityPlayer entityplayer) {
+	}
+
+	@Override
+	public boolean beforeBlockRedstoneWirelessNeighborChange(World world,
+			int i, int j, int k, int l) {
+		return false;
+	}
+
+	@Override
+	public void afterBlockRedstoneWirelessNeighborChange(World world, int i,
+			int j, int k, int l) {
+	}
+
+	@Override
+	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j,
+			int k, Random random) {
+		return false;
+	}
+
+	@Override
+	public void afterUpdateRedstoneWirelessTick(World world, int i, int j,
+			int k, Random random) {
+	}
 
 }

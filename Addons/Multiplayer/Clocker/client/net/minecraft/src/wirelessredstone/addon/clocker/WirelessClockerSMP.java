@@ -17,7 +17,7 @@ public class WirelessClockerSMP {
 			registerConnHandler();
 			addBlockOverride();
 			addGuiOverride();
-			
+
 			return true;
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(

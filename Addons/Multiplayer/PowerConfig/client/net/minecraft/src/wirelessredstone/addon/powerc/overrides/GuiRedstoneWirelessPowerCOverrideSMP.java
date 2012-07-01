@@ -12,10 +12,9 @@ public class GuiRedstoneWirelessPowerCOverrideSMP implements
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object command, Object newDirection) {
 		if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
-			 PacketHandlerPowerConfig
-			 .PacketHandlerOutput.sendPowerConfigPacket(
-			 command.toString(), entity.xCoord, entity.yCoord,
-			 entity.zCoord, Integer.parseInt(newDirection.toString()));
+			PacketHandlerPowerConfig.PacketHandlerOutput.sendPowerConfigPacket(
+					command.toString(), entity.xCoord, entity.yCoord,
+					entity.zCoord, Integer.parseInt(newDirection.toString()));
 		}
 		return false;
 	}

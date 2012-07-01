@@ -5,7 +5,8 @@ import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWir
 
 public class TileEntityRedstoneWirelessClockerInjector {
 
-	public static Packet getDescriptionPacket(TileEntityRedstoneWirelessClocker clocker) {
+	public static Packet getDescriptionPacket(
+			TileEntityRedstoneWirelessClocker clocker) {
 		PacketWirelessClockerTile pWCT = new PacketWirelessClockerTile(clocker);
 		return pWCT.getPacket();
 	}

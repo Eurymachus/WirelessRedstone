@@ -40,7 +40,7 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 		}
 		return false;
 	}
-	
+
 	public int getIconFromDamage(int i) {
 		return PowerConfigurator.spritePowerC;
 	}

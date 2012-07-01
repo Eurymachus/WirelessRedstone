@@ -36,7 +36,7 @@ public class mod_WirelessRedstone extends BaseMod {
 		if (!WirelessRedstone.isLoaded)
 			WirelessRedstone.isLoaded = WirelessRedstone.initialize();
 	}
-	
+
 	/**
 	 * Constructor sets the instance.
 	 */

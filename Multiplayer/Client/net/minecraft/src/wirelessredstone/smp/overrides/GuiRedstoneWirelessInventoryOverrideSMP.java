@@ -15,8 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wirelessredstone.smp.overrides;
 
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessDeviceOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -30,7 +28,8 @@ public class GuiRedstoneWirelessInventoryOverrideSMP implements
 		if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
 			int OLD = Integer.parseInt(oldFreq.toString());
 			int NEW = Integer.parseInt(newFreq.toString());
-			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("OLD: " + OLD + " NEW: " + NEW);
+			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("OLD: "
+					+ OLD + " NEW: " + NEW);
 			PacketHandlerRedstoneWireless.PacketHandlerOutput
 					.sendRedstoneEtherPacket("changeFreq",
 							entity.getBlockCoord(0), entity.getBlockCoord(1),

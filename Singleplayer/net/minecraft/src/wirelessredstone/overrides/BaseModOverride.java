@@ -14,5 +14,6 @@ import net.minecraft.src.World;
  * 
  */
 public interface BaseModOverride {
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntity tileentity);
+	public boolean beforeOpenGui(World world, EntityPlayer entityplayer,
+			TileEntity tileentity);
 }

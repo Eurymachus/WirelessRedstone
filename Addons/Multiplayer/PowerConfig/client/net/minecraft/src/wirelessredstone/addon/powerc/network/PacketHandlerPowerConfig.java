@@ -18,7 +18,6 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.powerc.GuiRedstoneWirelessPowerDirector;
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfigurator;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
@@ -48,7 +47,8 @@ public class PacketHandlerPowerConfig {
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 
 			TileEntity tileentity = packet.getTarget(world);
-			if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessR) {
+			if (tileentity != null
+					&& tileentity instanceof TileEntityRedstoneWirelessR) {
 				PowerConfigurator.activateGUI(world, entityplayer, tileentity);
 			}
 		}

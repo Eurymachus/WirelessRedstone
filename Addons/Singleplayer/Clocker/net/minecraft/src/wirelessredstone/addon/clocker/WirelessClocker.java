@@ -15,7 +15,6 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class WirelessClocker {
@@ -27,7 +26,7 @@ public class WirelessClocker {
 
 	public static int spriteSidesOff;
 	public static int spriteSidesOn;
-	
+
 	public static List<BaseModOverride> overrides;
 
 	public static boolean initialize() {
@@ -93,7 +92,7 @@ public class WirelessClocker {
 				"Wireless Clocker",
 				new TileEntityRedstoneWirelessClockerRenderer());
 	}
-	
+
 	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}

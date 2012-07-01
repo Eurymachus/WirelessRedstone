@@ -7,9 +7,11 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class TileEntityRedstoneWirelessInjector {
 	public static boolean doUpdateEntity(World world) {
-		return ( world != null );
+		return (world != null);
 	}
-	public static Packet getDescriptionPacket(TileEntityRedstoneWireless tileentity) {
+
+	public static Packet getDescriptionPacket(
+			TileEntityRedstoneWireless tileentity) {
 		return new PacketWirelessTile("fetchTile", tileentity).getPacket();
 	}
 }

@@ -11,58 +11,50 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 
-public class mod_WirelessClockerSMP extends NetworkMod
-{
+public class mod_WirelessClockerSMP extends NetworkMod {
 	public boolean wirelessClocker = false;
-	
+
 	public NetworkMod instance;
 
-	public mod_WirelessClockerSMP()
-	{
+	public mod_WirelessClockerSMP() {
 		instance = this;
 	}
-	
+
 	@Override
-	public void modsLoaded()
-	{
-		if (!wirelessClocker && ModLoader.isModLoaded("mod_WirelessRedstoneSMP"))
-		{
+	public void modsLoaded() {
+		if (!wirelessClocker
+				&& ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
 			wirelessClocker = WirelessClocker.initialize();
 		}
 	}
 
 	@Override
-	public String getPriorities()
-	{
+	public String getPriorities() {
 		return "after:mod_WirelessRedstoneSMP";
 	}
 
 	@Override
-	public void load()
-	{
+	public void load() {
 	}
 
 	@Override
-	public String getVersion() 
-	{
+	public String getVersion() {
 		return "1.0";
 	}
 
 	@Override
-	public boolean clientSideRequired()
-	{
+	public boolean clientSideRequired() {
 		return true;
 	}
 
 	@Override
-	public boolean serverSideRequired()
-	{
+	public boolean serverSideRequired() {
 		return true;
 	}
 }

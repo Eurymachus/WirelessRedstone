@@ -224,7 +224,7 @@ public class PacketHandlerRedstoneWireless {
 
 			if (packet.getCommand().equals("changeFreq")) {
 				TileEntity entity = packet.getTarget(world);
-				
+
 				if (entity instanceof TileEntityRedstoneWireless) {
 					int dFreq = Integer.parseInt(packet.getFreq());
 					int oldFreq = Integer

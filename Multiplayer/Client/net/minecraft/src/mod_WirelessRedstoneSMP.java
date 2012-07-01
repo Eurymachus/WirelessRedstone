@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 
@@ -24,7 +23,8 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 
 	@Override
 	public void modsLoaded() {
-		if (!WirelessRedstoneSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone")) {
+		if (!WirelessRedstoneSMP.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			WirelessRedstoneSMP.isLoaded = WirelessRedstoneSMP.initialize();
 		}
 	}
@@ -48,14 +48,12 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 	}
 
 	@Override
-	public boolean clientSideRequired()
-	{
+	public boolean clientSideRequired() {
 		return true;
 	}
 
 	@Override
-	public boolean serverSideRequired()
-	{
+	public boolean serverSideRequired() {
 		return false;
 	}
 }

@@ -100,16 +100,16 @@ public class ThreadWirelessClocker implements Runnable {
 										entity.getBlockCoord(1),
 										entity.getBlockCoord(2));
 					}
-					if (((BlockRedstoneWirelessClocker)WirelessClocker.blockClock)
-						.getState(entity.worldObj,
-								entity.getBlockCoord(0),
-								entity.getBlockCoord(1),
-								entity.getBlockCoord(2)) && !entity.getClockState()) {
-									((BlockRedstoneWirelessClocker)WirelessClocker.blockClock)
-									.setState(entity.worldObj,
-											entity.getBlockCoord(0),
-											entity.getBlockCoord(1),
-											entity.getBlockCoord(2), false);
+					if (((BlockRedstoneWirelessClocker) WirelessClocker.blockClock)
+							.getState(entity.worldObj, entity.getBlockCoord(0),
+									entity.getBlockCoord(1),
+									entity.getBlockCoord(2))
+							&& !entity.getClockState()) {
+						((BlockRedstoneWirelessClocker) WirelessClocker.blockClock)
+								.setState(entity.worldObj,
+										entity.getBlockCoord(0),
+										entity.getBlockCoord(1),
+										entity.getBlockCoord(2), false);
 					}
 				}
 			}

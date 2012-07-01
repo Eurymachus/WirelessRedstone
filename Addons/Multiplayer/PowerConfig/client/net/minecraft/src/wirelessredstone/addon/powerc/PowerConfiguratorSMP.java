@@ -19,7 +19,7 @@ public class PowerConfiguratorSMP {
 			addBlockOverride();
 			addGuiOverride();
 			addBaseModOverride();
-			
+
 			return true;
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -43,7 +43,8 @@ public class PowerConfiguratorSMP {
 
 	private static void addBlockOverride() {
 		BlockRedstoneWirelessOverride override = new BlockRedstoneWirelessOverrideSMP();
-		((BlockRedstoneWireless) WirelessRedstone.blockWirelessR).addOverride(override);
+		((BlockRedstoneWireless) WirelessRedstone.blockWirelessR)
+				.addOverride(override);
 	}
 
 	private static void addGuiOverride() {

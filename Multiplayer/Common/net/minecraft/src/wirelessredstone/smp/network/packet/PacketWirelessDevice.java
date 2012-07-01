@@ -1,7 +1,5 @@
 package net.minecraft.src.wirelessredstone.smp.network.packet;
 
-import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 
 /**
@@ -13,7 +11,7 @@ import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 public class PacketWirelessDevice extends PacketWireless {
 	public PacketWirelessDevice(int packetId) {
 		super(packetId);
-		
+
 	}
 
 	public PacketWirelessDevice(int packetId, String name) {
@@ -27,19 +25,19 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.setFreq(data.getFreq());
 		this.setState(data.getState());
 	}
-	
+
 	public void setID(int id) {
 		this.payload.setIntPayload(0, id);
 	}
-	
+
 	public void setName(String name) {
 		this.payload.setStringPayload(0, name);
 	}
-	
+
 	public int getID() {
 		return this.payload.getIntPayload(0);
 	}
-	
+
 	public String getName() {
 		return this.payload.getStringPayload(0);
 	}

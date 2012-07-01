@@ -18,7 +18,7 @@ import net.minecraft.src.wirelessredstone.smp.overrides.RedstoneEtherOverrideSMP
  */
 public class WirelessRedstoneSMP {
 	public static boolean isLoaded = false;
-	
+
 	public static boolean initialize() {
 		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 
@@ -32,7 +32,7 @@ public class WirelessRedstoneSMP {
 
 		RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
 		RedstoneEther.getInstance().addOverride(etherOverrideSMP);
-		
+
 		BaseModOverrideSMP baseModOverride = new BaseModOverrideSMP();
 		WirelessRedstone.addOverride(baseModOverride);
 		return true;

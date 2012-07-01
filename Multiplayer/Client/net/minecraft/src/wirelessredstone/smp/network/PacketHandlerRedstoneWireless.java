@@ -31,32 +31,34 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT
 
 public class PacketHandlerRedstoneWireless {
 
-	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+	public static void handlePacket(PacketUpdate packet, World world,
+			EntityPlayer entityplayer) {
 		if (packet instanceof PacketOpenWindowRedstoneWireless) {
 			PacketHandlerInput.openGUI(
-					(PacketOpenWindowRedstoneWireless) packet, world, entityplayer);
+					(PacketOpenWindowRedstoneWireless) packet, world,
+					entityplayer);
 		} else if (packet instanceof PacketRedstoneEther) {
-			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther) packet, world,
-					entityplayer);
+			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther) packet,
+					world, entityplayer);
 		} else if (packet instanceof PacketWirelessTile) {
-			PacketHandlerInput.handleTilePacket((PacketWirelessTile) packet, world,
-					entityplayer);
+			PacketHandlerInput.handleTilePacket((PacketWirelessTile) packet,
+					world, entityplayer);
 		}
 	}
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketOpenWindowRedstoneWireless packet, World world,
-				EntityPlayer entityplayer) {
-				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-						"openGUI:" + packet.toString(),
-						LoggerRedstoneWireless.LogLevel.DEBUG);
-	
-				TileEntity tileentity = packet.getTarget(world);
-				WirelessRedstone.activateGUI(world, entityplayer, tileentity);
-			}
+		private static void openGUI(PacketOpenWindowRedstoneWireless packet,
+				World world, EntityPlayer entityplayer) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"openGUI:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		private static void handleTilePacket(PacketWirelessTile packet, World world,
-				EntityPlayer entityplayer) {
+			TileEntity tileentity = packet.getTarget(world);
+			WirelessRedstone.activateGUI(world, entityplayer, tileentity);
+		}
+
+		private static void handleTilePacket(PacketWirelessTile packet,
+				World world, EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleTilePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -83,8 +85,8 @@ public class PacketHandlerRedstoneWireless {
 			}
 		}
 
-		private static void handleEtherPacket(PacketRedstoneEther packet, World world,
-				EntityPlayer entityplayer) {
+		private static void handleEtherPacket(PacketRedstoneEther packet,
+				World world, EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleEtherPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -105,7 +107,7 @@ public class PacketHandlerRedstoneWireless {
 				RedstoneEther.getInstance().addTransmitter(world,
 						packet.xPosition, packet.yPosition, packet.zPosition,
 						packet.getFreq().toString());
-				
+
 			} else if (packet.getCommand().equals("addReceiver")) {
 				if (tileentity != null
 						&& tileentity instanceof TileEntityRedstoneWirelessR) {

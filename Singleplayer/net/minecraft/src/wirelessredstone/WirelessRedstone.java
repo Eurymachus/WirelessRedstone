@@ -355,8 +355,9 @@ public class WirelessRedstone {
 	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}
-	
-	public static void activateGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
+
+	public static void activateGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity) {
 		if (tileentity instanceof TileEntityRedstoneWirelessR) {
 			guiWirelessR
 					.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
@@ -369,7 +370,8 @@ public class WirelessRedstone {
 		}
 	}
 
-	public static void openGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
+	public static void openGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {
 			if (override.beforeOpenGui(world, entityplayer, tileentity))

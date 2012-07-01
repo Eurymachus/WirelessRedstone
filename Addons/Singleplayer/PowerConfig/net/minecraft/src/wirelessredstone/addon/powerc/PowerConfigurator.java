@@ -29,7 +29,7 @@ public class PowerConfigurator {
 			overrides = new ArrayList<BaseModOverride>();
 			loadConfig();
 			loadItemTextures();
-			
+
 			initItem();
 			initGui();
 
@@ -58,7 +58,7 @@ public class PowerConfigurator {
 		spritePowerC = ModLoader.addOverride("/gui/items.png",
 				"/WirelessSprites/pd.png");
 	}
-	
+
 	private static void initItem() {
 		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID))
 				.setItemName("powdir");
@@ -78,22 +78,24 @@ public class PowerConfigurator {
 
 	private static void addOverrides() {
 		WirelessRedstone
-		.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
+				.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 	}
 
 	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}
-	
-	public static void activateGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
+
+	public static void activateGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity) {
 		if (tileentity instanceof TileEntityRedstoneWirelessR) {
 			if (tileentity instanceof TileEntityRedstoneWirelessR)
-				PowerConfigurator.guiPowerC.assTileEntity((TileEntityRedstoneWirelessR)tileentity);
-				ModLoader.openGUI(entityplayer, guiPowerC);
+				PowerConfigurator.guiPowerC
+						.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
+			ModLoader.openGUI(entityplayer, guiPowerC);
 		}
 	}
 
-	public static void openGUI(World world, EntityPlayer entityplayer, 
+	public static void openGUI(World world, EntityPlayer entityplayer,
 			TileEntity tileentity) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {

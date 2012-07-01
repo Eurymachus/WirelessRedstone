@@ -25,7 +25,7 @@ public class PowerConfigurator {
 			registerConnHandler();
 			loadConfig();
 			loadItemTextures();
-			
+
 			initItem();
 
 			addRecipes();
@@ -38,7 +38,7 @@ public class PowerConfigurator {
 
 	private static void addOverrides() {
 		WirelessRedstone
-		.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
+				.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 	}
 
 	private static void registerConnHandler() {
