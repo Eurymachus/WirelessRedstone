@@ -74,7 +74,7 @@ public class PacketHandlerWirelessClocker {
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendWirelessClockerPacket(EntityPlayer entityplayer, String clockFreq, int i, int j, int k) 
+		public static void sendWirelessClockerPacket(String command, int i, int j, int k, Object clockFreq, boolean state) 
 		{
 			PacketWirelessClockerSettings packet = new PacketWirelessClockerSettings(clockFreq, i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessClockerPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);

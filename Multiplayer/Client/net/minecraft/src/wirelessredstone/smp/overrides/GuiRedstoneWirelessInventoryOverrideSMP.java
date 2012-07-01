@@ -27,9 +27,10 @@ public class GuiRedstoneWirelessInventoryOverrideSMP implements
 	@Override
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq) {
-		if ((ModLoader.getMinecraftInstance().theWorld.isRemote)) {
+		if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
 			int OLD = Integer.parseInt(oldFreq.toString());
 			int NEW = Integer.parseInt(newFreq.toString());
+			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("OLD: " + OLD + " NEW: " + NEW);
 			PacketHandlerRedstoneWireless.PacketHandlerOutput
 					.sendRedstoneEtherPacket("changeFreq",
 							entity.getBlockCoord(0), entity.getBlockCoord(1),

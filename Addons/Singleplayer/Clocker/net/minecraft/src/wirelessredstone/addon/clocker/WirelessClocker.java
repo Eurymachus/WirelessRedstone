@@ -7,7 +7,6 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.clocker.overrides.GuiRedstoneWirelessClockerOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
@@ -78,14 +77,6 @@ public class WirelessClocker {
 			BlockRedstoneWirelessOverride override) {
 		((BlockRedstoneWireless) WirelessClocker.blockClock)
 				.addOverride(override);
-	}
-
-	public static void addGuiOverrideToClocker(
-			GuiRedstoneWirelessOverride override) {
-		if (override instanceof GuiRedstoneWirelessClockerOverride) {
-			WirelessClocker.guiClock.addOverride((GuiRedstoneWirelessClockerOverride)override);
-		}
-		WirelessClocker.guiClock.addOverride(override);
 	}
 
 	private static void addBlock() {

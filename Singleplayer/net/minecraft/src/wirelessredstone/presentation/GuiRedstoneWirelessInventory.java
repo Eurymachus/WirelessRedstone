@@ -59,16 +59,6 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 		inventory = tileentity;
 	}
 
-	/**
-	 * Adds a GUI override to the GUI screen.
-	 * 
-	 * @param override
-	 *            GUI override.
-	 */
-	public void addOverride(GuiRedstoneWirelessInventoryOverride override) {
-		this.overrides.add(override);
-	}
-
 	@Override
 	protected void addControls() {
 		controlList.add(new GuiButtonWireless(0, (width / 2) + 10,
@@ -154,11 +144,13 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 						.beforeFrequencyChange(inventory, oldFreq, freq))
 					prematureExit = true;
 			}
-			if (prematureExit)
-				return;
 
 			if (oldFreq != freq)
 				setFreq(Integer.toString(freq));
+			
+			if (prematureExit)
+				return;
+			
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"WirelessRedstone: " + this.getClass().toString())

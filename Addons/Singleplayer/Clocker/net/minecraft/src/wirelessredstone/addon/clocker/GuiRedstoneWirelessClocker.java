@@ -18,21 +18,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.wirelessredstone.addon.clocker.overrides.GuiRedstoneWirelessClockerOverride;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
+import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
 import org.lwjgl.opengl.GL11;
 
 public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	private boolean isScrolling;
-	protected List<GuiRedstoneWirelessClockerOverride> clockerOverrides;
+	protected List<GuiRedstoneWirelessOverride> clockerOverrides;
 
 	public GuiRedstoneWirelessClocker() {
 		super();
 		clockerOverrides = new ArrayList();
 	}
 
-	public void addOverride(GuiRedstoneWirelessClockerOverride clockerOverride) {
+	public void addClockerOverride(GuiRedstoneWirelessOverride clockerOverride) {
 		clockerOverrides.add(clockerOverride);
 	}
 
@@ -87,52 +89,64 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
-		super.actionPerformed(guibutton);
+		try {
+			super.actionPerformed(guibutton);
+	
+			int oldClockFreq = getClockerFreq();
+			int clockFreq = getClockerFreq();
+			switch (guibutton.id) {
+			case 8:
+				clockFreq += 10;
+				break;
+			case 9:
+				clockFreq -= 10;
+				break;
+			case 10:
+				clockFreq += 1000;
+				break;
+			case 11:
+				clockFreq -= 1000;
+				break;
+			case 12:
+				clockFreq += 60000;
+				break;
+			case 13:
+				clockFreq -= 60000;
+				break;
+			}
+	
+			if (clockFreq > 2000000000)
+				clockFreq = 2000000000;
+			if (clockFreq < 200)
+				clockFreq = 200;
+	
+			// Clock frequency changed.
+	
+			boolean prematureExit = false;
+			for (GuiRedstoneWirelessOverride override : clockerOverrides) {
+				if (((GuiRedstoneWirelessInventoryOverride)override)
+						.beforeFrequencyChange(inventory, oldClockFreq, clockFreq))
+					prematureExit = true;
+			}
+			
+			if (oldClockFreq != clockFreq) {
+				((TileEntityRedstoneWirelessClocker) inventory)
+						.setClockFreq(clockFreq);
+			}
+			
+			if (prematureExit)
+				return;
+			
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"WirelessClocker: " + this.getClass().toString())
+					.writeStackTrace(e);
+		}
+	}
 
-		int oldClockFreq = ((TileEntityRedstoneWirelessClocker) inventory)
+	private int getClockerFreq() {
+		return ((TileEntityRedstoneWirelessClocker) inventory)
 				.getClockFreq();
-		int clockFreq = ((TileEntityRedstoneWirelessClocker) inventory)
-				.getClockFreq();
-		switch (guibutton.id) {
-		case 8:
-			clockFreq += 10;
-			break;
-		case 9:
-			clockFreq -= 10;
-			break;
-		case 10:
-			clockFreq += 1000;
-			break;
-		case 11:
-			clockFreq -= 1000;
-			break;
-		case 12:
-			clockFreq += 60000;
-			break;
-		case 13:
-			clockFreq -= 60000;
-			break;
-		}
-
-		if (clockFreq > 2000000000)
-			clockFreq = 2000000000;
-		if (clockFreq < 200)
-			clockFreq = 200;
-
-		// Clock frequency changed.
-
-		boolean prematureExit = false;
-		for (GuiRedstoneWirelessClockerOverride override : clockerOverrides) {
-			if (override
-					.beforeFrequencyChange(inventory, oldClockFreq, clockFreq))
-				prematureExit = true;
-		}
-		if (prematureExit)
-			return;
-		if (oldClockFreq != clockFreq) {
-			((TileEntityRedstoneWirelessClocker) inventory)
-					.setClockFreq(clockFreq);
-		}
 	}
 
 	@Override

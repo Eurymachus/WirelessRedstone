@@ -2,6 +2,7 @@ package net.minecraft.src.wirelessredstone.addon.clocker.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.clocker.TileEntityRedstoneWirelessClocker;
@@ -21,11 +22,15 @@ public class PacketHandlerWirelessClocker {
 
 	private static class PacketHandlerInput {
 		private static void handleWirelessClockerSettings(PacketWirelessClockerSettings packet, World world, EntityPlayer player) {
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessClockerPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput")
+			.write("handleWirelessClockerPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+			
 			TileEntity tileentity = packet.getTarget(world);
 			if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessClocker) {
+				int dFreq = Integer.parseInt(packet.getClockFreq());
+				int oldFreq = ((TileEntityRedstoneWirelessClocker)tileentity).getClockFreq();
 				TileEntityRedstoneWirelessClocker twc = (TileEntityRedstoneWirelessClocker)tileentity;
-				twc.setClockFreq(Integer.parseInt(packet.getClockFreq()));
+				twc.setClockFreq(oldFreq+dFreq);
 				twc.onInventoryChanged();
 				player.worldObj.markBlockNeedsUpdate(packet.xPosition, packet.yPosition, packet.zPosition);
 			}
