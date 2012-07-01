@@ -52,7 +52,7 @@ public class PacketHandlerRedstoneWireless {
 						LoggerRedstoneWireless.LogLevel.DEBUG);
 	
 				TileEntity tileentity = packet.getTarget(world);
-				WirelessRedstone.openGUI(tileentity, entityplayer, world);
+				WirelessRedstone.activateGUI(world, entityplayer, tileentity);
 			}
 
 		private static void handleTilePacket(PacketWirelessTile packet, World world,

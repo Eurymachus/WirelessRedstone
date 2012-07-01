@@ -58,15 +58,13 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 	@Override
 	protected boolean onBlockRedstoneWirelessActivated(World world, int i,
 			int j, int k, EntityPlayer entityplayer) {
-		if (!world.isRemote) {
-			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
+		super.onBlockRedstoneWirelessActivated(world, i, j, k, entityplayer);
+		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
-			if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
-				WirelessClocker.openGui((TileEntityRedstoneWirelessClocker)tileentity, world, entityplayer);
-			}
-			return true;
+		if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
+			WirelessClocker.openGui((TileEntityRedstoneWirelessClocker)tileentity, world, entityplayer);
 		}
-		return false;
+		return true;
 	}
 
 	@Override

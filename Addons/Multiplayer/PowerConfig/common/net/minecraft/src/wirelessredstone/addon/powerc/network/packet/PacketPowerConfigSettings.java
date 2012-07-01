@@ -1,41 +1,39 @@
 package net.minecraft.src.wirelessredstone.addon.powerc.network.packet;
 
-import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
-public class PacketPowerConfigSettings extends PacketPowerConfig
-{
-	public PacketPowerConfigSettings()
-	{
+public class PacketPowerConfigSettings extends PacketPowerConfig {
+	public PacketPowerConfigSettings() {
 		super(PacketIds.ADDON);
 	}
-	
-	public PacketPowerConfigSettings(String command)
-	{
+
+	public PacketPowerConfigSettings(String command) {
 		this();
-		PacketPayload p = new PacketPayload(1,1,1,1);
-		p.setStringPayload(0, command);
-		this.payload = p;
+		this.payload = new PacketPayload(1, 0, 1, 0);
+		this.setCommand(command);
 	}
-	
+
 	@Override
-	public String toString()
-	{
-		return this.payload.getStringPayload(0)+"("+xPosition+","+yPosition+","+zPosition+")["+this.payload.getIntPayload(0)+"]";
+	public String toString() {
+		return this.payload.getStringPayload(0) + "(" + xPosition + ","
+				+ yPosition + "," + zPosition + ")["
+				+ this.payload.getIntPayload(0) + "]";
 	}
-	
-	public int getValue()
-	{
-		return this.payload.getIntPayload(0);
-	}
-	
-	public String getCommand()
-	{
+
+	public String getCommand() {
 		return this.payload.getStringPayload(0);
 	}
 
-	public void setValue(int value)
-	{
+	public int getValue() {
+		return this.payload.getIntPayload(0);
+	}
+
+	public void setCommand(String command) {
+		this.payload.setStringPayload(0, command);
+	}
+
+	public void setValue(int value) {
 		this.payload.setIntPayload(0, value);
-	}	
+	}
 }

@@ -77,7 +77,7 @@ public class PacketHandlerRedstoneWireless {
 		}
 
 		public static void sendGuiPacketTo(EntityPlayerMP player,
-				TileEntityRedstoneWireless entity, int delay) {
+				TileEntityRedstoneWireless entity) {
 			PacketOpenWindowRedstoneWireless packet = new PacketOpenWindowRedstoneWireless(
 					entity);
 
@@ -85,7 +85,7 @@ public class PacketHandlerRedstoneWireless {
 					"sendGuiPacketTo:" + player.username,
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 
-			(new PacketHandlerOutputSender(player, packet, delay)).send();
+			(new PacketHandlerOutputSender(player, packet, 0)).send();
 		}
 
 		public static void sendEtherTileToAll(

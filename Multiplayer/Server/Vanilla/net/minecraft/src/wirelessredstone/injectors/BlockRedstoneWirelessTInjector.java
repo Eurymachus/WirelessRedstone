@@ -6,11 +6,4 @@ import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWirel
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class BlockRedstoneWirelessTInjector {
-	public static void onBlockRedstoneWirelessActivated(EntityPlayer entityplayer, TileEntityRedstoneWirelessT tileentity) {
-		PacketHandlerRedstoneWireless.PacketHandlerOutput.sendGuiPacketTo(
-				(EntityPlayerMP)entityplayer, 
-				tileentity,
-				0
-		);
-	}
 }

@@ -91,13 +91,26 @@ public class ThreadWirelessClocker implements Runnable {
 		int minTicker = 10;
 		while (running) {
 			for (TileEntityRedstoneWirelessClocker entity : entities) {
-				if (entity != null && entity.getClockState()
-						&& ticker % entity.getClockFreq() == 0) {
-					((BlockRedstoneWirelessClocker) WirelessClocker.blockClock)
-							.toggleState(entity.worldObj,
-									entity.getBlockCoord(0),
-									entity.getBlockCoord(1),
-									entity.getBlockCoord(2));
+				if (entity != null) {
+					if (entity.getClockState()
+							&& ticker % entity.getClockFreq() == 0) {
+						((BlockRedstoneWirelessClocker) WirelessClocker.blockClock)
+								.toggleState(entity.worldObj,
+										entity.getBlockCoord(0),
+										entity.getBlockCoord(1),
+										entity.getBlockCoord(2));
+					}
+					if (((BlockRedstoneWirelessClocker)WirelessClocker.blockClock)
+						.getState(entity.worldObj,
+								entity.getBlockCoord(0),
+								entity.getBlockCoord(1),
+								entity.getBlockCoord(2)) && !entity.getClockState()) {
+									((BlockRedstoneWirelessClocker)WirelessClocker.blockClock)
+									.setState(entity.worldObj,
+											entity.getBlockCoord(0),
+											entity.getBlockCoord(1),
+											entity.getBlockCoord(2), false);
+					}
 				}
 			}
 

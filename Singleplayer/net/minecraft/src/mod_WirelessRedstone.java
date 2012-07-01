@@ -29,11 +29,19 @@ public class mod_WirelessRedstone extends BaseMod {
 	public static BaseMod instance;
 
 	/**
+	 * Initialize WirelessRedstone once
+	 */
+	@Override
+	public void modsLoaded() {
+		if (!WirelessRedstone.isLoaded)
+			WirelessRedstone.isLoaded = WirelessRedstone.initialize();
+	}
+	
+	/**
 	 * Constructor sets the instance.
 	 */
 	public mod_WirelessRedstone() {
 		instance = this;
-		WirelessRedstone.initialize();
 	}
 
 	/**

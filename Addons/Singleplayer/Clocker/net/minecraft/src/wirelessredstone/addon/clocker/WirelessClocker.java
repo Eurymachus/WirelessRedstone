@@ -1,5 +1,8 @@
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
@@ -11,6 +14,7 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -23,9 +27,12 @@ public class WirelessClocker {
 
 	public static int spriteSidesOff;
 	public static int spriteSidesOn;
+	
+	public static List<BaseModOverride> overrides;
 
 	public static boolean initialize() {
 		try {
+			overrides = new ArrayList<BaseModOverride>();
 			loadConfig();
 			loadBlockTextures();
 
@@ -86,10 +93,24 @@ public class WirelessClocker {
 				"Wireless Clocker",
 				new TileEntityRedstoneWirelessClockerRenderer());
 	}
+	
+	public static void addOverride(BaseModOverride override) {
+		overrides.add(override);
+	}
 
 	public static void openGui(TileEntityRedstoneWireless tileentity,
 			World world, EntityPlayer entityplayer) {
-		WirelessClocker.guiClock.assTileEntity(tileentity);
-		ModLoader.openGUI(entityplayer, WirelessClocker.guiClock);
+		boolean prematureExit = false;
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(world, entityplayer, tileentity))
+				prematureExit = true;
+		}
+
+		if (!prematureExit) {
+			if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
+				WirelessClocker.guiClock.assTileEntity(tileentity);
+				ModLoader.openGUI(entityplayer, WirelessClocker.guiClock);
+			}
+		}
 	}
 }

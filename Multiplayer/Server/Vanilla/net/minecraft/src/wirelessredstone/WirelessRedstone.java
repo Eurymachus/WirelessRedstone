@@ -10,9 +10,12 @@ import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
@@ -114,7 +117,22 @@ public class WirelessRedstone
 		stateUpdate = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Update.StateDelay", Integer.class, new Integer(stateUpdate));
 		initUpdate = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get("Ether.Update.LoginDelay", Integer.class, new Integer(initUpdate));
 	}
-
+	
+	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override)
+	{
+		LoggerRedstoneWireless.getInstance("Wireless Redstone")
+		.write("Override added to "+WirelessRedstone.blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		
+		((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).addOverride(override);
+	}
+	
+	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override)
+	{
+		LoggerRedstoneWireless.getInstance("Wireless Redstone")
+		.write("Override added to "+WirelessRedstone.blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		
+		((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).addOverride(override);
+	}
 
 	public static World getWorld(NetworkManager network)
 	{
@@ -129,10 +147,16 @@ public class WirelessRedstone
 		return net.getPlayerEntity();
 	}
 
-	public static void openGUI(TileEntity tileentity, EntityPlayer entityplayer, World world) {
-		if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless) {
-			TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless)tileentity;
-			PacketHandlerRedstoneWireless.PacketHandlerOutput.sendGuiPacketTo((EntityPlayerMP)entityplayer, tileentityredstonewireless, 0);	
+	public static void openGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
+		if (tileentity != null) {
+			if (tileentity instanceof TileEntityRedstoneWirelessT) {
+				TileEntityRedstoneWirelessT tileentityredstonewirelesst = (TileEntityRedstoneWirelessT)tileentity;
+				PacketHandlerRedstoneWireless.PacketHandlerOutput.sendGuiPacketTo((EntityPlayerMP)entityplayer, tileentityredstonewirelesst);
+			}
+			if (tileentity instanceof TileEntityRedstoneWirelessR) {
+				TileEntityRedstoneWirelessR tileentityredstonewirelesst = (TileEntityRedstoneWirelessR)tileentity;
+				PacketHandlerRedstoneWireless.PacketHandlerOutput.sendGuiPacketTo((EntityPlayerMP)entityplayer, tileentityredstonewirelesst);
+			}
 		}
 	}
 }

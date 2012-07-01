@@ -30,13 +30,9 @@ public class GuiRedstoneWirelessPowerDirector extends
 		GuiRedstoneWirelessInventory {
 	protected List<GuiRedstoneWirelessOverride> powerOverrides;
 
-	public GuiRedstoneWirelessPowerDirector(
-			TileEntityRedstoneWirelessR tileentity) {
+	public GuiRedstoneWirelessPowerDirector() {
 		super();
-		inventory = tileentity;
-		xSize = 177;
-		ySize = 166;
-		this.powerOverrides = new ArrayList<GuiRedstoneWirelessOverride>();
+		powerOverrides = new ArrayList<GuiRedstoneWirelessOverride>();
 	}
 
 	@Override

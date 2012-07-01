@@ -16,12 +16,7 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
-import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
-import net.minecraft.src.wirelessredstone.smp.overrides.RedstoneEtherOverrideSMP;
+import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 
 public class mod_WirelessRedstoneSMP extends NetworkMod {
 
@@ -29,19 +24,8 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 
 	@Override
 	public void modsLoaded() {
-		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
-			MinecraftForge.registerConnectionHandler(new NetworkConnection());
-
-			GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
-			WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
-			WirelessRedstone.addGuiOverrideToTransmitter(GUIOverride);
-
-			BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
-			WirelessRedstone.addOverrideToReceiver(blockOverride);
-			WirelessRedstone.addOverrideToTransmitter(blockOverride);
-
-			RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
-			RedstoneEther.getInstance().addOverride(etherOverrideSMP);
+		if (!WirelessRedstoneSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			WirelessRedstoneSMP.isLoaded = WirelessRedstoneSMP.initialize();
 		}
 	}
 

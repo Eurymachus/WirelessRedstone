@@ -22,7 +22,8 @@ import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowe
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class PacketHandlerPowerConfig {
@@ -47,7 +48,7 @@ public class PacketHandlerPowerConfig {
 			{
 				if (entityplayer.canPlayerEdit(packet.xPosition, packet.yPosition, packet.zPosition))
 				{
-					PacketHandlerOutput.sendPowerConfigGuiPacket((EntityPlayerMP)entityplayer, packet.xPosition, packet.yPosition, packet.zPosition);
+					PacketHandlerOutput.sendPowerConfigGuiPacket((EntityPlayerMP)entityplayer, (TileEntityRedstoneWirelessR)packet.getTarget(world));
 				}
 			}
 		}
@@ -68,16 +69,16 @@ public class PacketHandlerPowerConfig {
 				int i = receiver.getBlockCoord(0);
 				int j = receiver.getBlockCoord(1);
 				int k = receiver.getBlockCoord(2);
-				BlockRedstoneWireless.notifyNeighbors(world, i, j, k);
 				receiver.onInventoryChanged();
+				BlockRedstoneWireless.notifyNeighbors(world, i, j, k);
 			}
 		}
 	}
 
 	public static class PacketHandlerOutput
 	{
-		public static void sendPowerConfigGuiPacket(EntityPlayerMP entityplayer, int i, int j, int k) {
-			PacketPowerConfigGui packet = new PacketPowerConfigGui(i, j, k);
+		public static void sendPowerConfigGuiPacket(EntityPlayerMP entityplayer, TileEntity tileentity) {
+			PacketPowerConfigGui packet = new PacketPowerConfigGui(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendPowerConfigGuiPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
 			entityplayer.playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
 		}

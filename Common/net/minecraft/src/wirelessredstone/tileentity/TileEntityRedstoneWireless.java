@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.tileentity;
 
+import java.util.List;
+
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;

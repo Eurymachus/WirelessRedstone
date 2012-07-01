@@ -34,14 +34,17 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if (tileentity != null) {
-			PowerConfigurator.openGUI(entityplayer, world, tileentity);
+			PowerConfigurator.openGUI(world, entityplayer, tileentity);
 			itemstack.damageItem(1, entityplayer);
 			return true;
 		}
 		return false;
 	}
+	
+	public int getIconFromDamage(int i) {
+		return PowerConfigurator.spritePowerC;
+	}
 
-	@Override
 	public boolean isFull3D() {
 		return true;
 	}

@@ -26,22 +26,6 @@ public class mod_WirelessRedstoneSMP extends NetworkMod
 		WirelessRedstone.load();
 	}
 	
-	public static void addOverrideToReceiver(BlockRedstoneWirelessOverride override)
-	{
-		LoggerRedstoneWireless.getInstance("Wireless Redstone")
-		.write("Override added to "+WirelessRedstone.blockWirelessR.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-		
-		((BlockRedstoneWireless)WirelessRedstone.blockWirelessR).addOverride(override);
-	}
-	
-	public static void addOverrideToTransmitter(BlockRedstoneWirelessOverride override)
-	{
-		LoggerRedstoneWireless.getInstance("Wireless Redstone")
-		.write("Override added to "+WirelessRedstone.blockWirelessT.getClass().toString()+": "+override.getClass().toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-		
-		((BlockRedstoneWireless)WirelessRedstone.blockWirelessT).addOverride(override);
-	}
-	
 	@Override
 	public void load()
 	{

@@ -11,6 +11,7 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -20,6 +21,7 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
@@ -100,6 +102,10 @@ public class WirelessRedstone {
 	 * Wireless Redstone Ether maximum nodes
 	 */
 	public static int maxEtherFrequencies = 10000;
+	/**
+	 * Wireless Redstone load state
+	 */
+	public static boolean isLoaded = false;
 
 	public static List<BaseModOverride> overrides;
 
@@ -110,16 +116,26 @@ public class WirelessRedstone {
 	 * - Register Blocks and Tile Entities<br>
 	 * - Recipes
 	 */
-	public static void initialize() {
-		overrides = new ArrayList<BaseModOverride>();
-		loadConfig();
-		addOverrides();
-		initBlocks();
-		initGUIs();
-		loadBlockTextures();
-		loadItemTextures();
-		registerBlocks();
-		addRecipes();
+	public static boolean initialize() {
+		try {
+			overrides = new ArrayList<BaseModOverride>();
+			loadConfig();
+			addOverrides();
+			initBlocks();
+			initGUIs();
+			loadBlockTextures();
+			loadItemTextures();
+			registerBlocks();
+			addRecipes();
+			return true;
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					LoggerRedstoneWireless
+							.filterClassName(WirelessClocker.class.toString()))
+					.write("Initialization failed.",
+							LoggerRedstoneWireless.LogLevel.WARNING);
+			return false;
+		}
 	}
 
 	/**
@@ -339,25 +355,29 @@ public class WirelessRedstone {
 	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}
-
-	public static void openGUI(TileEntity tileentity,
-			EntityPlayer entityplayer, World world) {
-		boolean prematureExit = false;
-		for (BaseModOverride override : overrides) {
-			if (override.beforeOpenGui(entityplayer, world, tileentity))
-				prematureExit = true;
+	
+	public static void activateGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
+		if (tileentity instanceof TileEntityRedstoneWirelessR) {
+			guiWirelessR
+					.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
+			ModLoader.openGUI(entityplayer, guiWirelessR);
 		}
-
-		if (!prematureExit)
-			if (tileentity instanceof TileEntityRedstoneWirelessR) {
-				guiWirelessR
-						.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
-				ModLoader.openGUI(entityplayer, guiWirelessR);
-			}
 		if (tileentity instanceof TileEntityRedstoneWirelessT) {
 			guiWirelessT
 					.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
 			ModLoader.openGUI(entityplayer, guiWirelessT);
+		}
+	}
+
+	public static void openGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
+		boolean prematureExit = false;
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(world, entityplayer, tileentity))
+				prematureExit = true;
+		}
+
+		if (!prematureExit) {
+			activateGUI(world, entityplayer, tileentity);
 		}
 	}
 }
