@@ -1,14 +1,10 @@
 package net.minecraft.src.wirelessredstone.addon.powerc;
 
 import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.powerc.overrides.GuiRedstoneWirelessPowerCOverrideSMP;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
-import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
 
 public class PowerConfiguratorSMP {
 	public static boolean isLoaded = false;
@@ -16,7 +12,6 @@ public class PowerConfiguratorSMP {
 	public static boolean initialize() {
 		try {
 			registerConnHandler();
-			addBlockOverride();
 			addGuiOverride();
 			addBaseModOverride();
 
@@ -39,12 +34,6 @@ public class PowerConfiguratorSMP {
 	private static void addBaseModOverride() {
 		BaseModOverrideSMP baseModOverride = new BaseModOverrideSMP();
 		PowerConfigurator.addOverride(baseModOverride);
-	}
-
-	private static void addBlockOverride() {
-		BlockRedstoneWirelessOverride override = new BlockRedstoneWirelessOverrideSMP();
-		((BlockRedstoneWireless) WirelessRedstone.blockWirelessR)
-				.addOverride(override);
 	}
 
 	private static void addGuiOverride() {
