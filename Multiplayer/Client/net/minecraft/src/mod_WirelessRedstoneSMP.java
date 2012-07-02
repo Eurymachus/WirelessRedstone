@@ -16,6 +16,7 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class mod_WirelessRedstoneSMP extends NetworkMod {
 
@@ -23,10 +24,16 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 
 	@Override
 	public void modsLoaded() {
-		if (!WirelessRedstoneSMP.isLoaded
-				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
-			WirelessRedstoneSMP.isLoaded = WirelessRedstoneSMP.initialize();
+		if (ModLoader.isModLoaded("mod_MinecraftForge")) {
+			if (!WirelessRedstoneSMP.isLoaded
+					&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
+				WirelessRedstoneSMP.isLoaded = WirelessRedstoneSMP.initialize();
+			}
 		}
+		else
+			LoggerRedstoneWireless.getInstance(
+					LoggerRedstoneWireless.filterClassName(this.toString()))
+					.write("Minecraft Forge is not Installed, aborting load sequence!", LoggerRedstoneWireless.LogLevel.WARNING);
 	}
 
 	@Override
