@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11;
  * A boolean GUI Button<br>
  * On/Off state decides button color.
  * 
- * @author ali4z
+ * @author ali4z & Eurymachus
  */
 public class GuiButtonBoolean extends GuiButtonWireless {
 	/**

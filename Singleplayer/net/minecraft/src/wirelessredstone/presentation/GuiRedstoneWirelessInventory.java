@@ -23,25 +23,17 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 /**
  * Wireless Redstone GUI screen.
  * 
- * @author ali4z
+ * @author ali4z & Eurymachus
  */
 public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	/**
 	 * Associated TileEntity
 	 */
 	protected TileEntityRedstoneWireless inventory;
-	/**
-	 * Width
-	 */
-	protected int xSize;
-	/**
-	 * Height
-	 */
-	protected int ySize;
 
 	/**
 	 * Constructor.<br>
-	 * Sets default width,height and initializes override list object.
+	 * Sets default width and height.
 	 */
 	public GuiRedstoneWirelessInventory() {
 		super();
@@ -81,16 +73,7 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
-
-	/**
-	 * Action listener.<br>
-	 * Triggers when a button was clicked on the GUI.<br>
-	 * - Runs all override beforeFrequencyChange, exits if premature exit was
-	 * returned, skipping the frequency from being set.
-	 * 
-	 * @param guibutton
-	 *            button that was clicked
-	 */
+	
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		try {

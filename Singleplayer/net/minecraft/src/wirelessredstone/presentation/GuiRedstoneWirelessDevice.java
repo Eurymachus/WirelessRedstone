@@ -23,7 +23,7 @@ import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 /**
  * Wireless Redstone GUI screen.
  * 
- * @author ali4z
+ * @author Eurymachus
  */
 public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	/**
@@ -31,10 +31,24 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	 */
 	protected WirelessDeviceData wirelessDeviceData;
 
+	/**
+	 * Constructor.<br>
+	 * Sets default width and height.
+	 */
 	public GuiRedstoneWirelessDevice() {
 		super();
 		this.xSize = 177;
 		this.ySize = 166;
+	}
+	
+	/**
+	 * Associates a wireless device
+	 * 
+	 * @param device
+	 * 			WirelessDeviceData to be associated
+	 */
+	public void assWirelessDevice(WirelessDeviceData device) {
+		wirelessDeviceData = device;
 	}
 
 	@Override
