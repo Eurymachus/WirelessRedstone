@@ -15,29 +15,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wirelessredstone.tileentity;
 
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 
 public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
 	public TileEntityRedstoneWirelessT() {
 		super();
+		this.blockRedstoneWireless = (BlockRedstoneWireless) WirelessRedstone.blockWirelessT;
 	}
 
 	@Override
 	public void updateEntity() {
-		String freq = getFreq().toString();
+		boolean prematureExit = false;
+		for (TileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.beforeUpdateEntity(this))
+				prematureExit = true;
+		}
 
-		if (!oldFreq.equals(freq) || firstTick) {
-			((BlockRedstoneWirelessT) WirelessRedstone.blockWirelessT)
-					.changeFreq(worldObj, getBlockCoord(0), getBlockCoord(1),
-							getBlockCoord(2), oldFreq, freq);
-			oldFreq = freq;
-			if (firstTick)
-				firstTick = false;
+		if (!prematureExit) {
+			String freq = getFreq().toString();
+			if (!oldFreq.equals(freq) || firstTick) {
+				onUpdateEntity();
+				blockRedstoneWireless.changeFreq(worldObj, getBlockCoord(0),
+						getBlockCoord(1), getBlockCoord(2), oldFreq, freq);
+				oldFreq = freq;
+				if (firstTick)
+					firstTick = false;
+			}
+		}
+
+		for (TileEntityRedstoneWirelessOverride override : overrides) {
+			override.afterUpdateEntity(this);
 		}
 	}
 
 	@Override
 	public String getInvName() {
 		return "Wireless Transmitter";
+	}
+
+	@Override
+	protected void onUpdateEntity() {
 	}
 }

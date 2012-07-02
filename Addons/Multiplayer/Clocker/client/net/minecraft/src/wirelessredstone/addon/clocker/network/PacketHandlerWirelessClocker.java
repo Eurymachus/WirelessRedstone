@@ -20,36 +20,33 @@ public class PacketHandlerWirelessClocker {
 			PacketHandlerInput.handleWirelessClockerSettings(
 					(PacketWirelessClockerSettings) packet, world, player);
 		else if (packet instanceof PacketWirelessClockerGui)
-			PacketHandlerInput.handleWirelessClockerGui(
-					(PacketWirelessClockerGui) packet, world, player);
+			PacketHandlerInput.openGUI((PacketWirelessClockerGui) packet,
+					world, player);
 		else if (packet instanceof PacketWirelessClockerTile)
 			PacketHandlerInput.handleWirelessClockerTile(
 					(PacketWirelessClockerTile) packet, world, player);
 	}
 
 	private static class PacketHandlerInput {
+		private static void openGUI(PacketWirelessClockerGui packet,
+				World world, EntityPlayer entityplayer) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"openGUI:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+
+			TileEntity tileentity = packet.getTarget(world);
+			if (tileentity != null
+					&& tileentity instanceof TileEntityRedstoneWirelessClocker) {
+				WirelessClocker.activateGui(world, entityplayer, tileentity);
+			}
+		}
+
 		private static void handleWirelessClockerSettings(
 				PacketWirelessClockerSettings packet, World world,
 				EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessClockerSettingsPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-		}
-
-		private static void handleWirelessClockerGui(
-				PacketWirelessClockerGui packet, World world,
-				EntityPlayer entityplayer) {
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-					"handleWirelessClockerGuiPacket:" + packet.toString(),
-					LoggerRedstoneWireless.LogLevel.DEBUG);
-
-			TileEntity tileentity = packet.getTarget(world);
-			if (tileentity != null
-					&& tileentity instanceof TileEntityRedstoneWirelessClocker) {
-				WirelessClocker.openGui(
-						(TileEntityRedstoneWirelessClocker) tileentity, world,
-						entityplayer);
-			}
 		}
 
 		public static void handleWirelessClockerTile(

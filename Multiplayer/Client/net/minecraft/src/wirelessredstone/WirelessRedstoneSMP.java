@@ -7,6 +7,8 @@ import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.RedstoneEtherOverrideSMP;
+import net.minecraft.src.wirelessredstone.smp.overrides.TileEntityRedstoneWirelessOverrideSMP;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
  * WirelessRedstoneSMP class
@@ -29,6 +31,9 @@ public class WirelessRedstoneSMP {
 		BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
 		WirelessRedstone.addOverrideToReceiver(blockOverride);
 		WirelessRedstone.addOverrideToTransmitter(blockOverride);
+
+		TileEntityRedstoneWirelessOverrideSMP tileOverride = new TileEntityRedstoneWirelessOverrideSMP();
+		TileEntityRedstoneWireless.addOverride(tileOverride);
 
 		RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
 		RedstoneEther.getInstance().addOverride(etherOverrideSMP);

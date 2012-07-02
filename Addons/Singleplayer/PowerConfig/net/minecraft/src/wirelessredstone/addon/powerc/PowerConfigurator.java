@@ -88,9 +88,8 @@ public class PowerConfigurator {
 	public static void activateGUI(World world, EntityPlayer entityplayer,
 			TileEntity tileentity) {
 		if (tileentity instanceof TileEntityRedstoneWirelessR) {
-			if (tileentity instanceof TileEntityRedstoneWirelessR)
-				PowerConfigurator.guiPowerC
-						.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
+			PowerConfigurator.guiPowerC
+					.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
 			ModLoader.openGUI(entityplayer, guiPowerC);
 		}
 	}

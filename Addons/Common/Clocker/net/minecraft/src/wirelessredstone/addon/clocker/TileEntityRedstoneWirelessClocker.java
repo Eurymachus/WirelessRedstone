@@ -19,10 +19,11 @@ import java.util.concurrent.TimeUnit;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.Packet;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class TileEntityRedstoneWirelessClocker extends
-		TileEntityRedstoneWireless {
+		TileEntityRedstoneWirelessT {
 	private int clockFreq;
 	private boolean running;
 
@@ -30,21 +31,12 @@ public class TileEntityRedstoneWirelessClocker extends
 		super();
 		clockFreq = 1000;
 		running = false;
+		this.blockRedstoneWireless = (BlockRedstoneWireless) WirelessClocker.blockClock;
 	}
 
 	@Override
-	public void updateEntity() {
-		String freq = getFreq();
-
-		if (!oldFreq.equals(freq) || firstTick) {
-			ThreadWirelessClocker.getInstance().addTileEntity(this);
-			((BlockRedstoneWirelessClocker) WirelessClocker.blockClock)
-					.changeFreq(this.worldObj, getBlockCoord(0),
-							getBlockCoord(1), getBlockCoord(2), oldFreq, freq);
-			oldFreq = freq;
-			if (firstTick)
-				firstTick = false;
-		}
+	protected void onUpdateEntity() {
+		ThreadWirelessClocker.getInstance().addTileEntity(this);
 	}
 
 	@Override

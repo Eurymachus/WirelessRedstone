@@ -14,6 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
@@ -21,16 +24,19 @@ import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
+import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.injectors.TileEntityRedstoneWirelessInjector;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		IInventory {
+	protected BlockRedstoneWireless blockRedstoneWireless;
 	public boolean firstTick = true;
 	public String oldFreq;
 	public String currentFreq;
 	protected boolean[] powerRoute;
 	protected boolean[] indirPower;
+	protected static List<TileEntityRedstoneWirelessOverride> overrides = new ArrayList();
 
 	public TileEntityRedstoneWireless() {
 		firstTick = true;
@@ -39,6 +45,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		firstTick = false;
 		flushPowerRoute();
 		flushIndirPower();
+	}
+
+	public static void addOverride(TileEntityRedstoneWirelessOverride override) {
+		overrides.add(override);
 	}
 
 	@Override
@@ -58,8 +68,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public void setFreq(String i) {
 		try {
 			currentFreq = i;
-			if (TileEntityRedstoneWirelessInjector.doUpdateEntity(worldObj))
-				updateEntity();
+			updateEntity();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"WirelessRedstone: " + this.getClass().toString())
@@ -82,6 +91,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public abstract void updateEntity();
+
+	protected abstract void onUpdateEntity();
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {

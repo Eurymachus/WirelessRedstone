@@ -2,8 +2,8 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideServer;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 

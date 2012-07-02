@@ -8,6 +8,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -97,6 +98,15 @@ public class WirelessClocker {
 		overrides.add(override);
 	}
 
+	public static void activateGui(World world, EntityPlayer entityplayer,
+			TileEntity tileentity) {
+		if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
+			WirelessClocker.guiClock
+					.assTileEntity((TileEntityRedstoneWirelessClocker) tileentity);
+			ModLoader.openGUI(entityplayer, WirelessClocker.guiClock);
+		}
+	}
+
 	public static void openGui(TileEntityRedstoneWireless tileentity,
 			World world, EntityPlayer entityplayer) {
 		boolean prematureExit = false;
@@ -106,10 +116,7 @@ public class WirelessClocker {
 		}
 
 		if (!prematureExit) {
-			if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
-				WirelessClocker.guiClock.assTileEntity(tileentity);
-				ModLoader.openGUI(entityplayer, WirelessClocker.guiClock);
-			}
+			activateGui(world, entityplayer, tileentity);
 		}
 	}
 }

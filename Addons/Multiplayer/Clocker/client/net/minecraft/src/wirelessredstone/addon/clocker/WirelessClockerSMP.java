@@ -6,6 +6,8 @@ import net.minecraft.src.wirelessredstone.addon.clocker.overrides.GuiRedstoneWir
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
+import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 
@@ -16,6 +18,7 @@ public class WirelessClockerSMP {
 		try {
 			registerConnHandler();
 			addBlockOverride();
+			addBaseOverride();
 			addGuiOverride();
 
 			return true;
@@ -28,6 +31,11 @@ public class WirelessClockerSMP {
 					LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;
 		}
+	}
+
+	private static void addBaseOverride() {
+		BaseModOverride override = new BaseModOverrideSMP();
+		WirelessClocker.addOverride(override);
 	}
 
 	private static void registerConnHandler() {

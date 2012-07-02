@@ -73,7 +73,7 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
-	
+
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		try {

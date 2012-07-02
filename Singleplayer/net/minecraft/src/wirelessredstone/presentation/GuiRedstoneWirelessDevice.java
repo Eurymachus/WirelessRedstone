@@ -40,12 +40,12 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 		this.xSize = 177;
 		this.ySize = 166;
 	}
-	
+
 	/**
 	 * Associates a wireless device
 	 * 
 	 * @param device
-	 * 			WirelessDeviceData to be associated
+	 *            WirelessDeviceData to be associated
 	 */
 	public void assWirelessDevice(WirelessDeviceData device) {
 		wirelessDeviceData = device;
