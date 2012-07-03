@@ -23,7 +23,8 @@ public class mod_WirelessClockerSMP extends NetworkMod {
 	@Override
 	public void modsLoaded() {
 		if (!WirelessClockerSMP.isLoaded
-				&& ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
+				&& ModLoader.isModLoaded("mod_WirelessRedstoneSMP")
+				&& ModLoader.isModLoaded("mod_WirelessClocker")) {
 			WirelessClockerSMP.isLoaded = WirelessClockerSMP.initialize();
 		}
 	}

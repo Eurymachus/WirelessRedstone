@@ -24,15 +24,16 @@ public class mod_PowerConfiguratorSMP extends NetworkMod {
 
 	@Override
 	public void modsLoaded() {
-		if (!PowerConfiguratorSMP.isLoaded && WirelessRedstoneSMP.isLoaded
-				&& PowerConfigurator.isLoaded) {
+		if (!PowerConfiguratorSMP.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstoneSMP")
+				&& ModLoader.isModLoaded("mod_PowerConfigurator")) {
 			PowerConfiguratorSMP.isLoaded = PowerConfiguratorSMP.initialize();
 		}
 	}
 
 	@Override
 	public String getPriorities() {
-		return "after:mod_WirelessRedstoneSMP";
+		return "after:mod_WirelessRedstoneSMP;after:mod_PowerConfigurator";
 	}
 
 	public mod_PowerConfiguratorSMP() {

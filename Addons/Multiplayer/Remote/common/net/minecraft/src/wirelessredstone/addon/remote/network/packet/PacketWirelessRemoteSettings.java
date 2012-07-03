@@ -1,23 +1,22 @@
 package net.minecraft.src.wirelessredstone.addon.remote.network.packet;
 
-import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
-public class PacketWirelessRemoteSettings extends PacketWirelessRemote
-{
-	public PacketWirelessRemoteSettings()
-	{
+public class PacketWirelessRemoteSettings extends PacketWirelessRemote {
+	public PacketWirelessRemoteSettings() {
 		super(PacketIds.ADDON);
 	}
-	
+
 	public PacketWirelessRemoteSettings(String command) {
 		this();
-		this.payload = new PacketPayload(0,0,2,0);
+		this.payload = new PacketPayload(0, 0, 2, 0);
 		this.setCommand(command);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Freq["+this.getFreq()+"]("+this.xPosition+","+this.yPosition+","+this.zPosition+")";
+		return "Freq[" + this.getFreq() + "](" + this.xPosition + ","
+				+ this.yPosition + "," + this.zPosition + ")";
 	}
 }

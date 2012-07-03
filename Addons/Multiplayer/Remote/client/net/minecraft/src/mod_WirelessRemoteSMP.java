@@ -11,67 +11,43 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemoteSMP;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
-public class mod_WirelessRemote extends BaseMod
-{
-	public static BaseMod instance;
-	
-	public mod_WirelessRemote()
-	{
-		instance = this;
-	}
-	
+public class mod_WirelessRemoteSMP extends NetworkMod {
+	public static NetworkMod instance;
+
 	@Override
-	public void modsLoaded()
-	{
-		if (!WirelessRemote.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
-			WirelessRemote.isLoaded = WirelessRemote.initialize();
-			RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
-			RedstoneEther.getInstance().addOverride(etherOverrideRemote);
-		}
-		if (WirelessRemote.isLoaded && !WirelessRemoteSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
-		{
+	public void modsLoaded() {
+		if (!WirelessRemoteSMP.isLoaded
+				&& ModLoader.isModLoaded("mod_WirelessRedstoneSMP")
+				&& ModLoader.isModLoaded("mod_WirelessRemote")) {
 			WirelessRemoteSMP.isLoaded = WirelessRemoteSMP.initialize();
 		}
 	}
 
 	@Override
-	public boolean onTickInGame(float var1, Minecraft var2)
-	{
-		if (!WirelessRemote.isLoaded)
-		{
-			return true;
-		}
-		else
-		{
-			WirelessRemote.tick(var2);
-			return true;
-		}
+	public String getPriorities() {
+		return "after:mod_WirelessRedstoneSMP;after:mod_WirelessRemote";
+	}
+
+	public mod_WirelessRemoteSMP() {
+		instance = this;
 	}
 
 	@Override
-	public String getPriorities()
-	{
-		return "after:mod_WirelessRedstone";
+	public void load() {
 	}
 
 	@Override
-	public void load()
-	{
-	}
-	
-	@Override
-	public String getVersion()
-	{
+	public String getVersion() {
 		return "1.0";
 	}
 }

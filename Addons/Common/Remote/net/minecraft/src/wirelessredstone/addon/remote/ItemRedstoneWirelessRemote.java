@@ -59,12 +59,10 @@ public class ItemRedstoneWirelessRemote extends Item {
 		return itemstack;
 	}
 
-	@Override
 	public boolean isFull3D() {
 		return true;
 	}
-
-	@Override
+	
 	public int getIconFromDamage(int i) {
 		String index = this.getItemName() + "[" + i + "]";
 		WirelessRemoteData data = (WirelessRemoteData) WirelessRedstone

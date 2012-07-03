@@ -36,22 +36,21 @@ public class WirelessRemote {
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
 	public static int maxPulseThreads = 1;
-	protected static List<WirelessRedstoneRemoteOverride> overrides;
 	static int ticksInGui;
 
 	public static boolean initialize() {
 		try {
 			ModLoader.setInGameHook(mod_WirelessRemote.instance, true, true);
-			overrides = new ArrayList<WirelessRedstoneRemoteOverride>();
+			
 			loadConfig();
-			mouseDown = false;
-			wasMouseDown = false;
-			remotePulsing = false;
-			itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
-					.setItemName("wirelessredstone.remote");
+			
+			initListeners();
+			initItems();
+			
 			loadItemTextures();
 			addRecipes();
 			addNames();
+			
 			return true;
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -60,6 +59,29 @@ public class WirelessRemote {
 					LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;
 		}
+	}
+
+	private static void loadConfig() {
+		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote")
+				.get("ID", Integer.class, new Integer(remoteID));
+		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote")
+				.get("Durability", Boolean.class, new Boolean(duraTogg));
+		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote")
+				.get("PulseDuration", Long.class, new Long(pulseTime));
+		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance(
+				"Remote").get("MaxPulseThreads", Integer.class,
+				new Integer(maxPulseThreads));
+	}
+
+	private static void initItems() {
+		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
+				.setItemName("wirelessredstone.remote");
+	}
+
+	private static void initListeners() {
+		mouseDown = false;
+		wasMouseDown = false;
+		remotePulsing = false;
 	}
 
 	public static void loadItemTextures() {
@@ -77,18 +99,6 @@ public class WirelessRemote {
 
 	public static void addNames() {
 		ModLoader.addName(itemRemote, "Wireless Remote");
-	}
-
-	private static void loadConfig() {
-		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote")
-				.get("ID", Integer.class, new Integer(remoteID));
-		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote")
-				.get("Durability", Boolean.class, new Boolean(duraTogg));
-		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote")
-				.get("PulseDuration", Long.class, new Long(pulseTime));
-		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"Remote").get("MaxPulseThreads", Integer.class,
-				new Integer(maxPulseThreads));
 	}
 
 	public static void openGUI(EntityPlayer entityplayer, World world) {
@@ -155,52 +165,8 @@ public class WirelessRemote {
 			World world, EntityPlayer entityplayer) {
 		String index = itemstack.getItem().getItemName();
 		int id = itemstack.getItemDamage();
-		String name = itemstack.getItem().getItemDisplayName(itemstack);
+		String name = "Wireless Remote";
 		return getDeviceData(index, id, name, world, entityplayer);
-	}
-
-	/**
-	 * Adds a Remote override to the Remote.
-	 * 
-	 * @param override
-	 *            Remote override.
-	 */
-	public void addOverride(WirelessRedstoneRemoteOverride override) {
-		overrides.add(override);
-	}
-
-	/**
-	 * Transmits Wireless Remote Signal
-	 * 
-	 * @param command
-	 *            Command to be used
-	 * @param world
-	 *            World Transmitted to/from
-	 * @param remote
-	 *            Remote that is transmitting
-	 */
-	public static void transmitRemote(String command, World world,
-			WirelessRemoteDevice remote) {
-		boolean prematureExit = false;
-		for (WirelessRedstoneRemoteOverride override : overrides) {
-			prematureExit = override.beforeTransmitRemote(command, world,
-					remote);
-		}
-		if (prematureExit)
-			return;
-
-		if (command.equals("deactivateRemote"))
-			RedstoneEther.getInstance().remTransmitter(world,
-					remote.getCoords().getX(), remote.getCoords().getY(),
-					remote.getCoords().getZ(), remote.getFreq());
-		else {
-			RedstoneEther.getInstance().addTransmitter(world,
-					remote.getCoords().getX(), remote.getCoords().getY(),
-					remote.getCoords().getZ(), remote.getFreq());
-			RedstoneEther.getInstance().setTransmitterState(world,
-					remote.getCoords().getX(), remote.getCoords().getY(),
-					remote.getCoords().getZ(), remote.getFreq(), true);
-		}
 	}
 
 	public static boolean mouseClicked() {

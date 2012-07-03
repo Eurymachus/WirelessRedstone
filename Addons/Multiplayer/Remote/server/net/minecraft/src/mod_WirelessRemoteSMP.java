@@ -19,11 +19,11 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 
-public class mod_WirelessRemote extends NetworkMod
+public class mod_WirelessRemoteSMP extends NetworkMod
 {
 	public static NetworkMod instance;
 	
-	public mod_WirelessRemote()
+	public mod_WirelessRemoteSMP()
 	{
 		instance = this;
 	}
@@ -31,18 +31,16 @@ public class mod_WirelessRemote extends NetworkMod
 	@Override
 	public void modsLoaded()
 	{
-		if (!WirelessRemote.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
+		if (!WirelessRemote.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneSMP"))
 		{
 			WirelessRemote.isLoaded = WirelessRemote.initialize();
-			RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
-			RedstoneEther.getInstance().addOverride(etherOverrideRemote);
 		}
 	}
 
 	@Override
 	public String getPriorities()
 	{
-		return "after:mod_WirelessRedstone";
+		return "after:mod_WirelessRedstoneSMP";
 	}
 
 	@Override

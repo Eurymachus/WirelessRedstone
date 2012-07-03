@@ -11,51 +11,59 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package net.minecraft.src.wirelessredstone.addon.remote.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.remote.Remote;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
-
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessRemote {
-	
-	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer player)
-	{
-		if ( packet instanceof PacketWirelessRemoteSettings )
-			PacketHandlerInput.handleWirelessRemote((PacketWirelessRemoteSettings)packet);
-		else if ( packet instanceof PacketWirelessRemoteGui )
-			PacketHandlerInput.handleWirelessRemoteGui((PacketWirelessRemoteGui)packet);
+
+	public static void handlePacket(PacketUpdate packet, World world,
+			EntityPlayer player) {
+		if (packet instanceof PacketWirelessRemoteSettings)
+			PacketHandlerInput
+					.handleWirelessRemote((PacketWirelessRemoteSettings) packet);
+		else if (packet instanceof PacketWirelessRemoteGui)
+			PacketHandlerInput
+					.handleWirelessRemoteGui((PacketWirelessRemoteGui) packet);
 	}
-	
 
 	private static class PacketHandlerInput {
-		private static void handleWirelessRemote(PacketWirelessRemoteSettings packet)
-		{
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemotePacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		private static void handleWirelessRemote(
+				PacketWirelessRemoteSettings packet) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"handleWirelessRemotePacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 
-		public static void handleWirelessRemoteGui(PacketWirelessRemoteGui packet)
-		{
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessRemoteGuiPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		public static void handleWirelessRemoteGui(
+				PacketWirelessRemoteGui packet) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"handleWirelessRemoteGuiPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 	}
 
-	public static class PacketHandlerOutput
-	{
-		public static void sendWirelessRemotePacket(String command, Remote remote)
-		{
-			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(command);
-			packet.setPosition(remote.getCoords().getX(), remote.getCoords().getY(), remote.getCoords().getZ());
+	public static class PacketHandlerOutput {
+		public static void sendWirelessRemotePacket(String command,
+				WirelessRemoteDevice remote) {
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(
+					command);
+			packet.setPosition(remote.getCoords().getX(), remote.getCoords()
+					.getY(), remote.getCoords().getZ());
 			packet.setFreq(remote.getFreq());
-			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendRedstoneEtherPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
+					"sendRedstoneEtherPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+			ModLoader.getMinecraftInstance().getSendQueue()
+					.addToSendQueue(packet.getPacket());
 		}
 	}
 }
