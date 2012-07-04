@@ -188,4 +188,13 @@ public class WirelessRemote {
 		else
 			++ticksInGui;
 	}
+
+	public static int getIconFromDamage(String name, int i) {
+		String index = name + "[" + i + "]";
+		WirelessRemoteData data = (WirelessRemoteData) WirelessRedstone
+				.getWorld().loadItemData(WirelessRemoteData.class, index);
+		if (data == null || !data.getState())
+			return WirelessRemote.remoteoff;
+		return WirelessRemote.remoteon;
+	}
 }

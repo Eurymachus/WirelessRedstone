@@ -9,6 +9,7 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
@@ -21,6 +22,8 @@ public class WirelessRemote
 	public static boolean isLoaded = false;
 	public static Item itemRemote;
 	public static int remoteID=6245;
+
+	public static WirelessRemoteDevice remoteTransmitter;
 	
 	public static long pulseTime=2500;
 	public static boolean duraTogg=true;
@@ -92,6 +95,11 @@ public class WirelessRemote
 	{
 	}
 
+	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
+		return remoteTransmitter == null ? false
+				: remoteTransmitter.getFreq() == freq;
+	}
+
 	public static WirelessRemoteData getDeviceData(String index, int id,
 			String name, World world, EntityPlayer entityplayer) {
 		index = index + "[" + id + "]";
@@ -110,5 +118,31 @@ public class WirelessRemote
 		int id = itemstack.getItemDamage();
 		String name = "Wireless Remote";
 		return getDeviceData(index, id, name, world, entityplayer);
+	}
+
+	public static void activateRemote(World world, EntityPlayer entityplayer) {
+		if (remoteTransmitter != null) {
+			if (remoteTransmitter.isBeingHeld())
+				return;
+
+			deactivateRemote(world, entityplayer);
+		}
+		remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
+		remoteTransmitter.activate();
+	}
+
+	public static boolean deactivateRemote(World world,
+			EntityPlayer entityplayer) {
+		if (remoteTransmitter == null) {
+			return false;
+		} else {
+			remoteTransmitter.deactivate();
+			remoteTransmitter = null;
+			return true;
+		}
+	}
+
+	public static int getIconFromDamage(String name, int i) {
+		return 0;
 	}
 }

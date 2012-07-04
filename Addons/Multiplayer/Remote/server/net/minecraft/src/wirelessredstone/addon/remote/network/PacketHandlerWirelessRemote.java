@@ -19,6 +19,7 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -44,19 +45,19 @@ public class PacketHandlerWirelessRemote
 			
 			if (packet.getCommand().equals("activateRemote"))
 			{
-				WirelessRemoteProcess.activateRemote(world, entityplayer);
-				RedstoneEther.getInstance()
-				.addTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+				WirelessRemote.activateRemote(world, entityplayer);
+				//RedstoneEther.getInstance()
+				//.addTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
 				
-				RedstoneEther.getInstance()
-				.setTransmitterState(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq(), true);
+				//RedstoneEther.getInstance()
+				//.setTransmitterState(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq(), true);
 			}
 			if (packet.getCommand().equals("deactivateRemote"))
 			{
-				RedstoneEther.getInstance()
-				.remTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
+				//RedstoneEther.getInstance()
+				//.remTransmitter(world, packet.xPosition, packet.yPosition, packet.zPosition, packet.getFreq());
 				
-				WirelessRemoteProcess.deactivateRemote(entityplayer, world);
+				WirelessRemote.deactivateRemote(world, entityplayer);
 			}
 		}
 	}

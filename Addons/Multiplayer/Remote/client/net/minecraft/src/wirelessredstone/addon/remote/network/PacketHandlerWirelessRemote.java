@@ -56,11 +56,12 @@ public class PacketHandlerWirelessRemote {
 				WirelessRemoteDevice remote) {
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(
 					command);
+			packet.setRemoteID(remote.getDeviceData().getID());
 			packet.setPosition(remote.getCoords().getX(), remote.getCoords()
 					.getY(), remote.getCoords().getZ());
 			packet.setFreq(remote.getFreq());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-					"sendRedstoneEtherPacket:" + packet.toString(),
+					"sendWirelessRemotePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue()
 					.addToSendQueue(packet.getPacket());

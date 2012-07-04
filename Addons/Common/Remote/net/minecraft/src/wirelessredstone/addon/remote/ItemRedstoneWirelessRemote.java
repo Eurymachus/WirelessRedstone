@@ -64,12 +64,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 	}
 	
 	public int getIconFromDamage(int i) {
-		String index = this.getItemName() + "[" + i + "]";
-		WirelessRemoteData data = (WirelessRemoteData) WirelessRedstone
-				.getWorld().loadItemData(WirelessRemoteData.class, index);
-		if (data == null || !data.getState())
-			return WirelessRemote.remoteoff;
-		return WirelessRemote.remoteon;
+		return WirelessRemote.getIconFromDamage(this.getItemName(), i);
 	}
 
 	@Override
