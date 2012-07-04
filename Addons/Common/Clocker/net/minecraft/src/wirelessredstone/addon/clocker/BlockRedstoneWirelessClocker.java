@@ -60,8 +60,9 @@ public class BlockRedstoneWirelessClocker extends BlockRedstoneWirelessT {
 			int j, int k, EntityPlayer entityplayer) {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
-		if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
-			WirelessClocker.openGui(
+		if (tileentity != null
+				&& tileentity instanceof TileEntityRedstoneWirelessClocker) {
+			WirelessClocker.openGUI(
 					(TileEntityRedstoneWirelessClocker) tileentity, world,
 					entityplayer);
 		}

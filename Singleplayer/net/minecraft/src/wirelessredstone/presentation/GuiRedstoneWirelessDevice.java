@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.presentation;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
@@ -37,6 +38,8 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	 */
 	public GuiRedstoneWirelessDevice() {
 		super();
+		// this.entityplayer = WirelessRedstone.getPlayer();
+		// this.world = this.entityplayer.worldObj;
 		this.xSize = 177;
 		this.ySize = 166;
 	}
@@ -47,8 +50,10 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	 * @param device
 	 *            WirelessDeviceData to be associated
 	 */
-	public void assWirelessDevice(WirelessDeviceData device) {
+	public void assWirelessDevice(WirelessDeviceData device, EntityPlayer owner) {
 		wirelessDeviceData = device;
+		entityplayer = owner;
+		world = owner.worldObj;
 	}
 
 	@Override

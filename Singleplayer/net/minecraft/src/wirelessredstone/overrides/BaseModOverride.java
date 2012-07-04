@@ -3,6 +3,7 @@ package net.minecraft.src.wirelessredstone.overrides;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.WorldSavedData;
 
 /**
  * Base Mod override.<br>
@@ -16,4 +17,7 @@ import net.minecraft.src.World;
 public interface BaseModOverride {
 	public boolean beforeOpenGui(World world, EntityPlayer entityplayer,
 			TileEntity tileentity);
+
+	public boolean beforeOpenGui(World world, EntityPlayer entityplayer,
+			WorldSavedData data);
 }

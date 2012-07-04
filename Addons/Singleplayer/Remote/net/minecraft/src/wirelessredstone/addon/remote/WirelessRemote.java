@@ -12,14 +12,18 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.World;
+import net.minecraft.src.WorldSavedData;
 import net.minecraft.src.mod_WirelessRemote;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
+import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
 import org.lwjgl.input.Mouse;
 
@@ -30,8 +34,10 @@ public class WirelessRemote {
 	public static int remoteID = 6245;
 
 	public static WirelessRemoteDevice remoteTransmitter;
+	public static GuiRedstoneWirelessRemote guiRemote;
 
 	public static boolean mouseDown, wasMouseDown, remotePulsing;
+	private static List<BaseModOverride> overrides;
 
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
@@ -40,17 +46,20 @@ public class WirelessRemote {
 
 	public static boolean initialize() {
 		try {
+			overrides = new ArrayList();
 			ModLoader.setInGameHook(mod_WirelessRemote.instance, true, true);
-			
+
 			loadConfig();
-			
+			addEtherOverride();
+
+			initGui();
 			initListeners();
 			initItems();
-			
+
 			loadItemTextures();
 			addRecipes();
 			addNames();
-			
+
 			return true;
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -59,6 +68,19 @@ public class WirelessRemote {
 					LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;
 		}
+	}
+
+	public static void addOverride(BaseModOverrideSMP override) {
+		overrides.add(override);
+	}
+
+	private static void initGui() {
+		guiRemote = new GuiRedstoneWirelessRemote();
+	}
+
+	private static void addEtherOverride() {
+		RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
+		RedstoneEther.getInstance().addOverride(etherOverrideRemote);
 	}
 
 	private static void loadConfig() {
@@ -101,10 +123,25 @@ public class WirelessRemote {
 		ModLoader.addName(itemRemote, "Wireless Remote");
 	}
 
-	public static void openGUI(EntityPlayer entityplayer, World world) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessRemote(world,
-				entityplayer));
+	public static void activateGUI(World world, EntityPlayer entityplayer,
+			WorldSavedData deviceData) {
+		if (deviceData instanceof WirelessRemoteData) {
+			guiRemote.assWirelessDevice((WirelessRemoteData) deviceData,
+					entityplayer);
+			ModLoader.openGUI(entityplayer, guiRemote);
+		}
 	}
+
+	public static void openGUI(World world, EntityPlayer entityplayer,
+			WorldSavedData deviceData) {
+		boolean prematureExit = false;
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(world, entityplayer, deviceData))
+				prematureExit = true;
+		}
+		if (!prematureExit)
+			activateGUI(world, entityplayer, deviceData);
+	};
 
 	public static void activateRemote(World world, EntityPlayer entityplayer) {
 		if (remoteTransmitter != null) {
@@ -152,11 +189,17 @@ public class WirelessRemote {
 	public static WirelessRemoteData getDeviceData(String index, int id,
 			String name, World world, EntityPlayer entityplayer) {
 		index = index + "[" + id + "]";
-		WirelessRemoteData data = (WirelessRemoteData) world.loadItemData(
+		WirelessRemoteData data;
+		data = (WirelessRemoteData) world.loadItemData(
 				WirelessRemoteData.class, index);
 		if (data == null) {
-			data = new WirelessRemoteData(index, id, name, world, entityplayer);
+			data = new WirelessRemoteData(index);
 			world.setItemData(index, data);
+			data.setID(id);
+			data.setName(name);
+			data.setDimension(world);
+			data.setFreq("0");
+			data.setState(false);
 		}
 		return data;
 	}
@@ -165,7 +208,7 @@ public class WirelessRemote {
 			World world, EntityPlayer entityplayer) {
 		String index = itemstack.getItem().getItemName();
 		int id = itemstack.getItemDamage();
-		String name = "Wireless Remote";
+		String name = itemstack.getItem().getItemDisplayName(itemstack);
 		return getDeviceData(index, id, name, world, entityplayer);
 	}
 

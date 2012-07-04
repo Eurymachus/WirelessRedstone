@@ -24,7 +24,7 @@ public class WirelessDevice implements IWirelessDevice {
 	public void setFreq(String freq) {
 		this.data.setFreq(freq);
 	}
-	
+
 	public WirelessDeviceData getDeviceData() {
 		return data;
 	}

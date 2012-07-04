@@ -13,11 +13,11 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote {
 		this.payload = new PacketPayload(1, 0, 2, 0);
 		this.setCommand(command);
 	}
-	
+
 	public void setRemoteID(int id) {
 		this.payload.setIntPayload(0, id);
 	}
-	
+
 	public int getRemoteID() {
 		return this.payload.getIntPayload(0);
 	}

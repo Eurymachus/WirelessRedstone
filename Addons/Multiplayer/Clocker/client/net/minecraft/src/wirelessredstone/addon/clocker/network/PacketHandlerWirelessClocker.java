@@ -37,7 +37,7 @@ public class PacketHandlerWirelessClocker {
 			TileEntity tileentity = packet.getTarget(world);
 			if (tileentity != null
 					&& tileentity instanceof TileEntityRedstoneWirelessClocker) {
-				WirelessClocker.activateGui(world, entityplayer, tileentity);
+				WirelessClocker.activateGUI(world, entityplayer, tileentity);
 			}
 		}
 

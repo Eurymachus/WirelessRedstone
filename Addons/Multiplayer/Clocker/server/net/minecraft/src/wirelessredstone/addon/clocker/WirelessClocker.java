@@ -60,7 +60,7 @@ public class WirelessClocker {
 				"Wireless Clocker");
 	}
 
-	public static void openGui(TileEntityRedstoneWirelessClocker tileentity,
+	public static void openGUI(TileEntityRedstoneWirelessClocker tileentity,
 			World world, EntityPlayer entityplayer) {
 		PacketHandlerWirelessClocker.PacketHandlerOutput
 				.sendWirelessClockerGuiPacket(entityplayer,

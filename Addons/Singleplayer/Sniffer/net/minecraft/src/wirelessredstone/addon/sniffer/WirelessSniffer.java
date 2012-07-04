@@ -57,8 +57,12 @@ public class WirelessSniffer {
 		WirelessSnifferData data = (WirelessSnifferData) world.loadItemData(
 				WirelessSnifferData.class, index);
 		if (data == null) {
-			data = new WirelessSnifferData(index, id, name, world, entityplayer);
+			data = new WirelessSnifferData(index);
 			world.setItemData(index, data);
+			data.setID(id);
+			data.setName(name);
+			data.setDimension(world);
+			data.setPage(0);
 		}
 		return data;
 	}

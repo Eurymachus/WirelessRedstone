@@ -32,7 +32,7 @@ public class WirelessClocker {
 
 	public static boolean initialize() {
 		try {
-			overrides = new ArrayList<BaseModOverride>();
+			overrides = new ArrayList();
 			loadConfig();
 			loadBlockTextures();
 
@@ -71,7 +71,7 @@ public class WirelessClocker {
 	}
 
 	private static void initGui() {
-		WirelessClocker.guiClock = new GuiRedstoneWirelessClocker();
+		guiClock = new GuiRedstoneWirelessClocker();
 	}
 
 	private static void addRecipes() {
@@ -98,25 +98,24 @@ public class WirelessClocker {
 		overrides.add(override);
 	}
 
-	public static void activateGui(World world, EntityPlayer entityplayer,
+	public static void activateGUI(World world, EntityPlayer entityplayer,
 			TileEntity tileentity) {
 		if (tileentity instanceof TileEntityRedstoneWirelessClocker) {
 			WirelessClocker.guiClock
 					.assTileEntity((TileEntityRedstoneWirelessClocker) tileentity);
-			ModLoader.openGUI(entityplayer, WirelessClocker.guiClock);
+			ModLoader.openGUI(entityplayer, guiClock);
 		}
 	}
 
-	public static void openGui(TileEntityRedstoneWireless tileentity,
+	public static void openGUI(TileEntityRedstoneWireless tileentity,
 			World world, EntityPlayer entityplayer) {
 		boolean prematureExit = false;
 		for (BaseModOverride override : overrides) {
 			if (override.beforeOpenGui(world, entityplayer, tileentity))
 				prematureExit = true;
 		}
-
 		if (!prematureExit) {
-			activateGui(world, entityplayer, tileentity);
+			activateGUI(world, entityplayer, tileentity);
 		}
 	}
 }

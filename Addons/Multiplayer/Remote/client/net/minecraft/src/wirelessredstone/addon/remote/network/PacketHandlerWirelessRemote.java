@@ -17,6 +17,8 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
@@ -26,25 +28,33 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 public class PacketHandlerWirelessRemote {
 
 	public static void handlePacket(PacketUpdate packet, World world,
-			EntityPlayer player) {
+			EntityPlayer entityplayer) {
 		if (packet instanceof PacketWirelessRemoteSettings)
-			PacketHandlerInput
-					.handleWirelessRemote((PacketWirelessRemoteSettings) packet);
+			PacketHandlerInput.handleWirelessRemote(
+					(PacketWirelessRemoteSettings) packet, world, entityplayer);
 		else if (packet instanceof PacketWirelessRemoteGui)
-			PacketHandlerInput
-					.handleWirelessRemoteGui((PacketWirelessRemoteGui) packet);
+			PacketHandlerInput.handleWirelessRemoteGui(
+					(PacketWirelessRemoteGui) packet, world, entityplayer);
 	}
 
 	private static class PacketHandlerInput {
 		private static void handleWirelessRemote(
-				PacketWirelessRemoteSettings packet) {
+				PacketWirelessRemoteSettings packet, World world,
+				EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessRemotePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 
 		public static void handleWirelessRemoteGui(
-				PacketWirelessRemoteGui packet) {
+				PacketWirelessRemoteGui packet, World world,
+				EntityPlayer entityplayer) {
+			String index = WirelessRemote.itemRemote.getItemName() + "["
+					+ packet.getDeviceID() + "]";
+			WirelessRemoteData data = WirelessRemote.getDeviceData(index,
+					packet.getDeviceID(), "Wireless Remote", world,
+					entityplayer);
+			WirelessRemote.activateGUI(world, entityplayer, data);
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessRemoteGuiPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -60,6 +70,19 @@ public class PacketHandlerWirelessRemote {
 			packet.setPosition(remote.getCoords().getX(), remote.getCoords()
 					.getY(), remote.getCoords().getZ());
 			packet.setFreq(remote.getFreq());
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
+					"sendWirelessRemotePacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+			ModLoader.getMinecraftInstance().getSendQueue()
+					.addToSendQueue(packet.getPacket());
+		}
+
+		public static void sendWirelessRemotePacket(String command, int id,
+				Object freq) {
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(
+					command);
+			packet.setRemoteID(id);
+			packet.setFreq(freq);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessRemotePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

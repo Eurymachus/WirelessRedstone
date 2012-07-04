@@ -1,38 +1,50 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.WorldSavedData;
 import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 
 public class WirelessTriangulator {
 	public static final boolean isServer = false;
 	public static boolean isLoaded = false;
+	public static int triangSprite;
 	public static Item itemTriang;
 	public static int triangID = 6246;
+	public static GuiRedstoneWirelessTriangulator guiTriang;
 	public static TextureTriangulatorFX tex;
 	// public static TextureTriangulatorFX[] tex = new
 	// TextureTriangulatorFX[WirelessRedstone.maxEtherFrequencies];
 	public static int pulseTime = 2500;
 	public static int maxPulseThreads = 5;
+	private static List<BaseModOverride> overrides;
 
 	public static boolean initialize() {
 		try {
 			ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true,
 					true);
+			overrides = new ArrayList();
+
 			loadConfig();
-			itemTriang = (new ItemRedstoneWirelessTriangulator(triangID - 256))
-					.setItemName("wirelessredstone.triang");
+
+			initGui();
+			initItem();
+
 			loadItemTextures();
 			addRecipes();
-			ModLoader.addName(itemTriang, "Wireless Triangulator");
+			addNames();
 			return true;
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -45,9 +57,17 @@ public class WirelessTriangulator {
 		return false;
 	}
 
+	private static void initGui() {
+		guiTriang = new GuiRedstoneWirelessTriangulator();
+	}
+
+	private static void initItem() {
+		itemTriang = (new ItemRedstoneWirelessTriangulator(triangID - 256))
+				.setItemName("wirelessredstone.triang");
+	}
+
 	public static void loadItemTextures() {
-		itemTriang.setIconIndex(ModLoader
-				.getUniqueSpriteIndex("/gui/items.png"));
+		triangSprite = ModLoader.getUniqueSpriteIndex("/gui/items.png");
 		tex = new TextureTriangulatorFX(ModLoader.getMinecraftInstance(), 0);
 		ModLoader.getMinecraftInstance().renderEngine.registerTextureFX(tex);
 		/*
@@ -59,15 +79,28 @@ public class WirelessTriangulator {
 		 */
 	}
 
+	public static void addRecipes() {
+		ModLoader.addRecipe(new ItemStack(itemTriang, 1), new Object[] { "C",
+				"X", Character.valueOf('X'), WirelessRedstone.blockWirelessR,
+				Character.valueOf('C'), Item.compass });
+	}
+
+	private static void addNames() {
+		ModLoader.addName(itemTriang, "Wireless Triangulator");
+	}
+
 	public static WirelessTriangulatorData getDeviceData(String index, int id,
 			String name, World world, EntityPlayer entityplayer) {
 		index = index + "[" + id + "]";
 		WirelessTriangulatorData data = (WirelessTriangulatorData) world
 				.loadItemData(WirelessTriangulatorData.class, index);
 		if (data == null) {
-			data = new WirelessTriangulatorData(index, id, name, world,
-					entityplayer);
+			data = new WirelessTriangulatorData(index);
 			world.setItemData(index, data);
+			data.setID(id);
+			data.setName(name);
+			data.setDimension(world);
+			data.setFreq("0");
 		}
 		return data;
 	}
@@ -80,23 +113,35 @@ public class WirelessTriangulator {
 		return getDeviceData(index, id, name, world, entityplayer);
 	}
 
-	public static void addRecipes() {
-		ModLoader.addRecipe(new ItemStack(itemTriang, 1), new Object[] { "C",
-				"X", Character.valueOf('X'), WirelessRedstone.blockWirelessR,
-				Character.valueOf('C'), Item.compass });
-	}
-
 	private static void loadConfig() {
 		triangID = (Integer) ConfigStoreRedstoneWireless.getInstance(
 				"Triangulator").get("ID", Integer.class, new Integer(triangID));
 	}
 
-	public static void openGUI(WirelessTriangulatorData data,
-			EntityPlayer entityplayer, World world) {
-		ModLoader.openGUI(entityplayer, new GuiRedstoneWirelessTriangulator(
-				data, entityplayer, world));
+	public static void activateGUI(World world, EntityPlayer entityplayer,
+			WorldSavedData deviceData) {
+		if (deviceData instanceof WirelessTriangulatorData) {
+			guiTriang.assWirelessDevice((WirelessTriangulatorData) deviceData,
+					entityplayer);
+			ModLoader.openGUI(entityplayer, guiTriang);
+		}
 	}
 
+	public static void openGUI(World world, EntityPlayer entityplayer,
+			WorldSavedData deviceData) {
+		boolean prematureExit = false;
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(world, entityplayer, deviceData))
+				prematureExit = true;
+		}
+		if (!prematureExit)
+			activateGUI(world, entityplayer, deviceData);
+	};
+
 	public static void onTickInGame(float tick, Minecraft mc) {
+	}
+
+	public static int getIconFromDamage(String itemName, int i) {
+		return triangSprite;
 	}
 }

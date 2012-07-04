@@ -20,7 +20,6 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -34,7 +33,8 @@ public class ItemRedstoneWirelessRemote extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			WirelessRemote.openGUI(entityplayer, world);
+			WirelessRemote.openGUI(world, entityplayer, WirelessRemote
+					.getDeviceData(itemstack, world, entityplayer));
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -62,7 +62,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
 	public int getIconFromDamage(int i) {
 		return WirelessRemote.getIconFromDamage(this.getItemName(), i);
 	}

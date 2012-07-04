@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.data;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
@@ -15,15 +14,6 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 
 	public WirelessDeviceData(String par1Str) {
 		super(par1Str);
-	}
-
-	public WirelessDeviceData(String index, int id, String name, World world,
-			EntityPlayer entityplayer) {
-		this(index);
-		this.setID(id);
-		this.setName(name);
-		this.setDimension(world);
-		this.setFreq("0");
 	}
 
 	public void setID(ItemStack itemstack) {

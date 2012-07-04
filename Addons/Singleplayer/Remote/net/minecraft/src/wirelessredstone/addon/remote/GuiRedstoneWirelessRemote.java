@@ -14,22 +14,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.addon.remote;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
-	public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer) {
+	public GuiRedstoneWirelessRemote() {
 		super();
-		this.world = world;
-		this.entityplayer = entityplayer;
-		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = WirelessRemote.getDeviceData(itemstack,
-				this.world, this.entityplayer);
 	}
 
 	@Override
@@ -49,14 +42,8 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 		super.actionPerformed(guibutton);
 
 		if (guibutton.id == 20) {
-			ThreadWirelessRemote.pulse(entityplayer, "pulse");
+			ThreadWirelessRemote.pulse(WirelessRedstone.getPlayer(), "pulse");
 			close();
-		}
-	}
-
-	@Override
-	public void onGuiClosed() {
-		if (entityplayer.getCurrentEquippedItem() == null) {
 		}
 	}
 }

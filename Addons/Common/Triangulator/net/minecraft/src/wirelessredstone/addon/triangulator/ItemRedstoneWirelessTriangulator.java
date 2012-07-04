@@ -33,8 +33,9 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			WirelessTriangulator.openGUI(WirelessTriangulator.getDeviceData(
-					itemstack, world, entityplayer), entityplayer, world);
+			WirelessTriangulator.openGUI(world, entityplayer,
+					WirelessTriangulator.getDeviceData(itemstack, world,
+							entityplayer));
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -83,5 +84,10 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
 		WirelessTriangulator.getDeviceData(itemstack, world, entityplayer);
+	}
+
+	@Override
+	public int getIconFromDamage(int i) {
+		return WirelessTriangulator.getIconFromDamage(this.getItemName(), i);
 	}
 }

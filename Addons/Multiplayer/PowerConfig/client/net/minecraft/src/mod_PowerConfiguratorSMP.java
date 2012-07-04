@@ -15,8 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.forge.NetworkMod;
-import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
-import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfigurator;
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfiguratorSMP;
 
 public class mod_PowerConfiguratorSMP extends NetworkMod {

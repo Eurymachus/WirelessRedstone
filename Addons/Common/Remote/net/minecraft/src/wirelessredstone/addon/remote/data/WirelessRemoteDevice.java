@@ -19,7 +19,7 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
  */
 public class WirelessRemoteDevice extends WirelessDevice {
 	protected int slot;
-	protected static List<WirelessRedstoneRemoteOverride> overrides = new ArrayList();;
+	protected static List<WirelessRedstoneRemoteOverride> overrides = new ArrayList();
 
 	public WirelessRemoteDevice(World world, EntityPlayer entityplayer) {
 		this.owner = entityplayer;
@@ -81,8 +81,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	public void transmitRemote(String command, World world) {
 		boolean prematureExit = false;
 		for (WirelessRedstoneRemoteOverride override : overrides) {
-			prematureExit = override.beforeTransmitRemote(command, world,
-					this);
+			prematureExit = override.beforeTransmitRemote(command, world, this);
 		}
 		if (prematureExit)
 			return;

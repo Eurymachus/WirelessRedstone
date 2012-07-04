@@ -29,11 +29,13 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 					&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
 				WirelessRedstoneSMP.isLoaded = WirelessRedstoneSMP.initialize();
 			}
-		}
-		else
-			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this.toString()))
-					.write("Minecraft Forge is not Installed, aborting load sequence!", LoggerRedstoneWireless.LogLevel.WARNING);
+		} else
+			LoggerRedstoneWireless
+					.getInstance(
+							LoggerRedstoneWireless.filterClassName(this
+									.toString()))
+					.write("Minecraft Forge is not Installed, aborting load sequence!",
+							LoggerRedstoneWireless.LogLevel.WARNING);
 	}
 
 	@Override

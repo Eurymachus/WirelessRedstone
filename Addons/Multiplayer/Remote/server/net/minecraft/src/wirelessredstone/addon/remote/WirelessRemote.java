@@ -11,29 +11,26 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote.PacketHandlerOutput;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
-public class WirelessRemote
-{	
+public class WirelessRemote {
 	public static boolean isLoaded = false;
 	public static Item itemRemote;
-	public static int remoteID=6245;
+	public static int remoteID = 6245;
 
 	public static WirelessRemoteDevice remoteTransmitter;
-	
-	public static long pulseTime=2500;
-	public static boolean duraTogg=true;
-	public static int maxPulseThreads=2;
+
+	public static long pulseTime = 2500;
+	public static boolean duraTogg = true;
+	public static int maxPulseThreads = 2;
 	public static int remoteon, remoteoff;
-	
-	public static boolean initialize()
-	{
-		try
-		{
+
+	public static boolean initialize() {
+		try {
 			registerConnHandler();
 			addEtherOverride();
 			loadConfig();
@@ -42,17 +39,15 @@ public class WirelessRemote
 			addRecipes();
 			addNames();
 			return true;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-			LoggerRedstoneWireless.filterClassName(
-			WirelessRemote.class.toString()))
-			.write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
+					LoggerRedstoneWireless.filterClassName(WirelessRemote.class
+							.toString())).write("Initialization failed.",
+					LoggerRedstoneWireless.LogLevel.WARNING);
 		}
 		return false;
 	}
-	
+
 	private static void registerConnHandler() {
 		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 	}
@@ -63,36 +58,35 @@ public class WirelessRemote
 	}
 
 	private static void initItem() {
-		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256)).setItemName("remote");
+		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
+				.setItemName("remote");
 	}
 
-	public static void loadItemTextures()
-	{
-		itemRemote.setIconIndex(ModLoader.addOverride("/gui/items.png", "/WirelessSprites/remote.png"));
+	public static void loadItemTextures() {
+		itemRemote.setIconIndex(ModLoader.addOverride("/gui/items.png",
+				"/WirelessSprites/remote.png"));
 	}
 
-	public static void addRecipes()
-	{
-		ModLoader.addRecipe(new ItemStack(itemRemote, 1), new Object[] {
-            "i", "#", Character.valueOf('i'), Block.torchRedstoneActive, Character.valueOf('#'), WirelessRedstone.blockWirelessT
-        });
+	public static void addRecipes() {
+		ModLoader.addRecipe(new ItemStack(itemRemote, 1), new Object[] { "i",
+				"#", Character.valueOf('i'), Block.torchRedstoneActive,
+				Character.valueOf('#'), WirelessRedstone.blockWirelessT });
 	}
-	
-	public static void addNames()
-	{
+
+	public static void addNames() {
 		ModLoader.addName(itemRemote, "Wireless Remote");
 	}
 
-	private static void loadConfig()
-	{
-		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("ID", Integer.class, new Integer(remoteID));
-		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote").get("Durability", Boolean.class, new Boolean(duraTogg));
-		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote").get("PulseDurration", Long.class, new Long(pulseTime));
-		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get("MaxPulseThreads", Integer.class, new Integer(maxPulseThreads));
-	}
-
-	public static void openGUI(EntityPlayer entityplayer, World world)
-	{
+	private static void loadConfig() {
+		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote")
+				.get("ID", Integer.class, new Integer(remoteID));
+		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote")
+				.get("Durability", Boolean.class, new Boolean(duraTogg));
+		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote")
+				.get("PulseDurration", Long.class, new Long(pulseTime));
+		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance(
+				"Remote").get("MaxPulseThreads", Integer.class,
+				new Integer(maxPulseThreads));
 	}
 
 	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
@@ -103,12 +97,20 @@ public class WirelessRemote
 	public static WirelessRemoteData getDeviceData(String index, int id,
 			String name, World world, EntityPlayer entityplayer) {
 		index = index + "[" + id + "]";
+		// ModLoader.getLogger().warning("getData: " + index);
 		WirelessRemoteData data = (WirelessRemoteData) world.loadItemData(
 				WirelessRemoteData.class, index);
 		if (data == null) {
-			data = new WirelessRemoteData(index, id, name, world, entityplayer);
+			data = new WirelessRemoteData(index);
 			world.setItemData(index, data);
+			data.setID(id);
+			data.setName(name);
+			data.setDimension(world);
+			data.setFreq("0");
+			data.setState(false);
 		}
+		// ModLoader.getLogger().warning("afterGet: " + "ID["+data.getID()+"]" +
+		// " Freq[" + data.getFreq() + "]");
 		return data;
 	}
 
@@ -144,5 +146,11 @@ public class WirelessRemote
 
 	public static int getIconFromDamage(String name, int i) {
 		return 0;
+	}
+
+	public static void openGUI(World world, EntityPlayer entityplayer,
+			WirelessRemoteData deviceData) {
+		PacketHandlerOutput.sendWirelessRemoteGuiPacket(entityplayer,
+				deviceData.getID());
 	}
 }

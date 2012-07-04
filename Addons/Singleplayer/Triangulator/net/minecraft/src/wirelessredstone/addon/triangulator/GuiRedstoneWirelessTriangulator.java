@@ -14,23 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessDevice;
 
 public class GuiRedstoneWirelessTriangulator extends GuiRedstoneWirelessDevice {
 
-	public GuiRedstoneWirelessTriangulator(WirelessTriangulatorData data,
-			EntityPlayer entityplayer, World world) {
+	public GuiRedstoneWirelessTriangulator() {
 		super();
-		xSize = 176;
-		ySize = 166;
-		this.world = world;
-		this.entityplayer = entityplayer;
-		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-		this.wirelessDeviceData = data;
 	}
 
 	@Override
