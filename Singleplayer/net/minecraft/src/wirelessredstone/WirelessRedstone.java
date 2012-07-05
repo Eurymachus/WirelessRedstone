@@ -181,9 +181,9 @@ public class WirelessRedstone {
 	 */
 	public static void initBlocks() {
 		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F))
-				.setBlockName("wifir");
+				.setBlockName("wirelessredstone.receiver");
 		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F))
-				.setBlockName("wifit");
+				.setBlockName("wirelessredstone.transmitter");
 	}
 
 	/**

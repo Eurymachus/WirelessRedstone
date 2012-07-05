@@ -57,6 +57,10 @@ public class WirelessTriangulator {
 		return false;
 	}
 
+	public static void addOverride(BaseModOverride override) {
+		overrides.add(override);
+	}
+
 	private static void initGui() {
 		guiTriang = new GuiRedstoneWirelessTriangulator();
 	}

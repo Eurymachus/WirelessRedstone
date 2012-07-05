@@ -1,7 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.sniffer.network.packet;
 
-import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketPayload;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
 public class PacketWirelessSnifferEtherCopy extends PacketWirelessSniffer {
 

@@ -72,10 +72,8 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-			WirelessTriangulatorData data = this.getTriangulatorData(
-					this.getItemName(), itemstack.getItemDamage(),
-					this.getItemDisplayName(itemstack), world, entityplayer);
-			String freq = data.getFreq();
+			WirelessTriangulatorData data = WirelessTriangulator.getDeviceData(
+					itemstack, world, entityplayer);
 		}
 	}
 
@@ -86,7 +84,6 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 		WirelessTriangulator.getDeviceData(itemstack, world, entityplayer);
 	}
 
-	@Override
 	public int getIconFromDamage(int i) {
 		return WirelessTriangulator.getIconFromDamage(this.getItemName(), i);
 	}

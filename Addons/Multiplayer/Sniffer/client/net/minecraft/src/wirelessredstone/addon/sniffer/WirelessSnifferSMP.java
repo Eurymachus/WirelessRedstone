@@ -4,6 +4,7 @@ import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulatorSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
 public class WirelessSnifferSMP
 {
@@ -13,7 +14,9 @@ public class WirelessSnifferSMP
 	{
 		try
 		{
-			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+			registerConnHandler();
+			
+			addBaseOverride();
 			return true;	
 		}
 		catch (Exception e)
@@ -24,5 +27,14 @@ public class WirelessSnifferSMP
 			.write("Initialization failed.", LoggerRedstoneWireless.LogLevel.WARNING);
 		}
 		return false;
+	}
+
+	private static void addBaseOverride() {
+		BaseModOverrideSMP override = new BaseModOverrideSMP();
+		WirelessSniffer.addOverride(override);
+	}
+
+	private static void registerConnHandler() {
+		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 	}
 }

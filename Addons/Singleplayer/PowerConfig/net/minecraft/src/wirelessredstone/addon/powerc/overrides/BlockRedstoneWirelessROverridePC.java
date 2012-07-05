@@ -47,14 +47,10 @@ public class BlockRedstoneWirelessROverridePC implements
 	@Override
 	public boolean beforeBlockRedstoneWirelessActivated(World world, int i,
 			int j, int k, EntityPlayer entityplayer) {
-		if (world.isRemote)
-			return false;
-
 		if (entityplayer.getCurrentEquippedItem() != null
 				&& entityplayer.getCurrentEquippedItem().itemID == PowerConfigurator.itemPowDir.shiftedIndex) {
 			return true;
 		}
-
 		return false;
 	}
 

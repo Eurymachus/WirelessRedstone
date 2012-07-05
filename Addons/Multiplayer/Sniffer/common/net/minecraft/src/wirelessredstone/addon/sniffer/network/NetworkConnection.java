@@ -14,7 +14,7 @@ import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWir
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferOpenGui;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
 public class NetworkConnection implements INetworkConnections
 {

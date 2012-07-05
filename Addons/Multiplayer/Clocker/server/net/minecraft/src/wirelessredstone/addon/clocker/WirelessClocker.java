@@ -44,7 +44,7 @@ public class WirelessClocker {
 
 	private static void initBlock() {
 		blockClock = (new BlockRedstoneWirelessClocker(clockID, 1.0F, 8.0F))
-				.setBlockName("clocker");
+				.setBlockName("wirelessredstone.clocker");
 	}
 
 	private static void addRecipes() {

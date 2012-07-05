@@ -23,6 +23,7 @@ public class PowerConfigurator {
 	public static boolean initialize() {
 		try {
 			registerConnHandler();
+
 			loadConfig();
 			loadItemTextures();
 
@@ -47,7 +48,7 @@ public class PowerConfigurator {
 
 	private static void initItem() {
 		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID))
-				.setItemName("powdir");
+				.setItemName("wirelessredstone.powdir");
 		ModLoader.addName(itemPowDir, "Power Configurator");
 	}
 

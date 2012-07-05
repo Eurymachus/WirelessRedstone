@@ -9,7 +9,7 @@ import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWir
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferOpenGui;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessSniffer {
 	

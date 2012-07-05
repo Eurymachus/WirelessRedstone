@@ -11,7 +11,7 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote.PacketHandlerOutput;
+import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -32,10 +32,14 @@ public class WirelessRemote {
 	public static boolean initialize() {
 		try {
 			registerConnHandler();
+
 			addEtherOverride();
+
 			loadConfig();
-			initItem();
 			loadItemTextures();
+
+			initItem();
+
 			addRecipes();
 			addNames();
 			return true;
@@ -59,12 +63,10 @@ public class WirelessRemote {
 
 	private static void initItem() {
 		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
-				.setItemName("remote");
+				.setItemName("wirelessredstone.remote");
 	}
 
 	public static void loadItemTextures() {
-		itemRemote.setIconIndex(ModLoader.addOverride("/gui/items.png",
-				"/WirelessSprites/remote.png"));
 	}
 
 	public static void addRecipes() {
@@ -150,7 +152,7 @@ public class WirelessRemote {
 
 	public static void openGUI(World world, EntityPlayer entityplayer,
 			WirelessRemoteData deviceData) {
-		PacketHandlerOutput.sendWirelessRemoteGuiPacket(entityplayer,
-				deviceData.getID());
+		PacketHandlerWirelessRemote.PacketHandlerOutput
+				.sendWirelessRemoteGuiPacket(entityplayer, deviceData.getID());
 	}
 }

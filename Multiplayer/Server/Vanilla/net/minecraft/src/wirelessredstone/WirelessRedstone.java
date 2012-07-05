@@ -49,9 +49,9 @@ public class WirelessRedstone {
 			loaded = true;
 			loadConfig();
 			blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F))
-					.setBlockName("wifir");
+					.setBlockName("wirelessredstone.receiver");
 			blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F))
-					.setBlockName("wifit");
+					.setBlockName("wirelessredstone.transmitter");
 			ModLoader.registerBlock(blockWirelessR);
 			ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class,
 					"Wireless Receiver");

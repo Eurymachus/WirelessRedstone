@@ -1,6 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.sniffer.network.packet;
 
-import net.minecraft.src.wirelessredstone.smp.packet.PacketWireless;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWireless;
 
 public class PacketWirelessSniffer extends PacketWireless {
 

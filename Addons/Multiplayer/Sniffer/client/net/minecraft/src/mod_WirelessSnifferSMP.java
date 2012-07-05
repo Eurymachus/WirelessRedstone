@@ -14,20 +14,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 package net.minecraft.src;
 
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSnifferSMP;
 
-public class mod_WirelessSniffer extends BaseMod
+public class mod_WirelessSnifferSMP extends NetworkMod
 {
+	NetworkMod instance;
+	
+	public mod_WirelessSnifferSMP()
+	{
+		instance = this;
+	}
 	
 	@Override
 	public void modsLoaded()
 	{
-		if (!WirelessSniffer.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstone"))
-		{
-			WirelessSniffer.isLoaded = WirelessSniffer.initialize();
-		}
-		if (WirelessSniffer.isLoaded && !WirelessSnifferSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneClient"))
+		if (!WirelessSnifferSMP.isLoaded && ModLoader.isModLoaded("mod_WirelessRedstoneSMP") && ModLoader.isModLoaded("mod_WirelessSniffer"))
 		{
 			WirelessSnifferSMP.isLoaded = WirelessSnifferSMP.initialize();
 		}
@@ -36,11 +39,7 @@ public class mod_WirelessSniffer extends BaseMod
 	@Override
 	public String getPriorities()
 	{
-		return "after:mod_WirelessRedstone";
-	}
-	
-	public mod_WirelessSniffer()
-	{
+		return "after:mod_WirelessRedstoneSMP;after:mod_WirelessSniffer";
 	}
 
 	@Override
