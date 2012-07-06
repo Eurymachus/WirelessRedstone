@@ -35,7 +35,6 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	private int nodeSize = 4;
 	private int pageWidth = 50;
 	private int pageHeight = 30;
-	//private ThreadWirelessSniffer thr;
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
 	private boolean[] activeFreqs;
@@ -46,7 +45,6 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 		snifferOverrides = new ArrayList();
 		xSize = 256;
 		ySize = 200;
-		//thr = new ThreadWirelessSniffer(this);
 	}
 
 	@Override
@@ -157,8 +155,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 
 	@Override
 	public void onGuiClosed() {
-		//thr.running = false;
-		// this.sniffer.killSniffer();
+		WirelessSniffer.deactivateSniffer(world, entityplayer);
 	}
 
 	@Override

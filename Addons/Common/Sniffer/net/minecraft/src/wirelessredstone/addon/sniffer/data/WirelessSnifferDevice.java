@@ -7,11 +7,13 @@ import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 import net.minecraft.src.wirelessredstone.data.WirelessDevice;
 
 public class WirelessSnifferDevice extends WirelessDevice {
+	protected int slot;
 
 	public WirelessSnifferDevice(World world, EntityPlayer entityplayer) {
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
 		this.world = world;
 		this.owner = entityplayer;
+		this.slot = entityplayer.inventory.currentItem;
 		this.data = WirelessSniffer.getDeviceData(itemstack, world,
 				entityplayer);
 	}
@@ -45,5 +47,12 @@ public class WirelessSnifferDevice extends WirelessDevice {
 	public void deactivate() {
 		if (this.data != null) {
 		}
+	}
+
+	public boolean isBeingHeld() {
+		ItemStack itemstack = this.owner.inventory.getCurrentItem();
+		return this.owner.inventory.currentItem == this.slot
+				&& itemstack != null
+				&& itemstack.getItem() == WirelessSniffer.itemSniffer;
 	}
 }

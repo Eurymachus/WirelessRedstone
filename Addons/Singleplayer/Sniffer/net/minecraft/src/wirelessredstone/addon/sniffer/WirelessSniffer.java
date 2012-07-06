@@ -3,14 +3,20 @@ package net.minecraft.src.wirelessredstone.addon.sniffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerSP;
+import net.minecraft.src.GuiScreen;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.World;
+import net.minecraft.src.mod_WirelessSniffer;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferDevice;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
@@ -19,6 +25,7 @@ public class WirelessSniffer {
 	public static boolean isLoaded = false;
 	public static Item itemSniffer;
 	public static GuiRedstoneWirelessSniffer guiSniffer;
+	public static WirelessSnifferDevice snifferReceiver;
 	public static int snifferon, snifferoff;
 	public static List<BaseModOverride> overrides;
 	public static int sniffID = 6244;
@@ -26,6 +33,8 @@ public class WirelessSniffer {
 	public static boolean initialize() {
 		try {
 			overrides = new ArrayList();
+			ModLoader.setInGameHook(mod_WirelessSniffer.instance, true, true);
+					
 			loadConfig();
 			loadItemTextures();
 
@@ -105,6 +114,7 @@ public class WirelessSniffer {
 	public static void activateGUI(WirelessSnifferData data, World world,
 			EntityPlayer entityplayer) {
 		guiSniffer.assWirelessDevice(data, entityplayer);
+		activateSniffer(world, entityplayer);
 		ModLoader.openGUI(entityplayer, guiSniffer);
 	}
 
@@ -120,5 +130,38 @@ public class WirelessSniffer {
 		
 		if (!prematureExit)
 			activateGUI(data, world, entityplayer);
+	}
+	
+	public static void activateSniffer(World world, EntityPlayer entityplayer) {
+		if (snifferReceiver != null) {
+			if (snifferReceiver.isBeingHeld()) {
+				return;
+			}
+			deactivateSniffer(world, entityplayer);
+		}
+		snifferReceiver = new WirelessSnifferDevice(world, entityplayer);
+		snifferReceiver.activate();
+	}
+	
+	public static boolean deactivateSniffer(World world, EntityPlayer entityplayer) {
+		if (snifferReceiver == null) {
+			return false;
+		} else {
+			snifferReceiver.deactivate();
+			return true;
+		}
+	}
+
+	public static void tick(float tick, Minecraft mc) {
+		processSniffer(mc.theWorld, mc.thePlayer, mc.currentScreen,
+				mc.objectMouseOver);
+	}
+
+	private static void processSniffer(World world,
+			EntityPlayer entityplayer, GuiScreen gui,
+			MovingObjectPosition mop) {
+		if (snifferReceiver != null && (gui == null || !(gui instanceof GuiRedstoneWirelessSniffer))) {
+			deactivateSniffer(world, entityplayer);
+		}
 	}
 }

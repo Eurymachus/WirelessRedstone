@@ -14,9 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 
 public class mod_WirelessSniffer extends BaseMod {
+	
+	public static BaseMod instance;
 
 	@Override
 	public void modsLoaded() {
@@ -32,6 +35,7 @@ public class mod_WirelessSniffer extends BaseMod {
 	}
 
 	public mod_WirelessSniffer() {
+		instance = this;
 	}
 
 	@Override
@@ -41,5 +45,14 @@ public class mod_WirelessSniffer extends BaseMod {
 	@Override
 	public String getVersion() {
 		return "1.0";
+	}
+	
+	@Override
+	public boolean onTickInGame(float tick, Minecraft mc) {
+		if (WirelessSniffer.isLoaded) {
+			WirelessSniffer.tick(tick, mc);
+			return true;
+		}
+		return true;
 	}
 }

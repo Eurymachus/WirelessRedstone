@@ -50,13 +50,13 @@ public class WirelessRemote {
 			ModLoader.setInGameHook(mod_WirelessRemote.instance, true, true);
 
 			loadConfig();
+			loadItemTextures();
+			
 			addEtherOverride();
 
 			initGui();
 			initListeners();
 			initItems();
-
-			loadItemTextures();
 			addRecipes();
 			addNames();
 
