@@ -35,7 +35,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	private int nodeSize = 4;
 	private int pageWidth = 50;
 	private int pageHeight = 30;
-	private ThreadWirelessSniffer thr;
+	//private ThreadWirelessSniffer thr;
 	GuiButtonBoolean nextButton;
 	GuiButtonBoolean prevButton;
 	private boolean[] activeFreqs;
@@ -46,7 +46,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 		snifferOverrides = new ArrayList();
 		xSize = 256;
 		ySize = 200;
-		thr = new ThreadWirelessSniffer(this);
+		//thr = new ThreadWirelessSniffer(this);
 	}
 
 	@Override
@@ -66,6 +66,11 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 		controlList.add(prevButton);
 	}
 	
+	@Override
+	public void initGui() {
+		super.initGui();
+	}
+	
 	public void addSnifferOverride(GuiRedstoneWirelessDeviceOverride override) {
 		snifferOverrides.add(override);
 	}
@@ -79,10 +84,10 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 		for (GuiRedstoneWirelessDeviceOverride override : snifferOverrides) {
 			if (((GuiRedstoneWirelessSnifferOverride)override).beforeSetPage(this.wirelessDeviceData, pageNumber))
 				prematureExit = true;
-			
-			if (!prematureExit) {
-				((WirelessSnifferData) this.wirelessDeviceData).setPage(pageNumber);	
-			}
+		}
+		
+		if (!prematureExit) {
+			((WirelessSnifferData) this.wirelessDeviceData).setPage(pageNumber);	
 		}
 	}
 
@@ -152,7 +157,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 
 	@Override
 	public void onGuiClosed() {
-		thr.running = false;
+		//thr.running = false;
 		// this.sniffer.killSniffer();
 	}
 
@@ -172,13 +177,18 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 				(height / 2) + 62, 0x00000000);
 	}
 
-	protected boolean getFreqState(int freq) {
-		if (freq > WirelessRedstone.maxEtherFrequencies)
+	protected boolean getFreqState(String freq) {
+		try {
+			int freq1 = Integer.parseInt(freq);
+			if (freq1 > WirelessRedstone.maxEtherFrequencies)
+				return false;
+			if (this.activeFreqs.length == WirelessRedstone.maxEtherFrequencies + 1) {
+				return this.activeFreqs[freq1];
+			} else
+				return false;
+		} catch(Exception e) {
 			return false;
-		if (this.activeFreqs.length == WirelessRedstone.maxEtherFrequencies + 1) {
-			return this.activeFreqs[freq];
-		} else
-			return false;
+		}
 	}
 
 	public void setActiveFreqs(String[] activeFreqs) {
@@ -192,17 +202,5 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 			} else
 				this.activeFreqs[i] = false;
 		}
-	}
-
-	@Override
-	protected Object getFreq() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected void setFreq(String freq) {
-		// TODO Auto-generated method stub
-
 	}
 }
