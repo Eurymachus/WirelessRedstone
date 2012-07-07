@@ -5,6 +5,7 @@ import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.sniffer.GuiRedstoneWirelessSniffer;
+import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferEtherCopy;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferOpenGui;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferSettings;
@@ -12,51 +13,82 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessSniffer {
-	
-	public static void handlePacket(PacketUpdate packet, World world, EntityPlayer entityplayer)
-	{
-		if ( packet instanceof PacketWirelessSnifferSettings ) {
-			PacketHandlerInput.handleWirelessSniffer((PacketWirelessSnifferSettings)packet, world, entityplayer);
+
+	public static void handlePacket(PacketUpdate packet, World world,
+			EntityPlayer entityplayer) {
+		if (packet instanceof PacketWirelessSnifferSettings) {
+			PacketHandlerInput
+					.handleWirelessSniffer(
+							(PacketWirelessSnifferSettings) packet, world,
+							entityplayer);
 		}
-		if ( packet instanceof PacketWirelessSnifferEtherCopy ) {
-			PacketHandlerInput.handleWirelessSniffer((PacketWirelessSnifferEtherCopy)packet, world, entityplayer);
+		if (packet instanceof PacketWirelessSnifferEtherCopy) {
+			PacketHandlerInput.handleWirelessSniffer(
+					(PacketWirelessSnifferEtherCopy) packet, world,
+					entityplayer);
+		}
+		if (packet instanceof PacketWirelessSnifferOpenGui) {
+			PacketHandlerInput.handleWirelessSniffer(
+					(PacketWirelessSnifferOpenGui) packet, world, entityplayer);
 		}
 	}
-	
 
 	private static class PacketHandlerInput {
-		private static void handleWirelessSniffer(PacketWirelessSnifferSettings packet, World world, EntityPlayer entityplayer)
-		{
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessSnifferPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			//RedstoneWirelessSnifferFreqCoordsMem.getInstance(world).setFreq(0, 0, 0, packet.getFreq(), packet.getState());
+		private static void handleWirelessSniffer(
+				PacketWirelessSnifferSettings packet, World world,
+				EntityPlayer entityplayer) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"handleWirelessSnifferPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+			// RedstoneWirelessSnifferFreqCoordsMem.getInstance(world).setFreq(0,
+			// 0, 0, packet.getFreq(), packet.getState());
 		}
 
-		public static void handleWirelessSniffer(PacketWirelessSnifferEtherCopy packet, World world, EntityPlayer entityplayer)
-		{
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write("handleWirelessSnifferEtherCopy:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
+		public static void handleWirelessSniffer(
+				PacketWirelessSnifferOpenGui packet, World world,
+				EntityPlayer entityplayer) {
+			String index = WirelessSniffer.itemSniffer.getItemName();
+			WirelessSniffer.activateGUI(world, entityplayer, WirelessSniffer
+					.getDeviceData(index, packet.getDeviceID(),
+							"Wireless Sniffer", world, entityplayer));
+		}
+
+		public static void handleWirelessSniffer(
+				PacketWirelessSnifferEtherCopy packet, World world,
+				EntityPlayer entityplayer) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"handleWirelessSnifferEtherCopy:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 			GuiScreen theScreen = ModLoader.getMinecraftInstance().currentScreen;
-			if (theScreen != null && theScreen instanceof GuiRedstoneWirelessSniffer)
-			{
-				GuiRedstoneWirelessSniffer snifferGui = (GuiRedstoneWirelessSniffer)theScreen;
-				snifferGui.setActiveFreqs(packet.getActiveFreqs());
+			if (theScreen != null
+					&& theScreen instanceof GuiRedstoneWirelessSniffer) {
+				WirelessSniffer.guiSniffer.setActiveFreqs(packet
+						.getActiveFreqs());
 			}
 		}
 	}
 
-	public static class PacketHandlerOutput
-	{
-		public static void sendWirelessSnifferPacket(EntityPlayer player, Object freq) {
-			player.addChatMessage("Sending for freq: " + freq.toString());
-			PacketWirelessSnifferSettings packet = new PacketWirelessSnifferSettings(freq.toString());
-			packet.setPosition((int)player.posX, (int)player.posY, (int)player.posZ);
-			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write("sendWirelessSnifferPacket:"+packet.toString(), LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
+	public static class PacketHandlerOutput {
+		public static void sendWirelessSnifferPacket(String command,
+				int pageNumber) {
+			PacketWirelessSnifferSettings packet = new PacketWirelessSnifferSettings(
+					command);
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
+					"sendWirelessSnifferPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+			ModLoader.getMinecraftInstance().getSendQueue()
+					.addToSendQueue(packet.getPacket());
 		}
 
-		public static void sendWirelessSnifferOpenGui(World world, EntityPlayer entityplayer)
-		{
-			PacketWirelessSnifferOpenGui packet = new PacketWirelessSnifferOpenGui(true);
-			ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet.getPacket());
+		public static void sendWirelessSnifferGuiPacket(int deviceID) {
+			PacketWirelessSnifferOpenGui packet = new PacketWirelessSnifferOpenGui(
+					deviceID);
+			packet.setState(false);
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
+					"sendWirelessSnifferOpenGui:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+			ModLoader.getMinecraftInstance().getSendQueue()
+					.addToSendQueue(packet.getPacket());
 		}
 	}
 }

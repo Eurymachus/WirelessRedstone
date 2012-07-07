@@ -19,7 +19,7 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfigurator;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
+import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigOpenGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -30,9 +30,9 @@ public class PacketHandlerPowerConfig {
 
 	public static void handlePacket(PacketUpdate packet, World world,
 			EntityPlayer player) {
-		if (packet instanceof PacketPowerConfigGui) {
-			PacketHandlerInput.openGUI((PacketPowerConfigGui) packet, world,
-					player);
+		if (packet instanceof PacketPowerConfigOpenGui) {
+			PacketHandlerInput.openGUI((PacketPowerConfigOpenGui) packet,
+					world, player);
 		} else if (packet instanceof PacketPowerConfigSettings) {
 			PacketHandlerInput.handlePowerConfig(
 					(PacketPowerConfigSettings) packet, world, player);
@@ -40,8 +40,8 @@ public class PacketHandlerPowerConfig {
 	}
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketPowerConfigGui packet, World world,
-				EntityPlayer entityplayer) {
+		private static void openGUI(PacketPowerConfigOpenGui packet,
+				World world, EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"openGUI:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

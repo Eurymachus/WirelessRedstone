@@ -3,12 +3,12 @@ package net.minecraft.src.wirelessredstone.addon.remote.network.packet;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
-public class PacketWirelessRemoteGui extends PacketWirelessRemote {
-	public PacketWirelessRemoteGui() {
+public class PacketWirelessRemoteOpenGui extends PacketWirelessRemote {
+	public PacketWirelessRemoteOpenGui() {
 		super(PacketIds.GUI);
 	}
 
-	public PacketWirelessRemoteGui(int deviceID) {
+	public PacketWirelessRemoteOpenGui(int deviceID) {
 		this();
 		this.payload = new PacketPayload(1, 0, 0, 0);
 		this.setDeviceID(deviceID);

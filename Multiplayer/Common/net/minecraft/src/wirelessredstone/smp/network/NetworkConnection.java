@@ -12,8 +12,8 @@ import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
-import net.minecraft.src.wirelessredstone.smp.network.packet.PacketOpenWindowRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
 
 public class NetworkConnection implements INetworkConnections {
@@ -34,7 +34,7 @@ public class NetworkConnection implements INetworkConnections {
 				PacketHandlerRedstoneWireless.handlePacket(pRE, world, player);
 				break;
 			case PacketIds.GUI:
-				PacketOpenWindowRedstoneWireless pORW = new PacketOpenWindowRedstoneWireless();
+				PacketRedstoneWirelessOpenGui pORW = new PacketRedstoneWirelessOpenGui();
 				pORW.readData(data);
 				PacketHandlerRedstoneWireless.handlePacket(pORW, world, player);
 				break;

@@ -41,6 +41,7 @@ public class WirelessRedstone {
 	public static int spriteTOff;
 	public static int spriteTItem;
 	public static int spriteRItem;
+	public static int maxEtherFrequencies = 10000;
 
 	private static boolean loaded = false;
 

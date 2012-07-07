@@ -10,7 +10,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerGui;
+import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerOpenGui;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerSettings;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerTile;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
@@ -35,7 +35,7 @@ public class NetworkConnection implements INetworkConnections {
 				PacketHandlerWirelessClocker.handlePacket(pWCB, world, player);
 				break;
 			case PacketIds.GUI:
-				PacketWirelessClockerGui pWCG = new PacketWirelessClockerGui();
+				PacketWirelessClockerOpenGui pWCG = new PacketWirelessClockerOpenGui();
 				pWCG.readData(data);
 				PacketHandlerWirelessClocker.handlePacket(pWCG, world, player);
 				break;

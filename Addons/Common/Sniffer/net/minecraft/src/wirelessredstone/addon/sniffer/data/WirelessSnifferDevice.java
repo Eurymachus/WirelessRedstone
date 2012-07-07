@@ -37,6 +37,14 @@ public class WirelessSnifferDevice extends WirelessDevice {
 		return false;
 	}
 
+	public EntityPlayer getOwner() {
+		return this.owner;
+	}
+
+	public World getWorld() {
+		return this.world;
+	}
+
 	@Override
 	public void activate() {
 		if (this.data != null) {

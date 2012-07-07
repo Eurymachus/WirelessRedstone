@@ -19,7 +19,7 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
-import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
+import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteOpenGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
@@ -75,7 +75,7 @@ public class PacketHandlerWirelessRemote {
 
 		public static void sendWirelessRemoteGuiPacket(
 				EntityPlayer entityplayer, int deviceID) {
-			PacketWirelessRemoteGui packet = new PacketWirelessRemoteGui(
+			PacketWirelessRemoteOpenGui packet = new PacketWirelessRemoteOpenGui(
 					deviceID);
 			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
 					.addToSendQueue(packet.getPacket());

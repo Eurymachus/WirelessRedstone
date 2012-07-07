@@ -14,6 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import java.util.List;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 
 /**
@@ -69,5 +72,31 @@ public class mod_WirelessRedstone extends BaseMod {
 
 	@Override
 	public void load() {
+	}
+
+	private static GuiScreen lastGuiOpen;
+
+	public boolean onTickInGame(float tick, Minecraft mc) {
+		if (mc.currentScreen == null) {
+			lastGuiOpen = null;
+		}
+		return true;
+	}
+
+	public boolean onTickInGUI(float tick, Minecraft mc, GuiScreen gui) {
+		if ((gui instanceof GuiContainerCreative)
+				&& !(lastGuiOpen instanceof GuiContainerCreative)) {
+			List<Block> creativeBlockList = WirelessRedstone
+					.getCreativeBlockList();
+			if (creativeBlockList != null) {
+				Container container = ((GuiContainer) gui).inventorySlots;
+				List list = ((ContainerCreative) container).itemList;
+				for (int i = 0; i < creativeBlockList.size(); i++) {
+					list.add(new ItemStack(creativeBlockList.get(i), 1));
+				}
+			}
+			lastGuiOpen = gui;
+		}
+		return true;
 	}
 }

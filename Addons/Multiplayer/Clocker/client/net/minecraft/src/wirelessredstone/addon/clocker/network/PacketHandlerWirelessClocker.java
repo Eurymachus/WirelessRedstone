@@ -6,7 +6,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.clocker.TileEntityRedstoneWirelessClocker;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
-import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerGui;
+import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerOpenGui;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerSettings;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerTile;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -19,8 +19,8 @@ public class PacketHandlerWirelessClocker {
 		if (packet instanceof PacketWirelessClockerSettings)
 			PacketHandlerInput.handleWirelessClockerSettings(
 					(PacketWirelessClockerSettings) packet, world, player);
-		else if (packet instanceof PacketWirelessClockerGui)
-			PacketHandlerInput.openGUI((PacketWirelessClockerGui) packet,
+		else if (packet instanceof PacketWirelessClockerOpenGui)
+			PacketHandlerInput.openGUI((PacketWirelessClockerOpenGui) packet,
 					world, player);
 		else if (packet instanceof PacketWirelessClockerTile)
 			PacketHandlerInput.handleWirelessClockerTile(
@@ -28,7 +28,7 @@ public class PacketHandlerWirelessClocker {
 	}
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketWirelessClockerGui packet,
+		private static void openGUI(PacketWirelessClockerOpenGui packet,
 				World world, EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"openGUI:" + packet.toString(),

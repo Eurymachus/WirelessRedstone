@@ -21,8 +21,8 @@ import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.network.packet.PacketOpenWindowRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -33,10 +33,9 @@ public class PacketHandlerRedstoneWireless {
 
 	public static void handlePacket(PacketUpdate packet, World world,
 			EntityPlayer entityplayer) {
-		if (packet instanceof PacketOpenWindowRedstoneWireless) {
-			PacketHandlerInput.openGUI(
-					(PacketOpenWindowRedstoneWireless) packet, world,
-					entityplayer);
+		if (packet instanceof PacketRedstoneWirelessOpenGui) {
+			PacketHandlerInput.openGUI((PacketRedstoneWirelessOpenGui) packet,
+					world, entityplayer);
 		} else if (packet instanceof PacketRedstoneEther) {
 			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther) packet,
 					world, entityplayer);
@@ -47,7 +46,7 @@ public class PacketHandlerRedstoneWireless {
 	}
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketOpenWindowRedstoneWireless packet,
+		private static void openGUI(PacketRedstoneWirelessOpenGui packet,
 				World world, EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"openGUI:" + packet.toString(),

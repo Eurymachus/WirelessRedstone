@@ -10,12 +10,12 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT
  * @author Eurymachus
  * 
  */
-public class PacketOpenWindowRedstoneWireless extends PacketWireless {
-	public PacketOpenWindowRedstoneWireless() {
+public class PacketRedstoneWirelessOpenGui extends PacketWireless {
+	public PacketRedstoneWirelessOpenGui() {
 		super(PacketIds.GUI);
 	}
 
-	public PacketOpenWindowRedstoneWireless(TileEntityRedstoneWireless entity) {
+	public PacketRedstoneWirelessOpenGui(TileEntityRedstoneWireless entity) {
 		this();
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1),
 				entity.getBlockCoord(2));

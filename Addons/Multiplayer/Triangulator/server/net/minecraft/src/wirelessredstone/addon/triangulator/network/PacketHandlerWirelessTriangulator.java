@@ -17,13 +17,13 @@ package net.minecraft.src.wirelessredstone.addon.triangulator.network;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorGui;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessTriangulator {
 

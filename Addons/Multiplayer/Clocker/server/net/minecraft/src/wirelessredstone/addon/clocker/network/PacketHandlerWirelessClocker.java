@@ -5,7 +5,7 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.clocker.TileEntityRedstoneWirelessClocker;
-import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerGui;
+import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerOpenGui;
 import net.minecraft.src.wirelessredstone.addon.clocker.network.packet.PacketWirelessClockerSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
@@ -57,7 +57,7 @@ public class PacketHandlerWirelessClocker {
 
 		public static void sendWirelessClockerGuiPacket(EntityPlayer player,
 				int clockFreq, int i, int j, int k) {
-			PacketWirelessClockerGui packet = new PacketWirelessClockerGui(
+			PacketWirelessClockerOpenGui packet = new PacketWirelessClockerOpenGui(
 					clockFreq, i, j, k);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessClockerGuiPacket:" + packet.toString(),

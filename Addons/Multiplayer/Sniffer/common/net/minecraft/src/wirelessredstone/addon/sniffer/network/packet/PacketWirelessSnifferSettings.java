@@ -5,39 +5,35 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
 public class PacketWirelessSnifferSettings extends PacketWirelessSniffer {
 
-	public PacketWirelessSnifferSettings()
-	{
+	public PacketWirelessSnifferSettings() {
 		super(PacketIds.ADDON);
 	}
 
-	public PacketWirelessSnifferSettings(String freq)
-	{
+	public PacketWirelessSnifferSettings(String freq) {
 		this();
-		this.payload = new PacketPayload(0,0,1,0);
+		this.payload = new PacketPayload(0, 0, 1, 0);
 		this.setFreq(freq);
 	}
 
-	public PacketWirelessSnifferSettings(String freq, boolean state)
-	{
+	public PacketWirelessSnifferSettings(String freq, boolean state) {
 		this();
-		this.payload = new PacketPayload(0,0,1,1);
+		this.payload = new PacketPayload(0, 0, 1, 1);
 		this.setFreq(freq);
 		this.setState(state);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Freq["+this.getFreq()+"]("+this.xPosition+","+this.yPosition+","+this.zPosition+")";
+		return "Freq[" + this.getFreq() + "](" + this.xPosition + ","
+				+ this.yPosition + "," + this.zPosition + ")";
 	}
-	
-	public void setFreq(String freq)
-	{
+
+	public void setFreq(String freq) {
 		this.payload.setStringPayload(0, freq);
 	}
-	
+
 	@Override
-	public String getFreq()
-	{
+	public String getFreq() {
 		return this.payload.getStringPayload(0);
 	}
 }

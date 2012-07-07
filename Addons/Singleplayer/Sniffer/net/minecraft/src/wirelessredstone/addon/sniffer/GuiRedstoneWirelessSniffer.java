@@ -17,15 +17,10 @@ package net.minecraft.src.wirelessredstone.addon.sniffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.addon.sniffer.overrides.GuiRedstoneWirelessSnifferOverride;
-import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessDeviceOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
 import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
@@ -63,12 +58,12 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 		controlList.add(nextButton);
 		controlList.add(prevButton);
 	}
-	
+
 	@Override
 	public void initGui() {
 		super.initGui();
 	}
-	
+
 	public void addSnifferOverride(GuiRedstoneWirelessDeviceOverride override) {
 		snifferOverrides.add(override);
 	}
@@ -80,12 +75,13 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	private void setPage(int pageNumber) {
 		boolean prematureExit = false;
 		for (GuiRedstoneWirelessDeviceOverride override : snifferOverrides) {
-			if (((GuiRedstoneWirelessSnifferOverride)override).beforeSetPage(this.wirelessDeviceData, pageNumber))
+			if (((GuiRedstoneWirelessSnifferOverride) override).beforeSetPage(
+					this.wirelessDeviceData, pageNumber))
 				prematureExit = true;
 		}
-		
+
 		if (!prematureExit) {
-			((WirelessSnifferData) this.wirelessDeviceData).setPage(pageNumber);	
+			((WirelessSnifferData) this.wirelessDeviceData).setPage(pageNumber);
 		}
 	}
 
@@ -115,16 +111,26 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 				this.setPage(oldPage - 1);
 			}
 		}
-		if (nextButton.enabled
-				&& this.getPage() == WirelessRedstone.maxEtherFrequencies
-						/ (pageWidth * pageHeight)) {
-			nextButton.enabled = false;
-		} else
-			nextButton.enabled = true;
-		if (prevButton.enabled && this.getPage() == 0) {
-			prevButton.enabled = false;
-		} else
-			prevButton.enabled = true;
+
+		boolean prematureExit = false;
+		for (GuiRedstoneWirelessDeviceOverride override : snifferOverrides) {
+			if (((GuiRedstoneWirelessSnifferOverride) override).beforeSetPage(
+					wirelessDeviceData, this.getPage()))
+				prematureExit = true;
+		}
+
+		if (!prematureExit) {
+			if (nextButton.enabled
+					&& this.getPage() == WirelessRedstone.maxEtherFrequencies
+							/ (pageWidth * pageHeight)) {
+				nextButton.enabled = false;
+			} else
+				nextButton.enabled = true;
+			if (prevButton.enabled && this.getPage() == 0) {
+				prevButton.enabled = false;
+			} else
+				prevButton.enabled = true;
+		}
 	}
 
 	@Override
@@ -140,9 +146,7 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 				x = i + (nodeSize * m) + m;
 				y = j + (nodeSize * n) + n;
 				if (c <= WirelessRedstone.maxEtherFrequencies && c >= 0) {
-					if (RedstoneEther.getInstance().getFreqState(
-							ModLoader.getMinecraftInstance().theWorld,
-							Integer.toString(c)))
+					if (getFreqState(Integer.toString(c)))
 						drawRect(x, y, x + nodeSize, y + nodeSize, 0xff00ff00);
 					else {
 						drawRect(x, y, x + nodeSize, y + nodeSize, 0xffff0000);
@@ -155,7 +159,16 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 
 	@Override
 	public void onGuiClosed() {
-		WirelessSniffer.deactivateSniffer(world, entityplayer);
+		boolean prematureExit = false;
+
+		for (GuiRedstoneWirelessDeviceOverride override : snifferOverrides) {
+			if (((GuiRedstoneWirelessSnifferOverride) override)
+					.beforeGuiClosed(wirelessDeviceData))
+				prematureExit = true;
+		}
+
+		if (!prematureExit)
+			WirelessSniffer.deactivateSniffer(world, entityplayer);
 	}
 
 	@Override
@@ -176,28 +189,29 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 
 	protected boolean getFreqState(String freq) {
 		try {
-			int freq1 = Integer.parseInt(freq);
-			if (freq1 > WirelessRedstone.maxEtherFrequencies)
+			int i = Integer.parseInt(freq);
+			if (i > WirelessRedstone.maxEtherFrequencies)
 				return false;
-			if (this.activeFreqs.length == WirelessRedstone.maxEtherFrequencies + 1) {
-				return this.activeFreqs[freq1];
+			if (this.activeFreqs[i]) {
+				return true;
 			} else
 				return false;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
 
 	public void setActiveFreqs(String[] activeFreqs) {
-		boolean[] newActiveFreqs = new boolean[WirelessRedstone.maxEtherFrequencies + 1];
+		boolean[] newActiveFreqs = new boolean[WirelessRedstone.maxEtherFrequencies];
 		int j = 0;
 		for (int i = 0; i < WirelessRedstone.maxEtherFrequencies; ++i) {
 			if (activeFreqs != null && j < activeFreqs.length
 					&& String.valueOf(i).equals(activeFreqs[j])) {
-				this.activeFreqs[i] = true;
+				newActiveFreqs[i] = true;
 				++j;
 			} else
-				this.activeFreqs[i] = false;
+				newActiveFreqs[i] = false;
 		}
+		this.activeFreqs = newActiveFreqs;
 	}
 }

@@ -18,7 +18,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
+import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigOpenGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -29,9 +29,9 @@ public class PacketHandlerPowerConfig {
 
 	public static void handlePacket(PacketUpdate packet, World world,
 			EntityPlayer entityplayer) {
-		if (packet instanceof PacketPowerConfigGui) {
-			PacketHandlerInput.openGUI((PacketPowerConfigGui) packet, world,
-					entityplayer);
+		if (packet instanceof PacketPowerConfigOpenGui) {
+			PacketHandlerInput.openGUI((PacketPowerConfigOpenGui) packet,
+					world, entityplayer);
 		} else if (packet instanceof PacketPowerConfigSettings) {
 			PacketHandlerInput.handlePowerConfig(
 					(PacketPowerConfigSettings) packet, world, entityplayer);
@@ -39,8 +39,8 @@ public class PacketHandlerPowerConfig {
 	}
 
 	private static class PacketHandlerInput {
-		private static void openGUI(PacketPowerConfigGui packet, World world,
-				EntityPlayer entityplayer) {
+		private static void openGUI(PacketPowerConfigOpenGui packet,
+				World world, EntityPlayer entityplayer) {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"openGUI:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -83,7 +83,7 @@ public class PacketHandlerPowerConfig {
 	public static class PacketHandlerOutput {
 		public static void sendPowerConfigGuiPacket(
 				EntityPlayerMP entityplayer, TileEntity tileentity) {
-			PacketPowerConfigGui packet = new PacketPowerConfigGui(
+			PacketPowerConfigOpenGui packet = new PacketPowerConfigOpenGui(
 					tileentity.xCoord, tileentity.yCoord, tileentity.zCoord);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendPowerConfigGuiPacket:" + packet.toString(),

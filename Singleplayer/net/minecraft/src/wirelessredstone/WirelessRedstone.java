@@ -11,6 +11,7 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.mod_WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
@@ -107,7 +108,9 @@ public class WirelessRedstone {
 	 */
 	public static boolean isLoaded = false;
 
-	public static List<BaseModOverride> overrides;
+	private static List<BaseModOverride> overrides;
+
+	private static List<Block> creativeBlockList;
 
 	/**
 	 * Loads configurations and initializes objects. Loads ModLoader related
@@ -118,15 +121,24 @@ public class WirelessRedstone {
 	 */
 	public static boolean initialize() {
 		try {
-			overrides = new ArrayList<BaseModOverride>();
+			ModLoader.setInGUIHook(mod_WirelessRedstone.instance, true, true);
+			ModLoader.setInGameHook(mod_WirelessRedstone.instance, true, true);
+			overrides = new ArrayList();
+			creativeBlockList = new ArrayList();
+
 			loadConfig();
-			addOverrides();
-			initBlocks();
-			initGUIs();
 			loadBlockTextures();
 			loadItemTextures();
+
+			addOverrides();
+
+			initBlocks();
+			initGUIs();
+
 			registerBlocks();
+
 			addRecipes();
+
 			return true;
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -210,6 +222,8 @@ public class WirelessRedstone {
 		ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class,
 				"Wireless Transmitter",
 				new TileEntityRedstoneWirelessRenderer());
+		registerBlockForCreativeGui(blockWirelessR);
+		registerBlockForCreativeGui(blockWirelessT);
 	}
 
 	/**
@@ -381,5 +395,15 @@ public class WirelessRedstone {
 		if (!prematureExit) {
 			activateGUI(world, entityplayer, tileentity);
 		}
+	}
+
+	public static List<Block> getCreativeBlockList() {
+		if (creativeBlockList.isEmpty())
+			return null;
+		return creativeBlockList;
+	}
+
+	public static void registerBlockForCreativeGui(Block block) {
+		creativeBlockList.add(block);
 	}
 }

@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 
 public class mod_WirelessSniffer extends BaseMod {
-	
+
 	public static BaseMod instance;
 
 	@Override
@@ -46,7 +46,7 @@ public class mod_WirelessSniffer extends BaseMod {
 	public String getVersion() {
 		return "1.0";
 	}
-	
+
 	@Override
 	public boolean onTickInGame(float tick, Minecraft mc) {
 		if (WirelessSniffer.isLoaded) {

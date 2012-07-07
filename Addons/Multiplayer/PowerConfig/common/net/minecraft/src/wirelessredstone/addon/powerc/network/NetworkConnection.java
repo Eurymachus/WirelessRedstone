@@ -10,7 +10,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigGui;
+import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigOpenGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
@@ -33,7 +33,7 @@ public class NetworkConnection implements INetworkConnections {
 				PacketHandlerPowerConfig.handlePacket(pPC, world, player);
 				break;
 			case PacketIds.GUI:
-				PacketPowerConfigGui pPCGui = new PacketPowerConfigGui();
+				PacketPowerConfigOpenGui pPCGui = new PacketPowerConfigOpenGui();
 				pPCGui.readData(data);
 				PacketHandlerPowerConfig.handlePacket(pPCGui, world, player);
 				break;

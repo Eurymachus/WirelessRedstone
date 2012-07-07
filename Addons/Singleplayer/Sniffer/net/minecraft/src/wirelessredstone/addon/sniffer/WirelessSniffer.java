@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EntityPlayerSP;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -13,12 +12,12 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessSniffer;
-import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferDevice;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 
 public class WirelessSniffer {
@@ -26,7 +25,8 @@ public class WirelessSniffer {
 	public static Item itemSniffer;
 	public static GuiRedstoneWirelessSniffer guiSniffer;
 	public static WirelessSnifferDevice snifferReceiver;
-	public static int snifferon, snifferoff;
+	public static int snifferOn, snifferOff;
+	public static int ticksInGame = 0;
 	public static List<BaseModOverride> overrides;
 	public static int sniffID = 6244;
 
@@ -34,7 +34,7 @@ public class WirelessSniffer {
 		try {
 			overrides = new ArrayList();
 			ModLoader.setInGameHook(mod_WirelessSniffer.instance, true, true);
-					
+
 			loadConfig();
 			loadItemTextures();
 
@@ -53,7 +53,7 @@ public class WirelessSniffer {
 		}
 		return false;
 	}
-	
+
 	private static void initGui() {
 		guiSniffer = new GuiRedstoneWirelessSniffer();
 	}
@@ -68,7 +68,7 @@ public class WirelessSniffer {
 	}
 
 	public static void loadItemTextures() {
-		snifferoff = ModLoader.addOverride("/gui/items.png",
+		snifferOff = ModLoader.addOverride("/gui/items.png",
 				"/WirelessSprites/sniff.png");
 	}
 
@@ -110,31 +110,51 @@ public class WirelessSniffer {
 		String name = itemstack.getItem().getItemDisplayName(itemstack);
 		return getDeviceData(index, id, name, world, entityplayer);
 	}
-	
-	public static void activateGUI(WirelessSnifferData data, World world,
-			EntityPlayer entityplayer) {
-		guiSniffer.assWirelessDevice(data, entityplayer);
-		activateSniffer(world, entityplayer);
+
+	public static String[] getActiveFrequencies(World world) {
+		String[] activeFreqs = new String[WirelessRedstone.maxEtherFrequencies];
+		int j = 0;
+		for (int i = 0; i < WirelessRedstone.maxEtherFrequencies; ++i) {
+			if (RedstoneEther.getInstance().getFreqState(world,
+					String.valueOf(i))) {
+				activeFreqs[j] = String.valueOf(i);
+				++j;
+			}
+		}
+		String[] newActiveFreqs = new String[j];
+		for (int i = 0; i < j; ++i) {
+			newActiveFreqs[i] = activeFreqs[i];
+		}
+		return newActiveFreqs;
+	}
+
+	public static void activateGUI(World world, EntityPlayer entityplayer,
+			WirelessSnifferData wirelessSnifferData) {
+		guiSniffer.assWirelessDevice(wirelessSnifferData, entityplayer);
 		ModLoader.openGUI(entityplayer, guiSniffer);
 	}
 
-	public static void openGUI(WirelessSnifferData data, World world,
-			EntityPlayer entityplayer) {
+	public static void openGUI(World world, EntityPlayer entityplayer,
+			WirelessSnifferData wirelessSnifferData) {
 		boolean prematureExit = false;
-		
+
 		for (BaseModOverride override : overrides) {
-			if (override.beforeOpenGui(world, entityplayer, data)) {
+			if (override
+					.beforeOpenGui(world, entityplayer, wirelessSnifferData)) {
 				prematureExit = true;
 			}
 		}
-		
+
 		if (!prematureExit)
-			activateGUI(data, world, entityplayer);
+			activateSniffer(world, entityplayer);
+		guiSniffer.setActiveFreqs(getActiveFrequencies(world));
+		activateGUI(world, entityplayer, wirelessSnifferData);
 	}
-	
+
 	public static void activateSniffer(World world, EntityPlayer entityplayer) {
 		if (snifferReceiver != null) {
 			if (snifferReceiver.isBeingHeld()) {
+				guiSniffer.setActiveFreqs(getActiveFrequencies(world));
 				return;
 			}
 			deactivateSniffer(world, entityplayer);
@@ -142,8 +162,9 @@ public class WirelessSniffer {
 		snifferReceiver = new WirelessSnifferDevice(world, entityplayer);
 		snifferReceiver.activate();
 	}
-	
-	public static boolean deactivateSniffer(World world, EntityPlayer entityplayer) {
+
+	public static boolean deactivateSniffer(World world,
+			EntityPlayer entityplayer) {
 		if (snifferReceiver == null) {
 			return false;
 		} else {
@@ -157,11 +178,23 @@ public class WirelessSniffer {
 				mc.objectMouseOver);
 	}
 
-	private static void processSniffer(World world,
-			EntityPlayer entityplayer, GuiScreen gui,
-			MovingObjectPosition mop) {
-		if (snifferReceiver != null && (gui == null || !(gui instanceof GuiRedstoneWirelessSniffer))) {
-			deactivateSniffer(world, entityplayer);
-		}
+	private static void processSniffer(World world, EntityPlayer entityplayer,
+			GuiScreen gui, MovingObjectPosition mop) {
+		if (ticksInGame >= 40) {
+			if (snifferReceiver != null
+					&& (gui == null || !(gui instanceof GuiRedstoneWirelessSniffer))) {
+				deactivateSniffer(world, entityplayer);
+			}
+			if (snifferReceiver != null
+					&& gui instanceof GuiRedstoneWirelessSniffer) {
+				activateSniffer(world, entityplayer);
+			}
+			ticksInGame = 0;
+		} else
+			ticksInGame += 1;
+	}
+
+	public static int getIconFromDamage(String itemName, int i) {
+		return snifferOff;
 	}
 }

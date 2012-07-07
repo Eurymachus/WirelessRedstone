@@ -51,7 +51,7 @@ public class WirelessRemote {
 
 			loadConfig();
 			loadItemTextures();
-			
+
 			addEtherOverride();
 
 			initGui();
@@ -237,7 +237,7 @@ public class WirelessRemote {
 		WirelessRemoteData data = (WirelessRemoteData) WirelessRedstone
 				.getWorld().loadItemData(WirelessRemoteData.class, index);
 		if (data == null || !data.getState())
-			return WirelessRemote.remoteoff;
-		return WirelessRemote.remoteon;
+			return remoteoff;
+		return remoteon;
 	}
 }

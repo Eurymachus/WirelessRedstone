@@ -10,7 +10,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteGui;
+import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteOpenGui;
 import net.minecraft.src.wirelessredstone.addon.remote.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
@@ -33,7 +33,7 @@ public class NetworkConnection implements INetworkConnections {
 				PacketHandlerWirelessRemote.handlePacket(pWR, world, player);
 				break;
 			case PacketIds.GUI:
-				PacketWirelessRemoteGui pRG = new PacketWirelessRemoteGui();
+				PacketWirelessRemoteOpenGui pRG = new PacketWirelessRemoteOpenGui();
 				pRG.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pRG, world, player);
 				break;

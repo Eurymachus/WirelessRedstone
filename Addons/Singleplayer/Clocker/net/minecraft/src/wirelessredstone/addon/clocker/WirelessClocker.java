@@ -37,10 +37,11 @@ public class WirelessClocker {
 			loadBlockTextures();
 
 			initBlock();
-			initGui();
+			initGUI();
+
+			registerBlock();
 
 			addRecipes();
-			addBlock();
 
 			return true;
 		} catch (Exception e) {
@@ -70,7 +71,7 @@ public class WirelessClocker {
 				.setBlockName("wirelessredstone.clocker");
 	}
 
-	private static void initGui() {
+	private static void initGUI() {
 		guiClock = new GuiRedstoneWirelessClocker();
 	}
 
@@ -86,12 +87,13 @@ public class WirelessClocker {
 				.addOverride(override);
 	}
 
-	private static void addBlock() {
+	private static void registerBlock() {
 		ModLoader.registerBlock(blockClock);
 		ModLoader.addName(blockClock, "Wireless Clocker");
 		ModLoader.registerTileEntity(TileEntityRedstoneWirelessClocker.class,
 				"Wireless Clocker",
 				new TileEntityRedstoneWirelessClockerRenderer());
+		WirelessRedstone.registerBlockForCreativeGui(blockClock);
 	}
 
 	public static void addOverride(BaseModOverride override) {

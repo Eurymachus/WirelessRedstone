@@ -32,9 +32,9 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
-		if (entityplayer.isSneaking()) {
-			WirelessSniffer.openGUI(WirelessSniffer.getDeviceData(itemstack,
-					world, entityplayer), world, entityplayer);
+		if (!entityplayer.isSneaking()) {
+			WirelessSniffer.openGUI(world, entityplayer, WirelessSniffer
+					.getDeviceData(itemstack, world, entityplayer));
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -49,7 +49,7 @@ public class ItemRedstoneWirelessSniffer extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		if (!entityplayer.isSneaking()) {
+		if (entityplayer.isSneaking()) {
 
 		} else
 			onItemUse(itemstack, entityplayer, world,
@@ -59,20 +59,12 @@ public class ItemRedstoneWirelessSniffer extends Item {
 		return itemstack;
 	}
 
-	@Override
 	public boolean isFull3D() {
 		return true;
 	}
 
-	@Override
 	public int getIconFromDamage(int i) {
-		return WirelessSniffer.snifferoff;
-	}
-
-	private WirelessSnifferData getSnifferData(String index, int id,
-			String name, World world, EntityPlayer entityplayer) {
-		return WirelessSniffer.getDeviceData(index, id, name, world,
-				entityplayer);
+		return WirelessSniffer.getIconFromDamage(this.getItemName(), i);
 	}
 
 	@Override
@@ -80,11 +72,8 @@ public class ItemRedstoneWirelessSniffer extends Item {
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-			WirelessSnifferData data = this.getSnifferData(this.getItemName(),
-					itemstack.getItemDamage(),
-					this.getItemDisplayName(itemstack), world, entityplayer);
-			String freq = data.getFreq();
-			int pageNumber = data.getPage();
+			WirelessSnifferData data = WirelessSniffer.getDeviceData(itemstack,
+					world, entityplayer);
 		}
 	}
 

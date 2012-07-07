@@ -11,8 +11,8 @@ import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEtherNode;
-import net.minecraft.src.wirelessredstone.smp.network.packet.PacketOpenWindowRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
@@ -83,7 +83,7 @@ public class PacketHandlerRedstoneWireless {
 
 		public static void sendGuiPacketTo(EntityPlayerMP player,
 				TileEntityRedstoneWireless entity) {
-			PacketOpenWindowRedstoneWireless packet = new PacketOpenWindowRedstoneWireless(
+			PacketRedstoneWirelessOpenGui packet = new PacketRedstoneWirelessOpenGui(
 					entity);
 
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
