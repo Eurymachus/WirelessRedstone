@@ -61,6 +61,7 @@ public class PacketHandlerWirelessTriangulator {
 			WirelessTriangulatorData deviceData = WirelessTriangulator
 					.getDeviceData(index, packet.getDeviceID(),
 							"Wireless Triangulator", world, entityplayer);
+			deviceData.setFreq(packet.getFreq());
 			WirelessTriangulator.activateGUI(world, entityplayer, deviceData);
 		}
 	}

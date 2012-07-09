@@ -10,6 +10,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorGui;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
@@ -30,6 +31,12 @@ public class NetworkConnection implements INetworkConnections {
 				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
 				pWT.readData(data);
 				PacketHandlerWirelessTriangulator.handlePacket(pWT, world,
+						player);
+				break;
+			case PacketIds.GUI:
+				PacketWirelessTriangulatorGui pWTG = new PacketWirelessTriangulatorGui();
+				pWTG.readData(data);
+				PacketHandlerWirelessTriangulator.handlePacket(pWTG, world,
 						player);
 				break;
 			}

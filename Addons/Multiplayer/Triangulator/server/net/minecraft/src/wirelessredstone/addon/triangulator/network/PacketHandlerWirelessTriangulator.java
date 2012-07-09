@@ -43,37 +43,26 @@ public class PacketHandlerWirelessTriangulator {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-
-			if (packet.getCommand().equals("requestTriangulation")) {
-				int[] tx = RedstoneEther.getInstance()
-						.getClosestActiveTransmitter(packet.xPosition,
-								packet.yPosition, packet.zPosition,
-								packet.getFreq());
-				if (tx != null) {
-					PacketHandlerWirelessTriangulator.PacketHandlerOutput
-							.sendWirelessTriangulatorPacket(entityplayer, tx,
-									packet.getFreq());
-				} else
-					PacketHandlerWirelessTriangulator.PacketHandlerOutput
-							.sendWirelessTriangulatorPacket(entityplayer,
-									packet.getCoords(), "Reset");
-			}
+			
 			if (packet.getCommand().equals("changeFreq")) {
 				String index = WirelessTriangulator.itemTriang.getItemName();
 				WirelessTriangulatorData data = WirelessTriangulator
 						.getDeviceData(index, packet.getDeviceID(),
 								"Wireless Triangulator", world, entityplayer);
-				data.setFreq(packet.getFreq());
+				int oldfreq = Integer.parseInt(data.getFreq());
+				int freq = Integer.parseInt(packet.getFreq());
+				data.setFreq(Integer.toString(oldfreq+freq));
 			}
 		}
 	}
 
 	public static class PacketHandlerOutput {
 		public static void sendWirelessTriangulatorPacket(
-				EntityPlayer entityplayer, int[] tx, String freq) {
+				EntityPlayer entityplayer, int[] tx, int deviceID) {
 			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(
-					freq);
+					"triangulate");
 			packet.setPosition(tx[0], tx[1], tx[2]);
+			packet.setDeviceID(deviceID);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -95,9 +84,10 @@ public class PacketHandlerWirelessTriangulator {
 		}
 
 		public static void sendWirelessTriangulatorGuiPacket(
-				EntityPlayer entityplayer, int deviceID) {
+				EntityPlayer entityplayer, int deviceID, String freq) {
 			PacketWirelessTriangulatorGui packet = new PacketWirelessTriangulatorGui(
 					deviceID);
+			packet.setFreq(freq);
 			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
 					.addToSendQueue(packet.getPacket());
 		}

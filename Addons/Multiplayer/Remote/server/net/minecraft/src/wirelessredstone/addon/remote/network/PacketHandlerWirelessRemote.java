@@ -16,6 +16,7 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
@@ -49,12 +50,14 @@ public class PacketHandlerWirelessRemote {
 			}
 			if (packet.getCommand().equals("changeFreq")) {
 				String index = WirelessRemote.itemRemote.getItemName();
-				// ModLoader.getLogger().warning(index + "[Freq:" +
-				// packet.getFreq() + "]");
+				ModLoader.getLogger().warning(index + "[Freq:" +
+				packet.getFreq() + "]");
 				WirelessRemoteData data = WirelessRemote.getDeviceData(index,
 						packet.getRemoteID(), "Wireless Remote", world,
 						entityplayer);
-				data.setFreq(packet.getFreq());
+				int freq = Integer.parseInt(packet.getFreq());
+				int oldfreq = Integer.parseInt(data.getFreq());
+				data.setFreq(Integer.toString(oldfreq + freq));
 			}
 		}
 	}
@@ -74,9 +77,10 @@ public class PacketHandlerWirelessRemote {
 		}
 
 		public static void sendWirelessRemoteGuiPacket(
-				EntityPlayer entityplayer, int deviceID) {
+				EntityPlayer entityplayer, int deviceID, Object freq) {
 			PacketWirelessRemoteOpenGui packet = new PacketWirelessRemoteOpenGui(
 					deviceID);
+			packet.setFreq(freq);
 			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
 					.addToSendQueue(packet.getPacket());
 		}

@@ -18,6 +18,7 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
@@ -33,6 +34,7 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
+			ModLoader.getLogger().warning("Send Gui");
 			WirelessTriangulator.openGUI(world, entityplayer,
 					WirelessTriangulator.getDeviceData(itemstack, world,
 							entityplayer));

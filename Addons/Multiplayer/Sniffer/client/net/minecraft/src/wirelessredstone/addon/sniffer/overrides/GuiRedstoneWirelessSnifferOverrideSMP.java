@@ -17,8 +17,8 @@ public class GuiRedstoneWirelessSnifferOverrideSMP extends
 	public boolean beforeSetPage(WirelessDeviceData data, int pageNumber) {
 		if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
 			PacketHandlerWirelessSniffer.PacketHandlerOutput
-					.sendWirelessSnifferPacket("changePage", pageNumber);
-			return true;
+					.sendWirelessSnifferPacket("changePage", pageNumber, data.getID());
+			return false;
 		}
 		return false;
 	}

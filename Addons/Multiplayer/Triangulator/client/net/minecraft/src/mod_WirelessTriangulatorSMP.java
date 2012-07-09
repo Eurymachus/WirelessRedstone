@@ -35,17 +35,17 @@ public class mod_WirelessTriangulatorSMP extends NetworkMod {
 		}
 	}
 
-	@Override
+/*	@Override
 	public boolean onTickInGame(float tick, Minecraft mc) {
 		if (WirelessTriangulatorSMP.isLoaded) {
 			return WirelessTriangulatorSMP.tick(mc);
 		}
 		return true;
-	}
+	}*/
 
 	@Override
 	public String getPriorities() {
-		return "after:mod_WirelessRedstone";
+		return "after:mod_WirelessRedstoneSMP;after:mod_WirelessTriangulator";
 	}
 
 	@Override

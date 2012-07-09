@@ -1,10 +1,13 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
@@ -12,6 +15,7 @@ import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConn
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class WirelessTriangulator {
 	public static boolean isLoaded = false;
@@ -19,7 +23,7 @@ public class WirelessTriangulator {
 	public static int triangID = 6246;
 	public static int pulseTime = 2500;
 	public static int maxPulseThreads = 5;
-	public static boolean isServer = true;
+	public static int ticksInGame = 0;
 
 	public static boolean initialize() {
 		try {
@@ -103,18 +107,37 @@ public class WirelessTriangulator {
 			WirelessTriangulatorData deviceData) {
 		PacketHandlerWirelessTriangulator.PacketHandlerOutput
 				.sendWirelessTriangulatorGuiPacket(entityplayer,
-						deviceData.getID());
+						deviceData.getID(), deviceData.getFreq());
 	}
 
-	/*
-	 * public static boolean tick(MinecraftServer mc) { World[] worlds =
-	 * DimensionManager.getWorlds(); for (int i = 0; i < worlds.length; i++) {
-	 * for (int j = 0; j < worlds[i].playerEntities .size(); j++) {
-	 * EntityPlayerMP player = (EntityPlayerMP)worlds[i].playerEntities.get(j);
-	 * 
-	 * if (Math.abs(player.posX) <= 16 && Math.abs(player.posY) <= 16 &&
-	 * Math.abs(player.posZ) <= 16) {
-	 * 
-	 * } } } return false; }
-	 */
+	
+	 public static boolean tick(MinecraftServer mc) {
+		 if (ticksInGame >= 40) {
+			 World[] worlds = DimensionManager.getWorlds();
+			 for (int i = 0; i < worlds.length; i++) {
+				 for (int j = 0; j < worlds[i].playerEntities .size(); j++) {
+					 EntityPlayerMP player = (EntityPlayerMP)worlds[i].playerEntities.get(j);
+					 if (Math.abs(player.posX) <= 16 && Math.abs(player.posY) <= 16 && Math.abs(player.posZ) <= 16) {
+						 if (player.getCurrentEquippedItem().equals(WirelessTriangulator.itemTriang)) {
+							 WirelessTriangulatorData data = WirelessTriangulator
+									 .getDeviceData(player
+											 .getCurrentEquippedItem(),
+											 player.worldObj, 
+											 player);
+							 int tx[] = RedstoneEther.getInstance()
+									 .getClosestActiveTransmitter(
+											 (int)player.posX, (int)player.posY, (int)player.posZ,
+											 data.getFreq());
+							 
+							 PacketHandlerWirelessTriangulator
+							 .PacketHandlerOutput
+							 .sendWirelessTriangulatorPacket(player, tx, data.getID());
+						 }
+					 }
+				 }
+			 }
+		 }
+		 return true;
+	}
+	 
 }

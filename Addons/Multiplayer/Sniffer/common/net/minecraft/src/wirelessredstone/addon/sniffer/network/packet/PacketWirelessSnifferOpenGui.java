@@ -11,7 +11,7 @@ public class PacketWirelessSnifferOpenGui extends PacketWirelessSniffer {
 
 	public PacketWirelessSnifferOpenGui(int deviceID) {
 		this();
-		this.payload = new PacketPayload(1, 0, 0, 0);
+		this.payload = new PacketPayload(2, 0, 0, 0);
 		this.setDeviceID(deviceID);
 	}
 
@@ -23,9 +23,17 @@ public class PacketWirelessSnifferOpenGui extends PacketWirelessSniffer {
 		return this.payload.getIntPayload(0);
 	}
 
+	public void setPageNumber(int pageNumber) {
+		this.payload.setIntPayload(1, pageNumber);
+	}
+
+	public int getPageNumber() {
+		return this.payload.getIntPayload(1);
+	}
+
 	@Override
 	public String toString() {
-		return "Device[" + this.getDeviceID() + "].setState(" + this.getState()
+		return "Open Gui for Device[" + this.getDeviceID() + "].setPageNumber(" + this.getPageNumber()
 				+ ")";
 	}
 }

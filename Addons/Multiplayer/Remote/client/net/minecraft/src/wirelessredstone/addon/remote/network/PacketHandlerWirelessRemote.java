@@ -54,6 +54,9 @@ public class PacketHandlerWirelessRemote {
 			WirelessRemoteData data = WirelessRemote.getDeviceData(index,
 					packet.getDeviceID(), "Wireless Remote", world,
 					entityplayer);
+			data.setFreq(packet.getFreq());
+			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Freq: " + data.getFreq());
+			ModLoader.getMinecraftInstance().thePlayer.addChatMessage("Freq: " + packet.getFreq());
 			WirelessRemote.activateGUI(world, entityplayer, data);
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessRemoteGuiPacket:" + packet.toString(),

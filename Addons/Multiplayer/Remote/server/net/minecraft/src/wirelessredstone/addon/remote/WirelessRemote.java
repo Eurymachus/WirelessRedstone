@@ -153,6 +153,6 @@ public class WirelessRemote {
 	public static void openGUI(World world, EntityPlayer entityplayer,
 			WirelessRemoteData deviceData) {
 		PacketHandlerWirelessRemote.PacketHandlerOutput
-				.sendWirelessRemoteGuiPacket(entityplayer, deviceData.getID());
+				.sendWirelessRemoteGuiPacket(entityplayer, deviceData.getID(), deviceData.getFreq());
 	}
 }

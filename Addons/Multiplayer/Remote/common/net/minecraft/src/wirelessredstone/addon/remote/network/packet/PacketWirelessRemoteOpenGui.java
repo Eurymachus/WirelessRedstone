@@ -10,8 +10,18 @@ public class PacketWirelessRemoteOpenGui extends PacketWirelessRemote {
 
 	public PacketWirelessRemoteOpenGui(int deviceID) {
 		this();
-		this.payload = new PacketPayload(1, 0, 0, 0);
+		this.payload = new PacketPayload(1, 0, 1, 0);
 		this.setDeviceID(deviceID);
+	}
+
+	@Override
+	public void setFreq(Object freq) {
+		this.payload.setStringPayload(0, freq.toString());
+	}
+
+	@Override
+	public String getFreq() {
+		return this.payload.getStringPayload(0);
 	}
 
 	public void setDeviceID(int deviceID) {

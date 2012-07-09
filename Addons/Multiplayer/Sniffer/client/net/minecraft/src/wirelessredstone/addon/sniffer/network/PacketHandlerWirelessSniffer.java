@@ -6,6 +6,7 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.sniffer.GuiRedstoneWirelessSniffer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
+import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferEtherCopy;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferOpenGui;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.packet.PacketWirelessSnifferSettings;
@@ -48,9 +49,11 @@ public class PacketHandlerWirelessSniffer {
 				PacketWirelessSnifferOpenGui packet, World world,
 				EntityPlayer entityplayer) {
 			String index = WirelessSniffer.itemSniffer.getItemName();
-			WirelessSniffer.activateGUI(world, entityplayer, WirelessSniffer
+			WirelessSnifferData data = WirelessSniffer
 					.getDeviceData(index, packet.getDeviceID(),
-							"Wireless Sniffer", world, entityplayer));
+							"Wireless Sniffer", world, entityplayer);
+			data.setPage(packet.getPageNumber());
+			WirelessSniffer.activateGUI(world, entityplayer, data);
 		}
 
 		public static void handleWirelessSniffer(
@@ -70,9 +73,11 @@ public class PacketHandlerWirelessSniffer {
 
 	public static class PacketHandlerOutput {
 		public static void sendWirelessSnifferPacket(String command,
-				int pageNumber) {
+				int pageNumber, int deviceID) {
 			PacketWirelessSnifferSettings packet = new PacketWirelessSnifferSettings(
 					command);
+			packet.setDeviceID(deviceID);
+			packet.setPageNumber(pageNumber);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessSnifferPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

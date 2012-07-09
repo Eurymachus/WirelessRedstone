@@ -11,7 +11,7 @@ public class PacketWirelessTriangulatorGui extends PacketWirelessTriangulator {
 
 	public PacketWirelessTriangulatorGui(int deviceID) {
 		this();
-		this.payload = new PacketPayload(1, 0, 0, 0);
+		this.payload = new PacketPayload(1, 0, 1, 0);
 		this.setDeviceID(deviceID);
 	}
 
@@ -22,10 +22,20 @@ public class PacketWirelessTriangulatorGui extends PacketWirelessTriangulator {
 	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
 	}
+	
+	@Override
+	public void setFreq(Object freq) {
+		this.payload.setStringPayload(0, freq.toString());
+	}
+	
+	@Override
+	public String getFreq() {
+		return this.payload.getStringPayload(0);
+	}
 
 	@Override
 	public String toString() {
 		return "(" + this.xPosition + "," + this.yPosition + ","
-				+ this.zPosition + ")RemoteID[" + this.getDeviceID() + "]";
+				+ this.zPosition + ")TriangID[" + this.getDeviceID() + "]";
 	}
 }

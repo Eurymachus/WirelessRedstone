@@ -9,6 +9,7 @@ import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
+import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
@@ -19,12 +20,13 @@ public class WirelessTriangulatorSMP {
 
 	public static boolean initialize() {
 		try {
-			ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true,
-					true);
+			//ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true, true);
 
 			registerConnHandler();
 
 			addBaseModOverride();
+			
+			addGuiOverrode();
 
 			return true;
 		} catch (Exception e) {
@@ -38,6 +40,11 @@ public class WirelessTriangulatorSMP {
 		return false;
 	}
 
+	private static void addGuiOverrode() {
+		GuiRedstoneWirelessTriangulatorOverrideSMP override = new GuiRedstoneWirelessTriangulatorOverrideSMP();
+		WirelessTriangulator.guiTriang.addOverride(override);
+	}
+
 	private static void addBaseModOverride() {
 		BaseModOverrideSMP override = new BaseModOverrideSMP();
 		WirelessTriangulator.addOverride(override);
@@ -47,7 +54,7 @@ public class WirelessTriangulatorSMP {
 		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 	}
 
-	public static boolean tick(Minecraft mc) {
+/*	public static boolean tick(Minecraft mc) {
 		EntityPlayer entityplayer = mc.thePlayer;
 		World world = mc.theWorld;
 		if (mc.currentScreen instanceof GuiRedstoneWirelessTriangulator) {
@@ -77,5 +84,5 @@ public class WirelessTriangulatorSMP {
 			return true;
 		}
 		return true;
-	}
+	}*/
 }

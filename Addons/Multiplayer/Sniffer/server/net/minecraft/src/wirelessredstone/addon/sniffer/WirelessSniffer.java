@@ -20,7 +20,6 @@ public class WirelessSniffer {
 	public static boolean isLoaded = false;
 	public static Item itemSniffer;
 	public static int snifferOff, snifferOn;
-	public static WirelessSnifferDevice snifferReceiver;
 	public static int sniffID = 6244;
 	public static int ticksInGame = 0;
 
@@ -113,7 +112,7 @@ public class WirelessSniffer {
 	}
 
 	public static void activateSniffer(World world, EntityPlayer entityplayer) {
-		if (snifferReceiver != null) {
+/*		if (snifferReceiver != null) {
 			if (snifferReceiver.isBeingHeld()) {
 				PacketHandlerWirelessSniffer.PacketHandlerOutput
 						.sendWirelessSnifferEtherCopy(entityplayer,
@@ -123,36 +122,39 @@ public class WirelessSniffer {
 			deactivateSniffer(world, entityplayer);
 		}
 		snifferReceiver = new WirelessSnifferDevice(world, entityplayer);
-		snifferReceiver.activate();
+		snifferReceiver.activate();*/
 	}
 
 	public static boolean deactivateSniffer(World world,
 			EntityPlayer entityplayer) {
-		if (snifferReceiver == null) {
+/*		if (snifferReceiver == null) {
 			return false;
 		} else {
 			snifferReceiver.deactivate();
 			return true;
-		}
+		}*/
+		return false;
 	}
 
 	public static void openGUI(World world, EntityPlayer entityplayer,
 			WirelessSnifferData deviceData) {
 		PacketHandlerWirelessSniffer.PacketHandlerOutput
-				.sendWirelessSnifferGuiPacket(entityplayer, deviceData.getID());
+				.sendWirelessSnifferGuiPacket(entityplayer, deviceData.getID(), deviceData.getPage());
 		activateSniffer(world, entityplayer);
 	}
 
 	public static boolean onTickInGame(MinecraftServer mcServer) {
-		if (snifferReceiver != null) {
-			if (ticksInGame >= 20) {
-				activateSniffer(snifferReceiver.getWorld(),
-						snifferReceiver.getOwner());
-				ticksInGame = 0;
-				return true;
+/*		if (snifferReceiver != null) {
+			if (snifferReceiver.isBeingHeld()) {
+				if (ticksInGame >= 20) {
+					activateSniffer(snifferReceiver.getWorld(),
+							snifferReceiver.getOwner());
+					ticksInGame = 0;
+					return true;
+				}
+				ticksInGame += 1;
 			}
-			ticksInGame += 1;
-		}
+		}*/
 		return true;
 	}
 }

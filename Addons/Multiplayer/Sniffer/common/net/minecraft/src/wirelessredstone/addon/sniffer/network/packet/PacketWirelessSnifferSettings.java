@@ -9,31 +9,31 @@ public class PacketWirelessSnifferSettings extends PacketWirelessSniffer {
 		super(PacketIds.ADDON);
 	}
 
-	public PacketWirelessSnifferSettings(String freq) {
+	public PacketWirelessSnifferSettings(String command) {
 		this();
-		this.payload = new PacketPayload(0, 0, 1, 0);
-		this.setFreq(freq);
+		this.payload = new PacketPayload(2, 0, 1, 0);
+		this.setCommand(command);
 	}
-
-	public PacketWirelessSnifferSettings(String freq, boolean state) {
-		this();
-		this.payload = new PacketPayload(0, 0, 1, 1);
-		this.setFreq(freq);
-		this.setState(state);
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Freq[" + this.getFreq() + "](" + this.xPosition + ","
 				+ this.yPosition + "," + this.zPosition + ")";
 	}
 
-	public void setFreq(String freq) {
-		this.payload.setStringPayload(0, freq);
+	public void setDeviceID(int id) {
+		this.payload.setIntPayload(0, id);
 	}
 
-	@Override
-	public String getFreq() {
-		return this.payload.getStringPayload(0);
+	public void setPageNumber(int pageNumber) {
+		this.payload.setIntPayload(1, pageNumber);
+	}
+	
+	public int getDeviceID() {
+		return this.payload.getIntPayload(0);
+	}
+	
+	public int getPageNumber() {
+		return this.payload.getIntPayload(1);
 	}
 }
