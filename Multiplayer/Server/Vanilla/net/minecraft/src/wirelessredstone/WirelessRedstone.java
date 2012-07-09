@@ -184,4 +184,8 @@ public class WirelessRedstone {
 			}
 		}
 	}
+
+	public static Object getPlayer() {
+		return null;
+	}
 }

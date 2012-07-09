@@ -1,5 +1,8 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
+import java.util.HashMap;
+import java.util.List;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
@@ -22,7 +25,7 @@ public class WirelessRemote {
 	public static Item itemRemote;
 	public static int remoteID = 6245;
 
-	public static WirelessRemoteDevice remoteTransmitter;
+	public static HashMap<EntityPlayer, WirelessRemoteDevice> remoteTransmitters;
 
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
@@ -31,6 +34,7 @@ public class WirelessRemote {
 
 	public static boolean initialize() {
 		try {
+			remoteTransmitters = new HashMap<EntityPlayer, WirelessRemoteDevice>();
 			registerConnHandler();
 
 			addEtherOverride();
@@ -92,8 +96,8 @@ public class WirelessRemote {
 	}
 
 	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
-		return remoteTransmitter == null ? false
-				: remoteTransmitter.getFreq() == freq;
+		return remoteTransmitters.get(entityplayer) == null ? false
+				: remoteTransmitters.get(entityplayer).getFreq() == freq;
 	}
 
 	public static WirelessRemoteData getDeviceData(String index, int id,
@@ -125,23 +129,23 @@ public class WirelessRemote {
 	}
 
 	public static void activateRemote(World world, EntityPlayer entityplayer) {
-		if (remoteTransmitter != null) {
-			if (remoteTransmitter.isBeingHeld())
+		if (remoteTransmitters.containsKey(entityplayer)) {
+			if (remoteTransmitters.get(entityplayer).isBeingHeld())
 				return;
 
 			deactivateRemote(world, entityplayer);
 		}
-		remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
-		remoteTransmitter.activate();
+		remoteTransmitters.put(entityplayer, new WirelessRemoteDevice(world, entityplayer));
+		remoteTransmitters.get(entityplayer).activate();
 	}
 
 	public static boolean deactivateRemote(World world,
 			EntityPlayer entityplayer) {
-		if (remoteTransmitter == null) {
+		if (remoteTransmitters.get(entityplayer) == null) {
 			return false;
 		} else {
-			remoteTransmitter.deactivate();
-			remoteTransmitter = null;
+			remoteTransmitters.get(entityplayer).deactivate();
+			remoteTransmitters.remove(entityplayer);
 			return true;
 		}
 	}

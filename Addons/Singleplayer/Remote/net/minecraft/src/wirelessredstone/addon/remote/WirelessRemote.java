@@ -1,6 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -33,7 +34,7 @@ public class WirelessRemote {
 	public static int remoteon, remoteoff;
 	public static int remoteID = 6245;
 
-	public static WirelessRemoteDevice remoteTransmitter;
+	public static HashMap<EntityPlayer, WirelessRemoteDevice> remoteTransmitters;
 	public static GuiRedstoneWirelessRemote guiRemote;
 
 	public static boolean mouseDown, wasMouseDown, remotePulsing;
@@ -47,6 +48,7 @@ public class WirelessRemote {
 	public static boolean initialize() {
 		try {
 			overrides = new ArrayList();
+			remoteTransmitters = new HashMap<EntityPlayer, WirelessRemoteDevice>();
 			ModLoader.setInGameHook(mod_WirelessRemote.instance, true, true);
 
 			loadConfig();
@@ -144,36 +146,36 @@ public class WirelessRemote {
 	};
 
 	public static void activateRemote(World world, EntityPlayer entityplayer) {
-		if (remoteTransmitter != null) {
-			if (remoteTransmitter.isBeingHeld())
+		if (remoteTransmitters.get(entityplayer) != null) {
+			if (remoteTransmitters.get(entityplayer).isBeingHeld())
 				return;
 
 			deactivateRemote(world, entityplayer);
 		}
-		remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
-		remoteTransmitter.activate();
+		remoteTransmitters.put(entityplayer, new WirelessRemoteDevice(world, entityplayer));
+		remoteTransmitters.get(entityplayer).activate();
 	}
 
 	public static boolean deactivateRemote(World world,
 			EntityPlayer entityplayer) {
-		if (remoteTransmitter == null) {
+		if (remoteTransmitters.get(entityplayer) == null) {
 			return false;
 		} else {
-			remoteTransmitter.deactivate();
-			remoteTransmitter = null;
+			remoteTransmitters.get(entityplayer).deactivate();
+			remoteTransmitters.remove(entityplayer);
 			return true;
 		}
 	}
 
 	public static void processRemote(World world, EntityPlayer entityplayer,
 			GuiScreen gui, MovingObjectPosition mop) {
-		if (remoteTransmitter != null && !mouseDown && !remotePulsing) {
+		if (remoteTransmitters.get(entityplayer) != null && !mouseDown && !remotePulsing) {
 			ThreadWirelessRemote.pulse(entityplayer, "hold");
 			deactivateRemote(world, entityplayer);
 		}
 
 		if (mouseClicked()
-				&& remoteTransmitter == null
+				&& remoteTransmitters.get(entityplayer) == null
 				&& entityplayer.inventory.getCurrentItem() != null
 				&& entityplayer.inventory.getCurrentItem().getItem() == WirelessRemote.itemRemote
 				&& gui != null && gui instanceof GuiRedstoneWirelessInventory
@@ -182,8 +184,8 @@ public class WirelessRemote {
 	}
 
 	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
-		return remoteTransmitter == null ? false
-				: remoteTransmitter.getFreq() == freq;
+		return remoteTransmitters.get(entityplayer) == null ? false
+				: remoteTransmitters.get(entityplayer).getFreq() == freq;
 	}
 
 	public static WirelessRemoteData getDeviceData(String index, int id,
