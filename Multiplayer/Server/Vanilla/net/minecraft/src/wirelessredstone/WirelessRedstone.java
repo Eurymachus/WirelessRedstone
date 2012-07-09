@@ -10,17 +10,22 @@ import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideServer;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class WirelessRedstone {
+	public static boolean isLoaded = false;
 	public static Block blockWirelessR;
 	public static Block blockWirelessT;
 
@@ -42,13 +47,14 @@ public class WirelessRedstone {
 	public static int spriteTItem;
 	public static int spriteRItem;
 	public static int maxEtherFrequencies = 10000;
-
-	private static boolean loaded = false;
-
-	public static void load() {
-		if (!loaded) {
-			loaded = true;
+	
+	public static boolean initialize() {
+		try {
+			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+			
 			loadConfig();
+			addEtherOverrides();
+
 			blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F))
 					.setBlockName("wirelessredstone.receiver");
 			blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F))
@@ -61,13 +67,13 @@ public class WirelessRedstone {
 					"Wireless Transmitter");
 			loadBlockTextures();
 			addRecipes();
-
+	
 			Thread thr = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					if (WirelessRedstone.manualUpdate < 1)
 						return;
-
+	
 					while (true) {
 						try {
 							Thread.sleep(WirelessRedstone.manualUpdate * 1000);
@@ -83,7 +89,15 @@ public class WirelessRedstone {
 			});
 			thr.setName("WirelessRedstoneUpdaterThread");
 			thr.start();
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
+	}
+
+	private static void addEtherOverrides() {
+		RedstoneEtherOverrideServer override = new RedstoneEtherOverrideServer();
+		RedstoneEther.getInstance().addOverride(override);
 	}
 
 	public static void addRecipes() {
@@ -183,9 +197,5 @@ public class WirelessRedstone {
 								tileentityredstonewirelesst);
 			}
 		}
-	}
-
-	public static Object getPlayer() {
-		return null;
 	}
 }

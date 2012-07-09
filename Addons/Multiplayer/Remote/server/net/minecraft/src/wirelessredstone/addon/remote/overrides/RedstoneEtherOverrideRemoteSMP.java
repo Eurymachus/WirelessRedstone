@@ -1,14 +1,16 @@
 package net.minecraft.src.wirelessredstone.addon.remote.overrides;
 
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
+import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEtherOverride;
 
-public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
+public class RedstoneEtherOverrideRemoteSMP implements RedstoneEtherOverride {
 	@Override
 	public boolean beforeAddTransmitter(World world, int i, int j, int k,
 			String freq) {
@@ -87,13 +89,27 @@ public class RedstoneEtherOverrideRemote implements RedstoneEtherOverride {
 				.write("isLoaded(world, " + i + ", " + j + ", " + k + ")",
 						LoggerRedstoneWireless.LogLevel.DEBUG);
 		int[] a = { i, j, k };
-		if (WirelessRemote.remoteTransmitters.get(WirelessRedstone.getPlayer()) != null) {
-			WirelessCoordinates remote = WirelessRemote.remoteTransmitters.get(WirelessRedstone.getPlayer())
-					.getCoords();
-			int[] b = { remote.getX(), remote.getY(), remote.getZ() };
+		WirelessCoordinates deviceCoords = new WirelessCoordinates(a);
+		if (WirelessRemote.remoteWirelessCoords.containsKey(deviceCoords)) {
+			WirelessRemoteDevice remote = WirelessRemote.remoteWirelessCoords.get(deviceCoords);
+			int[] b = { remote.getCoords().getX(), remote.getCoords().getY(), remote.getCoords().getZ() };
 			if (RedstoneEther.pythagoras(a, b) < 1)
 				return true;
 		}
 		return returnState;
+	}
+
+	@Override
+	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k,
+			String freq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[] afterGetClosestActiveTransmitter(int i, int j, int k,
+			String freq, int[] coords) {
+		// TODO Auto-generated method stub
+		return coords;
 	}
 }

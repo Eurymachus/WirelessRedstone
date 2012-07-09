@@ -2,6 +2,7 @@ package net.minecraft.src.wirelessredstone.addon.remote;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
@@ -15,9 +16,10 @@ import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.remote.network.PacketHandlerWirelessRemote;
-import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
+import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemoteSMP;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class WirelessRemote {
@@ -26,6 +28,7 @@ public class WirelessRemote {
 	public static int remoteID = 6245;
 
 	public static HashMap<EntityPlayer, WirelessRemoteDevice> remoteTransmitters;
+	public static TreeMap<WirelessCoordinates, WirelessRemoteDevice> remoteWirelessCoords;
 
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
@@ -35,6 +38,8 @@ public class WirelessRemote {
 	public static boolean initialize() {
 		try {
 			remoteTransmitters = new HashMap<EntityPlayer, WirelessRemoteDevice>();
+			remoteWirelessCoords = new TreeMap<WirelessCoordinates, WirelessRemoteDevice>();
+			
 			registerConnHandler();
 
 			addEtherOverride();
@@ -61,7 +66,7 @@ public class WirelessRemote {
 	}
 
 	private static void addEtherOverride() {
-		RedstoneEtherOverrideRemote etherOverrideRemote = new RedstoneEtherOverrideRemote();
+		RedstoneEtherOverrideRemoteSMP etherOverrideRemote = new RedstoneEtherOverrideRemoteSMP();
 		RedstoneEther.getInstance().addOverride(etherOverrideRemote);
 	}
 
@@ -136,17 +141,21 @@ public class WirelessRemote {
 			deactivateRemote(world, entityplayer);
 		}
 		remoteTransmitters.put(entityplayer, new WirelessRemoteDevice(world, entityplayer));
-		remoteTransmitters.get(entityplayer).activate();
+		WirelessRemoteDevice remote = remoteTransmitters.get(entityplayer);
+		remoteWirelessCoords.put(remote.getCoords(), remote);
+		remote.activate();
 	}
 
 	public static boolean deactivateRemote(World world,
 			EntityPlayer entityplayer) {
-		if (remoteTransmitters.get(entityplayer) == null) {
-			return false;
-		} else {
-			remoteTransmitters.get(entityplayer).deactivate();
+		if (remoteTransmitters.containsKey(entityplayer)) {
+			WirelessRemoteDevice remote = remoteTransmitters.get(entityplayer);
+			remote.deactivate();
+			remoteWirelessCoords.remove(remote.getCoords());
 			remoteTransmitters.remove(entityplayer);
 			return true;
+		} else {
+			return false;
 		}
 	}
 

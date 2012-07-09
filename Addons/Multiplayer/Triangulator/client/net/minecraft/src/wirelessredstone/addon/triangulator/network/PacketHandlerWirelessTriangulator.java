@@ -50,6 +50,7 @@ public class PacketHandlerWirelessTriangulator {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
+			ModLoader.getLogger().warning("TriangPacket:" + packet.getCommand());
 			RedstoneWirelessPlayerEtherCoordsMem.getInstance(world).setCoords(
 					entityplayer, new WirelessCoordinates(packet.getCoords()));
 		}
@@ -57,6 +58,9 @@ public class PacketHandlerWirelessTriangulator {
 		public static void handleWirelessTriangulator(
 				PacketWirelessTriangulatorGui packet, World world,
 				EntityPlayer entityplayer) {
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"handleWirelessTriangulatorGuiPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 			String index = WirelessTriangulator.itemTriang.getItemName();
 			WirelessTriangulatorData deviceData = WirelessTriangulator
 					.getDeviceData(index, packet.getDeviceID(),
@@ -87,6 +91,7 @@ public class PacketHandlerWirelessTriangulator {
 					command);
 			packet.setDeviceID(id);
 			packet.setFreq(freq);
+			ModLoader.getLogger().warning(packet.getCommand() + "[" + packet.getDeviceID() + "].toFreq[" + packet.getFreq() + "]");
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendRedstoneEtherPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

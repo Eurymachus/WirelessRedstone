@@ -34,7 +34,6 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
 		if (entityplayer.isSneaking()) {
-			ModLoader.getLogger().warning("Send Gui");
 			WirelessTriangulator.openGUI(world, entityplayer,
 					WirelessTriangulator.getDeviceData(itemstack, world,
 							entityplayer));

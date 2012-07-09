@@ -12,6 +12,7 @@ public class PacketWirelessTriangulatorSettings extends
 	public PacketWirelessTriangulatorSettings(String command) {
 		this();
 		this.payload = new PacketPayload(1, 0, 2, 0);
+		this.setCommand(command);
 	}
 
 	public int[] getCoords() {

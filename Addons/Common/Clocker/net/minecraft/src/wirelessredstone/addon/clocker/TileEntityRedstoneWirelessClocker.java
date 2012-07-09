@@ -49,10 +49,10 @@ public class TileEntityRedstoneWirelessClocker extends
 	}
 
 	public void setClockFreq(int i) {
-		if (i > 2000000000)
-			i = 2000000000;
-		if (i < 200)
-			i = 200;
+		if (i > WirelessClocker.maxClockFreq)
+			i = WirelessClocker.maxClockFreq;
+		if (i < WirelessClocker.minClockFreq)
+			i = WirelessClocker.minClockFreq;
 
 		clockFreq = i;
 

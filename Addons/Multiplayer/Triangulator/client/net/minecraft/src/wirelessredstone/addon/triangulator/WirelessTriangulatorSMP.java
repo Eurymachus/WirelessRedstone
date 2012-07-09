@@ -10,7 +10,9 @@ import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriang
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
+import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.RedstoneEtherOverrideTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
 public class WirelessTriangulatorSMP {
@@ -26,7 +28,9 @@ public class WirelessTriangulatorSMP {
 
 			addBaseModOverride();
 			
-			addGuiOverrode();
+			addGuiOverride();
+			
+			addEtherOverride();
 
 			return true;
 		} catch (Exception e) {
@@ -40,7 +44,12 @@ public class WirelessTriangulatorSMP {
 		return false;
 	}
 
-	private static void addGuiOverrode() {
+	private static void addEtherOverride() {
+		RedstoneEtherOverrideTriangulator override = new RedstoneEtherOverrideTriangulator();
+		RedstoneEther.getInstance().addOverride(override);
+	}
+
+	private static void addGuiOverride() {
 		GuiRedstoneWirelessTriangulatorOverrideSMP override = new GuiRedstoneWirelessTriangulatorOverrideSMP();
 		WirelessTriangulator.guiTriang.addOverride(override);
 	}

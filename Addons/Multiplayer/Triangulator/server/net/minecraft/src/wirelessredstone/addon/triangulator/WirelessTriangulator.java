@@ -1,5 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
+import java.util.HashMap;
+
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
@@ -11,6 +13,7 @@ import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
+import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorDevice;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
@@ -23,10 +26,13 @@ public class WirelessTriangulator {
 	public static int triangID = 6246;
 	public static int pulseTime = 2500;
 	public static int maxPulseThreads = 5;
+	//public static HashMap<EntityPlayer, WirelessTriangulatorDevice> triangulators;
 	public static int ticksInGame = 0;
 
 	public static boolean initialize() {
 		try {
+			//triangulators = new HashMap<EntityPlayer, WirelessTriangulatorDevice>();
+			
 			registerConnHandler();
 
 			loadConfig();

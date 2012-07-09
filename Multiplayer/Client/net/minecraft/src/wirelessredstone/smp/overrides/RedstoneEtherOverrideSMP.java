@@ -79,4 +79,16 @@ public class RedstoneEtherOverrideSMP implements RedstoneEtherOverride {
 			boolean returnState) {
 		return returnState;
 	}
+
+	@Override
+	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k,
+			String freq) {
+		return null;
+	}
+
+	@Override
+	public int[] afterGetClosestActiveTransmitter(int i, int j, int k,
+			String freq, int[] coords) {
+		return coords;
+	}
 }

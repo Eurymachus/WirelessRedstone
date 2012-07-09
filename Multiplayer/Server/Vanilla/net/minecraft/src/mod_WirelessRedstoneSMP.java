@@ -9,16 +9,15 @@ import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 
 public class mod_WirelessRedstoneSMP extends NetworkMod {
 	public static NetworkMod instance;
+	
+	public void modsLoaded() {
+		if (!WirelessRedstone.isLoaded && ModLoader.isModLoaded("mod_MinecraftForge")) {
+			WirelessRedstone.isLoaded = WirelessRedstone.initialize();
+		}
+	}
 
 	public mod_WirelessRedstoneSMP() {
 		instance = this;
-
-		MinecraftForge.registerConnectionHandler(new NetworkConnection());
-
-		RedstoneEtherOverrideServer etherOverride = new RedstoneEtherOverrideServer();
-		RedstoneEther.getInstance().addOverride(etherOverride);
-
-		WirelessRedstone.load();
 	}
 
 	@Override

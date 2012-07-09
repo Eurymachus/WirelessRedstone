@@ -249,4 +249,27 @@ public interface RedstoneEtherOverride {
 	 */
 	public boolean afterIsLoaded(World world, int i, int j, int k,
 			boolean returnState);
+
+	/**
+	 * Triggers before getClosestActiveTransmitter
+	 * 
+	 * @param i
+	 * @param j
+	 * @param k
+	 * @param freq
+	 * @return
+	 */
+	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k, String freq);
+
+	/**
+	 * Triggers after getClosestActiveTransmitter
+	 * @param i
+	 * @param j
+	 * @param k
+	 * @param freq
+	 * @param coords The previous coordinates
+	 * @return
+	 */
+	public int[] afterGetClosestActiveTransmitter(int i, int j, int k,
+			String freq, int[] coords);
 }

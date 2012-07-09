@@ -1,6 +1,6 @@
 package net.minecraft.src.wirelessredstone.data;
 
-public class WirelessCoordinates {
+public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 	int x, y, z;
 
 	public WirelessCoordinates(int x, int y, int z) {
@@ -44,11 +44,25 @@ public class WirelessCoordinates {
 	public int[] getCoordinateArray() {
 		int[] coordArray = { 0, 0, 0 };
 		if (this != null) {
-			;
 			coordArray[0] = this.getX();
 			coordArray[1] = this.getY();
 			coordArray[2] = this.getZ();
-		}
-		return coordArray;
+			return coordArray;
+		} else
+			return null;
+	}
+
+	@Override
+	public int compareTo(WirelessCoordinates arg0) {
+		if (arg0.x == this.x) {
+			if (arg0.y == this.y) {
+				if (arg0.z == this.z)
+					return 0;
+				else
+					return this.z - arg0.z;
+			} else
+				return this.y - arg0.y;
+		} else
+			return this.x - arg0.x;
 	}
 }

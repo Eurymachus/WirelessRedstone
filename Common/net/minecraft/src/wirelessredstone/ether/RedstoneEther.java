@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
@@ -428,10 +429,22 @@ public class RedstoneEther {
 	 */
 	public synchronized int[] getClosestActiveTransmitter(int i, int j, int k,
 			String freq) {
-		if (freqIsset(freq))
-			return ether.get(freq).getClosestActiveTransmitter(i, j, k);
-		else
-			return null;
+		int[] coords = null;
+		for (RedstoneEtherOverride override : overrides) {
+			coords = override.beforeGetClosestActiveTransmitter(i, j, k, freq);
+		}
+		
+		int[] newCoords = coords;
+		if (coords == null) {
+			if (freqIsset(freq))
+				newCoords = ether.get(freq).getClosestActiveTransmitter(i, j, k);
+		}
+		
+		for (RedstoneEtherOverride override : overrides) {
+			newCoords = override.afterGetClosestActiveTransmitter(i, j, k, freq, newCoords);
+		}
+		
+		return newCoords;
 	}
 
 	/**

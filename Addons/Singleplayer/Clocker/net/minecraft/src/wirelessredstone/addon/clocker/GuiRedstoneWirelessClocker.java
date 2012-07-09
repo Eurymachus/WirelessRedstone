@@ -115,10 +115,10 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 				break;
 			}
 
-			if (clockFreq > 2000000000)
-				clockFreq = 2000000000;
-			if (clockFreq < 200)
-				clockFreq = 200;
+			if (clockFreq > WirelessClocker.maxClockFreq)
+				clockFreq = WirelessClocker.maxClockFreq;
+			if (clockFreq < WirelessClocker.minClockFreq)
+				clockFreq = WirelessClocker.minClockFreq;
 
 			// Clock frequency changed.
 

@@ -29,6 +29,8 @@ public class WirelessClocker {
 	public static int spriteSidesOn;
 
 	public static List<BaseModOverride> overrides;
+	public static int maxClockFreq = 2000000000;
+	public static int minClockFreq = 200;
 
 	public static boolean initialize() {
 		try {
@@ -64,6 +66,10 @@ public class WirelessClocker {
 	private static void loadConfig() {
 		clockID = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker")
 				.get("ID", Integer.class, new Integer(clockID));
+		maxClockFreq = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker")
+				.get("maxFreq", Integer.class, new Integer(maxClockFreq));
+		minClockFreq = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker")
+				.get("minFreq", Integer.class, new Integer(minClockFreq));
 	}
 
 	private static void initBlock() {

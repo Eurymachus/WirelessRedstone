@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.WirelessRedstoneRemoteOverride;
@@ -86,11 +87,11 @@ public class WirelessRemoteDevice extends WirelessDevice {
 		if (prematureExit)
 			return;
 
-		if (command.equals("deactivateRemote"))
+		if (command.equals("deactivateRemote")) {
 			RedstoneEther.getInstance().remTransmitter(world,
 					this.getCoords().getX(), this.getCoords().getY(),
 					this.getCoords().getZ(), this.getFreq());
-		else {
+		} else {
 			RedstoneEther.getInstance().addTransmitter(world,
 					this.getCoords().getX(), this.getCoords().getY(),
 					this.getCoords().getZ(), this.getFreq());
