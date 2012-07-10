@@ -48,6 +48,11 @@ public class mod_WirelessRedstoneDev extends BaseMod {
 					.addRecipe(new ItemStack(Item.redstoneRepeater, 64),
 							new Object[] { "##", Character.valueOf('#'),
 									Item.redstone });
+
+			ModLoader
+					.addRecipe(new ItemStack(Item.redstoneRepeater, 64),
+							new Object[] { "#", "#", Character.valueOf('#'),
+									Block.lever });
 			ModLoader.addRecipe(new ItemStack(Block.pistonBase, 64),
 					new Object[] { "##", "##", Character.valueOf('#'),
 							Item.redstone });
