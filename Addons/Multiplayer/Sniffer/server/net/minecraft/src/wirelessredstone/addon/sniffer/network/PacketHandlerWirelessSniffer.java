@@ -36,11 +36,12 @@ public class PacketHandlerWirelessSniffer {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessSnifferPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			
-			WirelessSnifferData sniffer = WirelessSniffer
-					.getDeviceData(WirelessSniffer.itemSniffer.getItemName(), packet.getDeviceID(), 
-							"Wireless Sniffer", world, entityplayer);
-			
+
+			WirelessSnifferData sniffer = WirelessSniffer.getDeviceData(
+					WirelessSniffer.itemSniffer.getItemName(),
+					packet.getDeviceID(), "Wireless Sniffer", world,
+					entityplayer);
+
 			sniffer.setPage(packet.getPageNumber());
 		}
 

@@ -1,14 +1,7 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
 import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.RedstoneEtherOverrideTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -22,14 +15,15 @@ public class WirelessTriangulatorSMP {
 
 	public static boolean initialize() {
 		try {
-			//ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true, true);
+			// ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true,
+			// true);
 
 			registerConnHandler();
 
 			addBaseModOverride();
-			
+
 			addGuiOverride();
-			
+
 			addEtherOverride();
 
 			return true;
@@ -63,35 +57,20 @@ public class WirelessTriangulatorSMP {
 		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 	}
 
-/*	public static boolean tick(Minecraft mc) {
-		EntityPlayer entityplayer = mc.thePlayer;
-		World world = mc.theWorld;
-		if (mc.currentScreen instanceof GuiRedstoneWirelessTriangulator) {
-			++ticksInGUI;
-			return true;
-		} else if (ticksInGUI != 0) {
-			ticksInGUI = 0;
-		}
-		if (!(ticksInGUI > 0)) {
-			if (ticksInGame == 40) {
-				ticksInGame = 0;
-				if (entityplayer.inventory
-						.hasItem(WirelessTriangulator.triangID)
-						&& entityplayer.inventory.getCurrentItem().equals(
-								WirelessTriangulator.itemTriang)) {
-					WirelessTriangulatorData data = WirelessTriangulator
-							.getDeviceData(
-									entityplayer.inventory.getCurrentItem(),
-									world, entityplayer);
-					if (mc.theWorld.isRemote)
-						PacketHandlerWirelessTriangulator.PacketHandlerOutput
-								.sendWirelessTriangulatorPacket(mc.thePlayer,
-										"requestTriangulation", data.getFreq());
-				}
-			}
-			++ticksInGame;
-			return true;
-		}
-		return true;
-	}*/
+	/*
+	 * public static boolean tick(Minecraft mc) { EntityPlayer entityplayer =
+	 * mc.thePlayer; World world = mc.theWorld; if (mc.currentScreen instanceof
+	 * GuiRedstoneWirelessTriangulator) { ++ticksInGUI; return true; } else if
+	 * (ticksInGUI != 0) { ticksInGUI = 0; } if (!(ticksInGUI > 0)) { if
+	 * (ticksInGame == 40) { ticksInGame = 0; if (entityplayer.inventory
+	 * .hasItem(WirelessTriangulator.triangID) &&
+	 * entityplayer.inventory.getCurrentItem().equals(
+	 * WirelessTriangulator.itemTriang)) { WirelessTriangulatorData data =
+	 * WirelessTriangulator .getDeviceData(
+	 * entityplayer.inventory.getCurrentItem(), world, entityplayer); if
+	 * (mc.theWorld.isRemote)
+	 * PacketHandlerWirelessTriangulator.PacketHandlerOutput
+	 * .sendWirelessTriangulatorPacket(mc.thePlayer, "requestTriangulation",
+	 * data.getFreq()); } } ++ticksInGame; return true; } return true; }
+	 */
 }

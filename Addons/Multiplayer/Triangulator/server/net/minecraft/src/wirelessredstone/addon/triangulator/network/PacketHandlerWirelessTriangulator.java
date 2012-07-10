@@ -16,14 +16,12 @@ package net.minecraft.src.wirelessredstone.addon.triangulator.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorGui;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessTriangulator {
@@ -44,7 +42,7 @@ public class PacketHandlerWirelessTriangulator {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			
+
 			if (packet.getCommand().equals("changeFreq")) {
 				String index = WirelessTriangulator.itemTriang.getItemName();
 				WirelessTriangulatorData data = WirelessTriangulator
@@ -52,7 +50,7 @@ public class PacketHandlerWirelessTriangulator {
 								"Wireless Triangulator", world, entityplayer);
 				int oldfreq = Integer.parseInt(data.getFreq());
 				int freq = Integer.parseInt(packet.getFreq());
-				data.setFreq(Integer.toString(oldfreq+freq));
+				data.setFreq(Integer.toString(oldfreq + freq));
 			}
 		}
 	}
@@ -72,11 +70,9 @@ public class PacketHandlerWirelessTriangulator {
 		}
 
 		public static void sendWirelessTriangulatorZeroPacket(
-				EntityPlayer entityplayer, String freq) {
+				EntityPlayer entityplayer, int deviceID) {
 			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(
-					freq);
-			packet.setPosition((int) entityplayer.posX,
-					(int) entityplayer.posY, (int) entityplayer.posZ);
+					"reset");
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

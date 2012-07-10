@@ -259,15 +259,18 @@ public interface RedstoneEtherOverride {
 	 * @param freq
 	 * @return
 	 */
-	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k, String freq);
+	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k,
+			String freq);
 
 	/**
 	 * Triggers after getClosestActiveTransmitter
+	 * 
 	 * @param i
 	 * @param j
 	 * @param k
 	 * @param freq
-	 * @param coords The previous coordinates
+	 * @param coords
+	 *            The previous coordinates
 	 * @return
 	 */
 	public int[] afterGetClosestActiveTransmitter(int i, int j, int k,

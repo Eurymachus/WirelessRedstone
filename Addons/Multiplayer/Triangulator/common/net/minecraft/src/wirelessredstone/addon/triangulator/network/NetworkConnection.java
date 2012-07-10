@@ -30,8 +30,6 @@ public class NetworkConnection implements INetworkConnections {
 			case PacketIds.ADDON:
 				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
 				pWT.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWT, world,
-						player);
 				break;
 			case PacketIds.GUI:
 				PacketWirelessTriangulatorGui pWTG = new PacketWirelessTriangulatorGui();

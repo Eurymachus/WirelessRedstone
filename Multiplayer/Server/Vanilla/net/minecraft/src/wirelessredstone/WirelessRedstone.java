@@ -47,11 +47,11 @@ public class WirelessRedstone {
 	public static int spriteTItem;
 	public static int spriteRItem;
 	public static int maxEtherFrequencies = 10000;
-	
+
 	public static boolean initialize() {
 		try {
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
-			
+
 			loadConfig();
 			addEtherOverrides();
 
@@ -67,13 +67,13 @@ public class WirelessRedstone {
 					"Wireless Transmitter");
 			loadBlockTextures();
 			addRecipes();
-	
+
 			Thread thr = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					if (WirelessRedstone.manualUpdate < 1)
 						return;
-	
+
 					while (true) {
 						try {
 							Thread.sleep(WirelessRedstone.manualUpdate * 1000);

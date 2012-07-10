@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulatorSMP;
 
@@ -35,17 +34,15 @@ public class mod_WirelessTriangulatorSMP extends NetworkMod {
 		}
 	}
 
-/*	@Override
-	public boolean onTickInGame(float tick, Minecraft mc) {
-		if (WirelessTriangulatorSMP.isLoaded) {
-			return WirelessTriangulatorSMP.tick(mc);
-		}
-		return true;
-	}*/
+	/*
+	 * @Override public boolean onTickInGame(float tick, Minecraft mc) { if
+	 * (WirelessTriangulatorSMP.isLoaded) { return
+	 * WirelessTriangulatorSMP.tick(mc); } return true; }
+	 */
 
 	@Override
 	public String getPriorities() {
-		return "after:mod_WirelessRedstoneSMP;after:mod_WirelessTriangulator";
+		return "after:mod_WirelessTriangulator;after:mod_WirelessRedstoneSMP";
 	}
 
 	@Override

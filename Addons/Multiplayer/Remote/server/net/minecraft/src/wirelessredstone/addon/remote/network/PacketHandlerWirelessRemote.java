@@ -16,7 +16,6 @@ package net.minecraft.src.wirelessredstone.addon.remote.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
@@ -50,8 +49,6 @@ public class PacketHandlerWirelessRemote {
 			}
 			if (packet.getCommand().equals("changeFreq")) {
 				String index = WirelessRemote.itemRemote.getItemName();
-				ModLoader.getLogger().warning(index + "[Freq:" +
-				packet.getFreq() + "]");
 				WirelessRemoteData data = WirelessRemote.getDeviceData(index,
 						packet.getRemoteID(), "Wireless Remote", world,
 						entityplayer);

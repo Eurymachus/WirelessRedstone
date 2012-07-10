@@ -49,9 +49,9 @@ public class PacketHandlerWirelessSniffer {
 				PacketWirelessSnifferOpenGui packet, World world,
 				EntityPlayer entityplayer) {
 			String index = WirelessSniffer.itemSniffer.getItemName();
-			WirelessSnifferData data = WirelessSniffer
-					.getDeviceData(index, packet.getDeviceID(),
-							"Wireless Sniffer", world, entityplayer);
+			WirelessSnifferData data = WirelessSniffer.getDeviceData(index,
+					packet.getDeviceID(), "Wireless Sniffer", world,
+					entityplayer);
 			data.setPage(packet.getPageNumber());
 			WirelessSniffer.activateGUI(world, entityplayer, data);
 		}

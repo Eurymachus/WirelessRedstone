@@ -66,10 +66,12 @@ public class WirelessClocker {
 	private static void loadConfig() {
 		clockID = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker")
 				.get("ID", Integer.class, new Integer(clockID));
-		maxClockFreq = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker")
-				.get("maxFreq", Integer.class, new Integer(maxClockFreq));
-		minClockFreq = (Integer) ConfigStoreRedstoneWireless.getInstance("Clocker")
-				.get("minFreq", Integer.class, new Integer(minClockFreq));
+		maxClockFreq = (Integer) ConfigStoreRedstoneWireless.getInstance(
+				"Clocker").get("maxFreq", Integer.class,
+				new Integer(maxClockFreq));
+		minClockFreq = (Integer) ConfigStoreRedstoneWireless.getInstance(
+				"Clocker").get("minFreq", Integer.class,
+				new Integer(minClockFreq));
 	}
 
 	private static void initBlock() {

@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator.overrides;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.PacketHandlerWirelessTriangulator.PacketHandlerOutput;
 import net.minecraft.src.wirelessredstone.data.WirelessDeviceData;

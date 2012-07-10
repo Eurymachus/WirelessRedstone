@@ -22,12 +22,12 @@ public class PacketWirelessTriangulatorGui extends PacketWirelessTriangulator {
 	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
 	}
-	
+
 	@Override
 	public void setFreq(Object freq) {
 		this.payload.setStringPayload(0, freq.toString());
 	}
-	
+
 	@Override
 	public String getFreq() {
 		return this.payload.getStringPayload(0);

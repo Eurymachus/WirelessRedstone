@@ -1,7 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;

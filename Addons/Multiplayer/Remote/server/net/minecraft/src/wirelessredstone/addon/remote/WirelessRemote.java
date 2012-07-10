@@ -1,7 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.TreeMap;
 
 import net.minecraft.src.Block;
@@ -39,7 +38,7 @@ public class WirelessRemote {
 		try {
 			remoteTransmitters = new HashMap<EntityPlayer, WirelessRemoteDevice>();
 			remoteWirelessCoords = new TreeMap<WirelessCoordinates, WirelessRemoteDevice>();
-			
+
 			registerConnHandler();
 
 			addEtherOverride();
@@ -108,7 +107,6 @@ public class WirelessRemote {
 	public static WirelessRemoteData getDeviceData(String index, int id,
 			String name, World world, EntityPlayer entityplayer) {
 		index = index + "[" + id + "]";
-		// ModLoader.getLogger().warning("getData: " + index);
 		WirelessRemoteData data = (WirelessRemoteData) world.loadItemData(
 				WirelessRemoteData.class, index);
 		if (data == null) {
@@ -120,8 +118,6 @@ public class WirelessRemote {
 			data.setFreq("0");
 			data.setState(false);
 		}
-		// ModLoader.getLogger().warning("afterGet: " + "ID["+data.getID()+"]" +
-		// " Freq[" + data.getFreq() + "]");
 		return data;
 	}
 
@@ -140,7 +136,8 @@ public class WirelessRemote {
 
 			deactivateRemote(world, entityplayer);
 		}
-		remoteTransmitters.put(entityplayer, new WirelessRemoteDevice(world, entityplayer));
+		remoteTransmitters.put(entityplayer, new WirelessRemoteDevice(world,
+				entityplayer));
 		WirelessRemoteDevice remote = remoteTransmitters.get(entityplayer);
 		remoteWirelessCoords.put(remote.getCoords(), remote);
 		remote.activate();
@@ -166,6 +163,7 @@ public class WirelessRemote {
 	public static void openGUI(World world, EntityPlayer entityplayer,
 			WirelessRemoteData deviceData) {
 		PacketHandlerWirelessRemote.PacketHandlerOutput
-				.sendWirelessRemoteGuiPacket(entityplayer, deviceData.getID(), deviceData.getFreq());
+				.sendWirelessRemoteGuiPacket(entityplayer, deviceData.getID(),
+						deviceData.getFreq());
 	}
 }

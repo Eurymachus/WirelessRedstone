@@ -82,6 +82,8 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
+		ModLoader.getLogger().warning(
+				"ItemDamage: " + itemstack.getItemDamage());
 		WirelessTriangulator.getDeviceData(itemstack, world, entityplayer);
 	}
 

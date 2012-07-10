@@ -22,7 +22,7 @@ import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriang
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorGui;
 import net.minecraft.src.wirelessredstone.addon.triangulator.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
+import net.minecraft.src.wirelessredstone.data.RedstoneEtherCoordsPlayerMem;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
@@ -50,9 +50,15 @@ public class PacketHandlerWirelessTriangulator {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getLogger().warning("TriangPacket:" + packet.getCommand());
-			RedstoneWirelessPlayerEtherCoordsMem.getInstance(world).setCoords(
-					entityplayer, new WirelessCoordinates(packet.getCoords()));
+			if (packet.getCommand().equals("triangulate")) {
+				RedstoneEtherCoordsPlayerMem.getInstance(world).setCoords(
+						entityplayer,
+						new WirelessCoordinates(packet.getCoords()));
+			}
+			if (packet.getCommand().equals("reset")) {
+				RedstoneEtherCoordsPlayerMem.getInstance(world).remMem(
+						entityplayer.username);
+			}
 		}
 
 		public static void handleWirelessTriangulator(
@@ -91,7 +97,6 @@ public class PacketHandlerWirelessTriangulator {
 					command);
 			packet.setDeviceID(id);
 			packet.setFreq(freq);
-			ModLoader.getLogger().warning(packet.getCommand() + "[" + packet.getDeviceID() + "].toFreq[" + packet.getFreq() + "]");
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendRedstoneEtherPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

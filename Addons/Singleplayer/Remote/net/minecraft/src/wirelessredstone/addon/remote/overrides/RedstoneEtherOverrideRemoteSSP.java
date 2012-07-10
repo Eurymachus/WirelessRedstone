@@ -1,7 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.remote.overrides;
 
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;

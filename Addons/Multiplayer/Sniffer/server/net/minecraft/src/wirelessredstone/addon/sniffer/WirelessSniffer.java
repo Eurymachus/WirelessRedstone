@@ -13,12 +13,13 @@ import net.minecraft.src.mod_WirelessSnifferSMP;
 import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferDevice;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.sniffer.network.PacketHandlerWirelessSniffer;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.WirelessReadWriteLock;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 
 public class WirelessSniffer {
@@ -28,20 +29,31 @@ public class WirelessSniffer {
 	public static int sniffID = 6244;
 	public static int ticksInGame = 0;
 	public static HashMap<EntityPlayer, WirelessSnifferDevice> sniffers;
+	private static WirelessReadWriteLock lock;
 
 	public static boolean initialize() {
-		ModLoader.setInGameHook(mod_WirelessSnifferSMP.instance, true, true);
-		sniffers = new HashMap<EntityPlayer, WirelessSnifferDevice>();
-		registerConnHandler();
+		try {
+			ModLoader
+					.setInGameHook(mod_WirelessSnifferSMP.instance, true, true);
+			sniffers = new HashMap<EntityPlayer, WirelessSnifferDevice>();
+			registerConnHandler();
 
-		loadConfig();
-		loadItemTextures();
+			loadConfig();
+			loadItemTextures();
 
-		initItem();
+			initItem();
 
-		addNames();
-		addRecipes();
-		return true;
+			addNames();
+			addRecipes();
+			return true;
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					LoggerRedstoneWireless
+							.filterClassName(WirelessSniffer.class.toString()))
+					.write("Initialization failed.",
+							LoggerRedstoneWireless.LogLevel.WARNING);
+		}
+		return false;
 	}
 
 	private static void addNames() {
@@ -119,54 +131,68 @@ public class WirelessSniffer {
 	}
 
 	public static void activateSniffer(World world, EntityPlayer entityplayer) {
-		if (sniffers.containsKey(entityplayer)) {
-			if (sniffers.get(entityplayer).isBeingHeld()) {
-				PacketHandlerWirelessSniffer.PacketHandlerOutput.sendWirelessSnifferEtherCopy(entityplayer, getActiveFrequencies(world));
-				return;
-			}
+		try {
+			if (sniffers.containsKey(entityplayer)) {
+				if (sniffers.get(entityplayer).isBeingHeld()) {
+					PacketHandlerWirelessSniffer.PacketHandlerOutput
+							.sendWirelessSnifferEtherCopy(entityplayer,
+									getActiveFrequencies(world));
+					return;
+				}
 
-			deactivateSniffer(world, entityplayer);
+				deactivateSniffer(world, entityplayer);
+			}
+			sniffers.put(entityplayer, new WirelessSnifferDevice(world,
+					entityplayer));
+			sniffers.get(entityplayer).activate();
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					LoggerRedstoneWireless
+							.filterClassName(WirelessSniffer.class.toString()))
+					.write("activateSniffer failed.",
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
-		sniffers.put(entityplayer, new WirelessSnifferDevice(world, entityplayer));
-		sniffers.get(entityplayer).activate();
 	}
 
 	public static boolean deactivateSniffer(World world,
 			EntityPlayer entityplayer) {
-		if (sniffers.containsKey(entityplayer)) {
-			sniffers.get(entityplayer).deactivate();
-			sniffers.remove(entityplayer);
-			return true;
-		} else {
-			return false;
+		try {
+			if (sniffers.containsKey(entityplayer)) {
+				sniffers.get(entityplayer).deactivate();
+				sniffers.remove(entityplayer);
+				return true;
+			}
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					LoggerRedstoneWireless
+							.filterClassName(WirelessSniffer.class.toString()))
+					.write("deactivateSniffer failed.",
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
+		return false;
 	}
 
 	public static void openGUI(World world, EntityPlayer entityplayer,
 			WirelessSnifferData deviceData) {
 		PacketHandlerWirelessSniffer.PacketHandlerOutput
-				.sendWirelessSnifferGuiPacket(entityplayer, deviceData.getID(), deviceData.getPage());
+				.sendWirelessSnifferGuiPacket(entityplayer, deviceData.getID(),
+						deviceData.getPage());
 		activateSniffer(world, entityplayer);
 	}
 
 	public static boolean onTickInGame(MinecraftServer mcServer) {
-		//if (ticksInGame >= 10) {
-			World[] worlds = DimensionManager.getWorlds();
-			for (int i = 0; i < worlds.length; i++) {
-				for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
-					EntityPlayerMP player = (EntityPlayerMP) worlds[i].playerEntities
-							.get(j);
-					if (sniffers.containsKey(player)) {
-						if (sniffers.get(player).isBeingHeld()) {
-							activateSniffer(worlds[i], player);
-						}
+		World[] worlds = DimensionManager.getWorlds();
+		for (int i = 0; i < worlds.length; i++) {
+			for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
+				EntityPlayerMP player = (EntityPlayerMP) worlds[i].playerEntities
+						.get(j);
+				if (sniffers.containsKey(player)) {
+					if (sniffers.get(player).isBeingHeld()) {
+						activateSniffer(worlds[i], player);
 					}
 				}
 			}
-		//	ticksInGame = 0;
-		//} else {
-		//	ticksInGame += 1;
-		//}
+		}
 		return true;
 	}
 }

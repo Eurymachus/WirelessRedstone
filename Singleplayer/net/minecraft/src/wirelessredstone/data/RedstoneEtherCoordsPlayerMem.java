@@ -20,19 +20,19 @@ import java.util.Map;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 
-public class RedstoneWirelessPlayerEtherCoordsMem {
-	private static RedstoneWirelessPlayerEtherCoordsMem instance;
+public class RedstoneEtherCoordsPlayerMem {
+	private static RedstoneEtherCoordsPlayerMem instance;
 	private Map<String, PlayerEtherCoordsMemNode> coords;
 	private World world;
 
-	private RedstoneWirelessPlayerEtherCoordsMem(World world) {
+	private RedstoneEtherCoordsPlayerMem(World world) {
 		coords = new HashMap<String, PlayerEtherCoordsMemNode>();
 		this.world = world;
 	}
 
-	public static RedstoneWirelessPlayerEtherCoordsMem getInstance(World world) {
+	public static RedstoneEtherCoordsPlayerMem getInstance(World world) {
 		if (instance == null || instance.world.hashCode() != world.hashCode())
-			instance = new RedstoneWirelessPlayerEtherCoordsMem(world);
+			instance = new RedstoneEtherCoordsPlayerMem(world);
 
 		return instance;
 	}

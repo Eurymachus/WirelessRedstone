@@ -1,8 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.remote.overrides;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -91,8 +89,10 @@ public class RedstoneEtherOverrideRemoteSMP implements RedstoneEtherOverride {
 		int[] a = { i, j, k };
 		WirelessCoordinates deviceCoords = new WirelessCoordinates(a);
 		if (WirelessRemote.remoteWirelessCoords.containsKey(deviceCoords)) {
-			WirelessRemoteDevice remote = WirelessRemote.remoteWirelessCoords.get(deviceCoords);
-			int[] b = { remote.getCoords().getX(), remote.getCoords().getY(), remote.getCoords().getZ() };
+			WirelessRemoteDevice remote = WirelessRemote.remoteWirelessCoords
+					.get(deviceCoords);
+			int[] b = { remote.getCoords().getX(), remote.getCoords().getY(),
+					remote.getCoords().getZ() };
 			if (RedstoneEther.pythagoras(a, b) < 1)
 				return true;
 		}

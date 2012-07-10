@@ -14,7 +14,7 @@ public class PacketWirelessSnifferSettings extends PacketWirelessSniffer {
 		this.payload = new PacketPayload(2, 0, 1, 0);
 		this.setCommand(command);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Freq[" + this.getFreq() + "](" + this.xPosition + ","
@@ -28,11 +28,11 @@ public class PacketWirelessSnifferSettings extends PacketWirelessSniffer {
 	public void setPageNumber(int pageNumber) {
 		this.payload.setIntPayload(1, pageNumber);
 	}
-	
+
 	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
 	}
-	
+
 	public int getPageNumber() {
 		return this.payload.getIntPayload(1);
 	}

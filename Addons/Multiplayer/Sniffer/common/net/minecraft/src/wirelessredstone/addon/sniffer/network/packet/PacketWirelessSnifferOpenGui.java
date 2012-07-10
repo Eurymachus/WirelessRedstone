@@ -33,7 +33,7 @@ public class PacketWirelessSnifferOpenGui extends PacketWirelessSniffer {
 
 	@Override
 	public String toString() {
-		return "Open Gui for Device[" + this.getDeviceID() + "].setPageNumber(" + this.getPageNumber()
-				+ ")";
+		return "Open Gui for Device[" + this.getDeviceID() + "].setPageNumber("
+				+ this.getPageNumber() + ")";
 	}
 }

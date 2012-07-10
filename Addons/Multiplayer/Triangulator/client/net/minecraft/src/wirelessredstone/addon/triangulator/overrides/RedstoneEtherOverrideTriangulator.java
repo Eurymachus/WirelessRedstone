@@ -1,9 +1,10 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator.overrides;
 
-import net.minecraft.src.ModLoader;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.data.RedstoneWirelessPlayerEtherCoordsMem;
+import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.RedstoneEtherCoordsPlayerMem;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEtherOverride;
 
@@ -51,7 +52,7 @@ public class RedstoneEtherOverrideTriangulator implements RedstoneEtherOverride 
 	@Override
 	public void afterAddReceiver(World world, int i, int j, int k, String freq) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -90,10 +91,21 @@ public class RedstoneEtherOverrideTriangulator implements RedstoneEtherOverride 
 	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k,
 			String freq) {
 		if (WirelessRedstone.getWorld().isRemote) {
-			int[] coords = (RedstoneWirelessPlayerEtherCoordsMem.getInstance(WirelessRedstone.getWorld()).getCoords(WirelessRedstone.getPlayer())).getCoordinateArray();
-			if (coords != null) {
-				ModLoader.getLogger().warning("Coords[" + coords[0] + "," + coords[1] + "," + coords[2]);
-				return coords;
+			World world = WirelessRedstone.getWorld();
+			EntityPlayer entityplayer = WirelessRedstone.getPlayer();
+			WirelessCoordinates wirelessCoords = RedstoneEtherCoordsPlayerMem
+					.getInstance(world).getCoords(entityplayer);
+			int[] coords = null;
+			try {
+				if (wirelessCoords != null
+						&& wirelessCoords.getCoordinateArray() != null) {
+					coords = wirelessCoords.getCoordinateArray();
+					return coords;
+				}
+			} catch (Exception e) {
+				LoggerRedstoneWireless.getInstance(
+						"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 			}
 		}
 		return null;

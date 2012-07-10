@@ -53,6 +53,26 @@ public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 	}
 
 	@Override
+	public String toString() {
+		String theString = "";
+		if (this != null) {
+			if (Integer.toString(this.x) != null) {
+				theString += "[X:" + this.x + "]";
+				if (Integer.toString(this.y) != null) {
+					theString += "[Y:" + this.y + "]";
+					if (Integer.toString(this.z) != null) {
+						theString += "[Z:" + this.z + "]";
+					}
+				}
+			}
+		}
+		if (theString != "")
+			return theString;
+		else
+			return "No Coordinates found!";
+	}
+
+	@Override
 	public int compareTo(WirelessCoordinates arg0) {
 		if (arg0.x == this.x) {
 			if (arg0.y == this.y) {

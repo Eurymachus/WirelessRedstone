@@ -97,64 +97,66 @@ public class TextureTriangulatorFX extends TextureFX {
 			}
 		}
 
-		double d1;
-		for (d1 = d - this.field_4229_i; d1 < -Math.PI; d1 += (Math.PI * 2D)) {
-		}
-		for (; d1 >= Math.PI; d1 -= (Math.PI * 2D)) {
-		}
-		if (d1 < -1D) {
-			d1 = -1D;
-		}
-		if (d1 > 1.0D) {
-			d1 = 1.0D;
-		}
-		this.field_4228_j += d1 * 0.10000000000000001D;
-		this.field_4228_j *= 0.80000000000000004D;
-		this.field_4229_i += this.field_4228_j;
-		double d3 = Math.sin(this.field_4229_i);
-		double d5 = Math.cos(this.field_4229_i);
-		for (int i2 = -4; i2 <= 4; i2++) {
-			int k2 = (int) (8.5D + d5 * i2 * 0.29999999999999999D);
-			int i3 = (int) (7.5D - d3 * i2 * 0.29999999999999999D * 0.5D);
-			int k3 = i3 * 16 + k2;
-			int i4 = 150;
-			int k4 = 150;
-			int i5 = 150;
-			char c = '\377';
-			if (this.anaglyphEnabled) {
-				int k5 = (i4 * 30 + k4 * 59 + i5 * 11) / 100;
-				int i6 = (i4 * 30 + k4 * 70) / 100;
-				int k6 = (i4 * 30 + i5 * 70) / 100;
-				i4 = k5;
-				k4 = i6;
-				i5 = k6;
+		if (d != 0.0D) {
+			double d1;
+			for (d1 = d - this.field_4229_i; d1 < -Math.PI; d1 += (Math.PI * 2D)) {
 			}
-			this.imageData[k3 * 4 + 0] = (byte) i4;
-			this.imageData[k3 * 4 + 1] = (byte) k4;
-			this.imageData[k3 * 4 + 2] = (byte) i5;
-			this.imageData[k3 * 4 + 3] = (byte) c;
-		}
+			for (; d1 >= Math.PI; d1 -= (Math.PI * 2D)) {
+			}
+			if (d1 < -1D) {
+				d1 = -1D;
+			}
+			if (d1 > 1.0D) {
+				d1 = 1.0D;
+			}
+			this.field_4228_j += d1 * 0.10000000000000001D;
+			this.field_4228_j *= 0.80000000000000004D;
+			this.field_4229_i += this.field_4228_j;
+			double d3 = Math.sin(this.field_4229_i);
+			double d5 = Math.cos(this.field_4229_i);
+			for (int i2 = -4; i2 <= 4; i2++) {
+				int k2 = (int) (8.5D + d5 * i2 * 0.29999999999999999D);
+				int i3 = (int) (7.5D - d3 * i2 * 0.29999999999999999D * 0.5D);
+				int k3 = i3 * 16 + k2;
+				int i4 = 150;
+				int k4 = 150;
+				int i5 = 150;
+				char c = '\377';
+				if (this.anaglyphEnabled) {
+					int k5 = (i4 * 30 + k4 * 59 + i5 * 11) / 100;
+					int i6 = (i4 * 30 + k4 * 70) / 100;
+					int k6 = (i4 * 30 + i5 * 70) / 100;
+					i4 = k5;
+					k4 = i6;
+					i5 = k6;
+				}
+				this.imageData[k3 * 4 + 0] = (byte) i4;
+				this.imageData[k3 * 4 + 1] = (byte) k4;
+				this.imageData[k3 * 4 + 2] = (byte) i5;
+				this.imageData[k3 * 4 + 3] = (byte) c;
+			}
 
-		for (int j2 = -8; j2 <= 16; j2++) {
-			int l2 = (int) (8.5D + d3 * j2 * 0.29999999999999999D);
-			int j3 = (int) (7.5D + d5 * j2 * 0.29999999999999999D * 0.5D);
-			int l3 = j3 * 16 + l2;
-			int j4 = j2 < 0 ? 100 : 20;
-			int l4 = j2 < 0 ? 100 : 20;
-			int j5 = j2 < 0 ? 100 : 255;
-			char c1 = '\377';
-			if (anaglyphEnabled) {
-				int l5 = (j4 * 30 + l4 * 59 + j5 * 11) / 100;
-				int j6 = (j4 * 30 + l4 * 70) / 100;
-				int l6 = (j4 * 30 + j5 * 70) / 100;
-				j4 = l5;
-				l4 = j6;
-				j5 = l6;
+			for (int j2 = -8; j2 <= 16; j2++) {
+				int l2 = (int) (8.5D + d3 * j2 * 0.29999999999999999D);
+				int j3 = (int) (7.5D + d5 * j2 * 0.29999999999999999D * 0.5D);
+				int l3 = j3 * 16 + l2;
+				int j4 = j2 < 0 ? 100 : 20;
+				int l4 = j2 < 0 ? 100 : 20;
+				int j5 = j2 < 0 ? 100 : 255;
+				char c1 = '\377';
+				if (anaglyphEnabled) {
+					int l5 = (j4 * 30 + l4 * 59 + j5 * 11) / 100;
+					int j6 = (j4 * 30 + l4 * 70) / 100;
+					int l6 = (j4 * 30 + j5 * 70) / 100;
+					j4 = l5;
+					l4 = j6;
+					j5 = l6;
+				}
+				imageData[l3 * 4 + 0] = (byte) j4;
+				imageData[l3 * 4 + 1] = (byte) l4;
+				imageData[l3 * 4 + 2] = (byte) j5;
+				imageData[l3 * 4 + 3] = (byte) c1;
 			}
-			imageData[l3 * 4 + 0] = (byte) j4;
-			imageData[l3 * 4 + 1] = (byte) l4;
-			imageData[l3 * 4 + 2] = (byte) j5;
-			imageData[l3 * 4 + 3] = (byte) c1;
 		}
 	}
 }
