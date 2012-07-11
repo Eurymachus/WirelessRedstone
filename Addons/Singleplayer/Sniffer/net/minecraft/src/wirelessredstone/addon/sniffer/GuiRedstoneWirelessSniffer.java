@@ -174,17 +174,31 @@ public class GuiRedstoneWirelessSniffer extends GuiRedstoneWirelessDevice {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
 		drawFrequencies(4, 24);
-		fontRenderer
-				.drawString(
-						"Wireless Sniffer",
-						(xSize / 2)
-								- (fontRenderer
-										.getStringWidth("Wireless Sniffer") / 2),
-						6, 0x404040);
 		String drawPage = "Page [" + (this.getPage() + 1) + "]";
 		fontRenderer.drawString(drawPage,
 				(xSize / 2) - (fontRenderer.getStringWidth(drawPage) / 2),
 				(height / 2) + 62, 0x00000000);
+		// drawFreqPopup(i, j);
+	}
+
+	private void drawFreqPopup(int i, int j) {
+		int freq = this.getFreqMO(i, j);
+		String sfreq = this.getFreqString(freq);
+		int stringWidth = this.fontRenderer.getStringWidth(sfreq);
+		this.drawGradientRect(i, j - 12, i + stringWidth + 3, j, -1073741824,
+				-1073741824);
+		this.fontRenderer.drawStringWithShadow(sfreq, i + 2, j - 10, -1);
+	}
+
+	public int getFreqMO(int i, int j) {
+		int width = (i - ((this.width - xSize) / 2 + 8)) / 6;
+		int height = (j - ((this.height - ySize) / 2 + 24)) / 6;
+		return width >= 0 && width < 40 && height >= 0 && height < 25 ? this
+				.getPage() * 1000 + 1 + height * 40 + width : 0;
+	}
+
+	public String getFreqString(int freq) {
+		return Integer.toString(freq);
 	}
 
 	protected boolean getFreqState(String freq) {

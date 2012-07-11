@@ -23,10 +23,7 @@ import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventory
 import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 
-import org.lwjgl.opengl.GL11;
-
 public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
-	private boolean isScrolling;
 	protected List<GuiRedstoneWirelessOverride> clockerOverrides;
 
 	public GuiRedstoneWirelessClocker() {
@@ -62,38 +59,12 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 	}
 
 	@Override
-	public void drawScreen(int i, int j, float f) {
-		super.drawScreen(i, j, f);
-
-		GL11.glDisable(2896 /* GL_LIGHTING */);
-		drawStringBorder(
-				(width / 2)
-						- (fontRenderer.getStringWidth(((TileEntityRedstoneWirelessClocker) inventory)
-								.getClockFreq() + "") / 2),
-				(height / 2) + 30,
-				(width / 2)
-						+ (fontRenderer
-								.getStringWidth(((TileEntityRedstoneWirelessClocker) inventory)
-										.getClockFreq() + "") / 2));
-		fontRenderer
-				.drawString(
-						((TileEntityRedstoneWirelessClocker) inventory)
-								.getClockFreq() + "",
-						(width / 2)
-								- (fontRenderer
-										.getStringWidth(((TileEntityRedstoneWirelessClocker) inventory)
-												.getClockFreq() + "") / 2),
-						(height / 2) + 30, 0x404040);
-		GL11.glEnable(2896 /* GL_LIGHTING */);
-	}
-
-	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 		try {
 			super.actionPerformed(guibutton);
 
-			int oldClockFreq = getClockerFreq();
-			int clockFreq = getClockerFreq();
+			int oldClockFreq = this.getClockFreq();
+			int clockFreq = this.getClockFreq();
 			switch (guibutton.id) {
 			case 8:
 				clockFreq += 10;
@@ -145,7 +116,7 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 		}
 	}
 
-	private int getClockerFreq() {
+	private int getClockFreq() {
 		return ((TileEntityRedstoneWirelessClocker) inventory).getClockFreq();
 	}
 
@@ -164,5 +135,13 @@ public class GuiRedstoneWirelessClocker extends GuiRedstoneWirelessInventory {
 		fontRenderer.drawString("Clocking Frequency (ms)", (xSize / 2)
 				- (fontRenderer.getStringWidth("Clocking Frequency (ms)") / 2),
 				97, 0x404040);
+		String clockFreq = Integer.toString(this.getClockFreq());
+		drawStringBorder((xSize / 2)
+				- (fontRenderer.getStringWidth(clockFreq) / 2),
+				(ySize / 2) + 30,
+				(xSize / 2) + (fontRenderer.getStringWidth(clockFreq) / 2));
+		fontRenderer.drawString(clockFreq,
+				(xSize / 2) - (fontRenderer.getStringWidth(clockFreq) / 2),
+				(ySize / 2) + 30, 0x404040);
 	}
 }

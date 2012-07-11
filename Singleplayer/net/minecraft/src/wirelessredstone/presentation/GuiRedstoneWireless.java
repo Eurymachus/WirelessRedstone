@@ -209,11 +209,14 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 */
 	protected void drawGuiName() {
 		drawStringBorder(
-				(xSize / 2) - (fontRenderer.getStringWidth(getGuiName()) / 2),
-				6, (xSize / 2)
-						+ (fontRenderer.getStringWidth(getGuiName()) / 2));
+				(xSize / 2)
+						- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+				6,
+				(xSize / 2)
+						+ (fontRenderer.getStringWidth(this.getGuiName()) / 2));
 		fontRenderer.drawString(getGuiName(),
-				(xSize / 2) - (fontRenderer.getStringWidth(getGuiName()) / 2),
+				(xSize / 2)
+						- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
 				6, 0x404040);
 	}
 
@@ -223,12 +226,9 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * @param y
 	 */
 	protected void drawFrequency(int y) {
-		fontRenderer
-				.drawString(
-						getFreq() + "",
-						(xSize / 2)
-								- (fontRenderer.getStringWidth(getFreq() + "") / 2),
-						(ySize / 2) + y, 0x404040);
+		fontRenderer.drawString(this.getFreq() + "", (xSize / 2)
+				- (fontRenderer.getStringWidth(this.getFreq() + "") / 2),
+				(ySize / 2) + y, 0x404040);
 	}
 
 	/**

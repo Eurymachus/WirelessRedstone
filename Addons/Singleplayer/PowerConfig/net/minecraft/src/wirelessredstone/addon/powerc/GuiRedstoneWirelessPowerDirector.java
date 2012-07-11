@@ -148,25 +148,11 @@ public class GuiRedstoneWirelessPowerDirector extends
 			}
 			if (!prematureExit) {
 				if (dir >= 0) {
-					/*
-					 * if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
-					 * PacketHandlerPowerConfig
-					 * .PacketHandlerOutput.sendPowerConfigPacket(
-					 * "Power Direction", inventory.xCoord, inventory.yCoord,
-					 * inventory.zCoord, dir); }
-					 */
 					inventory.flipPowerDirection(dir);
 					notifyNeighbors();
 					initGui();
 				}
 				if (indir >= 0) {
-					/*
-					 * if (ModLoader.getMinecraftInstance().theWorld.isRemote) {
-					 * PacketHandlerPowerConfig
-					 * .PacketHandlerOutput.sendPowerConfigPacket(
-					 * "Indirect Power", inventory.xCoord, inventory.yCoord,
-					 * inventory.zCoord, indir); }
-					 */
 					inventory.flipIndirectPower(indir);
 					notifyNeighbors();
 					initGui();
