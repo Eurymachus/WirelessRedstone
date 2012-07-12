@@ -68,11 +68,11 @@ public class PacketHandlerWirelessTriangulator {
 					"handleWirelessTriangulatorGuiPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			String index = WirelessTriangulator.itemTriang.getItemName();
-			WirelessTriangulatorData deviceData = WirelessTriangulator
-					.getDeviceData(index, packet.getDeviceID(),
-							"Wireless Triangulator", world, entityplayer);
-			deviceData.setFreq(packet.getFreq());
-			WirelessTriangulator.activateGUI(world, entityplayer, deviceData);
+			WirelessTriangulatorData data = WirelessTriangulator.getDeviceData(
+					index, packet.getDeviceID(), "Wireless Triangulator",
+					world, entityplayer);
+			data.setFreq(packet.getFreq());
+			WirelessTriangulator.activateGUI(world, entityplayer, data);
 		}
 	}
 
@@ -84,11 +84,11 @@ public class PacketHandlerWirelessTriangulator {
 			packet.setPosition((int) player.posX, (int) player.posY,
 					(int) player.posZ);
 			packet.setFreq(freq);
+			ModLoader.getMinecraftInstance().getSendQueue()
+					.addToSendQueue(packet.getPacket());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendRedstoneEtherPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().getSendQueue()
-					.addToSendQueue(packet.getPacket());
 		}
 
 		public static void sendWirelessTriangulatorPacket(String command,
@@ -97,11 +97,11 @@ public class PacketHandlerWirelessTriangulator {
 					command);
 			packet.setDeviceID(id);
 			packet.setFreq(freq);
+			ModLoader.getMinecraftInstance().getSendQueue()
+					.addToSendQueue(packet.getPacket());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendRedstoneEtherPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			ModLoader.getMinecraftInstance().getSendQueue()
-					.addToSendQueue(packet.getPacket());
 		}
 	}
 }

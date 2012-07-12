@@ -21,7 +21,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ItemRedstoneWirelessRemote extends Item {
 	protected ItemRedstoneWirelessRemote(int i) {
@@ -32,15 +32,18 @@ public class ItemRedstoneWirelessRemote extends Item {
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l) {
+		WirelessRemoteData remote = WirelessRemote.getDeviceData(itemstack,
+				world, entityplayer);
 		if (entityplayer.isSneaking()) {
-			WirelessRemote.openGUI(world, entityplayer, WirelessRemote
-					.getDeviceData(itemstack, world, entityplayer));
+			WirelessRemote.openGUI(world, entityplayer, remote);
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
-			if (tileentity != null
-					&& tileentity instanceof TileEntityRedstoneWireless)
-				return true;
+			if (tileentity != null) {
+				if (tileentity instanceof TileEntityRedstoneWirelessR) {
+					return true;
+				}
+			}
 		}
 		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;

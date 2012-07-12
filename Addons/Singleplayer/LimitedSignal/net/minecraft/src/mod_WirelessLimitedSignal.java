@@ -17,8 +17,6 @@ package net.minecraft.src;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.src.wirelessredstone.addon.limitedsignal.WirelessLimitedSignal;
-
 public class mod_WirelessLimitedSignal extends BaseMod {
 	public static BaseMod instance;
 	public Map<String, Boolean> ticking;
@@ -26,10 +24,10 @@ public class mod_WirelessLimitedSignal extends BaseMod {
 
 	@Override
 	public void modsLoaded() {
-		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
-			if (!wirelessLimitedSignal)
-				WirelessLimitedSignal.initialize();
-		}
+		// if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
+		// if (!wirelessLimitedSignal)
+		// WirelessLimitedSignal.initialize();
+		// }
 	}
 
 	public mod_WirelessLimitedSignal() {

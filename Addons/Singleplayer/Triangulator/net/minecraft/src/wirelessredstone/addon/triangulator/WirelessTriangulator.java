@@ -96,8 +96,9 @@ public class WirelessTriangulator {
 	public static WirelessTriangulatorData getDeviceData(String index, int id,
 			String name, World world, EntityPlayer entityplayer) {
 		index = index + "[" + id + "]";
-		WirelessTriangulatorData data = (WirelessTriangulatorData) world
-				.loadItemData(WirelessTriangulatorData.class, index);
+		WirelessTriangulatorData data;
+		data = (WirelessTriangulatorData) world.loadItemData(
+				WirelessTriangulatorData.class, index);
 		if (data == null) {
 			data = new WirelessTriangulatorData(index);
 			world.setItemData(index, data);

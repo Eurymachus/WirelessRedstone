@@ -1,5 +1,8 @@
 package net.minecraft.src.wirelessredstone;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
@@ -18,6 +21,7 @@ import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideServer;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
@@ -48,8 +52,11 @@ public class WirelessRedstone {
 	public static int spriteRItem;
 	public static int maxEtherFrequencies = 10000;
 
+	private static List<BaseModOverride> overrides;
+
 	public static boolean initialize() {
 		try {
+			overrides = new ArrayList();
 			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 
 			loadConfig();
@@ -181,20 +188,33 @@ public class WirelessRedstone {
 		return net.getPlayerEntity();
 	}
 
+	public static void addOverride(BaseModOverride override) {
+		overrides.add(override);
+	}
+
 	public static void openGUI(World world, EntityPlayer entityplayer,
 			TileEntity tileentity) {
-		if (tileentity != null) {
-			if (tileentity instanceof TileEntityRedstoneWirelessT) {
-				TileEntityRedstoneWirelessT tileentityredstonewirelesst = (TileEntityRedstoneWirelessT) tileentity;
-				PacketHandlerRedstoneWireless.PacketHandlerOutput
-						.sendGuiPacketTo((EntityPlayerMP) entityplayer,
-								tileentityredstonewirelesst);
-			}
-			if (tileentity instanceof TileEntityRedstoneWirelessR) {
-				TileEntityRedstoneWirelessR tileentityredstonewirelesst = (TileEntityRedstoneWirelessR) tileentity;
-				PacketHandlerRedstoneWireless.PacketHandlerOutput
-						.sendGuiPacketTo((EntityPlayerMP) entityplayer,
-								tileentityredstonewirelesst);
+		boolean prematureExit = false;
+
+		for (BaseModOverride override : overrides) {
+			if (override.beforeOpenGui(world, entityplayer, tileentity))
+				prematureExit = true;
+		}
+
+		if (!prematureExit) {
+			if (tileentity != null) {
+				if (tileentity instanceof TileEntityRedstoneWirelessT) {
+					TileEntityRedstoneWirelessT tileentityredstonewirelesst = (TileEntityRedstoneWirelessT) tileentity;
+					PacketHandlerRedstoneWireless.PacketHandlerOutput
+							.sendGuiPacketTo((EntityPlayerMP) entityplayer,
+									tileentityredstonewirelesst);
+				}
+				if (tileentity instanceof TileEntityRedstoneWirelessR) {
+					TileEntityRedstoneWirelessR tileentityredstonewirelesst = (TileEntityRedstoneWirelessR) tileentity;
+					PacketHandlerRedstoneWireless.PacketHandlerOutput
+							.sendGuiPacketTo((EntityPlayerMP) entityplayer,
+									tileentityredstonewirelesst);
+				}
 			}
 		}
 	}

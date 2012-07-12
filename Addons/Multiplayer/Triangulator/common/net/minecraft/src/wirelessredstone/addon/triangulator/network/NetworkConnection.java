@@ -24,18 +24,20 @@ public class NetworkConnection implements INetworkConnections {
 				bytes));
 		try {
 			World world = WirelessRedstone.getWorld(network);
-			EntityPlayer player = WirelessRedstone.getPlayer(network);
+			EntityPlayer entityplayer = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
 			switch (packetID) {
 			case PacketIds.ADDON:
 				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
 				pWT.readData(data);
+				PacketHandlerWirelessTriangulator.handlePacket(pWT, world,
+						entityplayer);
 				break;
 			case PacketIds.GUI:
 				PacketWirelessTriangulatorGui pWTG = new PacketWirelessTriangulatorGui();
 				pWTG.readData(data);
 				PacketHandlerWirelessTriangulator.handlePacket(pWTG, world,
-						player);
+						entityplayer);
 				break;
 			}
 		} catch (Exception ex) {

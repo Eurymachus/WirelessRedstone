@@ -90,7 +90,29 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	}
 
 	@Override
-	public abstract void updateEntity();
+	public void updateEntity() {
+		boolean prematureExit = false;
+		for (TileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.beforeUpdateEntity(this))
+				prematureExit = true;
+		}
+
+		if (!prematureExit) {
+			String freq = getFreq().toString();
+			if (!oldFreq.equals(freq) || firstTick) {
+				blockRedstoneWireless.changeFreq(worldObj, getBlockCoord(0),
+						getBlockCoord(1), getBlockCoord(2), oldFreq, freq);
+				oldFreq = freq;
+				if (firstTick)
+					firstTick = false;
+			}
+			onUpdateEntity();
+		}
+
+		for (TileEntityRedstoneWirelessOverride override : overrides) {
+			override.afterUpdateEntity(this);
+		}
+	}
 
 	protected abstract void onUpdateEntity();
 

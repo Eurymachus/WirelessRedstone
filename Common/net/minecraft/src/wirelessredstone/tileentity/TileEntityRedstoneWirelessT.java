@@ -24,31 +24,6 @@ public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
 	}
 
 	@Override
-	public void updateEntity() {
-		boolean prematureExit = false;
-		for (TileEntityRedstoneWirelessOverride override : overrides) {
-			if (override.beforeUpdateEntity(this))
-				prematureExit = true;
-		}
-
-		if (!prematureExit) {
-			String freq = getFreq().toString();
-			if (!oldFreq.equals(freq) || firstTick) {
-				onUpdateEntity();
-				blockRedstoneWireless.changeFreq(worldObj, getBlockCoord(0),
-						getBlockCoord(1), getBlockCoord(2), oldFreq, freq);
-				oldFreq = freq;
-				if (firstTick)
-					firstTick = false;
-			}
-		}
-
-		for (TileEntityRedstoneWirelessOverride override : overrides) {
-			override.afterUpdateEntity(this);
-		}
-	}
-
-	@Override
 	public String getInvName() {
 		return "Wireless Transmitter";
 	}

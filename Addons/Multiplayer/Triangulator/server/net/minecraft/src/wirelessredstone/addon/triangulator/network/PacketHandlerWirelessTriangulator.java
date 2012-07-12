@@ -62,22 +62,22 @@ public class PacketHandlerWirelessTriangulator {
 					"triangulate");
 			packet.setPosition(tx[0], tx[1], tx[2]);
 			packet.setDeviceID(deviceID);
+			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
+					.addToSendQueue(packet.getPacket());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
-					.addToSendQueue(packet.getPacket());
 		}
 
 		public static void sendWirelessTriangulatorZeroPacket(
 				EntityPlayer entityplayer, int deviceID) {
 			PacketWirelessTriangulatorSettings packet = new PacketWirelessTriangulatorSettings(
 					"reset");
+			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
+					.addToSendQueue(packet.getPacket());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessTriangulatorPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
-					.addToSendQueue(packet.getPacket());
 		}
 
 		public static void sendWirelessTriangulatorGuiPacket(
@@ -87,6 +87,9 @@ public class PacketHandlerWirelessTriangulator {
 			packet.setFreq(freq);
 			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
 					.addToSendQueue(packet.getPacket());
+			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
+					"sendRedstoneEtherPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 	}
 }

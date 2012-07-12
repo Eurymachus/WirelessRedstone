@@ -14,14 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
-import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessTriangulator extends Item {
@@ -62,32 +59,14 @@ public class ItemRedstoneWirelessTriangulator extends Item {
 		return true;
 	}
 
-	private WirelessTriangulatorData getTriangulatorData(String index, int id,
-			String name, World world, EntityPlayer entityplayer) {
-		return WirelessTriangulator.getDeviceData(index, id, name, world,
-				entityplayer);
-	}
-
-	@Override
-	public void onUpdate(ItemStack itemstack, World world, Entity entity,
-			int i, boolean isHeld) {
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) entity;
-			WirelessTriangulatorData data = WirelessTriangulator.getDeviceData(
-					itemstack, world, entityplayer);
-		}
+	public int getIconFromDamage(int i) {
+		return WirelessTriangulator.getIconFromDamage(this.getItemName(), i);
 	}
 
 	@Override
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		ModLoader.getLogger().warning(
-				"ItemDamage: " + itemstack.getItemDamage());
 		WirelessTriangulator.getDeviceData(itemstack, world, entityplayer);
-	}
-
-	public int getIconFromDamage(int i) {
-		return WirelessTriangulator.getIconFromDamage(this.getItemName(), i);
 	}
 }

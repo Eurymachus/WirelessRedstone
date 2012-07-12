@@ -49,16 +49,15 @@ public class PacketHandlerWirelessRemote {
 		public static void handleWirelessRemoteOpenGui(
 				PacketWirelessRemoteOpenGui packet, World world,
 				EntityPlayer entityplayer) {
-			String index = WirelessRemote.itemRemote.getItemName() + "["
-					+ packet.getDeviceID() + "]";
+			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
+					"handleWirelessRemoteGuiPacket:" + packet.toString(),
+					LoggerRedstoneWireless.LogLevel.DEBUG);
+			String index = WirelessRemote.itemRemote.getItemName();
 			WirelessRemoteData data = WirelessRemote.getDeviceData(index,
 					packet.getDeviceID(), "Wireless Remote", world,
 					entityplayer);
 			data.setFreq(packet.getFreq());
 			WirelessRemote.activateGUI(world, entityplayer, data);
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-					"handleWirelessRemoteGuiPacket:" + packet.toString(),
-					LoggerRedstoneWireless.LogLevel.DEBUG);
 		}
 	}
 
