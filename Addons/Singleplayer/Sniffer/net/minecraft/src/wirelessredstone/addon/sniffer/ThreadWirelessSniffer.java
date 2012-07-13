@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.addon.sniffer;
 
+import net.minecraft.src.wirelessredstone.addon.sniffer.presentation.GuiRedstoneWirelessSniffer;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class ThreadWirelessSniffer implements Runnable {

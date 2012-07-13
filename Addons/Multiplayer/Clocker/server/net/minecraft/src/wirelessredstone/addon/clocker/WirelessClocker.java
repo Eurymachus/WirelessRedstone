@@ -8,8 +8,10 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.clocker.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.clocker.network.PacketHandlerWirelessClocker;
+import net.minecraft.src.wirelessredstone.addon.clocker.block.BlockRedstoneWirelessClocker;
+import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.PacketHandlerWirelessClocker;
+import net.minecraft.src.wirelessredstone.addon.clocker.tileentity.TileEntityRedstoneWirelessClocker;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 
 public class WirelessClocker {

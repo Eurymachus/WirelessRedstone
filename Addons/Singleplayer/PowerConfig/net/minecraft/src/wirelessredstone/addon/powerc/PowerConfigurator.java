@@ -11,6 +11,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.powerc.overrides.BlockRedstoneWirelessROverridePC;
+import net.minecraft.src.wirelessredstone.addon.powerc.presentation.GuiRedstoneWirelessPowerDirector;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;

@@ -13,6 +13,8 @@ import net.minecraft.src.WorldSavedData;
 import net.minecraft.src.mod_WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
+import net.minecraft.src.wirelessredstone.addon.triangulator.presentation.GuiRedstoneWirelessTriangulator;
+import net.minecraft.src.wirelessredstone.addon.triangulator.presentation.TextureTriangulatorFX;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;

@@ -9,8 +9,9 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.PacketHandlerPowerConfig;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.PacketHandlerPowerConfig;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.overrides.BlockRedstoneWirelessROverridePC;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 

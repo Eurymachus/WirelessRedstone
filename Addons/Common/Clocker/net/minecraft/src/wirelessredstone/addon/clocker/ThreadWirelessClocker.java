@@ -17,6 +17,8 @@ package net.minecraft.src.wirelessredstone.addon.clocker;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.src.wirelessredstone.addon.clocker.block.BlockRedstoneWirelessClocker;
+import net.minecraft.src.wirelessredstone.addon.clocker.tileentity.TileEntityRedstoneWirelessClocker;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
 public class ThreadWirelessClocker implements Runnable {

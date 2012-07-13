@@ -1,9 +1,9 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
 import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.addon.triangulator.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
-import net.minecraft.src.wirelessredstone.addon.triangulator.overrides.RedstoneEtherOverrideTriangulator;
+import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.triangulator.smp.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
+import net.minecraft.src.wirelessredstone.addon.triangulator.smp.overrides.RedstoneEtherOverrideTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;

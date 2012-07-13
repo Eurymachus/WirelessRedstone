@@ -1,8 +1,8 @@
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
 import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.addon.clocker.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.clocker.overrides.GuiRedstoneWirelessClockerOverrideSMP;
+import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.clocker.smp.overrides.GuiRedstoneWirelessClockerOverrideSMP;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;

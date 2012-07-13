@@ -1,8 +1,8 @@
 package net.minecraft.src.wirelessredstone.addon.powerc;
 
 import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.addon.powerc.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.powerc.overrides.GuiRedstoneWirelessPowerCOverrideSMP;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.overrides.GuiRedstoneWirelessPowerCOverrideSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 

@@ -2,9 +2,9 @@ package net.minecraft.src.wirelessredstone.addon.remote;
 
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
-import net.minecraft.src.wirelessredstone.addon.remote.network.NetworkConnection;
-import net.minecraft.src.wirelessredstone.addon.remote.overrides.GuiRedstoneWirelessRemoteOverrideSMP;
-import net.minecraft.src.wirelessredstone.addon.remote.overrides.WirelessRedstoneRemoteOverrideSMP;
+import net.minecraft.src.wirelessredstone.addon.remote.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.GuiRedstoneWirelessRemoteOverrideSMP;
+import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.WirelessRedstoneRemoteOverrideSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
