@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -44,6 +46,18 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 	}
 
 	public mod_WirelessRedstoneSMP() {
+		if(!ModLoader.isModLoaded("mod_MinecraftForge")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires Minecraft Forge to work.\n" +
+					"Please download and install the The Forge Mod.\n" +
+					"(Author Ali4z, Coder Eurymachus)");
+		}
+		if (!ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstone to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Coder Eurymachus)");
+		}
 		instance = this;
 	}
 

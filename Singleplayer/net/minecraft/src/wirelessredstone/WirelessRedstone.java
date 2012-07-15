@@ -12,7 +12,6 @@ import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.block.BlockItemRedstoneWirelessT;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
@@ -143,7 +142,7 @@ public class WirelessRedstone {
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless
-							.filterClassName(WirelessClocker.class.toString()))
+							.filterClassName(WirelessRedstone.class.toString()))
 					.write("Initialization failed.",
 							LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;

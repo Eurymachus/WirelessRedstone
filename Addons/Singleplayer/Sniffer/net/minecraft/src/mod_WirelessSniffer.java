@@ -14,12 +14,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 
 public class mod_WirelessSniffer extends BaseMod {
-
 	public static BaseMod instance;
+
+	public mod_WirelessSniffer() {
+		if (!ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstone to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Coder Eurymachus)");
+		} else {
+			instance = this;
+		}
+	}
 
 	@Override
 	public void modsLoaded() {
@@ -32,10 +44,6 @@ public class mod_WirelessSniffer extends BaseMod {
 	@Override
 	public String getPriorities() {
 		return "after:mod_WirelessRedstone";
-	}
-
-	public mod_WirelessSniffer() {
-		instance = this;
 	}
 
 	@Override

@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 
@@ -21,14 +23,22 @@ public class mod_WirelessRemote extends BaseMod {
 	public static BaseMod instance;
 
 	public mod_WirelessRemote() {
-		instance = this;
+		if (!ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstone to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Coder Eurymachus)");
+		} else {
+			instance = this;
+		}
 	}
 
 	@Override
 	public void modsLoaded() {
-		if (!WirelessRemote.isLoaded
-				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
-			WirelessRemote.isLoaded = WirelessRemote.initialize();
+		if (ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			if (!WirelessRemote.isLoaded) {
+				WirelessRemote.isLoaded = WirelessRemote.initialize();
+			}
 		}
 	}
 

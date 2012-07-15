@@ -25,7 +25,6 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
-import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
 import org.lwjgl.input.Mouse;
 
@@ -78,7 +77,7 @@ public class WirelessRemote {
 		WirelessRedstone.addOverride(override);
 	}
 
-	public static void addOverride(BaseModOverrideSMP override) {
+	public static void addOverride(BaseModOverride override) {
 		overrides.add(override);
 	}
 

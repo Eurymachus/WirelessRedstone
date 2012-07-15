@@ -14,10 +14,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 
 public class mod_WirelessClocker extends BaseMod {
 	public BaseMod instance;
+
+	public mod_WirelessClocker() {
+		if (!ModLoader.isModLoaded("mod_WirelessRedstone")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstone to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Coder Eurymachus)");
+		} else {
+			instance = this;
+		}
+	}
 
 	@Override
 	public void modsLoaded() {
@@ -25,10 +38,6 @@ public class mod_WirelessClocker extends BaseMod {
 				&& ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			WirelessClocker.isLoaded = WirelessClocker.initialize();
 		}
-	}
-
-	public mod_WirelessClocker() {
-		instance = this;
 	}
 
 	@Override
