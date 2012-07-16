@@ -27,7 +27,7 @@ public class mod_WirelessRemote extends BaseMod {
 			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
 					", requires mod_WirelessRedstone to work.\n" +
 					"Please download and install the Wireless Redstone Mod.\n" +
-					"(Author Ali4z, Coder Eurymachus)");
+					"(Author Ali4z, Programmer Eurymachus)");
 		} else {
 			instance = this;
 		}

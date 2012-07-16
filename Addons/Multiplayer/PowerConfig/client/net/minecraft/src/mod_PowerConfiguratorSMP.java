@@ -14,12 +14,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfiguratorSMP;
 
 public class mod_PowerConfiguratorSMP extends NetworkMod {
 	public static NetworkMod instance;
 
+	public mod_PowerConfiguratorSMP() {
+		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstoneSMP to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Programmer Eurymachus)");
+		}
+		if (!ModLoader.isModLoaded("mod_PowerConfigurator")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_PowerConfigurator to work.\n" +
+					"Please download and install the Power Configurator Addon.\n" +
+					"(Author Ali4z, Programmer Eurymachus)");
+		} else {
+			instance = this;
+		}
+	}
+	
 	@Override
 	public void modsLoaded() {
 		if (!PowerConfiguratorSMP.isLoaded
@@ -32,10 +51,6 @@ public class mod_PowerConfiguratorSMP extends NetworkMod {
 	@Override
 	public String getPriorities() {
 		return "after:mod_WirelessRedstoneSMP;after:mod_PowerConfigurator";
-	}
-
-	public mod_PowerConfiguratorSMP() {
-		instance = this;
 	}
 
 	@Override

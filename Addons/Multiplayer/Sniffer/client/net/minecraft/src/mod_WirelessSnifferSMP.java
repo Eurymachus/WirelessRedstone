@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSnifferSMP;
 
@@ -21,7 +23,20 @@ public class mod_WirelessSnifferSMP extends NetworkMod {
 	NetworkMod instance;
 
 	public mod_WirelessSnifferSMP() {
-		instance = this;
+		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstoneSMP to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Programmer Eurymachus)");
+		}
+		if (!ModLoader.isModLoaded("mod_WirelessSniffer")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessSniffer to work.\n" +
+					"Please download and install the Wireless Sniffer Addon.\n" +
+					"(Author Ali4z, Programmer Eurymachus)");
+		} else {
+			instance = this;
+		}
 	}
 
 	@Override

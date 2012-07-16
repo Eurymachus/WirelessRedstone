@@ -14,11 +14,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import javax.swing.JOptionPane;
+
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClockerSMP;
 
 public class mod_WirelessClockerSMP extends NetworkMod {
 	public NetworkMod instance;
+
+	public mod_WirelessClockerSMP() {
+		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessRedstoneSMP to work.\n" +
+					"Please download and install the Wireless Redstone Mod.\n" +
+					"(Author Ali4z, Programmer Eurymachus)");
+		}
+		if (!ModLoader.isModLoaded("mod_WirelessClocker")) {
+			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
+					", requires mod_WirelessClocker to work.\n" +
+					"Please download and install the Wireless Clocker Addon.\n" +
+					"(Author Ali4z, Programmer Eurymachus)");
+		} else {
+			instance = this;
+		}
+	}
 
 	@Override
 	public void modsLoaded() {
@@ -27,10 +46,6 @@ public class mod_WirelessClockerSMP extends NetworkMod {
 				&& ModLoader.isModLoaded("mod_WirelessClocker")) {
 			WirelessClockerSMP.isLoaded = WirelessClockerSMP.initialize();
 		}
-	}
-
-	public mod_WirelessClockerSMP() {
-		instance = this;
 	}
 
 	@Override
