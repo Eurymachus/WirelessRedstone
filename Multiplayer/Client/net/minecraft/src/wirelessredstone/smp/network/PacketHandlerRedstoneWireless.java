@@ -15,12 +15,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src.wirelessredstone.smp.network;
 
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWireless;
+import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
@@ -61,25 +64,23 @@ public class PacketHandlerRedstoneWireless {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handleTilePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = packet.getTarget(world);
+			TileEntity tileentity = packet.getTarget(world);
 			if (packet.getCommand().equals("fetchTile")) {
-				if (entity != null
-						&& entity instanceof TileEntityRedstoneWirelessT) {
-					((TileEntityRedstoneWireless) entity).setFreq(packet
-							.getFreq().toString());
-					entity.onInventoryChanged();
-					world.markBlockAsNeedsUpdate(packet.xPosition,
-							packet.yPosition, packet.zPosition);
-				}
-				if (entity != null
-						&& entity instanceof TileEntityRedstoneWirelessR) {
-					TileEntityRedstoneWireless teR = (TileEntityRedstoneWireless) entity;
-					teR.setFreq(packet.getFreq().toString());
-					teR.setPowerDirections(packet.getPowerDirections());
-					teR.setInDirectlyPowering(packet.getInDirectlyPowering());
-					entity.onInventoryChanged();
-					world.markBlockAsNeedsUpdate(packet.xPosition,
-							packet.yPosition, packet.zPosition);
+				if (tileentity != null
+						&& tileentity instanceof TileEntityRedstoneWireless) {
+
+					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless)tileentity; 
+					tileentityredstonewireless.handleData(packet);
+
+					GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
+					if (screen != null && screen instanceof GuiRedstoneWireless) {
+						if (screen instanceof GuiRedstoneWirelessInventory) {
+							if (((GuiRedstoneWirelessInventory) screen)
+									.compareInventory(tileentityredstonewireless)) {
+								((GuiRedstoneWireless) screen).refreshGui();
+							}
+						}
+					}
 				}
 			}
 		}

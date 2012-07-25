@@ -140,10 +140,12 @@ public class WirelessRedstone {
 
 			return true;
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless
-							.filterClassName(WirelessRedstone.class.toString()))
-					.write("Initialization failed.",
+			LoggerRedstoneWireless
+					.getInstance(
+							LoggerRedstoneWireless
+									.filterClassName(WirelessRedstone.class
+											.toString())).write(
+							"Initialization failed.",
 							LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;
 		}
