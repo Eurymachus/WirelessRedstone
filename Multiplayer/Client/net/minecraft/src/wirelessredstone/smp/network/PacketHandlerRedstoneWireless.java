@@ -87,7 +87,7 @@ public class PacketHandlerRedstoneWireless {
 								packet.yPosition, packet.zPosition);
 					}
 					GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
-					if (screen instanceof GuiRedstoneWireless) {
+					if (screen != null && screen instanceof GuiRedstoneWireless) {
 						if (screen instanceof GuiRedstoneWirelessInventory) {
 							if (((GuiRedstoneWirelessInventory) screen)
 									.compareInventory(tileentityredstonewireless)) {
