@@ -64,7 +64,8 @@ public class PacketHandlerPowerConfig {
 					"handlePowerConfigPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			TileEntity tileentity = packet.getTarget(world);
-			if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessR) {
+			if (tileentity != null
+					&& tileentity instanceof TileEntityRedstoneWirelessR) {
 				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR) tileentity;
 				if (packet.getCommand().equals("Power Direction")) {
 					receiver.flipPowerDirection(packet.getValue());
@@ -78,7 +79,8 @@ public class PacketHandlerPowerConfig {
 				receiver.onInventoryChanged();
 				BlockRedstoneWireless.notifyNeighbors(world, i, j, k);
 				world.markBlockNeedsUpdate(i, j, k);
-				PacketHandlerRedstoneWireless.PacketHandlerOutput.sendWirelessTileToAll(receiver, world, 16);
+				PacketHandlerRedstoneWireless.PacketHandlerOutput
+						.sendWirelessTileToAll(receiver, world, 16);
 			}
 		}
 	}

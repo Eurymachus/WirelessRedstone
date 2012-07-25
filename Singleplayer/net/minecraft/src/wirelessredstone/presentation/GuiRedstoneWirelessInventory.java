@@ -50,12 +50,21 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	public void assTileEntity(TileEntityRedstoneWireless tileentity) {
 		inventory = tileentity;
 	}
-	
+
+	/**
+	 * Compares the Gui inventory with an external inventory
+	 * 
+	 * Used to check whether a player is accessing a particular inventory
+	 * 
+	 * @param tileentity
+	 *            the Inventory to compare
+	 * @return true if x, y, z of inventories are the same or false if not.
+	 */
 	public boolean compareInventory(TileEntityRedstoneWireless tileentity) {
 		if (this.inventory != null) {
 			if (this.inventory.xCoord == tileentity.xCoord
-				&& this.inventory.yCoord == tileentity.yCoord
-				&& this.inventory.zCoord == tileentity.zCoord) {
+					&& this.inventory.yCoord == tileentity.yCoord
+					&& this.inventory.zCoord == tileentity.zCoord) {
 				return true;
 			}
 		}

@@ -66,20 +66,22 @@ public class PacketHandlerRedstoneWireless {
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			TileEntity tileentity = packet.getTarget(world);
 			if (packet.getCommand().equals("fetchTile")) {
-				if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless) {
-					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless)tileentity;
+				if (tileentity != null
+						&& tileentity instanceof TileEntityRedstoneWireless) {
+					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
 					if (tileentity instanceof TileEntityRedstoneWirelessT) {
-						((TileEntityRedstoneWirelessT) tileentity).setFreq(packet
-							.getFreq().toString());
+						((TileEntityRedstoneWirelessT) tileentity)
+								.setFreq(packet.getFreq().toString());
 						tileentity.onInventoryChanged();
 						world.markBlockAsNeedsUpdate(packet.xPosition,
-							packet.yPosition, packet.zPosition);
+								packet.yPosition, packet.zPosition);
 					}
 					if (tileentity instanceof TileEntityRedstoneWirelessR) {
 						TileEntityRedstoneWirelessR teR = (TileEntityRedstoneWirelessR) tileentity;
 						teR.setFreq(packet.getFreq().toString());
 						teR.setPowerDirections(packet.getPowerDirections());
-						teR.setInDirectlyPowering(packet.getInDirectlyPowering());
+						teR.setInDirectlyPowering(packet
+								.getInDirectlyPowering());
 						tileentity.onInventoryChanged();
 						world.markBlockAsNeedsUpdate(packet.xPosition,
 								packet.yPosition, packet.zPosition);
@@ -87,8 +89,9 @@ public class PacketHandlerRedstoneWireless {
 					GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
 					if (screen instanceof GuiRedstoneWireless) {
 						if (screen instanceof GuiRedstoneWirelessInventory) {
-							if (((GuiRedstoneWirelessInventory)screen).compareInventory(tileentityredstonewireless)) {
-								((GuiRedstoneWireless)screen).refreshGui();
+							if (((GuiRedstoneWirelessInventory) screen)
+									.compareInventory(tileentityredstonewireless)) {
+								((GuiRedstoneWireless) screen).refreshGui();
 							}
 						}
 					}
