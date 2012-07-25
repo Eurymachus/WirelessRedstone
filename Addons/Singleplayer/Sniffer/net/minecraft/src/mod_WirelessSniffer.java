@@ -23,14 +23,13 @@ public class mod_WirelessSniffer extends BaseMod {
 	public static BaseMod instance;
 
 	public mod_WirelessSniffer() {
-		if (!ModLoader.isModLoaded("mod_WirelessRedstone")) {
+/*		if (!ModLoader.isModLoaded("mod_WirelessRedstone")) {
 			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
 					", requires mod_WirelessRedstone to work.\n" +
 					"Please download and install the Wireless Redstone Mod.\n" +
 					"(Author Ali4z, Programmer Eurymachus)");
-		} else {
-			instance = this;
-		}
+		}*/
+		instance = this;
 	}
 
 	@Override

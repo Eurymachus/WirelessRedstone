@@ -50,6 +50,17 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	public void assTileEntity(TileEntityRedstoneWireless tileentity) {
 		inventory = tileentity;
 	}
+	
+	public boolean compareInventory(TileEntityRedstoneWireless tileentity) {
+		if (this.inventory != null) {
+			if (this.inventory.xCoord == tileentity.xCoord
+				&& this.inventory.yCoord == tileentity.yCoord
+				&& this.inventory.zCoord == tileentity.zCoord) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	protected void addControls() {

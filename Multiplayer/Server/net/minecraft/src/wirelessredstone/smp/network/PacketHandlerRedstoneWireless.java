@@ -14,6 +14,7 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEtherNode;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -61,19 +62,7 @@ public class PacketHandlerRedstoneWireless {
 				}
 
 				if (player == null) {
-					World[] worlds = DimensionManager.getWorlds();
-					for (int i = 0; i < worlds.length; i++) {
-						for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
-							EntityPlayerMP player = (EntityPlayerMP) worlds[i].playerEntities
-									.get(j);
-
-							if (Math.abs(player.posX) <= 16
-									&& Math.abs(player.posY) <= 16
-									&& Math.abs(player.posZ) <= 16)
-								player.playerNetServerHandler.netManager
-										.addToSendQueue(packet.getPacket());
-						}
-					}
+					sendToAll(packet);
 				} else {
 					player.playerNetServerHandler.netManager
 							.addToSendQueue(packet.getPacket());
@@ -100,7 +89,6 @@ public class PacketHandlerRedstoneWireless {
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendEtherTileToAll:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-
 			(new PacketHandlerOutputSender(packet, delay)).send();
 		}
 
@@ -115,6 +103,12 @@ public class PacketHandlerRedstoneWireless {
 
 			(new PacketHandlerOutputSender(entityplayermp, packet, delay))
 					.send();
+		}
+		
+		public static void sendWirelessTileToAll(
+				TileEntityRedstoneWireless tileentity, World world, int delay) {
+			PacketWirelessTile packet = prepareWirelessTileEntityPacket(tileentity, world);
+			sendToAll(packet);
 		}
 
 		public static void sendEtherNodeTileToAll(RedstoneEtherNode node,
@@ -290,5 +284,24 @@ public class PacketHandlerRedstoneWireless {
 			TileEntityRedstoneWireless entity, World world) {
 		PacketRedstoneEther out = new PacketRedstoneEther(entity, world);
 		return out;
+	}
+
+	private static PacketWirelessTile prepareWirelessTileEntityPacket(
+			TileEntityRedstoneWireless tileentity, World world) {
+		PacketWirelessTile out = new PacketWirelessTile("fetchTile", tileentity);
+		return out;
+	}
+	
+	public static void sendToAll(PacketUpdate packet) {
+		World[] worlds = DimensionManager.getWorlds();
+		for (int i = 0; i < worlds.length; i++) {
+			for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
+				EntityPlayerMP entityplayermp = (EntityPlayerMP) worlds[i].playerEntities.get(j);
+				if (Math.abs(entityplayermp.posX) <= 16
+				&& Math.abs(entityplayermp.posY) <= 16
+				&& Math.abs(entityplayermp.posZ) <= 16)
+					entityplayermp.playerNetServerHandler.netManager.addToSendQueue(packet.getPacket());
+			}
+		}
 	}
 }

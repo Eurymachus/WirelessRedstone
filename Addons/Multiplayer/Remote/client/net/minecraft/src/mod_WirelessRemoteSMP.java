@@ -23,7 +23,7 @@ public class mod_WirelessRemoteSMP extends NetworkMod {
 	public static NetworkMod instance;
 
 	public mod_WirelessRemoteSMP() {
-		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
+/*		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
 			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
 					", requires mod_WirelessRedstoneSMP to work.\n" +
 					"Please download and install the Wireless Redstone Mod.\n" +
@@ -34,9 +34,8 @@ public class mod_WirelessRemoteSMP extends NetworkMod {
 					", requires mod_WirelessRemote to work.\n" +
 					"Please download and install the Wireless Remote Addon.\n" +
 					"(Author Ali4z, Programmer Eurymachus)");
-		} else {
-			instance = this;
-		}
+		}*/
+		instance = this;
 	}
 	
 	@Override

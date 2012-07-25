@@ -30,7 +30,7 @@ public class mod_PowerConfiguratorSMP extends NetworkMod {
 
 	@Override
 	public String getPriorities() {
-		return "after:mod_WirelessRedstone";
+		return "after:mod_WirelessRedstoneSMP";
 	}
 
 	public mod_PowerConfiguratorSMP() {

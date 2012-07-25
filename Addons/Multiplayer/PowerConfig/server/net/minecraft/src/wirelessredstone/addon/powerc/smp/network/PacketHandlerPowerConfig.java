@@ -22,6 +22,7 @@ import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.packet.Packet
 import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
@@ -62,9 +63,9 @@ public class PacketHandlerPowerConfig {
 			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
 					"handlePowerConfigPacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
-			TileEntity entity = packet.getTarget(world);
-			if (entity != null && entity instanceof TileEntityRedstoneWirelessR) {
-				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR) entity;
+			TileEntity tileentity = packet.getTarget(world);
+			if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessR) {
+				TileEntityRedstoneWirelessR receiver = (TileEntityRedstoneWirelessR) tileentity;
 				if (packet.getCommand().equals("Power Direction")) {
 					receiver.flipPowerDirection(packet.getValue());
 				}
@@ -76,6 +77,8 @@ public class PacketHandlerPowerConfig {
 				int k = receiver.getBlockCoord(2);
 				receiver.onInventoryChanged();
 				BlockRedstoneWireless.notifyNeighbors(world, i, j, k);
+				world.markBlockNeedsUpdate(i, j, k);
+				PacketHandlerRedstoneWireless.PacketHandlerOutput.sendWirelessTileToAll(receiver, world, 16);
 			}
 		}
 	}

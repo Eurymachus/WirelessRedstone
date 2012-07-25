@@ -46,7 +46,7 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 	}
 
 	public mod_WirelessRedstoneSMP() {
-		if(!ModLoader.isModLoaded("mod_MinecraftForge")) {
+		/*if(!ModLoader.isModLoaded("mod_MinecraftForge")) {
 			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
 					", requires Minecraft Forge to work.\n" +
 					"Please download and install the The Forge Mod.\n" +
@@ -57,7 +57,7 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 					", requires mod_WirelessRedstone to work.\n" +
 					"Please download and install the Wireless Redstone Mod.\n" +
 					"(Author Ali4z, Programmer Eurymachus)");
-		}
+		}*/
 		instance = this;
 	}
 

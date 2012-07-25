@@ -23,7 +23,7 @@ public class mod_PowerConfiguratorSMP extends NetworkMod {
 	public static NetworkMod instance;
 
 	public mod_PowerConfiguratorSMP() {
-		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
+/*		if (!ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
 			JOptionPane.showMessageDialog(null, this.getName() + ":" + this.getVersion() +
 					", requires mod_WirelessRedstoneSMP to work.\n" +
 					"Please download and install the Wireless Redstone Mod.\n" +
@@ -34,9 +34,8 @@ public class mod_PowerConfiguratorSMP extends NetworkMod {
 					", requires mod_PowerConfigurator to work.\n" +
 					"Please download and install the Power Configurator Addon.\n" +
 					"(Author Ali4z, Programmer Eurymachus)");
-		} else {
-			instance = this;
-		}
+		}*/
+		instance = this;
 	}
 	
 	@Override

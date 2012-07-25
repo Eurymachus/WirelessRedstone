@@ -388,4 +388,23 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
+
+	/**
+	 * Refresh the current GUI
+	 * 
+	 * Removing and re-adding all listed controls
+	 */
+	public void refreshGui() {
+		this.removeControls();
+		this.addControls();
+	}
+
+	/**
+	 * Clears the control list
+	 * 
+	 * Used in refreshGui()
+	 */
+	private void removeControls() {
+		this.controlList.clear();
+	}
 }
