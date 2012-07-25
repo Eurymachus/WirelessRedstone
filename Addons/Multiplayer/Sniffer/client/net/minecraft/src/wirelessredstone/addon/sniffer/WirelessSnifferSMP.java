@@ -3,7 +3,6 @@ package net.minecraft.src.wirelessredstone.addon.sniffer;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.overrides.GuiRedstoneWirelessSnifferOverrideSMP;
-import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulatorSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
@@ -20,7 +19,7 @@ public class WirelessSnifferSMP {
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless
-							.filterClassName(WirelessTriangulatorSMP.class
+							.filterClassName(WirelessSnifferSMP.class
 									.toString())).write(
 					"Initialization failed.",
 					LoggerRedstoneWireless.LogLevel.WARNING);
