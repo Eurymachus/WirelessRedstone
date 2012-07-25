@@ -68,24 +68,10 @@ public class PacketHandlerRedstoneWireless {
 			if (packet.getCommand().equals("fetchTile")) {
 				if (tileentity != null
 						&& tileentity instanceof TileEntityRedstoneWireless) {
-					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
-					if (tileentity instanceof TileEntityRedstoneWirelessT) {
-						((TileEntityRedstoneWirelessT) tileentity)
-								.setFreq(packet.getFreq().toString());
-						tileentity.onInventoryChanged();
-						world.markBlockAsNeedsUpdate(packet.xPosition,
-								packet.yPosition, packet.zPosition);
-					}
-					if (tileentity instanceof TileEntityRedstoneWirelessR) {
-						TileEntityRedstoneWirelessR teR = (TileEntityRedstoneWirelessR) tileentity;
-						teR.setFreq(packet.getFreq().toString());
-						teR.setPowerDirections(packet.getPowerDirections());
-						teR.setInDirectlyPowering(packet
-								.getInDirectlyPowering());
-						tileentity.onInventoryChanged();
-						world.markBlockAsNeedsUpdate(packet.xPosition,
-								packet.yPosition, packet.zPosition);
-					}
+
+					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless)tileentity; 
+					tileentityredstonewireless.handleData(packet);
+
 					GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
 					if (screen != null && screen instanceof GuiRedstoneWireless) {
 						if (screen instanceof GuiRedstoneWirelessInventory) {

@@ -25,6 +25,7 @@ import net.minecraft.src.NBTTagList;
 import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
+import net.minecraft.src.wirelessredstone.data.IRedstoneWirelessData;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.injectors.TileEntityRedstoneWirelessInjector;
 
@@ -330,5 +331,15 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	public Packet getDescriptionPacket() {
 		return TileEntityRedstoneWirelessInjector.getDescriptionPacket(this);
+	}
+	
+	public void handleData(IRedstoneWirelessData data) {
+		boolean prematureExit = false;
+		
+		for (TileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.beforeHandleData(this, data)) {
+				prematureExit = true;
+			}
+		}
 	}
 }

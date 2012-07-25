@@ -1,11 +1,12 @@
 package net.minecraft.src.wirelessredstone.smp.network.packet;
 
+import net.minecraft.src.wirelessredstone.data.IRedstoneWirelessData;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless.LogLevel;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class PacketWirelessTile extends PacketWireless {
+public class PacketWirelessTile extends PacketWireless implements IRedstoneWirelessData {
 	public PacketWirelessTile() {
 		super(PacketIds.TILE);
 	}
