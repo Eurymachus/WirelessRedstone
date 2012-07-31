@@ -214,12 +214,14 @@ public class WirelessRedstone {
 		ModLoader.registerBlock(blockWirelessR,
 				BlockItemRedstoneWirelessR.class);
 		ModLoader.addName(blockWirelessR, "Wireless Receiver");
+		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfänger");
 		ModLoader.registerTileEntity(TileEntityRedstoneWirelessR.class,
 				"Wireless Receiver", new TileEntityRedstoneWirelessRenderer());
 
 		ModLoader.registerBlock(blockWirelessT,
 				BlockItemRedstoneWirelessT.class);
 		ModLoader.addName(blockWirelessT, "Wireless Transmitter");
+		ModLoader.addName(blockWirelessT, "de_DE", "Drahtloser Sender");
 		ModLoader.registerTileEntity(TileEntityRedstoneWirelessT.class,
 				"Wireless Transmitter",
 				new TileEntityRedstoneWirelessRenderer());
