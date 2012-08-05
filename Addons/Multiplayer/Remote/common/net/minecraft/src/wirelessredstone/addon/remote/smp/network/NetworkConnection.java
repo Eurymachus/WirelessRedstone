@@ -11,7 +11,6 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteOpenGui;
-import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemotePlayer;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
@@ -37,11 +36,6 @@ public class NetworkConnection implements INetworkConnections {
 				PacketWirelessRemoteOpenGui pRG = new PacketWirelessRemoteOpenGui();
 				pRG.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pRG, world, entityplayer);
-				break;
-			case PacketIds.DEVICE:
-				PacketWirelessRemotePlayer pWRP = new PacketWirelessRemotePlayer();
-				pWRP.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pWRP, world, entityplayer);
 				break;
 			}
 		} catch (Exception ex) {

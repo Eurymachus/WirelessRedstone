@@ -23,7 +23,6 @@ import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteOpenGui;
-import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemotePlayer;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
@@ -89,21 +88,20 @@ public class PacketHandlerWirelessRemote {
 
 		public static void sendWirelessRemoteToAll(String command, World world,
 				WirelessRemoteDevice remote) {
-			PacketWirelessRemotePlayer packet = new PacketWirelessRemotePlayer("updateRemote");
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings("updateRemote");
 			packet.setRemoteID(remote.getDeviceData().getID());
 			packet.setFreq(remote.getFreq());
 			WirelessCoordinates coords = remote.getCoords();
 			packet.setPosition(coords.getX(), coords.getY(), coords.getZ());
-			packet.setEntityID(remote.getOwner().entityId);
 			boolean state = false;
 			if (command.equals("activateRemote")) state = true;
 			packet.setState(state);
 			for (int j = 0; j < world.playerEntities.size(); j++) {
 				EntityPlayerMP entityplayermp = (EntityPlayerMP) world.playerEntities
 						.get(j);
-				if (Math.abs(entityplayermp.posX) <= 16
-						&& Math.abs(entityplayermp.posY) <= 16
-						&& Math.abs(entityplayermp.posZ) <= 16)
+				if (Math.abs(entityplayermp.posX-coords.getX()) <= 16
+						&& Math.abs(entityplayermp.posY-coords.getY()) <= 16
+						&& Math.abs(entityplayermp.posZ-coords.getZ()) <= 16)
 					entityplayermp.playerNetServerHandler.netManager
 							.addToSendQueue(packet.getPacket());
 			}
