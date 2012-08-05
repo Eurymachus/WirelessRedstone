@@ -18,6 +18,7 @@ import net.minecraft.src.wirelessredstone.addon.remote.smp.network.NetworkConnec
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.PacketHandlerWirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.BaseModOverrideRemoteServer;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.RedstoneEtherOverrideRemoteSMP;
+import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.RedstoneWirelessRemoteOverrideServer;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
@@ -46,6 +47,7 @@ public class WirelessRemote {
 			addGuiOverride();
 			addEtherOverride();
 			addBaseModOverride();
+			addRemoteOverride();
 
 			loadConfig();
 			loadItemTextures();
@@ -62,6 +64,11 @@ public class WirelessRemote {
 					LoggerRedstoneWireless.LogLevel.WARNING);
 		}
 		return false;
+	}
+
+	private static void addRemoteOverride() {
+		RedstoneWirelessRemoteOverrideServer override = new RedstoneWirelessRemoteOverrideServer();
+		WirelessRemoteDevice.addOverride(override);
 	}
 
 	private static void addBaseModOverride() {

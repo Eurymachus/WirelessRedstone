@@ -10,6 +10,10 @@ public class WirelessDevice implements IWirelessDevice {
 	protected WirelessDeviceData data;
 	protected WirelessCoordinates coords;
 
+	public EntityPlayer getOwner() {
+		return this.owner;
+	}
+
 	@Override
 	public String getFreq() {
 		return this.data.getFreq();
@@ -18,6 +22,10 @@ public class WirelessDevice implements IWirelessDevice {
 	@Override
 	public WirelessCoordinates getCoords() {
 		return this.coords;
+	}
+
+	public void setOwner(EntityPlayer entityplayer) {
+		this.owner = entityplayer;
 	}
 
 	@Override

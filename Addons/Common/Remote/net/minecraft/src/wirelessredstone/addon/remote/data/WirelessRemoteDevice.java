@@ -7,7 +7,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
-import net.minecraft.src.wirelessredstone.addon.remote.overrides.WirelessRedstoneRemoteOverride;
+import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.data.WirelessDevice;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
@@ -19,7 +19,7 @@ import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
  */
 public class WirelessRemoteDevice extends WirelessDevice {
 	protected int slot;
-	protected static List<WirelessRedstoneRemoteOverride> overrides = new ArrayList();
+	protected static List<RedstoneWirelessRemoteOverride> overrides = new ArrayList();
 
 	public WirelessRemoteDevice(World world, EntityPlayer entityplayer) {
 		this.owner = entityplayer;
@@ -64,7 +64,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	 * @param override
 	 *            Remote override.
 	 */
-	public static void addOverride(WirelessRedstoneRemoteOverride override) {
+	public static void addOverride(RedstoneWirelessRemoteOverride override) {
 		overrides.add(override);
 	}
 
@@ -80,7 +80,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 	 */
 	public void transmitRemote(String command, World world) {
 		boolean prematureExit = false;
-		for (WirelessRedstoneRemoteOverride override : overrides) {
+		for (RedstoneWirelessRemoteOverride override : overrides) {
 			prematureExit = override.beforeTransmitRemote(command, world, this);
 		}
 		if (prematureExit)

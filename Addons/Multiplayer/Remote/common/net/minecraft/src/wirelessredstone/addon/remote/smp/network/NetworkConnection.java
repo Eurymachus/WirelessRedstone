@@ -11,6 +11,7 @@ import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteOpenGui;
+import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemotePlayer;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
@@ -24,18 +25,23 @@ public class NetworkConnection implements INetworkConnections {
 				bytes));
 		try {
 			World world = WirelessRedstone.getWorld(network);
-			EntityPlayer player = WirelessRedstone.getPlayer(network);
+			EntityPlayer entityplayer = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
 			switch (packetID) {
 			case PacketIds.ADDON:
 				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
 				pWR.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pWR, world, player);
+				PacketHandlerWirelessRemote.handlePacket(pWR, world, entityplayer);
 				break;
 			case PacketIds.GUI:
 				PacketWirelessRemoteOpenGui pRG = new PacketWirelessRemoteOpenGui();
 				pRG.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pRG, world, player);
+				PacketHandlerWirelessRemote.handlePacket(pRG, world, entityplayer);
+				break;
+			case PacketIds.DEVICE:
+				PacketWirelessRemotePlayer pWRP = new PacketWirelessRemotePlayer();
+				pWRP.readData(data);
+				PacketHandlerWirelessRemote.handlePacket(pWRP, world, entityplayer);
 				break;
 			}
 		} catch (Exception ex) {

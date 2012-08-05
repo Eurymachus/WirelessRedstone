@@ -3,14 +3,14 @@ package net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketPayload;
 
-public class PacketWirelessRemoteSettings extends PacketWirelessRemote {
-	public PacketWirelessRemoteSettings() {
-		super(PacketIds.ADDON);
+public class PacketWirelessRemotePlayer extends PacketWirelessRemote {
+	public PacketWirelessRemotePlayer() {
+		super(PacketIds.DEVICE);
 	}
 
-	public PacketWirelessRemoteSettings(String command) {
+	public PacketWirelessRemotePlayer(String command) {
 		this();
-		this.payload = new PacketPayload(1, 0, 2, 1);
+		this.payload = new PacketPayload(2, 0, 2, 1);
 		this.setCommand(command);
 	}
 
@@ -18,8 +18,16 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote {
 		this.payload.setIntPayload(0, id);
 	}
 
+	public void setEntityID(int id) {
+		this.payload.setIntPayload(1, id);
+	}
+
 	public int getRemoteID() {
 		return this.payload.getIntPayload(0);
+	}
+
+	public int getEntityID() {
+		return this.payload.getIntPayload(1);
 	}
 
 	@Override
