@@ -58,7 +58,7 @@ public class WirelessRedstone {
 	public static boolean initialize() {
 		try {
 			overrides = new ArrayList();
-			MinecraftForge.registerConnectionHandler(new NetworkConnection());
+			MinecraftForge.registerConnectionHandler(new NetworkConnection("WIFI"));
 
 			loadConfig();
 			addEtherOverrides();

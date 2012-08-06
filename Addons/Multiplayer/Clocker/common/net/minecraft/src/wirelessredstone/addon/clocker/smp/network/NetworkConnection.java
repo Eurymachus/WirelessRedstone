@@ -17,7 +17,8 @@ import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
 public class NetworkConnection implements INetworkConnections {
-
+	private static final String channel = "WIFI-CLOCKER";
+	
 	@Override
 	public void onPacketData(NetworkManager network, String channel,
 			byte[] bytes) {
@@ -57,7 +58,7 @@ public class NetworkConnection implements INetworkConnections {
 	@Override
 	public void onLogin(NetworkManager network, Packet1Login login) {
 		MessageManager.getInstance().registerChannel(network, this,
-				"WIFI-CLOCKER");
+				this.channel);
 		ModLoader.getLogger().fine(
 				"Wireless Redstone : Clocker Registered for - "
 						+ WirelessRedstone.getPlayer(network).username);

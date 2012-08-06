@@ -16,7 +16,11 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
 
-public class NetworkConnection implements INetworkConnections {
+public class NetworkConnection extends NetworkConnections {
+	
+	public NetworkConnection(String channel) {
+		super(channel);
+	}
 
 	@Override
 	public void onPacketData(NetworkManager network, String channel,
@@ -51,14 +55,6 @@ public class NetworkConnection implements INetworkConnections {
 
 	@Override
 	public void onConnect(NetworkManager network) {
-	}
-
-	@Override
-	public void onLogin(NetworkManager network, Packet1Login login) {
-		MessageManager.getInstance().registerChannel(network, this, "WIFI");
-		ModLoader.getLogger().fine(
-				"Wireless Redstone : Wireless Redstone Registered for - "
-						+ WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class WirelessRedstoneSMP {
 	public static boolean isLoaded = false;
 
 	public static boolean initialize() {
-		MinecraftForge.registerConnectionHandler(new NetworkConnection());
+		MinecraftForge.registerConnectionHandler(new NetworkConnection("WIFI"));
 
 		GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
 		WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
