@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.DimensionManager;
@@ -294,16 +295,30 @@ public class PacketHandlerRedstoneWireless {
 	}
 
 	public static void sendToAll(PacketUpdate packet) {
+		sendToAllWorlds(null, packet.getPacket(), packet.xPosition, packet.yPosition, packet.zPosition, true);
+	}
+	
+	public static void sendToAllWorlds(EntityPlayer entityplayer, Packet packet, int x, int y, int z, boolean sendToPlayer) {
 		World[] worlds = DimensionManager.getWorlds();
 		for (int i = 0; i < worlds.length; i++) {
-			for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
-				EntityPlayerMP entityplayermp = (EntityPlayerMP) worlds[i].playerEntities
-						.get(j);
-				if (Math.abs(entityplayermp.posX) <= 16
-						&& Math.abs(entityplayermp.posY) <= 16
-						&& Math.abs(entityplayermp.posZ) <= 16)
+			sendToAllPlayers(worlds[i], entityplayer, packet, x, y, z, sendToPlayer);
+		}
+	}
+	
+	public static void sendToAllPlayers(World world, EntityPlayer entityplayer, Packet packet, int x, int y, int z, boolean sendToPlayer) {
+		for (int j = 0; j < world.playerEntities.size(); j++) {
+			EntityPlayerMP entityplayermp = (EntityPlayerMP) world.playerEntities
+					.get(j);
+			boolean shouldSendToPlayer = true;
+			if (entityplayer != null) {
+				if (entityplayer.username.equals(entityplayermp.username) && !sendToPlayer) shouldSendToPlayer = false;
+			}
+			if (shouldSendToPlayer) {
+				if (Math.abs(entityplayermp.posX-x) <= 16
+						&& Math.abs(entityplayermp.posY-y) <= 16
+						&& Math.abs(entityplayermp.posZ-z) <= 16)
 					entityplayermp.playerNetServerHandler.netManager
-							.addToSendQueue(packet.getPacket());
+							.addToSendQueue(packet);
 			}
 		}
 	}
