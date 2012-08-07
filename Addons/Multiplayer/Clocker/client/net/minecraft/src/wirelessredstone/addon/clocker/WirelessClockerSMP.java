@@ -1,7 +1,8 @@
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
 import net.minecraft.src.mod_WirelessClockerSMP;
-import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.WirelessClockerConnection;
 import net.minecraft.src.wirelessredstone.addon.clocker.smp.overrides.GuiRedstoneWirelessClockerOverrideSMP;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
@@ -41,9 +42,8 @@ public class WirelessClockerSMP {
 	}
 
 	private static void registerConnHandler() {
-		wirelessClockerConnection = new NetworkConnection("CLOCKER");
-		wirelessClockerConnection.onLogin(null, null,
-				mod_WirelessClockerSMP.instance);
+		wirelessClockerConnection = new WirelessClockerConnection(WirelessRedstone.getPlayer(), "CLOCKER");
+		wirelessClockerConnection.onLogin(null, null, mod_WirelessClockerSMP.instance);
 
 	}
 

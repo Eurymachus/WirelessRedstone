@@ -46,8 +46,8 @@ public class mod_WirelessTriangulatorSMP extends BaseMod {
 	}
 	
 	@Override
-    public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		WirelessTriangulatorSMP.triangulatorConnection.onPacketData(entityplayer, payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		WirelessTriangulatorSMP.triangulatorConnection.onPacketData(payload);
     }
 
 	@Override

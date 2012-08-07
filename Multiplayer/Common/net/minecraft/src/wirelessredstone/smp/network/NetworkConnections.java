@@ -14,7 +14,7 @@ public abstract class NetworkConnections implements INetworkConnections {
 	public EntityPlayer entityplayer;
 	public NetworkManager netManager;
 
-	public NetworkConnections(String channel) {
+	private NetworkConnections(String channel) {
 		this.channel = channel;
 	}
 	public NetworkConnections(EntityPlayer entityplayer, String channel) {
@@ -27,24 +27,18 @@ public abstract class NetworkConnections implements INetworkConnections {
 	}
 
 	@Override
-	public void onLogin(NetworkManager network, Packet1Login login) {
-		//MessageManager.getInstance().registerChannel(network, this, this.channel);
-		//if (network != null) {
-		//	ModLoader.getLogger().fine(
-		//			"Wireless Redstone : Registered channel [" + this.channel
-		//					+ "] for "
-		//					+ WirelessRedstone.getPlayer(network).username);
-		//}
-	}
-
-	@Override
-	public void onLogin(NetworkManager network, Packet1Login login, BaseMod mod) {
+	public void onLogin(NetworkManager network, EntityPlayer entityplayer, BaseMod mod) {
+		if (entityplayer != null) {
+			this.entityplayer = entityplayer;
+		} else {
+			this.entityplayer = WirelessRedstone.getPlayer(network);
+		}
 		ModLoader.registerPacketChannel(mod, this.channel);
 		if (network != null) {
 			ModLoader.getLogger().fine(
 					"Wireless Redstone : Registered channel [" + this.channel
 							+ "] for "
-							+ WirelessRedstone.getPlayer(network).username);
+							+ this.entityplayer.username);
 		}
 	}
 }

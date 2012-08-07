@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfigurator;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.PowerConfigConnection;
 
 public class mod_PowerConfiguratorSMP extends BaseMod {
 	public static BaseMod instance;
@@ -42,17 +43,16 @@ public class mod_PowerConfiguratorSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
+		PowerConfigurator.powerConfigConnection = new PowerConfigConnection(entityplayer, "WIFI-POWERC");
 		PowerConfigurator.powerConfigConnection
 				.onLogin(
 						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						null, mod_PowerConfiguratorSMP.instance);
+						entityplayer, mod_PowerConfiguratorSMP.instance);
 	}
 
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer,
-			Packet250CustomPayload payload) {
-		PowerConfigurator.powerConfigConnection.onPacketData(entityplayer,
-				payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		PowerConfigurator.powerConfigConnection.onPacketData(payload);
 	}
 
 	@Override

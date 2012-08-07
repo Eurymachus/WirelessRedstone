@@ -16,6 +16,7 @@ package net.minecraft.src;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
+import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.SnifferConnection;
 
 public class mod_WirelessSnifferSMP extends BaseMod {
 	public static BaseMod instance;
@@ -48,16 +49,16 @@ public class mod_WirelessSnifferSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
+		WirelessSniffer.snifferConnection = new SnifferConnection(entityplayer, "SNIFFER");
 		WirelessSniffer.snifferConnection
 				.onLogin(
 						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						null, mod_WirelessSnifferSMP.instance);
+						entityplayer, this.instance);
 	}
 
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer,
-			Packet250CustomPayload payload) {
-		WirelessSniffer.snifferConnection.onPacketData(entityplayer, payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		WirelessSniffer.snifferConnection.onPacketData(payload);
 	}
 
 	@Override

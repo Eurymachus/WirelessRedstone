@@ -57,8 +57,8 @@ public class WirelessRedstone {
 	public static int maxEtherFrequencies = 10000;
 
 	private static List<BaseModOverride> overrides;
-	//public static HashMap<EntityPlayerMP, NetworkConnections> redstoneWirelessConnection = new HashMap();
-	public static NetworkConnections redstoneWirelessConnection;
+	public static HashMap<EntityPlayerMP, NetworkConnections> redstoneWirelessConnection = new HashMap();
+	//public static NetworkConnections redstoneWirelessConnection;
 
 	public static boolean initialize() {
 		try {

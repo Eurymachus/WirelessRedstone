@@ -16,6 +16,7 @@ package net.minecraft.src;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
+import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 
 public class mod_WirelessTriangulatorSMP extends BaseMod {
 	public static BaseMod instance;
@@ -51,17 +52,16 @@ public class mod_WirelessTriangulatorSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
+		WirelessTriangulator.triangulatorConnection = new TriangulatorConnection(entityplayer, "WIFI-TRIANG");
 		WirelessTriangulator.triangulatorConnection
 				.onLogin(
 						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						null, mod_WirelessTriangulatorSMP.instance);
+						entityplayer, mod_WirelessTriangulatorSMP.instance);
 	}
 
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer,
-			Packet250CustomPayload payload) {
-		WirelessTriangulator.triangulatorConnection.onPacketData(entityplayer,
-				payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		WirelessTriangulator.triangulatorConnection.onPacketData(payload);
 	}
 
 	@Override

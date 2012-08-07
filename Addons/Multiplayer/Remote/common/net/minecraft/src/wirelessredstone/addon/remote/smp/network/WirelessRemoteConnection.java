@@ -15,36 +15,8 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
 public class WirelessRemoteConnection extends NetworkConnections {
 
-	public WirelessRemoteConnection(String channel) {
-		super(channel);
-	}
-
-	@Override
-	public void onPacketData(NetworkManager network, String channel,
-			byte[] bytes) {
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				bytes));
-		try {
-			World world = WirelessRedstone.getWorld(network);
-			EntityPlayer entityplayer = WirelessRedstone.getPlayer(network);
-			int packetID = data.read();
-			switch (packetID) {
-			case PacketIds.ADDON:
-				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
-				pWR.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pWR, world,
-						entityplayer);
-				break;
-			case PacketIds.GUI:
-				PacketWirelessRemoteOpenGui pRG = new PacketWirelessRemoteOpenGui();
-				pRG.readData(data);
-				PacketHandlerWirelessRemote.handlePacket(pRG, world,
-						entityplayer);
-				break;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	public WirelessRemoteConnection(EntityPlayer entityplayer, String channel) {
+		super(entityplayer, channel);
 	}
 
 	@Override
@@ -57,8 +29,7 @@ public class WirelessRemoteConnection extends NetworkConnections {
 	}
 
 	@Override
-	public void onPacketData(EntityPlayer entityplayer,
-			Packet250CustomPayload packet) {
+	public void onPacketData(Packet250CustomPayload packet) {
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				packet.data));
 		try {

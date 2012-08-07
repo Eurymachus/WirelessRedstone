@@ -70,18 +70,7 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 	}
 	
 	@Override
-	public void onClientLogin(EntityPlayer entityplayer) {
-	}
-	
-	@Override
 	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		ModLoader.getLogger().warning("PacketReceived-WR");
 		((RedstoneWirelessConnection)WirelessRedstoneSMP.redstoneWirelessConnection).onPacketData(payload);
 	}
-	
-	@Override
-    public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		ModLoader.getLogger().warning("PacketReceived-WR");
-		WirelessRedstoneSMP.redstoneWirelessConnection.onPacketData(entityplayer, payload);
-    }
 }

@@ -15,41 +15,12 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
 public class TriangulatorConnection extends NetworkConnections {
 
-	public TriangulatorConnection(String channel) {
-		super(channel);
+	public TriangulatorConnection(EntityPlayer entityplayer, String channel) {
+		super(entityplayer, channel);
 	}
 
 	@Override
-	public void onPacketData(NetworkManager network, String channel,
-			byte[] bytes) {
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				bytes));
-		try {
-			World world = WirelessRedstone.getWorld(network);
-			EntityPlayer entityplayer = WirelessRedstone.getPlayer(network);
-			int packetID = data.read();
-			switch (packetID) {
-			case PacketIds.ADDON:
-				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
-				pWT.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWT, world,
-						entityplayer);
-				break;
-			case PacketIds.GUI:
-				PacketWirelessTriangulatorGui pWTG = new PacketWirelessTriangulatorGui();
-				pWTG.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWTG, world,
-						entityplayer);
-				break;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	@Override
-	public void onPacketData(EntityPlayer entityplayer,
-			Packet250CustomPayload packet) {
+	public void onPacketData(Packet250CustomPayload packet) {
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				packet.data));
 		try {

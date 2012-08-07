@@ -84,9 +84,6 @@ public class WirelessRemote {
 	}
 
 	private static void registerConnHandler() {
-		wirelessRemoteConnection = new WirelessRemoteConnection("WIFI-REMOTE");
-		wirelessRemoteConnection.onLogin(null, null,
-				mod_WirelessRemoteSMP.instance);
 	}
 
 	private static void addEtherOverride() {

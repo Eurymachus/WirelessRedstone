@@ -55,8 +55,8 @@ public class mod_PowerConfiguratorSMP extends BaseMod {
 	}
 	
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		PowerConfiguratorSMP.powerConfigConnection.onPacketData(entityplayer, payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		PowerConfiguratorSMP.powerConfigConnection.onPacketData(payload);
 	}
 
 	@Override

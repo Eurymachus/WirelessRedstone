@@ -57,9 +57,6 @@ public class WirelessTriangulator {
 	}
 
 	private static void registerConnHandler() {
-		triangulatorConnection = new TriangulatorConnection("WIFI-TRIANG");
-		triangulatorConnection.onLogin(null, null,
-				mod_WirelessTriangulatorSMP.instance);
 	}
 
 	private static void addNames() {

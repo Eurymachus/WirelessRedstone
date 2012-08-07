@@ -54,10 +54,8 @@ public class mod_WirelessClockerSMP extends BaseMod {
 	}
 
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer,
-			Packet250CustomPayload payload) {
-		WirelessClockerSMP.wirelessClockerConnection.onPacketData(entityplayer,
-				payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		WirelessClockerSMP.wirelessClockerConnection.onPacketData(payload);
 	}
 
 	@Override

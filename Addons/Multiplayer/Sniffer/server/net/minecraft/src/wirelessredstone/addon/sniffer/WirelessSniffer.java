@@ -67,8 +67,6 @@ public class WirelessSniffer {
 	}
 
 	private static void registerConnHandler() {
-		snifferConnection = new SnifferConnection("SNIFFER");
-		snifferConnection.onLogin(null, null, mod_WirelessSnifferSMP.instance);
 	}
 
 	public static void loadItemTextures() {

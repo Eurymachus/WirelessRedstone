@@ -55,8 +55,8 @@ public class mod_WirelessSnifferSMP extends BaseMod {
 	}
 	
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		WirelessSnifferSMP.snifferConnection.onPacketData(entityplayer, payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		WirelessSnifferSMP.snifferConnection.onPacketData(payload);
 	}
 
 	@Override

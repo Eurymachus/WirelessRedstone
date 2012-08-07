@@ -16,39 +16,8 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
 public class SnifferConnection extends NetworkConnections {
 
-	public SnifferConnection(String channel) {
-		super(channel);
-	}
-
-	@Override
-	public void onPacketData(NetworkManager network, String channel,
-			byte[] bytes) {
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				bytes));
-		try {
-			World world = WirelessRedstone.getWorld(network);
-			EntityPlayer player = WirelessRedstone.getPlayer(network);
-			int packetID = data.read();
-			switch (packetID) {
-			case PacketIds.ADDON:
-				PacketWirelessSnifferSettings pWS = new PacketWirelessSnifferSettings();
-				pWS.readData(data);
-				PacketHandlerWirelessSniffer.handlePacket(pWS, world, player);
-				break;
-			case PacketIds.ETHER:
-				PacketWirelessSnifferEtherCopy pWSEC = new PacketWirelessSnifferEtherCopy();
-				pWSEC.readData(data);
-				PacketHandlerWirelessSniffer.handlePacket(pWSEC, world, player);
-				break;
-			case PacketIds.GUI:
-				PacketWirelessSnifferOpenGui pWSG = new PacketWirelessSnifferOpenGui();
-				pWSG.readData(data);
-				PacketHandlerWirelessSniffer.handlePacket(pWSG, world, player);
-				break;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	public SnifferConnection(EntityPlayer entityplayer, String channel) {
+		super(entityplayer, channel);
 	}
 
 	@Override
@@ -61,8 +30,7 @@ public class SnifferConnection extends NetworkConnections {
 	}
 
 	@Override
-	public void onPacketData(EntityPlayer entityplayer,
-			Packet250CustomPayload packet) {
+	public void onPacketData(Packet250CustomPayload packet) {
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				packet.data));
 		try {

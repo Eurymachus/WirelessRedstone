@@ -46,9 +46,6 @@ public class PowerConfigurator {
 	}
 
 	private static void registerConnHandler() {
-		powerConfigConnection = new PowerConfigConnection("WIFI-POWERC");
-		powerConfigConnection.onLogin(null, null,
-				mod_PowerConfiguratorSMP.instance);
 	}
 
 	private static void initItem() {

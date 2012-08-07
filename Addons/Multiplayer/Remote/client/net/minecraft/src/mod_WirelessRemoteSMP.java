@@ -55,8 +55,8 @@ public class mod_WirelessRemoteSMP extends BaseMod {
 	}
 	
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		WirelessRemoteSMP.wirelessRemoteConnection.onPacketData(entityplayer, payload);
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		WirelessRemoteSMP.wirelessRemoteConnection.onPacketData(payload);
 	}
 
 	@Override

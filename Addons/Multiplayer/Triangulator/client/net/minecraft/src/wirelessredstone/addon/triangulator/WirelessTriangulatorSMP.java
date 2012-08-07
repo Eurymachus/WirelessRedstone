@@ -2,6 +2,7 @@ package net.minecraft.src.wirelessredstone.addon.triangulator;
 
 import net.minecraft.src.mod_WirelessTriangulatorSMP;
 import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.overrides.RedstoneEtherOverrideTriangulator;
@@ -57,7 +58,7 @@ public class WirelessTriangulatorSMP {
 	}
 
 	private static void registerConnHandler() {
-		triangulatorConnection = new TriangulatorConnection("WIFI-TRIANG");
+		triangulatorConnection = new TriangulatorConnection(WirelessRedstone.getPlayer(), "WIFI-TRIANG");
 		triangulatorConnection.onLogin(null, null, mod_WirelessTriangulatorSMP.instance);
 	}
 
