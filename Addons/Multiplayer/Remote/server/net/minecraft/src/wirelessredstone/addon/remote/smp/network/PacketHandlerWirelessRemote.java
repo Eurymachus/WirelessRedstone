@@ -16,9 +16,7 @@ package net.minecraft.src.wirelessredstone.addon.remote.smp.network;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
@@ -26,6 +24,7 @@ import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.Packet
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.packet.PacketWirelessRemoteSettings;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketUpdate;
 
 public class PacketHandlerWirelessRemote {
@@ -88,23 +87,19 @@ public class PacketHandlerWirelessRemote {
 
 		public static void sendWirelessRemoteToAll(String command, World world,
 				WirelessRemoteDevice remote) {
-			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings("updateRemote");
+			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(
+					"updateRemote");
 			packet.setRemoteID(remote.getDeviceData().getID());
 			packet.setFreq(remote.getFreq());
 			WirelessCoordinates coords = remote.getCoords();
 			packet.setPosition(coords.getX(), coords.getY(), coords.getZ());
 			boolean state = false;
-			if (command.equals("activateRemote")) state = true;
+			if (command.equals("activateRemote"))
+				state = true;
 			packet.setState(state);
-			for (int j = 0; j < world.playerEntities.size(); j++) {
-				EntityPlayerMP entityplayermp = (EntityPlayerMP) world.playerEntities
-						.get(j);
-				if (Math.abs(entityplayermp.posX-coords.getX()) <= 16
-						&& Math.abs(entityplayermp.posY-coords.getY()) <= 16
-						&& Math.abs(entityplayermp.posZ-coords.getZ()) <= 16)
-					entityplayermp.playerNetServerHandler.netManager
-							.addToSendQueue(packet.getPacket());
-			}
+			PacketHandlerRedstoneWireless.sendToAllPlayers(world,
+					remote.getOwner(), packet.getPacket(), packet.xPosition,
+					packet.yPosition, packet.zPosition, false);
 		}
 	}
 }
