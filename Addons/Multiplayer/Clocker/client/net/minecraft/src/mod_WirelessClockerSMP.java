@@ -14,10 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClockerSMP;
 
-public class mod_WirelessClockerSMP extends BaseMod {
-	public static BaseMod instance;
+public class mod_WirelessClockerSMP extends NetworkMod {
+	public NetworkMod instance;
 
 	public mod_WirelessClockerSMP() {
 		/*
@@ -54,14 +55,17 @@ public class mod_WirelessClockerSMP extends BaseMod {
 	}
 
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer,
-			Packet250CustomPayload payload) {
-		WirelessClockerSMP.wirelessClockerConnection.onPacketData(entityplayer,
-				payload);
+	public String getVersion() {
+		return "1.0";
 	}
 
 	@Override
-	public String getVersion() {
-		return "1.0";
+	public boolean clientSideRequired() {
+		return true;
+	}
+
+	@Override
+	public boolean serverSideRequired() {
+		return false;
 	}
 }

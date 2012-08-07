@@ -17,8 +17,8 @@ package net.minecraft.src;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.powerc.PowerConfiguratorSMP;
 
-public class mod_PowerConfiguratorSMP extends BaseMod {
-	public static BaseMod instance;
+public class mod_PowerConfiguratorSMP extends NetworkMod {
+	public static NetworkMod instance;
 
 	public mod_PowerConfiguratorSMP() {
 		/*
@@ -52,11 +52,6 @@ public class mod_PowerConfiguratorSMP extends BaseMod {
 
 	@Override
 	public void load() {
-	}
-	
-	@Override
-	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		PowerConfiguratorSMP.powerConfigConnection.onPacketData(entityplayer, payload);
 	}
 
 	@Override

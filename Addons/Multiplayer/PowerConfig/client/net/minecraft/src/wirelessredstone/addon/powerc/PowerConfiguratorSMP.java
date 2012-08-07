@@ -1,15 +1,13 @@
 package net.minecraft.src.wirelessredstone.addon.powerc;
 
-import net.minecraft.src.mod_PowerConfiguratorSMP;
 import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.PowerConfigConnection;
+import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.powerc.smp.overrides.GuiRedstoneWirelessPowerCOverrideSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 
 public class PowerConfiguratorSMP {
 	public static boolean isLoaded = false;
-	public static PowerConfigConnection powerConfigConnection;
 
 	public static boolean initialize() {
 		try {
@@ -30,8 +28,7 @@ public class PowerConfiguratorSMP {
 	}
 
 	private static void registerConnHandler() {
-		powerConfigConnection = new PowerConfigConnection("WIFI-POWERC");
-		powerConfigConnection.onLogin(null, null, mod_PowerConfiguratorSMP.instance);
+		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 	}
 
 	private static void addBaseModOverride() {

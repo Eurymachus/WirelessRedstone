@@ -1,7 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.sniffer;
 
 import java.util.HashMap;
-import java.util.List;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.EntityPlayer;
@@ -11,16 +10,17 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessSnifferSMP;
+import net.minecraft.src.forge.DimensionManager;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferDevice;
+import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.PacketHandlerWirelessSniffer;
-import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.SnifferConnection;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessReadWriteLock;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 
 public class WirelessSniffer {
 	public static boolean isLoaded = false;
@@ -30,7 +30,6 @@ public class WirelessSniffer {
 	public static int ticksInGame = 0;
 	public static HashMap<EntityPlayer, WirelessSnifferDevice> sniffers;
 	private static WirelessReadWriteLock lock;
-	public static NetworkConnections snifferConnection;
 
 	public static boolean initialize() {
 		try {
@@ -67,8 +66,7 @@ public class WirelessSniffer {
 	}
 
 	private static void registerConnHandler() {
-		snifferConnection = new SnifferConnection("SNIFFER");
-		snifferConnection.onLogin(null, null, mod_WirelessSnifferSMP.instance);
+		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 	}
 
 	public static void loadItemTextures() {
@@ -183,12 +181,15 @@ public class WirelessSniffer {
 	}
 
 	public static boolean onTickInGame(MinecraftServer mcServer) {
-		List players = mcServer.configManager.playerEntities;
-		for (int j = 0; j < players.size(); j++) {
-			EntityPlayerMP player = (EntityPlayerMP) players.get(j);
-			if (sniffers.containsKey(player)) {
-				if (sniffers.get(player).isBeingHeld()) {
-					activateSniffer(player.worldObj, player);
+		World[] worlds = DimensionManager.getWorlds();
+		for (int i = 0; i < worlds.length; i++) {
+			for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
+				EntityPlayerMP player = (EntityPlayerMP) worlds[i].playerEntities
+						.get(j);
+				if (sniffers.containsKey(player)) {
+					if (sniffers.get(player).isBeingHeld()) {
+						activateSniffer(worlds[i], player);
+					}
 				}
 			}
 		}

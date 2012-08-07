@@ -6,17 +6,15 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.clocker.block.BlockRedstoneWirelessClocker;
 import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.PacketHandlerWirelessClocker;
 import net.minecraft.src.wirelessredstone.addon.clocker.tileentity.TileEntityRedstoneWirelessClocker;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 
 public class WirelessClocker {
-	public static boolean wirelessClocker = false;
-
 	public static Block blockClock;
 
 	public static int clockID = 128;
@@ -27,20 +25,14 @@ public class WirelessClocker {
 	public static int maxClockFreq = 2000000000;
 	public static int minClockFreq = 200;
 
-	public static NetworkConnections wirelessClockerConnection;
-
 	public static boolean initialize() {
-		registerConnHandler();
+		MinecraftForge.registerConnectionHandler(new NetworkConnection());
 		loadConfig();
 		loadBlockTextures();
 		initBlock();
 		addRecipes();
 		addBlock();
 		return true;
-	}
-
-	private static void registerConnHandler() {
-		wirelessClockerConnection = new NetworkConnection("CLOCKER");
 	}
 
 	private static void loadBlockTextures() {

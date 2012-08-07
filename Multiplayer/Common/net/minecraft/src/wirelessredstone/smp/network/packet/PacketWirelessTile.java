@@ -6,8 +6,7 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless.LogLevel;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class PacketWirelessTile extends PacketWireless implements
-		IRedstoneWirelessData {
+public class PacketWirelessTile extends PacketWireless implements IRedstoneWirelessData {
 	public PacketWirelessTile() {
 		super(PacketIds.TILE);
 	}

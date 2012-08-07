@@ -1,7 +1,6 @@
 package net.minecraft.src.wirelessredstone;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.src.Block;
@@ -15,7 +14,6 @@ import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstoneSMP;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
@@ -26,9 +24,8 @@ import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideServer;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
@@ -57,13 +54,11 @@ public class WirelessRedstone {
 	public static int maxEtherFrequencies = 10000;
 
 	private static List<BaseModOverride> overrides;
-	//public static HashMap<EntityPlayerMP, NetworkConnections> redstoneWirelessConnection = new HashMap();
-	public static NetworkConnections redstoneWirelessConnection;
 
 	public static boolean initialize() {
 		try {
 			overrides = new ArrayList();
-			registerConnHandler();
+			MinecraftForge.registerConnectionHandler(new NetworkConnection());
 
 			loadConfig();
 			addEtherOverrides();
@@ -106,10 +101,6 @@ public class WirelessRedstone {
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	private static void registerConnHandler() {
-		//MinecraftForge.registerConnectionHandler(redstoneWirelessConnection);
 	}
 
 	private static void addEtherOverrides() {
@@ -228,14 +219,15 @@ public class WirelessRedstone {
 			}
 		}
 	}
-
-	public static Entity getEntityByID(World world, EntityPlayer entityplayer,
-			int entityId) {
+	
+	public static Entity getEntityByID(World world, EntityPlayer entityplayer, int entityId) {
 		if (entityId == entityplayer.entityId) {
 			return WirelessRedstone.getPlayer();
 		} else {
-			for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entity = (Entity) world.loadedEntityList.get(i);
+			for (int i = 0; i < world.loadedEntityList
+					.size(); ++i) {
+				Entity entity = (Entity) world.loadedEntityList
+						.get(i);
 
 				if (entity == null) {
 					return null;
@@ -249,7 +241,7 @@ public class WirelessRedstone {
 		}
 	}
 
-	public static EntityPlayer getPlayer() {
+	private static Entity getPlayer() {
 		return null;
 	}
 }

@@ -14,11 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulatorSMP;
-import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 
-public class mod_WirelessTriangulatorSMP extends BaseMod {
-	public static BaseMod instance;
+public class mod_WirelessTriangulatorSMP extends NetworkMod {
+	public static NetworkMod instance;
 
 	public mod_WirelessTriangulatorSMP() {
 		instance = this;
@@ -44,11 +44,6 @@ public class mod_WirelessTriangulatorSMP extends BaseMod {
 	public String getPriorities() {
 		return "after:mod_WirelessTriangulator;after:mod_WirelessRedstoneSMP";
 	}
-	
-	@Override
-    public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		WirelessTriangulatorSMP.triangulatorConnection.onPacketData(entityplayer, payload);
-    }
 
 	@Override
 	public void load() {

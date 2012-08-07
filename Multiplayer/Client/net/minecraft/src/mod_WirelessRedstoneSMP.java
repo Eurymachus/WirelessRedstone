@@ -14,14 +14,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 
-public class mod_WirelessRedstoneSMP extends BaseMod {
+public class mod_WirelessRedstoneSMP extends NetworkMod {
 
-	public static BaseMod instance;
+	public static NetworkMod instance;
 
 	@Override
 	public void modsLoaded() {
@@ -68,20 +67,14 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 	@Override
 	public void load() {
 	}
-	
+
 	@Override
-	public void onClientLogin(EntityPlayer entityplayer) {
+	public boolean clientSideRequired() {
+		return true;
 	}
-	
+
 	@Override
-	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		ModLoader.getLogger().warning("PacketReceived-WR");
-		((RedstoneWirelessConnection)WirelessRedstoneSMP.redstoneWirelessConnection).onPacketData(payload);
+	public boolean serverSideRequired() {
+		return false;
 	}
-	
-	@Override
-    public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		ModLoader.getLogger().warning("PacketReceived-WR");
-		WirelessRedstoneSMP.redstoneWirelessConnection.onPacketData(entityplayer, payload);
-    }
 }

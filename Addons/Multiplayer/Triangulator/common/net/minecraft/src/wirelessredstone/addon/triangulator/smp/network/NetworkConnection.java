@@ -4,20 +4,18 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
-import net.minecraft.src.Packet250CustomPayload;
+import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
+import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.packet.PacketWirelessTriangulatorGui;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.packet.PacketWirelessTriangulatorSettings;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
+import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
-public class TriangulatorConnection extends NetworkConnections {
-
-	public TriangulatorConnection(String channel) {
-		super(channel);
-	}
+public class NetworkConnection implements INetworkConnections {
 
 	@Override
 	public void onPacketData(NetworkManager network, String channel,
@@ -48,33 +46,15 @@ public class TriangulatorConnection extends NetworkConnections {
 	}
 
 	@Override
-	public void onPacketData(EntityPlayer entityplayer,
-			Packet250CustomPayload packet) {
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				packet.data));
-		try {
-			int packetID = data.read();
-			switch (packetID) {
-			case PacketIds.ADDON:
-				PacketWirelessTriangulatorSettings pWT = new PacketWirelessTriangulatorSettings();
-				pWT.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWT,
-						entityplayer.worldObj, entityplayer);
-				break;
-			case PacketIds.GUI:
-				PacketWirelessTriangulatorGui pWTG = new PacketWirelessTriangulatorGui();
-				pWTG.readData(data);
-				PacketHandlerWirelessTriangulator.handlePacket(pWTG,
-						entityplayer.worldObj, entityplayer);
-				break;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	public void onConnect(NetworkManager network) {
 	}
 
 	@Override
-	public void onConnect(NetworkManager network) {
+	public void onLogin(NetworkManager network, Packet1Login login) {
+		MessageManager.getInstance().registerChannel(network, this, "WIFI-TRI");
+		ModLoader.getLogger().fine(
+				"Wireless Redstone : Triangulator Registered for - "
+						+ WirelessRedstone.getPlayer(network).username);
 	}
 
 	@Override

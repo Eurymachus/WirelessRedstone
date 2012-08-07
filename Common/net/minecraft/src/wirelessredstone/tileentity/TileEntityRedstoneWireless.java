@@ -332,10 +332,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public Packet getDescriptionPacket() {
 		return TileEntityRedstoneWirelessInjector.getDescriptionPacket(this);
 	}
-
+	
 	public void handleData(IRedstoneWirelessData data) {
 		boolean prematureExit = false;
-
+		
 		for (TileEntityRedstoneWirelessOverride override : overrides) {
 			if (override.beforeHandleData(this, data)) {
 				prematureExit = true;

@@ -15,10 +15,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 
-public class mod_WirelessSnifferSMP extends BaseMod {
-	public static BaseMod instance;
+public class mod_WirelessSnifferSMP extends NetworkMod {
+	public static NetworkMod instance;
 
 	@Override
 	public void modsLoaded() {
@@ -44,20 +45,6 @@ public class mod_WirelessSnifferSMP extends BaseMod {
 	@Override
 	public String getVersion() {
 		return "1.0";
-	}
-
-	@Override
-	public void onClientLogin(EntityPlayer entityplayer) {
-		WirelessSniffer.snifferConnection
-				.onLogin(
-						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						null, mod_WirelessSnifferSMP.instance);
-	}
-
-	@Override
-	public void onPacket250Received(EntityPlayer entityplayer,
-			Packet250CustomPayload payload) {
-		WirelessSniffer.snifferConnection.onPacketData(entityplayer, payload);
 	}
 
 	@Override

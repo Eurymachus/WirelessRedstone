@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone.addon.clocker.smp.network;
+package net.minecraft.src.wirelessredstone.smp.network;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -10,11 +10,11 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import net.minecraft.src.forge.MessageManager;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.packet.PacketWirelessClockerOpenGui;
-import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.packet.PacketWirelessClockerSettings;
-import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.packet.PacketWirelessClockerTile;
 import net.minecraft.src.wirelessredstone.smp.INetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketRedstoneWirelessOpenGui;
+import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWirelessTile;
 
 public class NetworkConnection implements INetworkConnections {
 
@@ -27,22 +27,21 @@ public class NetworkConnection implements INetworkConnections {
 			World world = WirelessRedstone.getWorld(network);
 			EntityPlayer player = WirelessRedstone.getPlayer(network);
 			int packetID = data.read();
-
 			switch (packetID) {
-			case PacketIds.ADDON:
-				PacketWirelessClockerSettings pWCB = new PacketWirelessClockerSettings();
-				pWCB.readData(data);
-				PacketHandlerWirelessClocker.handlePacket(pWCB, world, player);
+			case PacketIds.ETHER:
+				PacketRedstoneEther pRE = new PacketRedstoneEther();
+				pRE.readData(data);
+				PacketHandlerRedstoneWireless.handlePacket(pRE, world, player);
 				break;
 			case PacketIds.GUI:
-				PacketWirelessClockerOpenGui pWCG = new PacketWirelessClockerOpenGui();
-				pWCG.readData(data);
-				PacketHandlerWirelessClocker.handlePacket(pWCG, world, player);
+				PacketRedstoneWirelessOpenGui pORW = new PacketRedstoneWirelessOpenGui();
+				pORW.readData(data);
+				PacketHandlerRedstoneWireless.handlePacket(pORW, world, player);
 				break;
 			case PacketIds.TILE:
-				PacketWirelessClockerTile pWCT = new PacketWirelessClockerTile();
-				pWCT.readData(data);
-				PacketHandlerWirelessClocker.handlePacket(pWCT, world, player);
+				PacketWirelessTile pWT = new PacketWirelessTile();
+				pWT.readData(data);
+				PacketHandlerRedstoneWireless.handlePacket(pWT, world, player);
 				break;
 			}
 		} catch (Exception ex) {
@@ -56,10 +55,9 @@ public class NetworkConnection implements INetworkConnections {
 
 	@Override
 	public void onLogin(NetworkManager network, Packet1Login login) {
-		MessageManager.getInstance().registerChannel(network, this,
-				"WIFI-CLOCKER");
+		MessageManager.getInstance().registerChannel(network, this, "WIFI");
 		ModLoader.getLogger().fine(
-				"Wireless Redstone : Clocker Registered for - "
+				"Wireless Redstone : Wireless Redstone Registered for - "
 						+ WirelessRedstone.getPlayer(network).username);
 	}
 
