@@ -18,9 +18,9 @@ import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 
-public class mod_WirelessRedstoneSMP extends NetworkMod {
+public class mod_WirelessRedstoneSMP extends BaseMod {
 
-	public static NetworkMod instance;
+	public static BaseMod instance;
 
 	@Override
 	public void modsLoaded() {
@@ -67,14 +67,9 @@ public class mod_WirelessRedstoneSMP extends NetworkMod {
 	@Override
 	public void load() {
 	}
-
+	
 	@Override
-	public boolean clientSideRequired() {
-		return true;
-	}
-
-	@Override
-	public boolean serverSideRequired() {
-		return false;
-	}
+    public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
+		WirelessRedstoneSMP.redstoneWirelessConnection.onPacketData(entityplayer, payload);
+    }
 }

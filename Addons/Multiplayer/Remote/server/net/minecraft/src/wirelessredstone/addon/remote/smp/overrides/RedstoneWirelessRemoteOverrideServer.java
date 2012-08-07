@@ -1,6 +1,5 @@
 package net.minecraft.src.wirelessredstone.addon.remote.smp.overrides;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
@@ -12,7 +11,8 @@ public class RedstoneWirelessRemoteOverrideServer implements
 	@Override
 	public boolean beforeTransmitRemote(String command, World world,
 			WirelessRemoteDevice remote) {
-		PacketHandlerWirelessRemote.PacketHandlerOutput.sendWirelessRemoteToAll(command, world, remote);
+		PacketHandlerWirelessRemote.PacketHandlerOutput
+				.sendWirelessRemoteToAll(command, world, remote);
 		return false;
 	}
 

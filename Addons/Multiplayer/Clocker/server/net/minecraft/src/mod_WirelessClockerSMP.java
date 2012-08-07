@@ -14,13 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 
-public class mod_WirelessClockerSMP extends NetworkMod {
-	public boolean wirelessClocker = false;
-
-	public NetworkMod instance;
+public class mod_WirelessClockerSMP extends BaseMod {
+	public static BaseMod instance;
 
 	public mod_WirelessClockerSMP() {
 		instance = this;
@@ -28,9 +25,9 @@ public class mod_WirelessClockerSMP extends NetworkMod {
 
 	@Override
 	public void modsLoaded() {
-		if (!wirelessClocker
+		if (!WirelessClocker.wirelessClocker
 				&& ModLoader.isModLoaded("mod_WirelessRedstoneSMP")) {
-			wirelessClocker = WirelessClocker.initialize();
+			WirelessClocker.wirelessClocker = WirelessClocker.initialize();
 		}
 	}
 
@@ -44,17 +41,22 @@ public class mod_WirelessClockerSMP extends NetworkMod {
 	}
 
 	@Override
+	public void onClientLogin(EntityPlayer entityplayer) {
+		WirelessClocker.wirelessClockerConnection
+				.onLogin(
+						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
+						null, mod_WirelessClockerSMP.instance);
+	}
+
+	@Override
+	public void onPacket250Received(EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		WirelessClocker.wirelessClockerConnection.onPacketData(entityplayer,
+				payload);
+	}
+
+	@Override
 	public String getVersion() {
 		return "1.0";
-	}
-
-	@Override
-	public boolean clientSideRequired() {
-		return true;
-	}
-
-	@Override
-	public boolean serverSideRequired() {
-		return true;
 	}
 }

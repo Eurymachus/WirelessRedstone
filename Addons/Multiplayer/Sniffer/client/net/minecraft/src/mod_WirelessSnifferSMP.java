@@ -17,8 +17,8 @@ package net.minecraft.src;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSnifferSMP;
 
-public class mod_WirelessSnifferSMP extends NetworkMod {
-	NetworkMod instance;
+public class mod_WirelessSnifferSMP extends BaseMod {
+	public static BaseMod instance;
 
 	public mod_WirelessSnifferSMP() {
 		/*
@@ -52,6 +52,11 @@ public class mod_WirelessSnifferSMP extends NetworkMod {
 
 	@Override
 	public void load() {
+	}
+	
+	@Override
+	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
+		WirelessSnifferSMP.snifferConnection.onPacketData(entityplayer, payload);
 	}
 
 	@Override

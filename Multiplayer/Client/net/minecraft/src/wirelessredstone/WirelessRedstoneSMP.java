@@ -1,8 +1,10 @@
 package net.minecraft.src.wirelessredstone;
 
-import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.mod_WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnection;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
+import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
@@ -20,9 +22,10 @@ import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public class WirelessRedstoneSMP {
 	public static boolean isLoaded = false;
+	public static NetworkConnections redstoneWirelessConnection;
 
 	public static boolean initialize() {
-		MinecraftForge.registerConnectionHandler(new NetworkConnection("WIFI"));
+		registerConnHandler();
 
 		GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
 		WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
@@ -41,5 +44,10 @@ public class WirelessRedstoneSMP {
 		BaseModOverrideSMP baseModOverride = new BaseModOverrideSMP();
 		WirelessRedstone.addOverride(baseModOverride);
 		return true;
+	}
+
+	private static void registerConnHandler() {
+		redstoneWirelessConnection = new RedstoneWirelessConnection("WIFI");
+		ModLoader.registerPacketChannel(mod_WirelessRedstoneSMP.instance, redstoneWirelessConnection.channel);
 	}
 }

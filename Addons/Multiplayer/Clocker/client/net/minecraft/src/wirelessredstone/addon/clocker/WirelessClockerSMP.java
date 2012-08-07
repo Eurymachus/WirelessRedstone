@@ -1,18 +1,20 @@
 package net.minecraft.src.wirelessredstone.addon.clocker;
 
-import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.mod_WirelessClockerSMP;
 import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.clocker.smp.overrides.GuiRedstoneWirelessClockerOverrideSMP;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.BlockRedstoneWirelessOverrideSMP;
 import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 
 public class WirelessClockerSMP {
 	public static boolean isLoaded = false;
+	public static NetworkConnections wirelessClockerConnection;
 
 	public static boolean initialize() {
 		try {
@@ -39,7 +41,10 @@ public class WirelessClockerSMP {
 	}
 
 	private static void registerConnHandler() {
-		MinecraftForge.registerConnectionHandler(new NetworkConnection());
+		wirelessClockerConnection = new NetworkConnection("CLOCKER");
+		wirelessClockerConnection.onLogin(null, null,
+				mod_WirelessClockerSMP.instance);
+
 	}
 
 	private static void addBlockOverride() {

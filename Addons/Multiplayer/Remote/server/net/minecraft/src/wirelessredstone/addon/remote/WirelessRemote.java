@@ -9,13 +9,13 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.forge.MinecraftForge;
+import net.minecraft.src.mod_WirelessRemoteSMP;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.BaseModOverrideRemote;
-import net.minecraft.src.wirelessredstone.addon.remote.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.PacketHandlerWirelessRemote;
+import net.minecraft.src.wirelessredstone.addon.remote.smp.network.WirelessRemoteConnection;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.BaseModOverrideRemoteServer;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.RedstoneEtherOverrideRemoteSMP;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.RedstoneWirelessRemoteOverrideServer;
@@ -23,6 +23,7 @@ import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 
 public class WirelessRemote {
 	public static boolean isLoaded = false;
@@ -36,6 +37,7 @@ public class WirelessRemote {
 	public static boolean duraTogg = true;
 	public static int maxPulseThreads = 2;
 	public static int remoteon, remoteoff;
+	public static NetworkConnections wirelessRemoteConnection;
 
 	public static boolean initialize() {
 		try {
@@ -82,7 +84,9 @@ public class WirelessRemote {
 	}
 
 	private static void registerConnHandler() {
-		MinecraftForge.registerConnectionHandler(new NetworkConnection());
+		wirelessRemoteConnection = new WirelessRemoteConnection("WIFI-REMOTE");
+		wirelessRemoteConnection.onLogin(null, null,
+				mod_WirelessRemoteSMP.instance);
 	}
 
 	private static void addEtherOverride() {

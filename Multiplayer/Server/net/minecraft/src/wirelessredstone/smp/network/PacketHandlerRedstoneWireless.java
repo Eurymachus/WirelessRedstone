@@ -85,7 +85,8 @@ public class PacketHandlerRedstoneWireless {
 
 		public static void sendEtherTileToAll(
 				TileEntityRedstoneWireless entity, World world, int delay) {
-			PacketRedstoneEther packet = prepareRedstoneEtherPacket(entity, world);
+			PacketRedstoneEther packet = prepareRedstoneEtherPacket(entity,
+					world);
 
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendEtherTileToAll:" + packet.toString(),
@@ -95,7 +96,8 @@ public class PacketHandlerRedstoneWireless {
 
 		public static void sendEtherTileTo(EntityPlayer entityplayermp,
 				TileEntityRedstoneWireless entity, World world, int delay) {
-			PacketRedstoneEther packet = prepareRedstoneEtherPacket(entity, world);
+			PacketRedstoneEther packet = prepareRedstoneEtherPacket(entity,
+					world);
 
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendEtherTileTo:" + entityplayermp.username + ":"
@@ -295,28 +297,34 @@ public class PacketHandlerRedstoneWireless {
 	}
 
 	public static void sendToAll(PacketUpdate packet) {
-		sendToAllWorlds(null, packet.getPacket(), packet.xPosition, packet.yPosition, packet.zPosition, true);
+		sendToAllWorlds(null, packet.getPacket(), packet.xPosition,
+				packet.yPosition, packet.zPosition, true);
 	}
-	
-	public static void sendToAllWorlds(EntityPlayer entityplayer, Packet packet, int x, int y, int z, boolean sendToPlayer) {
+
+	public static void sendToAllWorlds(EntityPlayer entityplayer,
+			Packet packet, int x, int y, int z, boolean sendToPlayer) {
 		World[] worlds = DimensionManager.getWorlds();
 		for (int i = 0; i < worlds.length; i++) {
-			sendToAllPlayers(worlds[i], entityplayer, packet, x, y, z, sendToPlayer);
+			sendToAllPlayers(worlds[i], entityplayer, packet, x, y, z,
+					sendToPlayer);
 		}
 	}
-	
-	public static void sendToAllPlayers(World world, EntityPlayer entityplayer, Packet packet, int x, int y, int z, boolean sendToPlayer) {
+
+	public static void sendToAllPlayers(World world, EntityPlayer entityplayer,
+			Packet packet, int x, int y, int z, boolean sendToPlayer) {
 		for (int j = 0; j < world.playerEntities.size(); j++) {
 			EntityPlayerMP entityplayermp = (EntityPlayerMP) world.playerEntities
 					.get(j);
 			boolean shouldSendToPlayer = true;
 			if (entityplayer != null) {
-				if (entityplayer.username.equals(entityplayermp.username) && !sendToPlayer) shouldSendToPlayer = false;
+				if (entityplayer.username.equals(entityplayermp.username)
+						&& !sendToPlayer)
+					shouldSendToPlayer = false;
 			}
 			if (shouldSendToPlayer) {
-				if (Math.abs(entityplayermp.posX-x) <= 16
-						&& Math.abs(entityplayermp.posY-y) <= 16
-						&& Math.abs(entityplayermp.posZ-z) <= 16)
+				if (Math.abs(entityplayermp.posX - x) <= 16
+						&& Math.abs(entityplayermp.posY - y) <= 16
+						&& Math.abs(entityplayermp.posZ - z) <= 16)
 					entityplayermp.playerNetServerHandler.netManager
 							.addToSendQueue(packet);
 			}

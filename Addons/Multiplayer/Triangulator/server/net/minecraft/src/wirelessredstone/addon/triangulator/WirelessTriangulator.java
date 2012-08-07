@@ -8,15 +8,14 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessTriangulatorSMP;
-import net.minecraft.src.forge.DimensionManager;
-import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
-import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.NetworkConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.PacketHandlerWirelessTriangulator;
+import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 
 public class WirelessTriangulator {
 	public static boolean isLoaded = false;
@@ -24,6 +23,7 @@ public class WirelessTriangulator {
 	public static int triangID = 6246;
 	public static int pulseTime = 2500;
 	public static int maxPulseThreads = 5;
+	public static NetworkConnections triangulatorConnection;
 	// public static HashMap<EntityPlayer, WirelessTriangulatorDevice>
 	// triangulators;
 	public static int ticksInGame = 0;
@@ -57,7 +57,9 @@ public class WirelessTriangulator {
 	}
 
 	private static void registerConnHandler() {
-		MinecraftForge.registerConnectionHandler(new NetworkConnection());
+		triangulatorConnection = new TriangulatorConnection("WIFI-TRIANG");
+		triangulatorConnection.onLogin(null, null,
+				mod_WirelessTriangulatorSMP.instance);
 	}
 
 	private static void addNames() {
@@ -120,29 +122,28 @@ public class WirelessTriangulator {
 
 	public static boolean tick(MinecraftServer mc) {
 		if (ticksInGame >= 40) {
-			World[] worlds = DimensionManager.getWorlds();
-			for (int i = 0; i < worlds.length; i++) {
-				for (int j = 0; j < worlds[i].playerEntities.size(); j++) {
-					EntityPlayerMP player = (EntityPlayerMP) worlds[i].playerEntities
-							.get(j);
-					if (player.getCurrentEquippedItem() != null
-							&& player.getCurrentEquippedItem().itemID == WirelessTriangulator.itemTriang.shiftedIndex) {
-						WirelessTriangulatorData data = WirelessTriangulator
-								.getDeviceData(player.getCurrentEquippedItem(),
-										player.worldObj, player);
-						int tx[] = RedstoneEther.getInstance()
-								.getClosestActiveTransmitter((int) player.posX,
-										(int) player.posY, (int) player.posZ,
-										data.getFreq());
-						if (tx == null) {
-							PacketHandlerWirelessTriangulator.PacketHandlerOutput
-									.sendWirelessTriangulatorZeroPacket(player,
-											data.getID());
-						} else {
-							PacketHandlerWirelessTriangulator.PacketHandlerOutput
-									.sendWirelessTriangulatorPacket(player, tx,
-											data.getID());
-						}
+			for (int j = 0; j < ModLoader.getMinecraftServerInstance().configManager.playerEntities
+					.size(); j++) {
+				EntityPlayerMP player = (EntityPlayerMP) ModLoader
+						.getMinecraftServerInstance().configManager.playerEntities
+						.get(j);
+				if (player.getCurrentEquippedItem() != null
+						&& player.getCurrentEquippedItem().itemID == WirelessTriangulator.itemTriang.shiftedIndex) {
+					WirelessTriangulatorData data = WirelessTriangulator
+							.getDeviceData(player.getCurrentEquippedItem(),
+									player.worldObj, player);
+					int tx[] = RedstoneEther.getInstance()
+							.getClosestActiveTransmitter((int) player.posX,
+									(int) player.posY, (int) player.posZ,
+									data.getFreq());
+					if (tx == null) {
+						PacketHandlerWirelessTriangulator.PacketHandlerOutput
+								.sendWirelessTriangulatorZeroPacket(player,
+										data.getID());
+					} else {
+						PacketHandlerWirelessTriangulator.PacketHandlerOutput
+								.sendWirelessTriangulatorPacket(player, tx,
+										data.getID());
 					}
 				}
 				ticksInGame = 0;

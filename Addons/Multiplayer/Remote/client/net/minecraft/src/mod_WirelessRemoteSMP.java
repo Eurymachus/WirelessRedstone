@@ -17,8 +17,8 @@ package net.minecraft.src;
 import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemoteSMP;
 
-public class mod_WirelessRemoteSMP extends NetworkMod {
-	public static NetworkMod instance;
+public class mod_WirelessRemoteSMP extends BaseMod {
+	public static BaseMod instance;
 
 	public mod_WirelessRemoteSMP() {
 		/*
@@ -52,6 +52,11 @@ public class mod_WirelessRemoteSMP extends NetworkMod {
 
 	@Override
 	public void load() {
+	}
+	
+	@Override
+	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
+		WirelessRemoteSMP.wirelessRemoteConnection.onPacketData(entityplayer, payload);
 	}
 
 	@Override
