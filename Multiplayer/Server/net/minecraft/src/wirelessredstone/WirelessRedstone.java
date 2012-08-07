@@ -1,6 +1,7 @@
 package net.minecraft.src.wirelessredstone;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.src.Block;
@@ -15,6 +16,7 @@ import net.minecraft.src.NetworkManager;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.mod_WirelessRedstoneSMP;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
@@ -55,6 +57,7 @@ public class WirelessRedstone {
 	public static int maxEtherFrequencies = 10000;
 
 	private static List<BaseModOverride> overrides;
+	//public static HashMap<EntityPlayerMP, NetworkConnections> redstoneWirelessConnection = new HashMap();
 	public static NetworkConnections redstoneWirelessConnection;
 
 	public static boolean initialize() {
@@ -106,9 +109,7 @@ public class WirelessRedstone {
 	}
 
 	private static void registerConnHandler() {
-		redstoneWirelessConnection = new RedstoneWirelessConnection("WIFI");
-		redstoneWirelessConnection.onLogin(null, null,
-				mod_WirelessRedstoneSMP.instance);
+		//MinecraftForge.registerConnectionHandler(redstoneWirelessConnection);
 	}
 
 	private static void addEtherOverrides() {
@@ -248,7 +249,7 @@ public class WirelessRedstone {
 		}
 	}
 
-	private static Entity getPlayer() {
+	public static EntityPlayer getPlayer() {
 		return null;
 	}
 }

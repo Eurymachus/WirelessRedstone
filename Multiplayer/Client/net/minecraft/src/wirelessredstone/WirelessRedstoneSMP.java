@@ -1,7 +1,9 @@
 package net.minecraft.src.wirelessredstone;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.mod_WirelessRedstoneSMP;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
@@ -25,7 +27,10 @@ public class WirelessRedstoneSMP {
 	public static NetworkConnections redstoneWirelessConnection;
 
 	public static boolean initialize() {
-		registerConnHandler();
+		//registerConnHandler();
+		WirelessRedstoneSMP.redstoneWirelessConnection = new RedstoneWirelessConnection(WirelessRedstone.getPlayer(), "WIFI");
+		WirelessRedstoneSMP.redstoneWirelessConnection.onLogin(null, null, mod_WirelessRedstoneSMP.instance);
+		ModLoader.getLogger().warning("Channel Mod is: " + FMLCommonHandler.instance().getModForChannel("WIFI"));
 
 		GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
 		WirelessRedstone.addGuiOverrideToReceiver(GUIOverride);
@@ -46,8 +51,10 @@ public class WirelessRedstoneSMP {
 		return true;
 	}
 
-	private static void registerConnHandler() {
+/*	private static void registerConnHandler() {
 		redstoneWirelessConnection = new RedstoneWirelessConnection("WIFI");
+		//MinecraftForge.registerConnectionHandler(redstoneWirelessConnection);
 		ModLoader.registerPacketChannel(mod_WirelessRedstoneSMP.instance, redstoneWirelessConnection.channel);
-	}
+		ModLoader.getLogger().warning("Mod is: " + FMLCommonHandler.instance().getModForChannel(redstoneWirelessConnection.channel).getName());
+	}*/
 }

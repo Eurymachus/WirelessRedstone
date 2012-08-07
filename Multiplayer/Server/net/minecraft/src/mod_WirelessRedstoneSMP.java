@@ -1,6 +1,9 @@
 package net.minecraft.src;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
+import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 
 public class mod_WirelessRedstoneSMP extends BaseMod {
 	public static BaseMod instance;
@@ -24,22 +27,46 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 	public String getVersion() {
 		return "1.6";
 	}
-
-	/**
-	 * Called when a new client logs in.
-	 * 
-	 * @param player
-	 */
-	public void onClientLogin(EntityPlayer player) {
-		WirelessRedstone.redstoneWirelessConnection.onLogin(
-				((EntityPlayerMP) player).playerNetServerHandler.netManager,
-				null, mod_WirelessRedstoneSMP.instance);
-	}
+	
+/*	@Override
+	public void onClientLogin(EntityPlayer entityplayer) {
+		EntityPlayerMP entityplayermp = (EntityPlayerMP)entityplayer;
+		NetworkConnections connection;
+		if (WirelessRedstone.redstoneWirelessConnection.containsKey(entityplayermp)) {
+			connection = WirelessRedstone.redstoneWirelessConnection.get(entityplayermp);
+		} else {
+			WirelessRedstone.redstoneWirelessConnection.put(entityplayermp, new RedstoneWirelessConnection("WIFI"));
+			connection = WirelessRedstone.redstoneWirelessConnection.get(entityplayermp);
+		}
+		connection.onLogin(((EntityPlayerMP)entityplayer).playerNetServerHandler.netManager, null, this.instance);
+		ModLoader.getLogger().warning("Mod is: " + FMLCommonHandler.instance().getModForChannel(connection.channel).getName());
+	}*/
 
 	@Override
+	public void onClientLogin(EntityPlayer entityplayer) {
+		WirelessRedstone.redstoneWirelessConnection = new RedstoneWirelessConnection(((EntityPlayerMP)entityplayer).playerNetServerHandler.netManager, entityplayer, "WIFI");
+		WirelessRedstone.redstoneWirelessConnection.onLogin(((EntityPlayerMP)entityplayer).playerNetServerHandler.netManager, null, mod_WirelessRedstoneSMP.instance);
+		ModLoader.getLogger().warning("Channel Mod is: " + FMLCommonHandler.instance().getModForChannel("WIFI"));
+	}
+	
+	public void receiveCustomPacket(Packet250CustomPayload payload) {
+		((RedstoneWirelessConnection)WirelessRedstone.redstoneWirelessConnection).onPacketData(payload);
+	}
+
+/*	@Override
 	public void onPacket250Received(EntityPlayer entityplayer,
 			Packet250CustomPayload payload) {
-		WirelessRedstone.redstoneWirelessConnection.onPacketData(entityplayer,
+		ModLoader.getLogger().warning("PacketReceived-WR-Server");
+		NetworkConnections connection;
+		if (WirelessRedstone.redstoneWirelessConnection.containsKey((EntityPlayerMP)entityplayer)) {
+			connection = WirelessRedstone.redstoneWirelessConnection.get((EntityPlayerMP)entityplayer);
+		} else {
+			onClientLogin(entityplayer);
+			connection = WirelessRedstone.redstoneWirelessConnection.get((EntityPlayerMP)entityplayer);
+		}
+		if (connection != null) {
+			connection.onPacketData(entityplayer,
 				payload);
-	}
+		}
+	}*/
 }

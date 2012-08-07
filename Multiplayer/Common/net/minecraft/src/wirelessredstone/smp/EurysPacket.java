@@ -25,7 +25,6 @@ public abstract class EurysPacket extends Packet250CustomPayload {
 	public int xPosition;
 	public int yPosition;
 	public int zPosition;
-	public String channel;
 
 	public void setPosition(int x, int y, int z) {
 		this.xPosition = x;
