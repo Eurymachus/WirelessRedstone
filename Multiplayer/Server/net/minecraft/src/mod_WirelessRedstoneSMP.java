@@ -1,8 +1,8 @@
 package net.minecraft.src;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
+import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 
 public class mod_WirelessRedstoneSMP extends BaseMod {
@@ -30,20 +30,13 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
-		EntityPlayerMP entityplayermp = null;
-		if (entityplayer instanceof EntityPlayerMP) {
-			entityplayermp = (EntityPlayerMP)entityplayer;
-		}
-		if (entityplayermp != null) {
-			NetworkConnections connection;
-			if (!WirelessRedstone.redstoneWirelessConnection.containsKey(entityplayermp)) {
-				WirelessRedstone.redstoneWirelessConnection.put(entityplayermp, new RedstoneWirelessConnection(entityplayermp.playerNetServerHandler.netManager, entityplayermp, "WIFI"));
-			}
-			connection = WirelessRedstone.redstoneWirelessConnection.get(entityplayermp);
-			connection.onLogin(entityplayermp.playerNetServerHandler.netManager, null, mod_WirelessRedstoneSMP.instance);
-			ModLoader.getLogger().warning("Channel Mod is: " + FMLCommonHandler.instance().getModForChannel("WIFI"));
-		}
+		WirelessRedstone.addConnectionForPlayer(new RedstoneWirelessConnection(null, entityplayer, "WIFI"), entityplayer);
 	}
+
+    public void onClientLogout(EntityPlayer entityplayer)
+    {
+    	WirelessRedstone.removeConnectionForPlayer(entityplayer);
+    }
 	
 /*	public void receiveCustomPacket(Packet250CustomPayload payload) {
 		((RedstoneWirelessConnection)WirelessRedstone.redstoneWirelessConnection).onPacketData(payload);
@@ -52,17 +45,9 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 	@Override
     public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload)
     {
-		EntityPlayerMP entityplayermp = null;
-    	if (entityplayer instanceof EntityPlayerMP) {
-    		entityplayermp = (EntityPlayerMP)entityplayer;
-    	}
-    	if (entityplayermp != null) {
-			NetworkConnections connection;
-			if (!WirelessRedstone.redstoneWirelessConnection.containsKey(entityplayermp)) {
-				onClientLogin(entityplayer);
-			}
-			connection = WirelessRedstone.redstoneWirelessConnection.get(entityplayermp);
+		NetworkConnections connection = WirelessRedstone.getConnectionForPlayer("WIFI", entityplayer);
+		if (connection != null) {
 			connection.onPacketData(payload);
-    	}
+		}
     }
 }

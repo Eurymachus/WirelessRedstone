@@ -57,8 +57,52 @@ public class WirelessRedstone {
 	public static int maxEtherFrequencies = 10000;
 
 	private static List<BaseModOverride> overrides;
-	public static HashMap<EntityPlayerMP, NetworkConnections> redstoneWirelessConnection = new HashMap();
-	//public static NetworkConnections redstoneWirelessConnection;
+	public static HashMap<EntityPlayerMP, HashMap<String, NetworkConnections>> redstoneWirelessConnection = new HashMap();
+	
+	public static void addConnectionForPlayer(NetworkConnections connection, EntityPlayer entityplayer) {
+		EntityPlayerMP entityplayermp = null;
+		if (entityplayer instanceof EntityPlayerMP) {
+			entityplayermp = (EntityPlayerMP)entityplayer;
+		}
+		if (entityplayermp != null) {
+			if (redstoneWirelessConnection.containsKey(entityplayermp)) {
+				HashMap connectionList = redstoneWirelessConnection.get(entityplayermp);
+				if (!connectionList.containsKey(connection.channel)) {
+					connectionList.put(connection.channel, connection);
+					redstoneWirelessConnection.put(entityplayermp, connectionList);
+				}
+			}
+		}
+	}
+	
+	public static NetworkConnections getConnectionForPlayer(String channel, EntityPlayer entityplayer) {
+		EntityPlayerMP entityplayermp = null;
+		if (entityplayer instanceof EntityPlayerMP) {
+			entityplayermp = (EntityPlayerMP)entityplayer;
+		}
+		if (entityplayermp != null) {
+			if (redstoneWirelessConnection.containsKey(entityplayermp)) {
+				HashMap connectionList = redstoneWirelessConnection.get(entityplayermp);
+				if (connectionList.containsKey(channel)) {
+					return (NetworkConnections)connectionList.get(channel);
+				}
+			}
+		}
+		return null;
+	}
+
+	public static void removeConnectionForPlayer(EntityPlayer entityplayer) {
+    	EntityPlayerMP entityplayermp = null;
+    	if (entityplayer instanceof EntityPlayerMP) {
+    		entityplayermp = (EntityPlayerMP)entityplayer;
+    	}
+    	if (entityplayermp != null) {
+			NetworkConnections connection;
+			if (redstoneWirelessConnection.containsKey(entityplayermp)) {
+				redstoneWirelessConnection.remove(entityplayermp);
+			}
+    	}
+	}
 
 	public static boolean initialize() {
 		try {

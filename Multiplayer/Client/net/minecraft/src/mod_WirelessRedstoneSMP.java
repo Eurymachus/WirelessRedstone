@@ -15,8 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
+import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 
 public class mod_WirelessRedstoneSMP extends BaseMod {
@@ -68,9 +70,17 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 	@Override
 	public void load() {
 	}
+
+    public void serverConnect(NetClientHandler handler) {
+    	WirelessRedstoneSMP.addConnection(new RedstoneWirelessConnection(WirelessRedstone.getPlayer(), "WIFI"));
+		WirelessRedstoneSMP.getConnection("WIFI").onLogin(null, WirelessRedstone.getPlayer(), this.instance);
+	}
 	
 	@Override
 	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		((RedstoneWirelessConnection)WirelessRedstoneSMP.redstoneWirelessConnection).onPacketData(payload);
+		NetworkConnections connection = WirelessRedstoneSMP.getConnection("WIFI");
+		if (connection != null) {
+			connection.onPacketData(payload);
+		}
 	}
 }

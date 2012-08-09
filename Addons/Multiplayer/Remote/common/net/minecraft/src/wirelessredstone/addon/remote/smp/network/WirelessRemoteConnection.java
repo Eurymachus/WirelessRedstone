@@ -33,20 +33,23 @@ public class WirelessRemoteConnection extends NetworkConnections {
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				packet.data));
 		try {
-			World world = entityplayer.worldObj;
+			if (this.entityplayer == null) {
+				this.entityplayer = WirelessRedstone.getPlayer();
+			}
+			World world = this.entityplayer.worldObj;
 			int packetID = data.read();
 			switch (packetID) {
 			case PacketIds.ADDON:
 				PacketWirelessRemoteSettings pWR = new PacketWirelessRemoteSettings();
 				pWR.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pWR, world,
-						entityplayer);
+						this.entityplayer);
 				break;
 			case PacketIds.GUI:
 				PacketWirelessRemoteOpenGui pRG = new PacketWirelessRemoteOpenGui();
 				pRG.readData(data);
 				PacketHandlerWirelessRemote.handlePacket(pRG, world,
-						entityplayer);
+						this.entityplayer);
 				break;
 			}
 		} catch (Exception ex) {
