@@ -8,7 +8,6 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.forge.DimensionManager;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEtherNode;
@@ -216,6 +215,47 @@ public class PacketHandlerRedstoneWireless {
 				}
 			}
 		}
+
+		public static void sendToAll(PacketUpdate packet) {
+			sendToAllPlayers(null, null, packet.getPacket(), packet.xPosition,
+					packet.yPosition, packet.zPosition, true);
+		}
+
+		public static void sendToAllInWorld(World world,
+				EntityPlayer entityplayer, PacketUpdate packet,
+				boolean sendToPlayer) {
+			sendToAllPlayers(world, entityplayer, packet.getPacket(),
+					packet.xPosition, packet.yPosition, packet.zPosition,
+					sendToPlayer);
+		}
+
+		public static void sendToAllPlayers(World world,
+				EntityPlayer entityplayer, Packet packet, int x, int y, int z,
+				boolean sendToPlayer) {
+			List playersOnline;
+			if (world == null) {
+				playersOnline = ModLoader.getMinecraftServerInstance().configManager.playerEntities;
+			} else {
+				playersOnline = world.playerEntities;
+			}
+			for (int j = 0; j < playersOnline.size(); j++) {
+				EntityPlayerMP entityplayermp = (EntityPlayerMP) playersOnline
+						.get(j);
+				boolean shouldSendToPlayer = true;
+				if (entityplayer != null) {
+					if (entityplayer.username.equals(entityplayermp.username)
+							&& !sendToPlayer)
+						shouldSendToPlayer = false;
+				}
+				if (shouldSendToPlayer) {
+					if (Math.abs(entityplayermp.posX - x) <= 16
+							&& Math.abs(entityplayermp.posY - y) <= 16
+							&& Math.abs(entityplayermp.posZ - z) <= 16)
+						entityplayermp.playerNetServerHandler.netManager
+								.addToSendQueue(packet);
+				}
+			}
+		}
 	}
 
 	private static class PacketHandlerInput {
@@ -294,40 +334,5 @@ public class PacketHandlerRedstoneWireless {
 			TileEntityRedstoneWireless tileentity, World world) {
 		PacketWirelessTile out = new PacketWirelessTile("fetchTile", tileentity);
 		return out;
-	}
-
-	public static void sendToAll(PacketUpdate packet) {
-		sendToAllWorlds(null, packet.getPacket(), packet.xPosition,
-				packet.yPosition, packet.zPosition, true);
-	}
-
-	public static void sendToAllWorlds(EntityPlayer entityplayer,
-			Packet packet, int x, int y, int z, boolean sendToPlayer) {
-		World[] worlds = DimensionManager.getWorlds();
-		for (int i = 0; i < worlds.length; i++) {
-			sendToAllPlayers(worlds[i], entityplayer, packet, x, y, z,
-					sendToPlayer);
-		}
-	}
-
-	public static void sendToAllPlayers(World world, EntityPlayer entityplayer,
-			Packet packet, int x, int y, int z, boolean sendToPlayer) {
-		for (int j = 0; j < world.playerEntities.size(); j++) {
-			EntityPlayerMP entityplayermp = (EntityPlayerMP) world.playerEntities
-					.get(j);
-			boolean shouldSendToPlayer = true;
-			if (entityplayer != null) {
-				if (entityplayer.username.equals(entityplayermp.username)
-						&& !sendToPlayer)
-					shouldSendToPlayer = false;
-			}
-			if (shouldSendToPlayer) {
-				if (Math.abs(entityplayermp.posX - x) <= 16
-						&& Math.abs(entityplayermp.posY - y) <= 16
-						&& Math.abs(entityplayermp.posZ - z) <= 16)
-					entityplayermp.playerNetServerHandler.netManager
-							.addToSendQueue(packet);
-			}
-		}
 	}
 }

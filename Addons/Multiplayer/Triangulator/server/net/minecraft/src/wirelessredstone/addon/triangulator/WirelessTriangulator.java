@@ -11,7 +11,6 @@ import net.minecraft.src.mod_WirelessTriangulatorSMP;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.data.WirelessTriangulatorData;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.PacketHandlerWirelessTriangulator;
-import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.ether.RedstoneEther;
@@ -27,6 +26,7 @@ public class WirelessTriangulator {
 	// public static HashMap<EntityPlayer, WirelessTriangulatorDevice>
 	// triangulators;
 	public static int ticksInGame = 0;
+	public static String channel = "WR-TRIANG";
 
 	public static boolean initialize() {
 		try {

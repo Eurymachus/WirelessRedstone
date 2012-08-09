@@ -69,7 +69,7 @@ public class PacketHandlerRedstoneWireless {
 				if (tileentity != null
 						&& tileentity instanceof TileEntityRedstoneWireless) {
 
-					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless)tileentity; 
+					TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
 					tileentityredstonewireless.handleData(packet);
 
 					GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;

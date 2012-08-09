@@ -1,9 +1,5 @@
 package net.minecraft.src.wirelessredstone.addon.triangulator;
 
-import net.minecraft.src.mod_WirelessTriangulatorSMP;
-import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.overrides.GuiRedstoneWirelessTriangulatorOverrideSMP;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.overrides.RedstoneEtherOverrideTriangulator;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
@@ -16,13 +12,12 @@ public class WirelessTriangulatorSMP {
 	private static int ticksInGame = 0;
 	private static int ticksInGUI = 0;
 	public static NetworkConnections triangulatorConnection;
+	public static String channel = "WR-TRIANG";
 
 	public static boolean initialize() {
 		try {
 			// ModLoader.setInGameHook(mod_WirelessTriangulator.instance, true,
 			// true);
-
-			registerConnHandler();
 
 			addBaseModOverride();
 
@@ -55,11 +50,6 @@ public class WirelessTriangulatorSMP {
 	private static void addBaseModOverride() {
 		BaseModOverrideSMP override = new BaseModOverrideSMP();
 		WirelessTriangulator.addOverride(override);
-	}
-
-	private static void registerConnHandler() {
-		triangulatorConnection = new TriangulatorConnection(WirelessRedstone.getPlayer(), "WIFI-TRIANG");
-		triangulatorConnection.onLogin(null, null, mod_WirelessTriangulatorSMP.instance);
 	}
 
 	/*

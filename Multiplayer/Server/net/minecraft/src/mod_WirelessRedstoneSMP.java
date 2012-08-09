@@ -1,8 +1,6 @@
 package net.minecraft.src;
 
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
-import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 
 public class mod_WirelessRedstoneSMP extends BaseMod {
@@ -30,24 +28,19 @@ public class mod_WirelessRedstoneSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
-		WirelessRedstone.addConnectionForPlayer(new RedstoneWirelessConnection(null, entityplayer, "WIFI"), entityplayer);
+		WirelessRedstone.registerConnHandler(entityplayer,
+				new RedstoneWirelessConnection(null, entityplayer,
+						WirelessRedstone.channel), mod_WirelessRedstoneSMP.instance);
 	}
 
-    public void onClientLogout(EntityPlayer entityplayer)
-    {
-    	WirelessRedstone.removeConnectionForPlayer(entityplayer);
-    }
-	
-/*	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		((RedstoneWirelessConnection)WirelessRedstone.redstoneWirelessConnection).onPacketData(payload);
-	}*/
-	
+	public void onClientLogout(EntityPlayer entityplayer) {
+		WirelessRedstone.removeConnectionForPlayer(entityplayer);
+	}
+
 	@Override
-    public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload)
-    {
-		NetworkConnections connection = WirelessRedstone.getConnectionForPlayer("WIFI", entityplayer);
-		if (connection != null) {
-			connection.onPacketData(payload);
-		}
-    }
+	public void onPacket250Received(EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		WirelessRedstone.handlePacket(WirelessRedstone.channel, entityplayer,
+				payload);
+	}
 }

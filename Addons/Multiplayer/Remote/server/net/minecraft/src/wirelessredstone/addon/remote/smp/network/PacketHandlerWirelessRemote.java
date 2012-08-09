@@ -77,10 +77,12 @@ public class PacketHandlerWirelessRemote {
 		}
 
 		public static void sendWirelessRemoteGuiPacket(
-				EntityPlayer entityplayer, int deviceID, Object freq) {
+				EntityPlayer entityplayer, int deviceID, Object name,
+				Object freq) {
 			PacketWirelessRemoteOpenGui packet = new PacketWirelessRemoteOpenGui(
 					deviceID);
 			packet.setFreq(freq);
+			packet.setRemoteName(name);
 			((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager
 					.addToSendQueue(packet.getPacket());
 		}
@@ -97,9 +99,11 @@ public class PacketHandlerWirelessRemote {
 			if (command.equals("activateRemote"))
 				state = true;
 			packet.setState(state);
-			PacketHandlerRedstoneWireless.sendToAllPlayers(world,
-					remote.getOwner(), packet.getPacket(), packet.xPosition,
-					packet.yPosition, packet.zPosition, false);
+			packet.setRemoteName(remote.getDeviceData().getName());
+			PacketHandlerRedstoneWireless.PacketHandlerOutput
+					.sendToAllPlayers(world, remote.getOwner(),
+							packet.getPacket(), packet.xPosition,
+							packet.yPosition, packet.zPosition, false);
 		}
 	}
 }

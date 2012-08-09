@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.clocker.WirelessClocker;
 import net.minecraft.src.wirelessredstone.addon.clocker.smp.network.WirelessClockerConnection;
 
@@ -43,16 +44,17 @@ public class mod_WirelessClockerSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
-		WirelessClocker.wirelessClockerConnection = new WirelessClockerConnection(entityplayer, "CLOCKER");
-		WirelessClocker.wirelessClockerConnection
-				.onLogin(
-						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						entityplayer, mod_WirelessClockerSMP.instance);
+		WirelessRedstone.registerConnHandler(entityplayer,
+				new WirelessClockerConnection(entityplayer,
+						WirelessClocker.channel),
+				mod_WirelessClockerSMP.instance);
 	}
 
 	@Override
-	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		WirelessClocker.wirelessClockerConnection.onPacketData(payload);
+	public void onPacket250Received(EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		WirelessRedstone.handlePacket(WirelessClocker.channel, entityplayer,
+				payload);
 	}
 
 	@Override

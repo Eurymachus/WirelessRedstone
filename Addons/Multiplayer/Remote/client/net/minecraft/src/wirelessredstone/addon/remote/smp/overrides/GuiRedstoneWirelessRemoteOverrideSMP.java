@@ -16,7 +16,7 @@ public class GuiRedstoneWirelessRemoteOverrideSMP implements
 			int NEW = Integer.parseInt(newFreq.toString());
 			if (OLD != NEW)
 				PacketHandlerOutput.sendWirelessRemotePacket("changeFreq",
-						data.getID(), (NEW - OLD));
+						data.getID(), data.getName(), (NEW - OLD));
 		}
 		return false;
 	}

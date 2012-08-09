@@ -9,13 +9,11 @@ import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRemoteSMP;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.overrides.BaseModOverrideRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.PacketHandlerWirelessRemote;
-import net.minecraft.src.wirelessredstone.addon.remote.smp.network.WirelessRemoteConnection;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.BaseModOverrideRemoteServer;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.RedstoneEtherOverrideRemoteSMP;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.RedstoneWirelessRemoteOverrideServer;
@@ -38,6 +36,7 @@ public class WirelessRemote {
 	public static int maxPulseThreads = 2;
 	public static int remoteon, remoteoff;
 	public static NetworkConnections wirelessRemoteConnection;
+	public static String channel = "WR-REMOTE";
 
 	public static boolean initialize() {
 		try {
@@ -186,6 +185,6 @@ public class WirelessRemote {
 			WirelessRemoteData deviceData) {
 		PacketHandlerWirelessRemote.PacketHandlerOutput
 				.sendWirelessRemoteGuiPacket(entityplayer, deviceData.getID(),
-						deviceData.getFreq());
+						deviceData.getName(), deviceData.getFreq());
 	}
 }

@@ -16,6 +16,7 @@ import net.minecraft.src.wirelessredstone.smp.overrides.GuiRedstoneWirelessInven
 public class WirelessClockerSMP {
 	public static boolean isLoaded = false;
 	public static NetworkConnections wirelessClockerConnection;
+	public static String channel = "WR-CLOCKER";
 
 	public static boolean initialize() {
 		try {
@@ -42,8 +43,10 @@ public class WirelessClockerSMP {
 	}
 
 	private static void registerConnHandler() {
-		wirelessClockerConnection = new WirelessClockerConnection(WirelessRedstone.getPlayer(), "CLOCKER");
-		wirelessClockerConnection.onLogin(null, null, mod_WirelessClockerSMP.instance);
+		wirelessClockerConnection = new WirelessClockerConnection(
+				WirelessRedstone.getPlayer(), "CLOCKER");
+		wirelessClockerConnection.onLogin(null, null,
+				mod_WirelessClockerSMP.instance);
 
 	}
 

@@ -410,15 +410,14 @@ public class WirelessRedstone {
 	public static void registerBlockForCreativeGui(Block block) {
 		creativeBlockList.add(block);
 	}
-	
-	public static Entity getEntityByID(World world, EntityPlayer entityplayer, int entityId) {
+
+	public static Entity getEntityByID(World world, EntityPlayer entityplayer,
+			int entityId) {
 		if (entityId == entityplayer.entityId) {
 			return WirelessRedstone.getPlayer();
 		} else {
-			for (int i = 0; i < world.loadedEntityList
-					.size(); ++i) {
-				Entity entity = (Entity) world.loadedEntityList
-						.get(i);
+			for (int i = 0; i < world.loadedEntityList.size(); ++i) {
+				Entity entity = (Entity) world.loadedEntityList.get(i);
 
 				if (entity == null) {
 					return null;

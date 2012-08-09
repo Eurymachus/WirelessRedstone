@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import net.minecraft.src.forge.NetworkMod;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemoteSMP;
@@ -56,16 +55,17 @@ public class mod_WirelessRemoteSMP extends BaseMod {
 	@Override
 	public void load() {
 	}
-	
+
 	@Override
-    public void serverConnect(NetClientHandler handler) {
-		WirelessRedstoneSMP.addConnection(new WirelessRemoteConnection(WirelessRedstone.getPlayer(), "WIFI-REMOTE"));
-		WirelessRedstoneSMP.getConnection("WIFI-REMOTE").onLogin(null, WirelessRedstone.getPlayer(), this.instance);
+	public void serverConnect(NetClientHandler handler) {
+		WirelessRedstoneSMP.registerConnHandler(new WirelessRemoteConnection(
+				WirelessRedstone.getPlayer(), WirelessRemoteSMP.channel),
+				mod_WirelessRemoteSMP.instance);
 	}
-	
+
 	@Override
 	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		WirelessRemoteSMP.wirelessRemoteConnection.onPacketData(payload);
+		WirelessRedstoneSMP.handlePacket(WirelessRemoteSMP.channel, payload);
 	}
 
 	@Override

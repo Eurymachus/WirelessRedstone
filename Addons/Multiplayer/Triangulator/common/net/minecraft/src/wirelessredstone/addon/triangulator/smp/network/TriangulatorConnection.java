@@ -6,8 +6,6 @@ import java.io.DataInputStream;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
-import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.packet.PacketWirelessTriangulatorGui;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.packet.PacketWirelessTriangulatorSettings;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;

@@ -15,7 +15,6 @@ import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferData;
 import net.minecraft.src.wirelessredstone.addon.sniffer.data.WirelessSnifferDevice;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.PacketHandlerWirelessSniffer;
-import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.SnifferConnection;
 import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
 import net.minecraft.src.wirelessredstone.data.WirelessReadWriteLock;
@@ -31,6 +30,7 @@ public class WirelessSniffer {
 	public static HashMap<EntityPlayer, WirelessSnifferDevice> sniffers;
 	private static WirelessReadWriteLock lock;
 	public static NetworkConnections snifferConnection;
+	public static String channel = "WR-SNIFFER";
 
 	public static boolean initialize() {
 		try {

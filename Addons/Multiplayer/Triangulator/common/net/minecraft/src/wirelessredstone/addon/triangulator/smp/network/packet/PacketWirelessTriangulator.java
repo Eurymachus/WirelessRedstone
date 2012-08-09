@@ -5,7 +5,7 @@ import net.minecraft.src.wirelessredstone.smp.network.packet.PacketWireless;
 public class PacketWirelessTriangulator extends PacketWireless {
 	public PacketWirelessTriangulator(int packetId) {
 		super(packetId);
-		this.channel = "WIFI-TRI";
+		this.channel = "WR-TRIANG";
 	}
 
 	@Override

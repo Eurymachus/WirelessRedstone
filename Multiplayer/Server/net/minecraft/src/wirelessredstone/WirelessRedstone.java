@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
@@ -13,10 +14,9 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetServerHandler;
 import net.minecraft.src.NetworkManager;
+import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.mod_WirelessRedstoneSMP;
-import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessOverride;
 import net.minecraft.src.wirelessredstone.block.BlockRedstoneWirelessR;
@@ -28,7 +28,6 @@ import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
 import net.minecraft.src.wirelessredstone.overrides.RedstoneEtherOverrideServer;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.PacketHandlerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.smp.network.RedstoneWirelessConnection;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
@@ -58,33 +57,57 @@ public class WirelessRedstone {
 
 	private static List<BaseModOverride> overrides;
 	public static HashMap<EntityPlayerMP, HashMap<String, NetworkConnections>> redstoneWirelessConnection = new HashMap();
-	
-	public static void addConnectionForPlayer(NetworkConnections connection, EntityPlayer entityplayer) {
+	public static String channel = "WR";
+
+	public static void addConnectionForPlayer(NetworkConnections connection,
+			EntityPlayer entityplayer) {
 		EntityPlayerMP entityplayermp = null;
 		if (entityplayer instanceof EntityPlayerMP) {
-			entityplayermp = (EntityPlayerMP)entityplayer;
+			entityplayermp = (EntityPlayerMP) entityplayer;
 		}
 		if (entityplayermp != null) {
 			if (redstoneWirelessConnection.containsKey(entityplayermp)) {
-				HashMap connectionList = redstoneWirelessConnection.get(entityplayermp);
-				if (!connectionList.containsKey(connection.channel)) {
-					connectionList.put(connection.channel, connection);
-					redstoneWirelessConnection.put(entityplayermp, connectionList);
+				if (!addConnectionToList(entityplayermp, connection,
+						redstoneWirelessConnection.get(entityplayermp))) {
+					LoggerRedstoneWireless.getInstance("Wireless Redstone")
+							.write("Could not add connection for Player: "
+									+ entityplayer.username + " on Channel: "
+									+ connection.channel,
+									LoggerRedstoneWireless.LogLevel.WARNING);
 				}
+			} else {
+				HashMap<String, NetworkConnections> connectionList = new HashMap();
+				connectionList.put(connection.channel, connection);
+				redstoneWirelessConnection.put(entityplayermp, connectionList);
 			}
 		}
 	}
-	
-	public static NetworkConnections getConnectionForPlayer(String channel, EntityPlayer entityplayer) {
+
+	private static boolean addConnectionToList(EntityPlayerMP entityplayermp,
+			NetworkConnections connection,
+			HashMap<String, NetworkConnections> connectionList) {
+		if (!connectionList.containsKey(connection.channel)) {
+			connectionList.put(connection.channel, connection);
+			redstoneWirelessConnection.put(entityplayermp, connectionList);
+			connectionList = redstoneWirelessConnection.get(entityplayermp);
+			if (connectionList.containsKey(connection.channel))
+				return true;
+		}
+		return false;
+	}
+
+	public static NetworkConnections getConnectionForPlayer(String channel,
+			EntityPlayer entityplayer) {
 		EntityPlayerMP entityplayermp = null;
 		if (entityplayer instanceof EntityPlayerMP) {
-			entityplayermp = (EntityPlayerMP)entityplayer;
+			entityplayermp = (EntityPlayerMP) entityplayer;
 		}
 		if (entityplayermp != null) {
 			if (redstoneWirelessConnection.containsKey(entityplayermp)) {
-				HashMap connectionList = redstoneWirelessConnection.get(entityplayermp);
+				HashMap<String, NetworkConnections> connectionList = redstoneWirelessConnection
+						.get(entityplayermp);
 				if (connectionList.containsKey(channel)) {
-					return (NetworkConnections)connectionList.get(channel);
+					return connectionList.get(channel);
 				}
 			}
 		}
@@ -92,16 +115,16 @@ public class WirelessRedstone {
 	}
 
 	public static void removeConnectionForPlayer(EntityPlayer entityplayer) {
-    	EntityPlayerMP entityplayermp = null;
-    	if (entityplayer instanceof EntityPlayerMP) {
-    		entityplayermp = (EntityPlayerMP)entityplayer;
-    	}
-    	if (entityplayermp != null) {
+		EntityPlayerMP entityplayermp = null;
+		if (entityplayer instanceof EntityPlayerMP) {
+			entityplayermp = (EntityPlayerMP) entityplayer;
+		}
+		if (entityplayermp != null) {
 			NetworkConnections connection;
 			if (redstoneWirelessConnection.containsKey(entityplayermp)) {
 				redstoneWirelessConnection.remove(entityplayermp);
 			}
-    	}
+		}
 	}
 
 	public static boolean initialize() {
@@ -153,7 +176,7 @@ public class WirelessRedstone {
 	}
 
 	private static void registerConnHandler() {
-		//MinecraftForge.registerConnectionHandler(redstoneWirelessConnection);
+		// MinecraftForge.registerConnectionHandler(redstoneWirelessConnection);
 	}
 
 	private static void addEtherOverrides() {
@@ -295,5 +318,27 @@ public class WirelessRedstone {
 
 	public static EntityPlayer getPlayer() {
 		return null;
+	}
+
+	public static void handlePacket(String channel, EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		NetworkConnections connection = getConnectionForPlayer(channel,
+				entityplayer);
+		if (connection != null) {
+			connection.onPacketData(payload);
+		}
+	}
+
+	public static void registerConnHandler(EntityPlayer entityplayer,
+			NetworkConnections newConnection, BaseMod modInstance) {
+		addConnectionForPlayer(newConnection, entityplayer);
+		NetworkConnections connection = getConnectionForPlayer(
+				newConnection.channel, entityplayer);
+		if (connection != null) {
+			connection
+					.onLogin(
+							((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
+							entityplayer, modInstance);
+		}
 	}
 }

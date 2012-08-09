@@ -14,11 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src.wirelessredstone.addon.remote.smp.network;
 
-import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteData;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
@@ -47,7 +45,9 @@ public class PacketHandlerWirelessRemote {
 					"handleWirelessRemotePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			String index = WirelessRemote.itemRemote.getItemName();
-			WirelessRemoteData data = WirelessRemote.getDeviceData(index, packet.getRemoteID(), "Wireless Remote", world, entityplayer);
+			WirelessRemoteData data = WirelessRemote.getDeviceData(index,
+					packet.getRemoteID(), packet.getRemoteName(), world,
+					entityplayer);
 			data.setState(packet.getState());
 		}
 
@@ -59,7 +59,7 @@ public class PacketHandlerWirelessRemote {
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			String index = WirelessRemote.itemRemote.getItemName();
 			WirelessRemoteData data = WirelessRemote.getDeviceData(index,
-					packet.getDeviceID(), "Wireless Remote", world,
+					packet.getRemoteID(), packet.getRemoteName(), world,
 					entityplayer);
 			data.setFreq(packet.getFreq());
 			WirelessRemote.activateGUI(world, entityplayer, data);
@@ -75,6 +75,7 @@ public class PacketHandlerWirelessRemote {
 			packet.setPosition(remote.getCoords().getX(), remote.getCoords()
 					.getY(), remote.getCoords().getZ());
 			packet.setFreq(remote.getFreq());
+			packet.setRemoteName(remote.getDeviceData().getName());
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessRemotePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);
@@ -83,11 +84,12 @@ public class PacketHandlerWirelessRemote {
 		}
 
 		public static void sendWirelessRemotePacket(String command, int id,
-				Object freq) {
+				Object name, Object freq) {
 			PacketWirelessRemoteSettings packet = new PacketWirelessRemoteSettings(
 					command);
 			packet.setRemoteID(id);
 			packet.setFreq(freq);
+			packet.setRemoteName(name);
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 					"sendWirelessRemotePacket:" + packet.toString(),
 					LoggerRedstoneWireless.LogLevel.DEBUG);

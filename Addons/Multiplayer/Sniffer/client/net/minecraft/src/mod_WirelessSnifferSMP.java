@@ -14,8 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import net.minecraft.src.forge.NetworkMod;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
+import net.minecraft.src.wirelessredstone.WirelessRedstoneSMP;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSnifferSMP;
+import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.SnifferConnection;
 
 public class mod_WirelessSnifferSMP extends BaseMod {
 	public static BaseMod instance;
@@ -53,10 +55,17 @@ public class mod_WirelessSnifferSMP extends BaseMod {
 	@Override
 	public void load() {
 	}
-	
+
+	@Override
+	public void serverConnect(NetClientHandler netHandler) {
+		WirelessRedstoneSMP.registerConnHandler(new SnifferConnection(
+				WirelessRedstone.getPlayer(), WirelessSnifferSMP.channel),
+				mod_WirelessSnifferSMP.instance);
+	}
+
 	@Override
 	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		WirelessSnifferSMP.snifferConnection.onPacketData(payload);
+		WirelessRedstoneSMP.handlePacket(WirelessSnifferSMP.channel, payload);
 	}
 
 	@Override

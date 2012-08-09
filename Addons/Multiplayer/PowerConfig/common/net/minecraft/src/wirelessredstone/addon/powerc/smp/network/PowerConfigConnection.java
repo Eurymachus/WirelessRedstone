@@ -7,14 +7,13 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.packet.PacketPowerConfigOpenGui;
 import net.minecraft.src.wirelessredstone.addon.powerc.smp.network.packet.PacketPowerConfigSettings;
 import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 import net.minecraft.src.wirelessredstone.smp.network.packet.PacketIds;
 
 public class PowerConfigConnection extends NetworkConnections {
-	
+
 	public PowerConfigConnection(EntityPlayer entityplayer, String channel) {
 		super(entityplayer, channel);
 	}

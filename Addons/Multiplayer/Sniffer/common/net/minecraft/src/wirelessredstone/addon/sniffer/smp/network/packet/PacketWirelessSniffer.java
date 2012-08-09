@@ -6,6 +6,6 @@ public class PacketWirelessSniffer extends PacketWireless {
 
 	public PacketWirelessSniffer(int packetId) {
 		super(packetId);
-		this.channel = "WIFI-SNIFFER";
+		this.channel = "WR-SNIFFER";
 	}
 }

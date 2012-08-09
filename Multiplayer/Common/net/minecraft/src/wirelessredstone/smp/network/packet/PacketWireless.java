@@ -16,7 +16,7 @@ public class PacketWireless extends PacketUpdate {
 	 */
 	public PacketWireless(int packetId) {
 		super(packetId);
-		this.channel = "WIFI";
+		this.channel = "WR";
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class PacketWireless extends PacketUpdate {
 	 */
 	public PacketWireless(int packetId, PacketPayload payload) {
 		super(packetId, payload);
-		this.channel = "WIFI";
+		this.channel = "WR";
 	}
 
 	@Override

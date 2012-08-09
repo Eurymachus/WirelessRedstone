@@ -1,8 +1,5 @@
 package net.minecraft.src.wirelessredstone.addon.remote;
 
-import net.minecraft.src.mod_WirelessRemoteSMP;
-import net.minecraft.src.forge.MinecraftForge;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.WirelessRemoteConnection;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.overrides.GuiRedstoneWirelessRemoteOverrideSMP;
@@ -13,11 +10,10 @@ import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 public class WirelessRemoteSMP {
 	public static boolean isLoaded = false;
 	public static WirelessRemoteConnection wirelessRemoteConnection;
+	public static String channel = "WR-REMOTE";
 
 	public static boolean initialize() {
 		try {
-			registerConnHandler();
-
 			addBaseModOverride();
 			addRemoteOverride();
 			addGuiOveride();
@@ -48,10 +44,5 @@ public class WirelessRemoteSMP {
 	private static void addRemoteOverride() {
 		WirelessRedstoneRemoteOverrideSMP override = new WirelessRedstoneRemoteOverrideSMP();
 		WirelessRemoteDevice.addOverride(override);
-	}
-
-	private static void registerConnHandler() {
-		wirelessRemoteConnection = new WirelessRemoteConnection(WirelessRedstone.getPlayer(), "WIFI-REMOTE");
-		wirelessRemoteConnection.onLogin(null, null, mod_WirelessRemoteSMP.instance);
 	}
 }

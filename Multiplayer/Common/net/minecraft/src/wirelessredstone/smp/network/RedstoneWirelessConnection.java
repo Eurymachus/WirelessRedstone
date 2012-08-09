@@ -18,8 +18,9 @@ public class RedstoneWirelessConnection extends NetworkConnections {
 	public RedstoneWirelessConnection(EntityPlayer entityplayer, String channel) {
 		super(entityplayer, channel);
 	}
-	
-	public RedstoneWirelessConnection(NetworkManager netManager, EntityPlayer entityplayer, String channel) {
+
+	public RedstoneWirelessConnection(NetworkManager netManager,
+			EntityPlayer entityplayer, String channel) {
 		this(entityplayer, channel);
 		this.netManager = netManager;
 	}

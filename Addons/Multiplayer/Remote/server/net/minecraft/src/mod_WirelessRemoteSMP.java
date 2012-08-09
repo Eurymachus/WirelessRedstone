@@ -17,7 +17,6 @@ package net.minecraft.src;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
 import net.minecraft.src.wirelessredstone.addon.remote.smp.network.WirelessRemoteConnection;
-import net.minecraft.src.wirelessredstone.smp.network.NetworkConnections;
 
 public class mod_WirelessRemoteSMP extends BaseMod {
 	public static BaseMod instance;
@@ -43,17 +42,26 @@ public class mod_WirelessRemoteSMP extends BaseMod {
 	public void load() {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.minecraft.src.BaseMod#onClientLogin(net.minecraft.src.EntityPlayer)
+	 */
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
-		WirelessRedstone.addConnectionForPlayer(new WirelessRemoteConnection(entityplayer, "WIFI-REMOTE"), entityplayer);
+		WirelessRedstone
+				.registerConnHandler(entityplayer,
+						new WirelessRemoteConnection(entityplayer,
+								WirelessRemote.channel),
+						mod_WirelessRemoteSMP.instance);
 	}
 
 	@Override
-	public void onPacket250Received(EntityPlayer entityplayer, Packet250CustomPayload payload) {
-		NetworkConnections connection = WirelessRedstone.getConnectionForPlayer("WIFI-REMOTE", entityplayer);
-		if (connection != null) {
-			connection.onPacketData(payload);
-		}
+	public void onPacket250Received(EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		WirelessRedstone.handlePacket(WirelessRemote.channel, entityplayer,
+				payload);
 	}
 
 	@Override

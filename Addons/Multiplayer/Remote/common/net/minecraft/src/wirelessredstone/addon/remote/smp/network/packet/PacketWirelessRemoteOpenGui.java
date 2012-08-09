@@ -10,8 +10,8 @@ public class PacketWirelessRemoteOpenGui extends PacketWirelessRemote {
 
 	public PacketWirelessRemoteOpenGui(int deviceID) {
 		this();
-		this.payload = new PacketPayload(1, 0, 1, 0);
-		this.setDeviceID(deviceID);
+		this.payload = new PacketPayload(1, 0, 2, 0);
+		this.setRemoteID(deviceID);
 	}
 
 	@Override
@@ -24,17 +24,25 @@ public class PacketWirelessRemoteOpenGui extends PacketWirelessRemote {
 		return this.payload.getStringPayload(0);
 	}
 
-	public void setDeviceID(int deviceID) {
+	public void setRemoteID(int deviceID) {
 		this.payload.setIntPayload(0, deviceID);
 	}
 
-	public int getDeviceID() {
+	public int getRemoteID() {
 		return this.payload.getIntPayload(0);
+	}
+
+	public void setRemoteName(Object name) {
+		this.payload.setStringPayload(1, name.toString());
+	}
+
+	public String getRemoteName() {
+		return this.payload.getStringPayload(1);
 	}
 
 	@Override
 	public String toString() {
 		return "(" + this.xPosition + "," + this.yPosition + ","
-				+ this.zPosition + ")RemoteID[" + this.getDeviceID() + "]";
+				+ this.zPosition + ")RemoteID[" + this.getRemoteID() + "]";
 	}
 }

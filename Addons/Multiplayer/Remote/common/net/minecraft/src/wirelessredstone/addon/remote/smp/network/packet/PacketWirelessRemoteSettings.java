@@ -10,7 +10,7 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote {
 
 	public PacketWirelessRemoteSettings(String command) {
 		this();
-		this.payload = new PacketPayload(1, 0, 2, 1);
+		this.payload = new PacketPayload(1, 0, 3, 1);
 		this.setCommand(command);
 	}
 
@@ -20,6 +20,14 @@ public class PacketWirelessRemoteSettings extends PacketWirelessRemote {
 
 	public int getRemoteID() {
 		return this.payload.getIntPayload(0);
+	}
+
+	public void setRemoteName(Object name) {
+		this.payload.setStringPayload(2, name.toString());
+	}
+
+	public String getRemoteName() {
+		return this.payload.getStringPayload(2);
 	}
 
 	@Override

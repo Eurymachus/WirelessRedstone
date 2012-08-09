@@ -28,6 +28,8 @@ public class WirelessClocker {
 
 	public static NetworkConnections wirelessClockerConnection;
 
+	public static String channel = "WR-CLOCKER";
+
 	public static boolean initialize() {
 		registerConnHandler();
 		loadConfig();

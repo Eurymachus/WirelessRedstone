@@ -14,7 +14,8 @@ public class WirelessRedstoneRemoteOverrideSMP implements
 		if (world.isRemote) {
 			PacketHandlerOutput.sendWirelessRemotePacket(command, remote);
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 }

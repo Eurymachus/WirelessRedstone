@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.WirelessSniffer;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.SnifferConnection;
 
@@ -49,16 +50,16 @@ public class mod_WirelessSnifferSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
-		WirelessSniffer.snifferConnection = new SnifferConnection(entityplayer, "SNIFFER");
-		WirelessSniffer.snifferConnection
-				.onLogin(
-						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						entityplayer, this.instance);
+		WirelessRedstone.registerConnHandler(entityplayer,
+				new SnifferConnection(entityplayer, WirelessSniffer.channel),
+				mod_WirelessSnifferSMP.instance);
 	}
 
 	@Override
-	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		WirelessSniffer.snifferConnection.onPacketData(payload);
+	public void onPacket250Received(EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		WirelessRedstone.handlePacket(WirelessSniffer.channel, entityplayer,
+				payload);
 	}
 
 	@Override

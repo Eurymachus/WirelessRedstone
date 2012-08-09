@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package net.minecraft.src;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.triangulator.WirelessTriangulator;
 import net.minecraft.src.wirelessredstone.addon.triangulator.smp.network.TriangulatorConnection;
 
@@ -52,16 +53,17 @@ public class mod_WirelessTriangulatorSMP extends BaseMod {
 
 	@Override
 	public void onClientLogin(EntityPlayer entityplayer) {
-		WirelessTriangulator.triangulatorConnection = new TriangulatorConnection(entityplayer, "WIFI-TRIANG");
-		WirelessTriangulator.triangulatorConnection
-				.onLogin(
-						((EntityPlayerMP) entityplayer).playerNetServerHandler.netManager,
-						entityplayer, mod_WirelessTriangulatorSMP.instance);
+		WirelessRedstone.registerConnHandler(entityplayer,
+				new TriangulatorConnection(entityplayer,
+						WirelessTriangulator.channel),
+				mod_WirelessTriangulatorSMP.instance);
 	}
 
 	@Override
-	public void receiveCustomPacket(Packet250CustomPayload payload) {
-		WirelessTriangulator.triangulatorConnection.onPacketData(payload);
+	public void onPacket250Received(EntityPlayer entityplayer,
+			Packet250CustomPayload payload) {
+		WirelessRedstone.handlePacket(WirelessTriangulator.channel,
+				entityplayer, payload);
 	}
 
 	@Override

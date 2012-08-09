@@ -1,7 +1,6 @@
 package net.minecraft.src.wirelessredstone.addon.sniffer;
 
 import net.minecraft.src.mod_WirelessSnifferSMP;
-import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.wirelessredstone.WirelessRedstone;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.network.SnifferConnection;
 import net.minecraft.src.wirelessredstone.addon.sniffer.smp.overrides.GuiRedstoneWirelessSnifferOverrideSMP;
@@ -11,6 +10,7 @@ import net.minecraft.src.wirelessredstone.smp.overrides.BaseModOverrideSMP;
 public class WirelessSnifferSMP {
 	public static boolean isLoaded = false;
 	public static SnifferConnection snifferConnection;
+	public static String channel = "WR-SNIFFER";
 
 	public static boolean initialize() {
 		try {
@@ -41,7 +41,8 @@ public class WirelessSnifferSMP {
 	}
 
 	private static void registerConnHandler() {
-		snifferConnection = new SnifferConnection(WirelessRedstone.getPlayer(), "SNIFFER");
+		snifferConnection = new SnifferConnection(WirelessRedstone.getPlayer(),
+				"SNIFFER");
 		snifferConnection.onLogin(null, null, mod_WirelessSnifferSMP.instance);
 	}
 }
